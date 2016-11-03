@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Archa</title>
+    <link rel="Stylesheet" href="/stylesheets/index.css" />
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script type="text/javascript">
+	    $(document).ready(function() {
+		    $("#login-button").click(function(event){
+				event.preventDefault();
+				 
+				$('form').fadeOut(500);
+				$('.wrapper').addClass('form-success');
+				
+				setTimeout(function() {
+					$('form').submit();
+				 }, 1000);
+			});
+	    });
+    </script>
+  </head>
+  <body>
+	<div class="wrapper">
+		<div class="container">
+			<h1>Welcome Archa</h1>
+			
+			<form class="form" action="/login" method="post">
+				<input type="email" id="inputEmail" name="eMail" placeholder="Email">
+				<input type="password" id="inputPassword" name="password" placeholder="Password">
+				<button type="submit" id="login-button">Log in</button><br/><br/>
+				<button type="button" id="reg-button" onclick="location.href='/userReg';">Sign up</button>
+			</form>
+		</div>
+		
+		<ul class="bg-bubbles">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+  </body>
+</html>

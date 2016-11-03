@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="google" value="notranslate">
+	<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+		<link rel="Stylesheet" href="/myapp/resources/css/memberReg.css" />
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+	
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <title>Hop</title>
+    <script type="text/javascript">
+		var idchck = false;
+		function idcheck() {
+			var id = document.getElementById("eMail");
+			window.open("idcheck.action?id=" + id.value, "_blank", "width=600,height=330,titlebar=no");
+			idchck = true;
+		}
+	
+		function doSubmit() {
+			//1. 필요하다면 유효성 검사 수행
+			if(document.getElementById("eMail").value.length == 0)
+			{
+				alert("이메일를 입력해주세요.");
+			}
+			else if (document.getElementById("password").value.length == 0) {
+				alert("비밀번호를을 입력해주세요.");
+			}
+			else if  (document.getElementById("password").value != document.getElementById("inputChkPwd").value) {
+				alert("비밀번호가 같지 않습니다.");
+			}
+			else if(document.getElementById("name").value.length == 0)
+			{
+				alert("이름를 입력해주세요.");
+			}
+			else if(document.getElementById("company").value.length == 0)
+			{
+				alert("회사를 입력해주세요.");
+			}
+			else if(document.getElementById("position").value.length == 0)
+			{
+				alert("직급를 입력해주세요.");
+			}
+			else if(document.getElementById("phoneNumber").value.length == 0)
+			{
+				alert("핸드폰번호를을 입력해주세요.");
+			} else {
+				//2. 서버로 전송
+				//document.forms[0].submit();//이 문서 내부에 포함된 <form 요소 중 첫 번째 항목을 submit
+				//-> <input type='submit'을 클릭하는 것과 같은 의미
+				//document.getElementById("registerform").submit();//document.forms[0].submit();과같다
+				document.forms[0].submit();
+				alert("등록이 되었습니다.");
+			}
+			
+		}
+		
+		function pass(){ 
+	
+			     // 비밀번호(패스워드) 유효성 체크 (문자, 숫자, 특수문자의 조합으로 8~16자리) 
+			      var pwd = document.getElementById("password").value; 
+			      //var pwdChk = document.getElementById("passwordconf").value; 
+			      var text_box = document.querySelector("#sPwdTxt");
+			      //var text_box2 = document.querySelector("#sPwdTxt2");
+			      var bStatus = false; 
+			       
+			      if(pwd.length<8 || pwd.length >16){ 
+			         	text_box.innerHTML = '비밀번호는 최소 8자 이상, 16자 이하로 구성해야 합니다';    	  	
+			      }
+			      else if(/^\d/.test(pwd.substr(1).match)){ 
+			             text_box.innerHTML = '비밀번호는 숫자로 시작할 수 없습니다'; 
+			      }
+			      else if(/(\w)\1/.test(pwd)){ 
+			             text_box.innerHTML = '비밀번호는 반복된 숫자또는 문자를 입력할 수 없습니다'; 
+			      }
+			      else{ 
+			             text_box.innerHTML = '사용가능한 비밀번호 입니다'; 
+			             bStatus = true;
+			      }
+		}
+		
+		function chkPass(){ 
+		     // 비밀번호(패스워드) 유효성 체크 (문자, 숫자, 특수문자의 조합으로 8~16자리) 
+		      var pwd = document.getElementById("password").value; 
+		      var pwdChk = document.getElementById("inputChkPwd").value; 
+		      var text_box2 = document.querySelector("#sChkPwdTxt");
+	
+		      if(pwd.length == pwdChk.length) {
+			      if(pwdChk != pwd){
+			    	  text_box2.innerHTML = '비밀번호가 일치하지않습니다';
+			      } else if(pwdChk == pwd){
+			    	  text_box2.innerHTML = '비밀번호 일치';
+			      }
+		      }
+		}
+</script>
+</head>
+<body>
+	<form class="form-horizontal" action="/register" method="POST">
+		<div class="form-group">
+		  <label for="inputEmail" class="col-sm-2 control-label">Email </label>
+		  <div class="col-sm-10">
+		    <input type="email" class="form-control" id="eMail" name="eMail" placeholder="Email">
+		  </div>
+		</div>
+	  
+		<div class="form-group">
+		  <label for="inputName" class="col-sm-2 control-label">Name</label>
+		  <div class="col-sm-10">
+		    <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+		  </div>
+		</div>
+	  
+		<div class="form-group">
+		  <label for="inputPWD" class="col-sm-2 control-label">PASSWD</label>
+		  <div class="col-sm-10">
+			<input type="password" class="form-control" id="password" name="password" placeholder="PASSWD" onkeyup="pass();">
+		  	<span id="sPwdTxt"></span>      
+		  </div>
+		</div>
+	  
+		<div class="form-group">
+		  <label for="inputChkPWD" class="col-sm-2 control-label">PASSWD</label>
+		  <div class="col-sm-10">
+		    <input type="password" class="form-control" id="inputChkPwd" placeholder="CHECK PASSWD" onkeyup="chkPass();">
+		    <span id="sChkPwdTxt"></span>
+		  </div>
+		</div>
+	  
+		<div class="form-group">
+		  <label for="inputCompany" class="col-sm-2 control-label">Company</label>
+		  <div class="col-sm-10">
+		    <input type="text" class="form-control" id="company" name="company" placeholder="Company">
+		  </div>
+		</div>
+	  
+		<div class="form-group">
+		  <label for="inputPosition" class="col-sm-2 control-label">Position</label>
+		  <div class="col-sm-10">
+		    <input type="text" class="form-control" id="position" name="position" placeholder="Position">
+		  </div>
+		</div>
+		
+		<div class="form-group">
+		  <label for="inputPhoneNumber" class="col-sm-2 control-label">PhoneNumber</label>
+		  <div class="col-sm-10">
+		    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="PhoneNumber">
+		  </div>
+		</div>
+	
+		<div class="form-group">
+		  <div class="col-sm-offset-2 col-sm-10">
+		    <button type="submit" class="btn btn-default" >Reg</button>
+		    <button type="button" class="btn btn-default" onclick="location.href='/';">Cancel</button>
+		  </div>
+		</div>
+	</form>
+</body>
+</html>

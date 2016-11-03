@@ -1,0 +1,52 @@
+
+<body>
+	<div class="menuTop">
+	  <div class="nav fleft">
+	    <span id="myMenuOut" class="ion-android-menu"></span>
+	  </div>
+	</div>
+	<div class="myInfo" style="height:30%;">
+		<form class="form-horizontal" id="infoEdit">
+			<div id="<%= user.email %>" class="myInfoView">
+				<input type="text" id="editeMail" name="editeMail" class="info" value='<%= user.email %>' disabled="disabled">
+				<input type="text" id="name" name="name" class="info" value="<%= user.name %>" disabled="disabled">
+				<input type="text" id="myCompany" name="myCompany" class="info" value="<%= user.company %>" disabled="disabled">
+				<input type="text" id="position" name="position" class="info" value="<%= user.position %>" disabled="disabled">
+				<input type="text" id="phoneNumber" name="phoneNumber" class="info" value="<%= user.phoneNumber %>" disabled="disabled">
+			</div>
+			<button type="button" id="myInfoEdit" class="id btn" >PROFILE SETTING</button>
+			<button type="button" id="myInfoConfirm" class="id btn btn-default" style="display: none">CONFIRM</button>
+		</form>
+
+	</div>
+	<div class="myOption">
+		<button type="button" id="notification" class="id btn">알림</button>
+		<hr style="margin-top: 10px;margin-bottom: 10px"/>
+		<button type="button" id="signOutBtn" class="id btn">탈퇴</button>
+		 <hr style="margin-top: 10px;margin-bottom: 10px"/>
+		 <div class="image"></div>
+		<button type="button" class="id btn" id="logOut" onclick="location.href='/logout';">Log Out</button>
+		<hr style="margin-top: 10px;margin-bottom: 10px"/>
+	
+	</div>
+	<form action="/signOutUser" id="deleteAccountForm" method="POST">
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">탈퇴</h4>
+		      </div>
+		      <div class="modal-body">
+				<input type="password" class="form-control" id="password" name="password" placeholder="Password">	      	
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+		        <button type="submit" class="btn btn-primary">확인</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</form>
+</body>
+</html>

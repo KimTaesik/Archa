@@ -1,0 +1,65 @@
+<body>
+		<div class="searchDiv">
+			<input type="text" id="fileMessageInput">
+			<button type="button" id="rigthClose"></button>
+		</div>
+		<ul class="nav nav-tabs tabsize" role="tablist" id="myTab">
+		  <li role="presentation" class="lisize active" id="searchMessage">
+			<a href="#messageSec" aria-controls="Message" role="tab" data-toggle="tab" aria-expanded="true">
+			<span class="rightMessage rightTab"></span>
+			Message
+			</a>
+		  </li>
+		  <li role="presentation" class="lisize" id="searchFile">
+			<a href="#fileSec" aria-controls="File" role="tab" data-toggle="tab">
+			<span class="rightFile rightTab"></span>
+			File
+			</a>
+		  </li>
+		</ul>
+		
+		<div class="tab-content" id="rightContent">
+		  <div role="tabpanel" class="tab-pane active" id="messageSec">
+		 	<% 
+		 		if(!messagelogs){
+		 			messagelogs.forEach(function(log, index) { 
+		 				if(log.mtype != "data"){
+		 					if(log.message.indexOf(search)>-1 || log.email.indexOf(search)>-1 || log.name.indexOf(search)>-1){
+		 	%>
+				<div>
+					<span><%= moment(log.mdate).format('YY.MM.DD [(]dd[)] h:mm a') %></span>
+					<h4><%= log.name %> :</h4>
+					<span><%= log.message %></span>
+				</div>
+				<hr/>
+			<% 				}
+						}
+					});
+				} %>
+		  </div>
+		  <div role="tabpanel" class="tab-pane" id="fileSec">
+		   	<% 
+		   		if(!data){
+		   			data.forEach(function(log, index) { 
+		 				if(log.name.indexOf(search)>-1 || log.type.indexOf(search)>-1 || log.rtype.indexOf(search)>-1|| log.rece_id.name.indexOf(search)>-1|| log.send_id.name.indexOf(search)>-1){
+		 	%>
+				<div>
+					<span><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></span>
+					<span><%= log.name %></span>
+					<span><%= log.rtype %></span>
+					<h6>From : <%= log.send_id.name %></h6>
+					<h6>to : <%= log.rece_id.name %></h6>
+					<a type="button" href="<%= log.url %>" style="float:right;">Down</a>
+		  			<% if(log.rtype == 'image'){ %>
+						<div class="url">
+							<img alt="<%= log.name %>" src="<%= log.url %>">
+						</div>
+					<% } %>
+				</div>
+				<hr/>
+			<% 			}
+					});
+				} %>
+		  </div>
+		</div>
+</body>

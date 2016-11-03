@@ -1,0 +1,17 @@
+<body>
+	<%
+			friends.forEach(function(friends, index) {
+				if('default' == friends.groupname){ 
+	%>
+					<div style="border:solid 1px;">
+						<input type="checkbox" id="chUser" value="<%= friends.friend.email %>">
+						<span><%= friends.friend.name %></span><br/>
+						<span><%= friends.friend.company %></span> / 
+						<span><%= friends.friend.position %></span><br/>
+					</div>
+	<%
+				}
+			});
+	%>
+	<button type="button" id="addGroupUser" data-dismiss="modal">추가</button>
+</body>

@@ -1,0 +1,84 @@
+<head>
+<script type="text/javascript">
+$(function() {
+
+	$('.toggle-btn').click(function() {
+	  $('.filter-btn').toggleClass('open');
+	});
+	
+	$('.filter-btn a').click(function() {
+	  $('.filter-btn').removeClass('open');
+	});
+	
+	$('#all').click(function() {
+	  $('ul.tasks li').slideDown(300);
+	});
+	
+	$('#one').click(function() {
+	  $('.tasks li:not(.one)').slideUp(300, function() {
+	    $('.one').slideDown(300);
+	  });
+	});
+	
+	$('#two').click(function() {
+	  $('.tasks li:not(.two)').slideUp(300, function() {
+	    $('.two').slideDown(300);
+	  });
+	});
+	
+	$('#three').click(function() {
+	  $('.tasks li:not(.three)').slideUp(300, function() {
+	    $('.three').slideDown(300);
+	  });
+	});	  
+	  
+});
+</script>
+</head>
+<body>
+
+		<div class="modal" id="friendInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-body">
+
+				<div class="muck-up">
+				  <div class="overlay"></div>
+				  <div class="top">
+				    <div class="nav">
+				      <span class="ion-android-menu"></span>
+				    </div>
+				    <div class="user-profile">
+				      <img src="https://raw.githubusercontent.com/arjunamgain/FilterMenu/master/images/profile.jpg">
+				      <div class="user-details">
+				        <h4>Arjun Amgain</h4>
+				        <p>Web/Front-end Designer</p>
+				      </div>
+				    </div>
+				  </div>
+				  <div class="clearfix"></div>
+				  <div class="filter-btn">
+				    <a id="one" href="#"><i class="ion-ios-checkmark-outline"></i></a>
+				    <a id="two" href="#"><i class="ion-ios-alarm-outline"></i></a>
+				    <a id="three" href="#"><i class="ion-ios-heart-outline"></i></a>
+				    <a id="all" href="#"><i class="ion-ios-star-outline"></i></a>
+				    <span class="toggle-btn ion-android-funnel"></span>
+				  </div>
+				  <div class="clearfix"></div>
+				  <div class="bottom">
+				    <div class="title">
+				      <h3>My Tasks</h3>
+				      <small>February 8,2015</small>
+				    </div>
+				    
+				    
+				  </div>
+				</div>
+				
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+
+</body>

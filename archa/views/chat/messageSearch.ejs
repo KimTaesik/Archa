@@ -1,0 +1,15 @@
+<body>
+ 	<% messagelogs.forEach(function(log, index) { 
+ 		if(log.mtype != "data"){
+ 			if(log.message.indexOf(search)>-1 || log.email.indexOf(search)>-1 || log.name.indexOf(search)>-1){
+ 	%>
+		<div>
+			<span> <%= moment(log.mdate).format('YY.MM.DD [(]dd[)] h:mm a') %></span><br/>
+			<span> <%= log.message %></span>
+			<h6> From.<%= log.name %></h6>
+		</div>
+		<hr/>
+	<% 		}
+		}
+	}); %>
+</body>

@@ -1,0 +1,63 @@
+<head>
+<script type="text/javascript">
+$(function() {
+
+	$('.toggle-btn').click(function() {
+	  $('.filter-btn').toggleClass('open');
+	});
+	
+	$('.filter-btn a').click(function() {
+	  $('.filter-btn').removeClass('open');
+	});
+	
+	$('.chatbtn').click(function() {
+	  $('.tasks li:not(.chatbtn)').slideUp(300, function() {
+	    $('.chatbtn').slideDown(300);
+	  });
+	});
+	  
+});
+</script>
+</head>
+<body>
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-body">
+
+				<div class="muck-up">
+				  <div class="overlay"></div>
+				  <div class="top">
+				    <div class="nav">
+				      <span class="ion-android-menu"></span>
+				    </div>
+				    <div class="user-profile">
+				      <img src="https://raw.githubusercontent.com/arjunamgain/FilterMenu/master/images/profile.jpg">
+				      <div class="user-details">
+				        <h4><%= user.name %></h4>
+				        <p><%= user.email %></p>
+				      </div>
+				    </div>
+				  </div>
+				  <div class="clearfix"></div>
+				  <div class="filter-btn">
+				    <a id="<%= user.email %>" class="chatbtn" href="#" data-dismiss="modal"><i class="ion-ios-checkmark-outline"></i></a>
+				    <span class="toggle-btn ion-android-funnel"></span>
+				  </div>
+				  <div class="clearfix"></div>
+				  <div class="bottom">
+				    <div class="title">
+				      <h3>User Information</h3>
+				      <small><%= moment(new Date).format('YYYY.MM.DD [(]dd[)] h:mm a') %></small>
+				    </div>
+				    <%= user.company %><br/>
+				    <%= user.position %><br/>
+				    <%= user.phoneNumber %>
+				  </div>
+				</div>
+				
+		      </div>
+		    </div>
+		  </div>
+		
+
+</body>

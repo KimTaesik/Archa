@@ -1,0 +1,13 @@
+<body>
+ 	<% data.forEach(function(log, index) { 
+ 		if(log.name.indexOf(search)>-1 || log.type.indexOf(search)>-1 || log.rtype.indexOf(search)>-1|| log.rece_id.name.indexOf(search)>-1|| log.send_id.name.indexOf(search)>-1){
+ 	%>
+		<div style="border: 1px;">
+			<h4>보낸사람 : <%= log.send_id.name %></h4>
+			<h4>받은사람 : <%= log.rece_id.name %></h4>
+			<span>파일명 : <%= log.name %></span>
+			<span>타입 : <%= log.rtype %></span>
+		</div>
+	<% 	}
+	}); %>
+</body>

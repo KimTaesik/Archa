@@ -1,0 +1,23 @@
+<body>
+	<%
+			var result = 1;
+			friends.forEach(function(friends, index) {
+				rUser.forEach(function(rUser, index){
+					if(friends.friend.email == rUser){ 
+						result=0;
+					}
+				});
+				if(result){
+				%>
+					<div style="border:solid 1px;">
+						<input type="checkbox" id="inUser" value="<%= friends.friend.email %>">
+						<span><%= friends.friend.name %></span><br/>
+						<span><%= friends.friend.company %></span> / 
+						<span><%= friends.friend.position %></span><br/>
+					</div>
+				<%
+				}
+				result=1;
+			});
+	%>
+</body>

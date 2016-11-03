@@ -1,0 +1,26 @@
+<body>
+	<% friends.forEach(function(friend, index) { %>
+		<ul>
+			<li id="<%= friend.email %>"  class='active has-sub'>
+				<a href='#'>
+					<span><%= friend.name %></span><br/>
+					<span><%= friend.company %></span> / 
+					<span><%= friend.position %></span><br/>
+					<button type="button" id="<%= friend.email %>" class="friendAdd">친구추가</button>
+					<!-- <button type="button" id="<%= friend.email %>" class="friendDelete">친구삭제</button> -->
+				</a>
+				<ul>
+					<li class='has-sub'>
+						<a href='#'>
+							<span><%= friend.email %></span><br/>
+							<span><%= friend.name %></span><br/>
+							<span><%= friend.company %></span><br/>
+							<span><%= friend.position %></span><br/>
+							<span><%= friend.phoneNumber %></span>
+						</a>
+	         		</li>
+	      		</ul>
+		   </li>
+		</ul>
+	<% }); %>
+</body>

@@ -1,0 +1,56 @@
+<body>
+						<% 
+							groups.forEach(function(group, index){
+						%>
+						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+						  <div class="panel panel-default">
+						    <div class="panel-head" role="tab" id="heading<%= index %>">
+						      <h4 class="panel-title">
+						        <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%= index %>" aria-expanded="true" aria-controls="collapse<%= index %>">
+						          <%= group %>
+						        </a>
+						        <% if(group != 'default'){%>
+						        <button type="button" id="<%= group %>" class="addUser">+</button>
+						        <button type="button" id="<%= group %>" class="setting">Setting</button>
+						        <% }%>
+						      </h4>
+						    </div>
+						    <div id="collapse<%= index %>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading<%= index %>">
+						      <div class="panel-body">
+								<%
+										friends.forEach(function(friends, index) { 
+											if(group==friends.groupname){
+								%>
+										<ul>
+											<li id="<%= friends.friend.email %>"  class='active has-sub'>
+												<a href='#'>
+													<span><%= friends.friend.name %></span><br/>
+													<span><%= friends.friend.company %></span> / 
+													<span><%= friends.friend.position %></span><br/>
+													<button type="button" id="<%= friends.friend.email %>" class="friendAdd">ADD</button>
+													<!-- <button type="button" id="<%= friends.friend.email %>" class="friendDelete">DEL</button> -->
+												</a>
+												<ul>
+													<li class='has-sub'>
+														<a href='#'>
+															<span><%= friends.friend.email %></span><br/>
+															<span><%= friends.friend.name %></span><br/>
+															<span><%= friends.friend.company %></span><br/>
+															<span><%= friends.friend.position %></span><br/>
+															<span><%= friends.friend.phoneNumber %></span>
+														</a>
+									         		</li>
+									      		</ul>
+										   </li>
+										</ul>
+								<% 			}
+										});
+								%>
+							  </div>
+						    </div>
+						  </div>
+						</div>
+						<%
+							});
+						%>
+</body>

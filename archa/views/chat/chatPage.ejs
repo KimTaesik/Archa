@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="google" value="notranslate">
+​
+  	<script src="//code.jquery.com/jquery-1.10.2.js"></script> 	
+  	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"> -->
+	<!-- <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
+ 	
+	<link rel="Stylesheet" href="/stylesheets/chatPage.css" />
+	<link rel="Stylesheet" href="/stylesheets/detailStyles.css" />
+	<link rel="Stylesheet" href="/stylesheets/style2.css" />
+	
+	<link rel="stylesheet prefetch" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	
+	<!-- <script src="//assets.codepen.io/assets/common/stopExecutionOnTimeout-f961f59a28ef4fd551736b43f94620b5.js"></script> -->
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+	
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <title>Archa</title>
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <!-- <script src="/javascripts/socket.io.js"></script> -->
+	<script src="/javascripts/ch.js"></script>
+	<script src="/javascripts/main.js"></script>
+	
+</head>
+<body>
+	<div id="leftSection" class="fleft">
+		<div class="menuTop">
+		  <div class="nav fleft">
+		    <span id="myMenu" class="ion-android-menu"></span>
+		  </div>
+		</div>
+		<input type="hidden" id="userId" value='<%= user.name %>'>
+		
+		<div class="myInfo">
+			<div id="<%= user.email %>" class="myInfoView">
+				<input type="text" id="name" name="name" class="<%= user.name %> info" value='<%= user.name %>' disabled="disabled">
+				<input type="text" id="company" name="company" class="<%= user.company %> info" value="<%= user.company %>" disabled="disabled">
+				<input type="text" id="position" name="position" class="<%= user.position %> info" value="<%= user.position %>" disabled="disabled">
+			</div>
+		</div>
+		
+		<div class="func">
+			<ul class="nav nav-tabs back tabsize" role="tablist" id="leftTab">
+				<li role="presentation" class="lisize active" id="friendsList">
+					<a id="getFriendList" href="#fd" aria-controls="Friends" role="tab" data-toggle="tab" aria-expanded="true"></a>
+				</li>
+				<li role="presentation" class="lisize" id="roomList">
+					<a id="getRoomList" href="#rm" aria-controls="Rooms" role="tab" data-toggle="tab"></a>
+				</li>
+			</ul>
+			<div class="memberSection">
+				<input id="inputAll" type="text" class="form-control" placeholder="all user">
+				<button type="button" class="id btn btn-default" id="searchAllBtn"></button>
+				<input id="inputSearchMember" type="text" class="form-control" placeholder="My Friend">
+				<button type="button" class="id btn btn-default" id="searchFriendBtn"></button>
+			</div>			
+			<div class="tab-content leftTab">
+				<div role="tabpanel" class="tab-pane active" id="fd">	
+					<!-- 검색된 친구 결과를 여기다 표시해준다  -->
+					<div id='cssmenu' class="searchResult">
+						<% 
+							groups.forEach(function(group, index){
+						%>
+						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+						  <div class="panel panel-default">
+						    <div class="panel-head" role="tab" id="heading<%= index %>">
+						      <h4 class="panel-title">
+						        <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%= index %>" aria-expanded="true" aria-controls="collapse<%= index %>">
+						          <%= group %>
+						        </a>
+						        <% if(group != 'default'){%>
+						        <button type="button" id="<%= group %>" class="addUser">+</button>
+						        <button type="button" id="<%= group %>" class="GroupSetting">Setting</button>
+						        <% }%>
+						      </h4>
+						    </div>
+						    <div id="collapse<%= index %>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading<%= index %>">
+						      <div class="panel-body">
+								<%
+										friends.forEach(function(friends, index) { 
+											if(group==friends.groupname){
+								%>
+										<ul>
+											<li id="<%= friends.friend.email %>"  class='active has-sub'>
+												<a href='#'>
+													<span id="fname" class="<%= friends.friend.email %>"><%= friends.friend.name %></span><br/>
+													<span><%= friends.friend.company %></span> / 
+													<span><%= friends.friend.position %></span><br/>
+													<button type="button" id="<%= friends.friend.email %>" class="friendAdd">ADD</button>
+													<!-- <button type="button" id="<%= friends.friend.email %>" class="friendDelete">DEL</button> -->
+												</a>
+										   </li>
+										</ul>
+								<% 			}
+										});
+								%>
+							  </div>
+						    </div>
+						  </div>
+						</div>
+						<%
+							});
+						%>
+					</div>  
+				</div>
+				
+				<div role="tabpanel" class="tab-pane" id="rm">
+					<div id="room-list">
+					</div>
+				</div>
+			</div>
+		</div>		
+
+		<div class="modal" id="friendInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		</div>
+
+		
+		<div class="modal fade" id="nameModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h4 class="modal-title" id="myModalLabel">그룹생성</h4>
+		      </div>
+		      <div class="modal-body">
+				<input type="text" class="form-control" id="groupname" name="groupname" placeholder="groupname">	      	
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+		        <button type="button" id="addGroup" class="btn btn-primary" data-dismiss="modal">확인</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+		<div class="modal fade" id="settModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h4 class="modal-title" id="settLabel"></h4>
+		      </div>
+		      <div class="modal-body" id="setBody">
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+		        <button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<button type="button" class="id btn" id="setGroup">ADD GROUP</button>
+	</div>
+
+	<section class="topSection fright">
+		<div class="dropdown fleft" hidden="true">
+		  <button class="roomUser dropdown-toggle" type="button" id="roomInfo" style="width:10%;" data-toggle="dropdown" aria-expanded="true">
+		    <span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu userInfo" role="menu" aria-labelledby="dropdownMenu1">
+		  </ul>
+		</div>
+<!-- 		<span id="room"></span> -->
+		<input type="text" id="room" disabled="disabled">
+
+		<div class="buttonGroup fright">
+			<button id="searchSec"></button>
+			<button id="archive"></button>
+		</div>
+		
+		<div class="roomOption fright">
+			<div class="dropdown fright" style="width:15%;">
+			  <button class="setting dropdown-toggle" type="button" id="setting" data-toggle="dropdown" aria-expanded="true">
+			  </button>
+			  <ul class="setList dropdown-menu" role="menu" style="min-width: 20px;padding: 0;margin: 0;">
+			  	<li>
+			  		<button id="roomClose"></button>
+			  		<button id="invite">초대</button>
+			  	</li>
+			  </ul>
+			</div>
+			<button type="button" class="noti fright"></button>
+			<input type="hidden" id='joinRoom'>
+		</div>
+		
+		<div class="modal fade" id="inviteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h4 class="modal-title" id="myModalLabel">초대</h4>
+		      </div>
+		      <div class="modal-body" id="inviteBody">      	
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+		        <button type="button" id="inviteUser" class="btn btn-primary" data-dismiss="modal">확인</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</section>
+	
+	
+	<section class="right fright">
+		<div id="rightSection">
+		</div>
+	</section>
+
+	<section class="mid fleft">
+		<div class="background" >
+		</div>
+	</section>
+</body>
+</html>

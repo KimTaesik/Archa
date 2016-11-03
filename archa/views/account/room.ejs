@@ -1,0 +1,8 @@
+<body>
+	<% rooms.forEach(function(room, index) { %>
+		<div id="<%= room.roomname %>" class="myRoom" style="border: 1px solid;width: 100%; word-break:break-all;">
+			<%= room.roomname %><br/>
+			<%= room.messagelog[room.messagelog.length].message %>
+		</div>
+	<% }); %>
+</body>

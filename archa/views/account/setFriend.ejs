@@ -1,0 +1,17 @@
+<body>
+	<%
+			friends.forEach(function(friends, index) {
+				if(group == friends.groupname){ 
+	%>
+					<div style="border:solid 1px;">
+						<span><%= friends.friend.name %></span><br/>
+						<span><%= friends.friend.company %></span> / 
+						<span><%= friends.friend.position %></span><br/>
+						<button type="button" class="groupOut" id="<%= friends.friend.email%>" data-dismiss="modal">-</button>
+					</div>
+	<%
+				}
+			});
+	%>
+	<button type="button" id="deleteGroup" class="btn btn-primary" data-dismiss="modal">그룹 해체</button>
+</body>
