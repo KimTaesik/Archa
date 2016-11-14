@@ -34,15 +34,17 @@
 </head>
 <body>
 	<div id="leftSection" class="fleft">
-		<div class="menuTop">
+<!-- 		<div class="menuTop">
 		  <div class="nav fleft">
 		    <span id="myMenu" class="ion-android-menu"></span>
 		  </div>
-		</div>
+		</div> -->
 		<input type="hidden" id="userId" value='<%= user.name %>'>
 		
 		<div class="myInfo">
 			<div id="<%= user.email %>" class="myInfoView">
+				<div class="picture">
+				</div>
 				<input type="text" id="name" name="name" class="<%= user.name %> info" value='<%= user.name %>' disabled="disabled">
 				<input type="text" id="company" name="company" class="<%= user.company %> info" value="<%= user.company %>" disabled="disabled">
 				<input type="text" id="position" name="position" class="<%= user.position %> info" value="<%= user.position %>" disabled="disabled">
