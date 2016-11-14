@@ -1,6 +1,6 @@
 
 $(document).ready(function() {
-	
+			
 			$('#leftSection').css('height' ,  $(window).height() );
 			$('.searchResult,#room-list').css('height' ,  $(window).height()-$('#setGroup').height()-$('.menuTop').height()-$('.memberSection').height()-$('.myInfo').height()-$('.nav').height() );
 			
@@ -19,7 +19,10 @@ $(document).ready(function() {
 					$('#rightContent').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-$('#myTab').height()-30);
 				}
 			});
-
+			
+			/*
+			 * 파일 크기 계산
+			 */
 			function bytesToSize(bytes) {
 			    var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
 			    if (bytes == 0) return 'n/a';
@@ -28,6 +31,9 @@ $(document).ready(function() {
 			    return (bytes / Math.pow(1024, i)).toFixed(1) + '' + sizes[i];
 			};
 			
+			/*
+			 * 채팅방에서 파일 전송
+			 */
 		    $('.mid').on("click","#fileSend", function(event) {
 		    	event.preventDefault();
 		    	
@@ -53,6 +59,9 @@ $(document).ready(function() {
 		        });
 		    });
 		    
+		    /*
+		     * 내 정보 수정(왼쪽 상단으로 진입)
+		     */
 		    $('#leftSection').on('click','#myInfoConfirm', function(e){
 		    	event.preventDefault();
 		    	var company = $('#myCompany').val();
@@ -68,7 +77,10 @@ $(document).ready(function() {
 		            error: function(xhr, status, er){}
 		        });		    	
 		    });
-	
+		    
+		    /*
+		     * 친구검색 (아마 다른데로 옮기거나 삭제될각?)
+		     */
 		    $('#leftSection').on('click','#searchFriendBtn', function( event ) {
 		    	event.preventDefault();
 		    	var search = $("#inputSearchMember").val();
@@ -83,8 +95,14 @@ $(document).ready(function() {
 		        });
 		    });
 		    
+		    /*
+		     * 왼쪽 그룹 탭들
+		     */
 		    $('#myTab a:last').tab('show');
 		    
+		    /*
+		     * 우측 상단에 파일 검색이나 메시지 로그 검색
+		     */
 		    $('.topSection').on('click', '#searchSec', function(e){
 		    	e.preventDefault();
 		    	$('#rightSection').css('width' ,  185 );
@@ -101,6 +119,10 @@ $(document).ready(function() {
 		            error: function(xhr, status, er){}
 		        });
 		    });
+		    
+		    /*
+		     * 우측섹션 열린거 닫는거
+		     */
 		    $('#rightSection').on('click','#rigthClose', function(){
 		    	$('#rightSection').empty();
 		    	$('#rightSection').css('width' , 0);
@@ -109,6 +131,9 @@ $(document).ready(function() {
 		    	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() );
 		    });
 		    
+		    /*
+		     * 우측 섹션에 아카이브 공간 보여줌.
+		     */
 		    $('.topSection').on('click', '#archive', function(e){
 		    	$('#rightSection').css('width' ,  185 );
 		    	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-30 );
@@ -179,6 +204,10 @@ $(document).ready(function() {
 		        });
 		    });*/
 		    
+			/*
+			 * 우측검색에서 아카이브에서 검색하는지, 메시지로그에서 검색하는지 구분하여 검색
+			 * 
+			 */
 			$('#rightSection').on("keyup", "#fileMessageInput",function(key){
 				if($("#fileMessageInput").val()){
 					if(key.keyCode==13){
@@ -205,7 +234,9 @@ $(document).ready(function() {
 				}
 			});		    
 		    
-		    
+		    /*
+		     * 메시지 엔터
+		     */
 			$("#inputMe").keyup(function(key){
 				if($("#inputMe").val()){
 				  if(key.keyCode==13){
@@ -220,6 +251,9 @@ $(document).ready(function() {
 				}
 			});
 			
+			/*
+			 * 파일 검색하는데 있어서 받은건지 보낸건지 구분해줘서 검색
+			 */
 			$('#rightSection').on("keyup", "#fileInput",function(key){
 				if($("#fileInput").val()){
 					if(key.keyCode==13){
@@ -270,6 +304,9 @@ $(document).ready(function() {
 		        });
 		    });	*/
 		    
+			/*
+			 * 모든 친구검색. 아마 고쳐지거나 사라질려나?
+			 */
 		    $('#leftSection').on("click","#searchAllBtn",function(e) {
 		    	var search = $("#inputAll").val();
 		        $.ajax({
@@ -284,6 +321,9 @@ $(document).ready(function() {
 		        e.preventDefault();
 		    });
 		    
+		    /*
+		     * 좌측에서 친구 리스트 가져옴
+		     */
 		    $('#leftSection').on("click","#getFriendList",function(e) {
 		    	var search = $("#inputAll").val();
 		        $.ajax({
@@ -297,6 +337,9 @@ $(document).ready(function() {
 		        e.preventDefault();
 		    });
 		    
+		    /*
+		     *  검색해서 친구추가(add) 누르면 친구 추가된걸 반환해서 다시 뿌려줌
+		     */
 		    $('#leftSection').on("click",".friendAdd",function(e) {
 		    	var email = $(this).attr("id");
 		        $.ajax({
@@ -311,6 +354,9 @@ $(document).ready(function() {
 		        e.preventDefault();
 		    });	   
 		    
+		    /*
+		     * 칭구삭제
+		     */
 		    $('#leftSection').on("click",".friendDelete",function(e) {
 		    	var email = $(this).attr("id");
 		        $.ajax({
@@ -325,6 +371,10 @@ $(document).ready(function() {
 		        e.preventDefault();
 		    });	 
 		    
+		    /*
+		     * 왼쪽 상단. 뷰 변경.
+		     * 노티나 로그아웃, 개인정보 수정 가능
+		     */
 			$('#leftSection').on("click","#myMenu",function(e){
 		        $.ajax({
 		            type: "post",
@@ -337,6 +387,9 @@ $(document).ready(function() {
 		        e.preventDefault();
 			});
 			
+			/*
+			 * 왼쪽 친구리스트에서 그룹생성. 새로 추가되는 친구는 기본적으로 default로 잡힘
+			 */
 			$('#leftSection').on("click","#addGroup",function(e){
 				var name = $('#groupname').val();
 				$('#groupname').val('');
@@ -352,6 +405,9 @@ $(document).ready(function() {
 		        e.preventDefault();
 			});
 			
+			/*
+			 * 그룹 삭제. 삭제된 그룹에 있던 인원들은 모두 default 그룹으로 이동
+			 */
 			$('#leftSection').on('click', "#deleteGroup", function(e){
 				var name = $('#settLabel').text();
 		        $.ajax({
@@ -366,6 +422,9 @@ $(document).ready(function() {
 		        e.preventDefault();
 			});
 			
+			/*
+			 * 엔터키 눌렀을때 전송
+			 */
 			$(".mid").on('keyup','#inputMe',function(key){
 				if($("#inputMe").val()){
 				  if(key.keyCode==13){
@@ -380,6 +439,9 @@ $(document).ready(function() {
 				}
 			});
 			
+			/*
+			 * 센드버튼 누를때 메시지 전송
+			 */
 			$(".mid").on('click', "#btnSend",function(){
 				var email = $(".myInfoView").attr('id');
 				var me = $("#userId").val();
@@ -394,7 +456,11 @@ $(document).ready(function() {
 					$("#inputMe").val("");
 				}
 			});
-			
+			/*
+			 * 왼쪽 친구리스트에서 친구를 더블클릭 했을시
+			 * 채팅방 뷰가 생성되면서 채빙방 입장.
+			 * 단, 메시지를 보내야 채팅방이 생성됌
+			 */
 			$( "#leftSection" ).on( "dblclick", "li", function( event ) {
 			    event.preventDefault();
 			    $('#room').val('');
@@ -419,7 +485,10 @@ $(document).ready(function() {
 		        });
 
 			});
-			
+			/*
+			 * 왼쪽에서 대화방 리스트 중에서 선택하여 더블클릭 했을 시
+			 * 입장
+			 */
 			$('#leftSection').on('dblclick', ".myRoom", function(e){
 				$("#messages").empty();
 				$('#room').val('');
@@ -438,7 +507,9 @@ $(document).ready(function() {
 		            error: function(xhr, status, er){}
 		        });
 			});			
-			
+			/*
+			 * 그냥 채팅룸 뷰 닫는거
+			 */
 			$('.topSection').on('click', '#roomClose', function(e){
 		    	$('.background, .userInfo').empty();
 		    	$('#roomInfo').text('');
@@ -447,9 +518,15 @@ $(document).ready(function() {
 		    	var room = $('#joinRoom').val();
 		    	socket.emit('roomOut', room, me);
 			});
+			/*
+			 * 
+			 */
 			$('.topSection').on('dblclick', '#room', function(){
 				$('#room').attr("disabled",false);
 			});
+			/*
+			 * 채팅방 이름 개인설정. 채팅방 이름 더블클릭하면 수정 가능
+			 */
 			$('.topSection').on("keyup", "#room",function(key){
 				if($("#room").val()){
 					if(key.keyCode==13){
@@ -461,6 +538,9 @@ $(document).ready(function() {
 					}
 				}
 			});	
+			/*
+			 * 그냥 챗 버튼 누르면 대화 돌입. 더블클릭과 같음
+			 */
 			$( "#leftSection" ).on( "click", ".chatbtn", function( event ) {
 			    event.preventDefault();
 			    var you = $(this).attr("id");
@@ -472,14 +552,18 @@ $(document).ready(function() {
 			    $("#messages").empty();
 			    socket.emit('join', room, me);
 			});
-			
+			/*
+			 * 왼쪽 방 정보 가져오기.
+			 */
 		    $('#leftSection').on("click","#getRoomList",function(){
 		    	socket.emit('rooms', $('.myInfoView').attr("id"));
 //				setInterval(function() {
 //					socket.emit('rooms', $('.myInfoView').attr("id"));
 //			    }, 10000);
 		    });
-			
+			/*
+			 * 그룹생성할때 모달로 띄움
+			 */
 			$('#leftSection').on('click', "#setGroup", function(e){
 				$('#nameModal').modal();
 			});
@@ -525,7 +609,9 @@ $(document).ready(function() {
 		        });
 		        e.preventDefault();
 			});
-			
+			/*
+			 * 그룹에 유저 추가. 리스트를 불러와 체크 한 후 확인누르면 추가됌.
+			 */
 			$('#leftSection').on('click', "#addGroupUser", function(e){
 				$.ajaxSettings.traditional = true;
 				var arrayParam = new Array();
@@ -547,7 +633,9 @@ $(document).ready(function() {
 		        });
 		        e.preventDefault();
 			});	
-			
+			/*
+			 * 그룹에서 짤짤
+			 */
 			$('#leftSection').on('click', ".groupOut", function(e){
 				var id = $(this).attr("id");
 				var name = $('#settLabel').text();
@@ -562,7 +650,9 @@ $(document).ready(function() {
 		        });
 		        e.preventDefault();
 			});		
-			
+			/*
+			 * 왼쪽 상단을 클릭한 후 뷰가 변경됬을시, 다시 왼쪽 상단을 누르면 기본 화면으로 돌아옴
+			 */
 			$('#leftSection').on('click', "#myMenuOut",function(e){
 		        $.ajax({
 		            type: "post",
@@ -576,7 +666,9 @@ $(document).ready(function() {
 		        });
 		        e.preventDefault();					
 			});
-			
+			/*
+			 * 왼쪽 상단으로 진입한 후 개인정보 수정.
+			 */
 			$('#leftSection').on('click', '#myInfoEdit',function(e){
 				if($('#myCompany').is('[disabled=disabled]')){
 					if(confirm("수정하시겠습니까?") == true){
@@ -586,11 +678,15 @@ $(document).ready(function() {
 					}
 				}				
 			});
-			
+			/*
+			 * 탈퇴엑
+			 */
 			$('#leftSection').on('click', '#signOutBtn',function(){
 				$('div.modal').modal();
 			});
-			
+			/*
+			 * 친구 이름 누르면 정보를 모달로 띄움 ^^
+			 */
 			$('#leftSection').on('click', '#fname', function(e){
 				e.preventDefault();
 				var femail = $(this).attr("class");
