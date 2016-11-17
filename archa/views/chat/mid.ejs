@@ -1,4 +1,50 @@
 <body>
+	<section class="topSection fright">
+		<div class="dropdown fleft" hidden="true">
+		  <button class="roomUser dropdown-toggle" type="button" id="roomInfo" style="width:10%;" data-toggle="dropdown" aria-expanded="true">
+		    <span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu userInfo" role="menu" aria-labelledby="dropdownMenu1">
+		  </ul>
+		</div>
+		<input type="text" id="room" disabled="disabled">
+
+<!-- 		<div class="buttonGroup fright">
+			<button id="searchSec"></button>
+			<button id="archive"></button>
+		</div> -->
+		
+		<div class="roomOption fright">
+			<div class="dropdown fright" style="width:15%;">
+			  <button class="setting dropdown-toggle" type="button" id="setting" data-toggle="dropdown" aria-expanded="true">
+			  </button>
+			  <ul class="setList dropdown-menu" role="menu" style="min-width: 20px;padding: 0;margin: 0;">
+			  	<li>
+			  		<button id="roomClose"></button>
+			  		<button id="invite">초대</button>
+			  	</li>
+			  </ul>
+			</div>
+			<button type="button" class="noti fright"></button>
+			<input type="hidden" id='joinRoom'>
+		</div>
+		
+		<div class="modal fade" id="inviteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h4 class="modal-title" id="myModalLabel">초대</h4>
+		      </div>
+		      <div class="modal-body" id="inviteBody">      	
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+		        <button type="button" id="inviteUser" class="btn btn-primary" data-dismiss="modal">확인</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</section>
 	<div class ="msgbox " id="messages"></div>
 	<div class="actionBox">
 		<div class="dropup fleft" id="plus">
