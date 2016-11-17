@@ -2,17 +2,17 @@
 $(document).ready(function() {
 			
 			$('#leftSection').css('height' ,  $(window).height() );
-			$('.searchResult,#room-list').css('height' ,  $(window).height()-$('#setGroup').height()-$('.menuTop').height()-$('.memberSection').height()-$('.myInfo').height()-$('.nav').height() );
+			$('.searchResult,#room-list').css('height' ,  $(window).height()-$('#setGroup').height()-$('.menuTop').height()-$('.memberSection').height()-$('.myInfo').height()-$('.nav').height() -67 );
 			
 			$(window).resize(function() {
 				$('#leftSection').css('height' ,  $(window).height());
-            	$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height());
+            	$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-$('.topMenu').height());
             	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -10);
             	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-20 );
-				$('.searchResult,#room-list').css('height' ,  $(window).height()-$('#setGroup').height()-$('.menuTop').height()-$('.memberSection').height()-$('.myInfo').height()-$('.nav').height() );
+				$('.searchResult,#room-list').css('height' ,  $(window).height()-$('#setGroup').height()-$('.menuTop').height()-$('.memberSection').height()-$('.myInfo').height()-$('.nav').height() -67);
 				if($('#rightSection').width()>10){
 					$('#rightSection').css('width' ,  185 );
-	            	$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height());
+	            	$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-$('.topMenu').height());
 	            	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -10);
 	            	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-20 );
 					$('#rightSection').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-20);
@@ -476,7 +476,8 @@ $(document).ready(function() {
 		            url: "/joinChat",
 		            success: function(result,status,xhr){
 		            	$(".background").html(result);
-		            	$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height());
+		            	$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-30);
+		            	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);
 		            	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);
 					    $("#messages").empty();
 					    socket.emit('join', room, me);		            	
@@ -499,7 +500,8 @@ $(document).ready(function() {
 		            url: "/joinChat",
 		            success: function(result,status,xhr){
 		            	$(".background").html(result);
-		            	$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height());
+		            	$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-30);
+		            	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);
 		            	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);
 					    $("#messages").empty();
 					    socket.emit('rejoin', roomName,me);	            	
