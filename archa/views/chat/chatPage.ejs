@@ -34,15 +34,17 @@
 </head>
 <body>
 	<div id="leftSection" class="fleft">
-		<div class="menuTop">
+<!-- 		<div class="menuTop">
 		  <div class="nav fleft">
 		    <span id="myMenu" class="ion-android-menu"></span>
 		  </div>
-		</div>
+		</div> -->
 		<input type="hidden" id="userId" value='<%= user.name %>'>
 		
 		<div class="myInfo">
 			<div id="<%= user.email %>" class="myInfoView">
+				<div class="picture">
+				</div>
 				<input type="text" id="name" name="name" class="<%= user.name %> info" value='<%= user.name %>' disabled="disabled">
 				<input type="text" id="company" name="company" class="<%= user.company %> info" value="<%= user.company %>" disabled="disabled">
 				<input type="text" id="position" name="position" class="<%= user.position %> info" value="<%= user.position %>" disabled="disabled">
@@ -63,7 +65,14 @@
 				<button type="button" class="id btn btn-default" id="searchAllBtn"></button>
 				<input id="inputSearchMember" type="text" class="form-control" placeholder="My Friend">
 				<button type="button" class="id btn btn-default" id="searchFriendBtn"></button>
-			</div>			
+			</div>
+			
+			<!-- 그룹 뿌려주는 부분
+					처음 chatPage는 session에 들어있는 user의 정보를 가져오는데
+					로그인할때 가져온 user의 DB값에는 유저가 가지고 있는 그룹과
+					친구 목록이 있는데, 해당 친구 목록에는 자기가 속해있는 그룹의 이름도 들어있음.
+			
+			  -->
 			<div class="tab-content leftTab">
 				<div role="tabpanel" class="tab-pane active" id="fd">	
 					<!-- 검색된 친구 결과를 여기다 표시해준다  -->
@@ -90,17 +99,35 @@
 										friends.forEach(function(friends, index) { 
 											if(group==friends.groupname){
 								%>
-										<ul>
-											<li id="<%= friends.friend.email %>"  class='active has-sub'>
-												<a href='#'>
-													<span id="fname" class="<%= friends.friend.email %>"><%= friends.friend.name %></span><br/>
-													<span><%= friends.friend.company %></span> / 
-													<span><%= friends.friend.position %></span><br/>
+								
+ 											<div id="<%= friends.friend.email %>"  class='active has-sub'>
+												<div id ="group-profile" href='#'>
+												   <div id="group-img"> </div>
+													<div id="fname" class="<%= friends.friend.email %>"><%= friends.friend.name %><br/>
+													<div id="company"><%= friends.friend.company %> / </div> 
+													<div id="position"><%= friends.friend.position %></div><br/>
+													</div><br/>
 													<button type="button" id="<%= friends.friend.email %>" class="friendAdd">ADD</button>
-													<!-- <button type="button" id="<%= friends.friend.email %>" class="friendDelete">DEL</button> -->
+									<!-- 				<button type="button" id="<%= friends.friend.email %>" class="friendDelete">DEL</button> -->
+												</div>
+										   </div>  
+										   
+										   
+<!-- 									<div id="group-text">			
+								    	<ul>
+								    	    <li id="group-img"></li>
+											<li id="<%= friends.friend.email %>"  class='active has-sub'>
+												<a id ="group-profile" href='#'>
+												    <span id="group-img"></span>
+													<span id="fname" class="<%= friends.friend.email %>"><%= friends.friend.name %></span><br/>
+													<span id="company"><%= friends.friend.company %></span>
+													<span id="position"><%= friends.friend.position %></span><br/>
+													<button type="button" id="<%= friends.friend.email %>" class="friendAdd">ADD</button>
+													<button type="button" id="<%= friends.friend.email %>" class="friendDelete">DEL</button>
 												</a>
 										   </li>
 										</ul>
+									</div>	 --> 
 								<% 			}
 										});
 								%>
@@ -162,6 +189,7 @@
 	<section class="topMenu fright">
 		<div class="buttonGroup fright">
 			<button id="searchSec"></button>
+			<button id="alarm"></button>
 			<button id="archive"></button>
 		</div>	
 	</section>

@@ -10,6 +10,7 @@ exports.login = function(req, res, next){
 	var email = req.body.eMail;
 	var password = req.body.password;
 	
+	//로그인, 유저의 정보를 가져와 세션에 주입.
 	var checkUser = DBaccount.login(req.body.eMail, req.body.password);
 	checkUser.on('end',function(err,user){
 		if(!err && user != null){
