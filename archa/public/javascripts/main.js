@@ -461,7 +461,7 @@ $(document).ready(function() {
 			 * 채팅방 뷰가 생성되면서 채빙방 입장.
 			 * 단, 메시지를 보내야 채팅방이 생성됌
 			 */
-			$( "#leftSection" ).on( "dblclick", "li", function( event ) {
+			$( "#leftSection" ).on( "dblclick", ".has-sub", function( event ) {
 			    event.preventDefault();
 			    $('#room').val('');
 			    var you = $(this).attr("id");
