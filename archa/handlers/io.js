@@ -103,7 +103,35 @@ module.exports = function(server){
 				socket.emit('rooms', rooms);
 			});
         });
-        
+        socket.on('newRelation', function(id){
+        	var id = id;
+        	User.update({'email':id},{ $addToSet:{ 'request': nickNames[socket.id] }},{multi:true}).exec(function(err, result){
+        		if(result){
+        			var test = findUserByName(id);
+        			if(test){
+        				io.sockets.sockets[test].emit('requst',id);
+        			}
+        		}
+        	});
+        });
+        socket.on('requestConn', function(you, me){
+    		User.findOne({'email': you }).exec(function(err,friend){
+    			User.update({'email':me},{ $addToSet:{ 'friends': { 'friend' : friend._id }}},{multi:true}).exec(function(err, result){
+    				if(err) console.log(err);
+    				
+    				if(result.nModified == 1){
+    					var fd = new Friend({
+    						friend : friend,
+    						groupname : 'default'
+    					})
+//    					user.request.pull(); 리퀘스트 짜름
+    					user.friends.push(fd);
+//    					user.notification.push(); 노티에 삽입
+    				}
+    			});
+    			socket.emit('requestNoti',friend);
+    		});
+        });
 	    socket.on('rejoin', function(roomName, me){
 	    	socket.join(roomName);
 	    	socket.room = roomName;

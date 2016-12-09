@@ -9,6 +9,8 @@ var chat = require('../handlers/chat.js');
 var room = require('../handlers/room.js');
 var s3 = require('../handlers/s3.js');
 var search = require('../handlers/search.js');
+var myArchive = require('../handlers/myArchive.js');
+var alarm = require('../handlers/alarm.js');
 
 router.use(session({
 	secret: 'keyboard cat',
@@ -50,11 +52,14 @@ router.post('/friendInfo', account.friendInfo);
 router.post('/roomList', room.roomlist);
 
 router.post('/fileSend', s3.filesend);
+router.post('/getList', s3.getList);
 
 router.post('/searchMessage', search.messageSearch);
 router.post('/searchfile', search.fileSearch);
 router.post('/search', search.search);
-router.post('/archive', search.archive);
+
+/*router.post('/archive', search.archive);*/
+
 router.post('/sendFile', search.sendFile);
 router.post('/receiveFile', search.receiveFile);
 
@@ -67,5 +72,18 @@ router.post('/addChkUser', chat.addChkUser);
 router.post('/deleteGroup', chat.deleteGroup);
 router.post('/joinChat', chat.joinChat);
 router.post('/inviteRoom', chat.inviteRoom);
+
+router.post('/myArchive', myArchive.myArchive);
+router.post('/ALL', myArchive.ALL);
+router.post('/ARCHIVE', myArchive.ARCHIVE);
+router.post('/GALLERY', myArchive.GALLERY);
+router.post('/tabgot', myArchive.tabgot);
+router.post('/tabsent', myArchive.tabsent);
+
+router.post('/alarm', alarm.alarm);
+router.post('/findRelation', alarm.findRelation);
+router.post('/tabReq', alarm.tabReq);
+router.post('/tabNoti', alarm.tabNoti);
+router.post('/findRelationUser', alarm.findRelationUser);
 
 module.exports = router;

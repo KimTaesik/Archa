@@ -1,0 +1,45 @@
+<body>
+ 	<%
+ 		data.forEach(function(log, index) {
+ 			if(log.send_id.email == user){
+ 			if(search == null || log.rece_id.name.indexOf(search)>-1 || log.rece_id.company.indexOf(search)>-1 ||log.rece_id.position.indexOf(search)>-1 || log.rece_id.email.indexOf(search)>-1 || log.name.indexOf(search)>-1){
+ 				if(category == 'GALLERY' && log.rtype == 'image'){
+ 	%>
+				  	<div class="gallery-div">
+			  			<div class="url" style="width: 30px;height: 30px;">
+			  				<img style="width: 30px;height: 30px;" alt="<%= log.name %>" src="<%= log.url %>">
+			  			</div>
+			  			<div><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
+			  			<div><%= log.name %></div>
+			  			<div>to : <%= log.rece_id.name %></div>
+			  		</div>
+ 	
+ 	<%
+ 				}else if(category == 'ARCHIVE' && log.rtype != 'image'){
+ 	%>
+			  		<div>
+			  			<div><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
+			  			<div><%= log.name %></div>
+			  			<div>to : <%= log.rece_id.name %></div>
+			  		</div>
+			  		<hr/>
+	<%
+				}else if(category == 'ALL'){
+	%>
+			  		<div>
+			  			<% if(log.rtype == 'image'){ %>
+			  			<div class="url" style="width: 30px;height: 30px;">
+			  				<img style="width: 30px;height: 30px;" alt="<%= log.name %>" src="<%= log.url %>">
+			  			</div>
+			  			<% } %>
+			  			<div><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
+			  			<div><%= log.name %></div>
+			  			<div>to : <%= log.rece_id.name %></div>
+			  		</div>
+			  		<hr/>
+ 	<%			}
+ 				}
+ 			}
+ 		});
+ 	%>
+</body>

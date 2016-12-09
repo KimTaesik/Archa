@@ -55,4 +55,20 @@ exports.filesend = function(req, res){
 //		});
 	});
 }
+exports.getList = function(req, res){
+/*	console.log('test');
+	var user = req.session.user_id.email;
+	console.log(user);
+	var s3 = new AWS.S3();
+	var params = {
+			  Bucket: 'archa-bucket',  required 
+			  Delimiter: "/",
+			  Prefix: user+"/"
+			};
+	console.log(params);
+	s3.listObjectsV2(params, function(err, data) {
+	  if (err) console.log(err, err.stack); // an error occurred
+	  else     console.log(data);           // successful response
+	});*/
+}
 	

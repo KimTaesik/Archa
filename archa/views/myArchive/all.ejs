@@ -1,0 +1,51 @@
+<body>
+		<ul class="nav nav-tabs" role="tablist" id="tabgs">
+		  <li role="presentation" style="width: 50%;" id="tabgot" class="march active"><a href="#got" aria-controls="#got" role="tab" data-toggle="tab">Got</a></li>
+		  <li role="presentation" style="width: 50%;" id="tabsent" class="march"><a href="#sent" aria-controls="#sent" role="tab" data-toggle="tab">Sent</a></li>
+		</ul>
+		
+		<div class="tab-content">
+		  <div role="tabpanel" class="arch-tab tab-pane active" id="got">
+		  	<%
+		  		data.forEach(function(log, index) {
+		  			if(log.rece_id.email == user){
+		  	%>
+				  		<div>
+				  			<% if(log.rtype == 'image'){ %>
+				  			<div class="url" style="width: 30px;height: 30px;">
+				  				<img style="width: 30px;height: 30px;" alt="<%= log.name %>" src="<%= log.url %>">
+				  			</div>
+				  			<% } %>
+				  			<div><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
+				  			<div><%= log.name %></div>
+				  			<div>From : <%= log.send_id.name %></div>
+				  		</div>
+				  		<hr/>
+		  	<%
+		  			}
+		  		});
+		  	%>			
+          </div>
+		  <div role="tabpanel" class="arch-tab tab-pane" id="sent">
+		  	<%
+		  		data.forEach(function(log, index) {
+		  			if(log.send_id.email == user){
+		  	%>
+				  		<div>
+				  			<% if(log.rtype == 'image'){ %>
+				  			<div class="url" style="width: 30px;height: 30px;">
+				  				<img style="width: 30px;height: 30px;" alt="<%= log.name %>" src="<%= log.url %>" >
+				  			</div>
+				  			<% } %>
+				  			<div><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
+				  			<div><%= log.name %></div>
+				  			<div>to : <%= log.rece_id.name %></div>
+				  		</div>
+				  		<hr/>
+		  	<%
+		  			}
+		  		});
+		  	%>		
+          </div>
+		</div>
+</body>

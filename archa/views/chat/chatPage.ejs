@@ -6,6 +6,7 @@
 ​
   	<script src="//code.jquery.com/jquery-1.10.2.js"></script> 	
   	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  	<!-- <script src="//johannburkard.de/resources/Johann/jquery.highlight-5.js"></script> -->
 	<!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"> -->
 	<!-- <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
  	
@@ -189,7 +190,13 @@
 	<section class="topMenu fright">
 		<div class="buttonGroup fright">
 			<button id="searchSec"></button>
-			<button id="alarm"></button>
+			<div id="alarm" class="dropdown fright">
+			  <button class="btn btn-default dropdown-toggle" type="button" id="dropAlarm" data-toggle="dropdown" aria-expanded="true">
+			  </button>
+			  <ul class="alarm-drop dropdown-menu" role="menu">
+
+			  </ul>
+			</div>
 			<button id="archive"></button>
 		</div>	
 	</section>

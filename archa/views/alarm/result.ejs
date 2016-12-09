@@ -1,0 +1,19 @@
+<body>
+<%
+		friends.forEach(function(friends, index) { 
+%>
+
+			<div id="<%= friends.email %>"  class='has-sub active'>
+				<div id ="group-profile" href='#'>
+				   <div id="group-img"> </div>
+					<div id="fname" class="<%= friends.email %>"><%= friends.name %><br/>
+					<div id="company"><%= friends.company %> / </div> 
+					<div id="position"><%= friends.position %></div><br/>
+					</div><br/>
+					<button type="button" id="<%= friends.email %>" class="addRelation">ADD</button>							
+				</div>
+			</div>
+<%
+		});
+%>
+</body>

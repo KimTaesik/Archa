@@ -890,3 +890,18 @@ ul li.hang img {
 	font-weight:bold;
 
 }
+/*새로운 아카이브 부분 */
+.arcSearch{
+	width: 20%;
+}
+.mySection{
+	width:100%;
+	background-color: #f8f8f8;
+}
+.archiveName{
+	width: 60%;
+}
+.gallery-div{
+	float:left;
+	width:25%;
+}

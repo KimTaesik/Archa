@@ -134,7 +134,7 @@ $(document).ready(function() {
 		    /*
 		     * 우측 섹션에 아카이브 공간 보여줌.
 		     */
-		    $('.topSection').on('click', '#archive', function(e){
+/*		    $('.topSection').on('click', '#archive', function(e){
 		    	$('#rightSection').css('width' ,  185 );
 		    	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-30 );
 		    	$('#rightSection').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-20);
@@ -151,7 +151,7 @@ $(document).ready(function() {
 		            },
 		            error: function(xhr, status, er){}
 		        });
-		    });
+		    });*/
 		    /*
 		     * 사람초대, 친구목록 가져옴. 이 채팅방 이외의 사람들을 보여줘야지
 		     * 
@@ -704,7 +704,238 @@ $(document).ready(function() {
 		            error: function(xhr, status, er){}
 		        });
 			});
+			/**
+			 * message search 테스트용
+			 */
 			
+	        lstEl = null;
+	        cntr = -1;
+	        $(".mid").on('click', '#btnSearch', function() {    	
+		        var vl = $('#searchTerm').val();
+		        $("#messages").removeHighlight();
+		        $("#messages").highlight(vl);
+		    });
+		 
+		    $('#btnNext').on('click', function() {
+		        if (lstEl === null) {
+		        	alert(lstEl);
+		            lstEl = $('#messages').find('span.highlight');
+		            if (!lstEl || lstEl.length === 0) {
+		                lstEl = null;
+		                return;
+		            }
+		        }
+		        if (cntr < lstEl.length - 1) {
+		            cntr++;
+		            if (cntr > 0) {
+		                $(lstEl[0]).removeClass('current');
+		            }
+		            var elm = lstEl[cntr];
+		            $(elm).addClass('current');
+		        } else
+		            alert("End of search reached!");
+		    });
+		 
+		    $('#btnPrev').on('click',function() {
+		        if (lstEl === null) {
+		            lstEl = $('#messages').find('span.highlight');
+		            if (!lstEl || lstEl.length === 0) {
+		                lstEl = null;
+		                return;
+		            }
+		        }
+		        if (cntr > 0) {
+		            cntr--;
+		            if (cntr < lstEl.length) {
+		                $(lstEl[cntr + 1]).removeClass('current');
+		            }
+		            var elm = lstEl[cntr];
+		            $(elm).addClass('current');
+		        } else
+		            alert("Begining of search!");
+		    });
+		    /**
+		     * 여기까지 테스트용
+		     */
+		    
+		    /**
+		     * 새로운 아카이브 화면
+		     */
+			$( ".topMenu" ).on( "click", "#archive", function( event ) {
+			    event.preventDefault();
+			    
+		        $.ajax({
+		            type: "post",
+		            url: "/myArchive",
+		            success: function(result,status,xhr){
+		            	$(".background").html(result);
+		            	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);
+		            },
+		            error: function(xhr, status, er){}
+		        });
 
+			});
 			
-		});
+			/**
+			 * 아카이브 탭 got / sent 클릭시 카테고리 구분하여 불러옴......
+			 */
+			$(".mid").on("click", ".march", function(event){
+				event.preventDefault();
+				var url = $(this).attr("id");
+				var category = $(".archiveName").text();
+				var div;
+				
+				if(url=='tabgot'){
+					div = $('#got');
+				}else{
+					div = $('#sent');
+				}
+					
+		        $.ajax({
+		            type: "post",
+		            url: "/"+url,
+		            data : { "category" : category },
+		            success: function(result,status,xhr){
+		            	div.html(result);
+		            },
+		            error: function(xhr, status, er){}
+		        });				
+			});
+			/*
+			 * 아카이브 카테고리 변경시 변경
+			 */
+			$(".mid").on("click", ".category", function(event){
+				event.preventDefault();
+				var url = $(this).attr("id");
+				$(".archiveName").text(url);
+				
+		        $.ajax({
+		            type: "post",
+		            url: "/"+url,
+		            success: function(result,status,xhr){
+		            	$("#dataList").html(result);
+		            }
+		        });
+			});
+			/*
+			 * 알람 뷰
+			 */
+			$( ".topMenu" ).on( "click", "#dropAlarm", function( event ) {
+			    event.preventDefault();
+			    
+		        $.ajax({
+		            type: "post",
+		            url: "/alarm",
+		            success: function(result,status,xhr){
+		            	$(".alarm-drop").html(result);
+		            },
+		            error: function(xhr, status, er){}
+		        });
+
+			});
+			/*
+			 * 친구찾긔 뷰
+			 */
+			$(".topMenu").on("click", "#findRelation", function(event){
+				event.preventDefault();
+		        $.ajax({
+		            type: "post",
+		            url: "/findRelation",
+		            success: function(result,status,xhr){
+		            	$(".background").html(result);
+		            	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);
+		            },
+		            error: function(xhr, status, er){}
+		        });				
+			});
+			/*
+			 * 알람 req / noti 클릭
+			 */
+			$(".mid").on("click", ".altab", function(event){
+				event.preventDefault();
+				var url = $(this).attr("id");
+				var div;
+				
+				if(url=='tabReq'){
+					div = $('#request');
+				}else{
+					div = $('#notification');
+				}
+					
+		        $.ajax({
+		            type: "post",
+		            url: "/"+url,
+		            data : { "category" : category },
+		            success: function(result,status,xhr){
+		            	div.html(result);
+		            },
+		            error: function(xhr, status, er){}
+		        });				
+			});
+			/*
+			 * 아카이브 검색
+			 */
+			$('.mid').on("keyup", ".archiveInputSearch",function(key){
+					if(key.keyCode==13){
+						var category = $(".archiveName").text();
+				    	var search = $(".archiveInputSearch").val();
+				    	var url = $("ul#tabgs li.active").attr('id');
+				    	var div;
+				    	
+				    	if(url=='tabgot'){
+				    		div = $('#got');
+				    	}else{
+				    		div = $('#sent');
+				    	}
+				 
+				        $.ajax({
+				            type: "post",
+				            url: "/"+url,
+				            data: { "search": search, "category": category },
+				            success: function(result,status,xhr){
+				            	div.html(result);
+				            }
+				        });
+					}
+			});
+			/*
+			 * relation 검색, 유저리스트
+			 */
+		    $('.mid').on("click","#searchRelation",function(e) {
+		    	var search = $("#relationInput").val();
+		        $.ajax({
+		            type: "post",
+		            url: "/findRelationUser",
+		            data: { "search": search },
+		            success: function(result,status,xhr){
+		            	$("#relationResult").html(result);
+		            },
+		            error: function(xhr, status, er){}
+		        });
+		        e.preventDefault();
+		    });
+		    /*
+		     * 생각해보니 소켓으로 안해도 된다. 소켓서버에 부담을 줄이자. 이건 걍 ajax로 바꾸자??
+		     * 리턴이 문제네
+		     */
+		    $('.mid').on("click", ".addRelation", function(e){
+		    	var id = $(this).attr("id");
+		    	$('.background').empty();
+		    	socket.emit('newRelation', id);
+		    });
+		    /*
+		     * 알람->리퀘스트에서 Connect를 누르면 서로 친구추가해주긔
+		     */
+		    $('.topMenu').on("click", ".conn", function(e){
+		    	e.preventDefault();
+		    	var id = $(this).attr("id");
+		    	var me = $('.myInfoView').attr("id");
+		    	socket.emit('requestConn',id,me);
+		    });
+			/*
+			 * 드롭다운 클릭해도 사라지지않게
+			 */
+			$(document).on('click', '#tabalarm li', function (e) {
+				  e.stopPropagation();
+			});
+});

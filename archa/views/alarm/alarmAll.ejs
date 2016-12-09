@@ -1,0 +1,36 @@
+<body>
+    <div role="tabpanel">
+		<ul class="nav nav-tabs nav-justified" role="tablist" id="tabalarm">
+		  <li role="presentation" id="tabReq" class="altab active"><a href="#request" aria-controls="#request" role="tab" data-toggle="tab">Request</a></li>
+		  <li role="presentation" id="tabNoti" class="altab"><a href="#notification" aria-controls="#notification" role="tab" data-toggle="tab">Notification</a></li>
+		</ul>
+		
+		<div class="tab-content">
+			<div role="tabpanel" class="arch-tab tab-pane active" id="request">
+				<%
+					if(req){
+						req.forEach(function(req, index) { 
+				%>
+				 <%= req %>
+				 <button type="button" id="<%= req%>" class="conn">Connect</button>
+				 <button type="button" id="<%= req%>" class="dec">Decline</button>
+				<%
+						});
+					}
+				%>
+			</div>
+			<div role="tabpanel" class="arch-tab tab-pane" id="notification">
+				<%
+					if(his){
+						his.forEach(function(his, index) { 
+				%>
+				 <%= his %>
+				<%	
+						});
+					}
+				%>
+			</div>
+			<button type="button" id="findRelation" style="width: 100%;">Find New Relation</button>
+		</div>
+	</div>
+</body>
