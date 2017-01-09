@@ -11,6 +11,58 @@
 						        </a>
 						        <% if(group != 'default'){%>
 						        <button type="button" id="<%= group %>" class="addUser">+</button>
+						        <button type="button" id="<%= group %>" class="GroupSetting">Setting</button>
+						        <% }%>
+						      </h4>
+						    </div>
+						    <div id="collapse<%= index %>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading<%= index %>">
+						      <div class="panel-body" id="friendlist">
+								<%
+										friends.forEach(function(friends, index) { 
+											if(group==friends.groupname){
+								%>
+								
+ 											<div id="<%= friends.friend.email %>"  class='has-sub active'>
+												<div id ="group-profile">
+													<div id="group-state"></div>
+													<div id="group-img"></div>
+														<div id="fname" class="<%= friends.friend.email %>"><%= friends.friend.name %>
+														<div id="fposition"><%= friends.friend.position %></div>
+														<div id="fcompany"><%= friends.friend.company %></div> 
+														<br/>
+														</div><br/>					
+												</div>
+										   </div>  
+										   
+
+								<% 			}
+										});
+								%>
+							  </div>
+						    </div>
+						  </div>
+						</div>
+						<%
+							});
+						%>
+						
+						
+						
+						
+<!-- ------------------------------------------------------------------ 수정전 naki 2016_12_12 -->						
+<!-- 						
+						<% 
+							groups.forEach(function(group, index){
+						%>
+						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+						  <div class="panel panel-default">
+						    <div class="panel-head" role="tab" id="heading<%= index %>">
+						      <h4 class="panel-title">
+						        <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%= index %>" aria-expanded="true" aria-controls="collapse<%= index %>">
+						          <%= group %>
+						        </a>
+						        <% if(group != 'default'){%>
+						        <button type="button" id="<%= group %>" class="addUser">+</button>
 						        <button type="button" id="<%= group %>" class="setting">Setting</button>
 						        <% }%>
 						      </h4>
@@ -28,7 +80,7 @@
 													<span><%= friends.friend.company %></span> / 
 													<span><%= friends.friend.position %></span><br/>
 													<button type="button" id="<%= friends.friend.email %>" class="friendAdd">ADD</button>
-													<!-- <button type="button" id="<%= friends.friend.email %>" class="friendDelete">DEL</button> -->
+
 												</a>
 												<ul>
 													<li class='has-sub'>
@@ -53,4 +105,7 @@
 						<%
 							});
 						%>
+
+						
+						-->
 </body>

@@ -85,10 +85,10 @@
   color: #a4a4a4;
   display: block;
   font-family: Helvetica, Arial, Verdana, sans-serif;
-  font-size: 12px;
+  font-size: 15px;
   font-weight: normal;
   line-height: 100%;
-  padding: 13px 20px;
+/*   padding: 13px 20px;  naki 2016_12_12 */
   text-decoration: none;
 }
 #cssmenu ul {

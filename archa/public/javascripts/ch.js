@@ -9,17 +9,19 @@ $(document).ready(function() {
 	};
 	
 	function me(msg){
+		console.log(msg.msg.length);
+		var msglength = msg.msg.length;
 		var text= '<div class="message_box_send">\
-						<a id='+msg.me+' class="message_sender">'+msg.me+'</a>\
-						<p class="talk me">'+msg.msg+'</p>\
+						<div id="me_image" class="message_sender"></div>\
+						<div class="talk me"><div id="talkname">'+msg.me+'</div></br>'+msg.msg+'</div>\
 					</div>';
 		return text;
 	}
 	
 	function other(msg){
 		return '<div class="message_box_re">\
-					<a id='+msg.me+' class="message_re">'+msg.me+'</a>\
-					<p class="talk other">'+msg.msg+'</p>\
+					<div id="other_image" class="message_re"></div>\
+					<div class="talk other"><div id="talkother">'+msg.me+'</div><br>'+msg.msg+'</div>\
 				</div>';
 	}
 	
@@ -184,7 +186,29 @@ $(document).ready(function() {
 		$('#messages').scrollTop($('#messages').prop('scrollHeight'));
 	});
 	
+	
+	/* 채팅방 인원 목록 수정 2016_11_25 NA */
 	socket.on('usercount', function(users,thisRoom, name){
+		$('.dropdown').show();
+		$('#room-image').text(users.length);
+		$('#users').empty();
+		$('.userInfo').empty();
+		$('#room').val(name);
+		$('#thisRoom').val(thisRoom);
+		$('#joinRoom').val(thisRoom);
+		/*$('.userInfo').append('<div id="invite"><a id="invitea">INVITE</a></div>');*/     /*  추가  */
+		/*$('.userInfo').append('<button type="button" class="'+users[0]+'" id="chativ" data-toggle="modal" data-target="#myModal">invite</button>'); */    /*  추가  */
+		$('.userInfo').append('<div class="'+users[0]+'" id="chativ">invite</div>');     /*  추가  */  
+		users.forEach(function(users, index){
+			if(users == $('.myInfoView').attr("id")) $('#me').val(users);
+			else $('#you').val(users);
+			text = '<li role="presentation"><a role="menuitem" tabindex="-1" data-target="#">'+users+'</a></li>'
+			$('.userInfo').append(text);
+		});
+        $('.userInfo').append('<div id="close"><a>CLOSE</a></div>');	    /*  추가  */
+        
+        
+/*	socket.on('usercount', function(users,thisRoom, name){
 		$('.dropdown').show();
 		$('#roomInfo').text(users.length);
 		$('#users').empty();
@@ -197,20 +221,26 @@ $(document).ready(function() {
 			else $('#you').val(users);
 			
 			$('.userInfo').append('<li role="presentation"><a role="menuitem" tabindex="-1" data-target="#">'+users+'</a></li>');
-		});
+		});*/
 	});
 
 	socket.on('rooms', function(rooms, moment) {
         $('#room-list').empty();
         var text;
+        var pasttime;
+        var time;
+        var nowtime;
         rooms.forEach(function(room, index){
             if (room != '') {
-            	text = '<div class="myRoom" id="'+room.roomname+'">\
-            				<div class="circle">'+room.users.length+'</div>\
-            				<h6>'+room.roomname+'</h6>\
-            				<h4>마지막 : '+room.messagelog[room.messagelog.length-1].message+'</h4>	\
-            				<h5>'+room.messagelog[room.messagelog.length-1].mdate+'</h5>\
-            			</div><hr style="border: solid 1px #e2e2e2;"/>';
+            	time = new Date();
+            	var hour =time.getHours();
+            	var min =time.getMinutes();
+            	pasttime = (room.messagelog[room.messagelog.length-1].mdate).substring(11,16);
+            	text = '    <div class="myRoom" id="'+room.roomname+'"><div class="myRoom-img"></div>\
+            				<div class="roomname">'+room.roomname+'</div>\
+            				<div class="roomtext">'+room.messagelog[room.messagelog.length-1].message+'</div>	\
+            				<div class="roomtime">'+pasttime+'</div>\
+            				<div class="circle">'+room.users.length+'</div></div>';
                 $('#room-list').append(text);
             }		        	
         });

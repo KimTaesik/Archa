@@ -1,23 +1,49 @@
 <body>
-		<ul class="nav nav-tabs" role="tablist" id="tabgs">
-		  <li role="presentation" style="width: 50%;" id="tabgot" class="march active"><a href="#got" aria-controls="#got" role="tab" data-toggle="tab">Got</a></li>
-		  <li role="presentation" style="width: 50%;" id="tabsent" class="march"><a href="#sent" aria-controls="#sent" role="tab" data-toggle="tab">Sent</a></li>
-		</ul>
+	<div class="nav nav-tabs" role="tablist" id="tabgs">
 		
-		<div class="tab-content">
+		<div class="col-lg-12 archiveback">
+			  <div role="presentation"  id="tabgot" class="march active"><div id="textgot" href="#got" aria-controls="#got" role="tab" data-toggle="tab">Got</div></div>
+			  <div role="presentation"  id="tabsent" class="march"><div id="textsent" href="#sent" aria-controls="#sent" role="tab" data-toggle="tab">Sent</div></div>
+			
+		 <div class="tab-content" id="tabcontent">
 		  <div role="tabpanel" class="arch-tab tab-pane active" id="got">
 		  	<%
 		  		data.forEach(function(log, index) {
 		  			if(log.rece_id.email == user){
 		  				if(log.rtype != 'image'){
 		  	%>
-				  		<div>
-				  			<div><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
-				  			<div><%= log.name %></div>
-				  			<div>From : <%= log.send_id.name %></div>
-				  			<!-- <a type="button" href="<%= log.url %>" style="float:right;">Down</a> -->
-				  		</div>
-				  		<hr/>
+		  	<div class="filebox">
+			  				<!--css ppt icon  -->
+				  			<% if(log.type == 'pptx'){ %>
+				  			<div class="url" >
+				  				<div class="pptx-image"></div>
+				  			</div>
+				  			<% } %>
+				  			<!--css xlsx icon  -->
+				  			<% if(log.type == 'xlsx'){ %>
+				  			<div class="url" >
+				  				<div class="xlsx-image"></div>
+				  			</div>
+				  			<% } %>
+				  			<!--css pdf icon  -->
+				  			<% if(log.type == 'pdf'){ %>
+				  			<div class="url" >
+				  				<div class="pdf-image"></div>
+				  			</div>
+				  			<% } %>
+				  			<!--css doc icon  -->
+				  			<% if(log.type == 'docx'){ %>
+				  			<div class="url" >
+				  				<div class="docx-image"></div>
+				  			</div>
+				  			<% } %>
+			  			<!-- css수정  -->
+			  			<div class="textbox">
+			  			<div class="file-name"><%= log.name %></div>
+			  			<div class="to-name">From : <%= log.send_id.name %></div>
+			  			<div class="file-date"><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
+			  			</div>
+			  			</div>
 		  	<%			}
 		  			}
 		  		});
@@ -32,7 +58,7 @@
 				  		<div>
 				  			<div><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
 				  			<div><%= log.name %></div>
-				  			<div>to : <%= log.rece_id.name %></div>
+				  			<div>To : <%= log.rece_id.name %></div>
 				  		</div>
 				  		<hr/>
 		  	<%			}
@@ -40,5 +66,7 @@
 		  		});
 		  	%>	
 		  </div>
+		</div>
+		</div>
 		</div>
 </body>

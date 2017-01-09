@@ -21,6 +21,22 @@ exports.chatPage = function(req, res, next){
 	
 }
 
+/*mid 페이지 모달 데이터*/
+exports.chatlist = function(req, res, next){
+	var user = new User;
+	user = req.session.user_id;
+	var room = [];
+	var friends = DBchat.chatPage(user);
+
+	friends.on('end',function(err,fds){
+		if(req.session.user_id || !err){
+			console.log(fds);
+			res.render('chat/chatlist', { title: '채팅', user: user, groups : user.groups, friends : fds, rooms: room });
+		}
+	});
+	
+}
+
 exports.joinChat = function(req,res,next){
 	res.render('chat/mid', { layout: false });
 }

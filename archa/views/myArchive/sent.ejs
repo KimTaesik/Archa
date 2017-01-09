@@ -5,38 +5,96 @@
  			if(search == null || log.rece_id.name.indexOf(search)>-1 || log.rece_id.company.indexOf(search)>-1 ||log.rece_id.position.indexOf(search)>-1 || log.rece_id.email.indexOf(search)>-1 || log.name.indexOf(search)>-1){
  				if(category == 'GALLERY' && log.rtype == 'image'){
  	%>
-				  	<div class="gallery-div">
-			  			<div class="url" style="width: 30px;height: 30px;">
-			  				<img style="width: 30px;height: 30px;" alt="<%= log.name %>" src="<%= log.url %>">
-			  			</div>
-			  			<div><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
-			  			<div><%= log.name %></div>
-			  			<div>to : <%= log.rece_id.name %></div>
-			  		</div>
+						  	<div class="gallery">
+					  			<div class="url" >
+					  				<img class="gallery-image" alt="<%= log.name %>" src="<%= log.url %>">
+					  			</div>
+					  			
+					  			<!--css 수정  -->
+					  			<div class="gallerybox">
+					  			<div class="gallery-file"><%= log.name %></div>
+					  			<div class="gallery-name">From : <%= log.send_id.name %></div>
+								<div class="gallery-date"><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
+					  		</div>
+					  		</div>
  	
  	<%
  				}else if(category == 'ARCHIVE' && log.rtype != 'image'){
  	%>
-			  		<div>
-			  			<div><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
-			  			<div><%= log.name %></div>
-			  			<div>to : <%= log.rece_id.name %></div>
+ 							<div class="filebox">
+ 	%>						 <!--css ppt icon  -->
+				  			<% if(log.type == 'pptx'){ %>
+				  			<div class="url" >
+				  				<div class="pptx-image"></div>
+				  			</div>
+				  			<% } %>
+				  			<!--css xlsx icon  -->
+				  			<% if(log.type == 'xlsx'){ %>
+				  			<div class="url" >
+				  				<div class="xlsx-image"></div>
+				  			</div>
+				  			<% } %>
+				  			<!--css pdf icon  -->
+				  			<% if(log.type == 'pdf'){ %>
+				  			<div class="url" >
+				  				<div class="pdf-image"></div>
+				  			</div>
+				  			<% } %>
+				  			<!--css doc icon  -->
+				  			<% if(log.type == 'docx'){ %>
+				  			<div class="url" >
+				  				<div class="docx-image"></div>
+				  			</div>
+				  			<% } %>
+			  		<div class="textbox">
+			  			<!-- css수정  -->
+			  			<div class="file-name"><%= log.name %></div>
+			  			<div class="to-name">To : <%= log.rece_id.name %></div>
+			  			<div class="file-date"><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
 			  		</div>
-			  		<hr/>
+			  		</div>
+			  		
 	<%
 				}else if(category == 'ALL'){
 	%>
-			  		<div>
+			  		<div class="filebox">
 			  			<% if(log.rtype == 'image'){ %>
-			  			<div class="url" style="width: 30px;height: 30px;">
-			  				<img style="width: 30px;height: 30px;" alt="<%= log.name %>" src="<%= log.url %>">
+			  			<div class="url" >
+			  				<img class="url-image" alt="<%= log.name %>" src="<%= log.url %>">
 			  			</div>
 			  			<% } %>
-			  			<div><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
-			  			<div><%= log.name %></div>
-			  			<div>to : <%= log.rece_id.name %></div>
+			  				<!--css ppt icon  -->
+				  			<% if(log.type == 'pptx'){ %>
+				  			<div class="url" >
+				  				<div class="pptx-image"></div>
+				  			</div>
+				  			<% } %>
+				  			<!--css xlsx icon  -->
+				  			<% if(log.type == 'xlsx'){ %>
+				  			<div class="url" >
+				  				<div class="xlsx-image"></div>
+				  			</div>
+				  			<% } %>
+				  			<!--css pdf icon  -->
+				  			<% if(log.type == 'pdf'){ %>
+				  			<div class="url" >
+				  				<div class="pdf-image"></div>
+				  			</div>
+				  			<% } %>
+				  			<!--css doc icon  -->
+				  			<% if(log.type == 'docx'){ %>
+				  			<div class="url" >
+				  				<div class="docx-image"></div>
+				  			</div>
+				  			<% } %>
+			  			<!-- css수정  -->
+			  			<div class="textbox">
+			  			<div class="file-name"><%= log.name %></div>
+			  			<div class="to-name">To : <%= log.rece_id.name %></div>
+			  			<div class="file-date"><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
+			  			</div>
 			  		</div>
-			  		<hr/>
+			  		
  	<%			}
  				}
  			}

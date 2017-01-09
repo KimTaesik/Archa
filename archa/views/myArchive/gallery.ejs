@@ -1,24 +1,30 @@
 <body>
-		<ul class="nav nav-tabs" role="tablist" id="tabgs">
-		  <li role="presentation" style="width: 50%;" id="tabgot" class="march active"><a href="#got" aria-controls="#got" role="tab" data-toggle="tab">Got</a></li>
-		  <li role="presentation" style="width: 50%;" id="tabsent" class="march"><a href="#sent" aria-controls="#sent" role="tab" data-toggle="tab">Sent</a></li>
-		</ul>
+	<div class="nav nav-tabs" role="tablist" id="tabgs">
 		
-		<div class="tab-content">
+		<div class="col-lg-12 archiveback">
+			  <div role="presentation"  id="tabgot" class="march active"><div id="textgot" href="#got" aria-controls="#got" role="tab" data-toggle="tab">Got</div></div>
+			  <div role="presentation"  id="tabsent" class="march"><div id="textsent" href="#sent" aria-controls="#sent" role="tab" data-toggle="tab">Sent</div></div>
+			
+		 <div class="tab-content" id="tabcontent">
 		  <div role="tabpanel" class="arch-tab tab-pane active" id="got">
 		  	<%
 		  		data.forEach(function(log, index) {
 		  			if(log.rece_id.email == user){
 		  				if(log.rtype == 'image'){
 		  	%>
-						  	<div class="gallery-div">
-					  			<div class="url" style="width: 30px;height: 30px;">
-					  				<img style="width: 30px;height: 30px;" alt="<%= log.name %>" src="<%= log.url %>">
+						  	<div class="gallery">
+					  			<div class="url" >
+					  				<img class="gallery-image" alt="<%= log.name %>" src="<%= log.url %>">
 					  			</div>
-					  			<div><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
-					  			<div><%= log.name %></div>
-					  			<div>From : <%= log.send_id.name %></div>
+					  			
+					  			<!--css 수정  -->
+					  			<div class="gallerybox">
+					  			<div class="gallery-file"><%= log.name %></div>
+					  			<div class="gallery-name">From : <%= log.send_id.name %></div>
+								<div class="gallery-date"><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
 					  		</div>
+					  		</div>
+					  		
 		  	<%			}
 		  			}
 		  		});
@@ -30,18 +36,23 @@
 		  			if(log.send_id.email == user){
 		  				if(log.rtype == 'image'){
 		  	%>
-				  	<div class="gallery-div">
-			  			<div class="url" style="width: 30px;height: 30px;">
-			  				<img style="width: 30px;height: 30px;" alt="<%= log.name %>" src="<%= log.url %>">
+				  	<div class="gallery">
+			  			<div class="url">
+			  				<img class="gallery-image" alt="<%= log.name %>" src="<%= log.url %>">
 			  			</div>
-			  			<div><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
-			  			<div><%= log.name %></div>
-			  			<div>to : <%= log.rece_id.name %></div>
+			  			</div>
+			  			<div class="gallerybox">
+			  			<div class="gallery-file"><%= log.name %></div>
+			  			<div class="gallery-name">To : <%= log.rece_id.name %></div>
+						<div class="gallery-date"><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
 			  		</div>
+			  			
 		  	<%			}
 		  			}
 		  		});
 		  	%>	
 		  </div>
+		</div>
+		</div>
 		</div>
 </body>

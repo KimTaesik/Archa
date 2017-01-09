@@ -1,69 +1,53 @@
-
 <body>
-	<div class="searchDiv">
-		<input type="text" id="fileInput">
-		<!-- <button type="button" id="fileFind"></button> -->
-		<button type="button" id="rigthClose"></button>
-	</div>
-	<ul class="nav nav-tabs tabsize" role="tablist" id="myTab">
-	  <li role="presentation" class="lisize active" id="sendFile">
-		<a href="#send" aria-controls="Send" role="tab" data-toggle="tab" aria-expanded="true">
-		<span class="rightArc rightTab"></span>
-		Send
-		</a>
-	  </li>
-	  <li role="presentation" class="lisize" id="receiveFile">
-		<a href="#receive" aria-controls="Receive" role="tab" data-toggle="tab">
-		<span class="rightRec rightTab"></span>
-		Receive
-		</a>
-	  </li>
-	</ul>
-	
-	<div class="tab-content" id="rightContent">
-	  <div role="tabpanel" class="tab-pane active" id="send">
-	  	<%
-	  		data.forEach(function(log, index) {
-	  			if(log.send_id.email == user.email){
-	  	%>
-			  		<div style="border: soild 1px;">
-			  			<% if(log.rtype == 'image'){ %>
-			  			<div class="url">
-			  				<img alt="<%= log.name %>" src="<%= log.url %>">
-			  			</div>
-			  			<% } %>
-			  			<span><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></span>
-			  			<h4><%= log.name %></h4>
-			  			<span>to : <%= log.rece_id.name %></span>
-			  			<a type="button" href="<%= log.url %>" style="float:right;">Down</a>
-			  		</div>
-			  		<hr/>
-	  	<%
-	  			}
-	  		});
-	  	%>	  
-	  </div>
-	  <div role="tabpanel" class="tab-pane" id="receive">
-	  	<%
-	  		data.forEach(function(log, index) {
-	  			if(log.rece_id.email == user.email){
-	  	%>
-			  		<div style="border: soild 1px;">
-			  			<% if(log.rtype == 'image'){ %>
-			  			<div class="url">
-			  				<img alt="<%= log.name %>" src="<%= log.url %>">
-			  			</div>
-			  			<% } %>
-			  			<span><%= log.date %></span>
-			  			<h4><%= log.name %></h4>
-			  			<span>From : <%= log.send_id.name %></span>
-			  			<a type="button" href="<%= log.url %>" style="float:right;">Down</a>
-			  		</div>
-			  		<hr/>
-	  	<%
-	  			}
-	  		});
-	  	%>
-	  </div>
-	</div>
+
+<div class="roomArchivetitle fleft" id="roomArchive">Archive</div>
+
+<div class="close" id="rigthClose">X</div>
+
+<hr/>
+
+<div class="roomArchive">
+
+<%
+
+    data.forEach(function(log, index) {
+
+        if(search == null || log.send_id.name.indexOf(search)>-1 || log.rece_id.name.indexOf(search)>-1|| log.name.indexOf(search)>-1 ){
+
+            if(log.rtype != 'image'){
+
+%>
+
+                 <div>
+
+                     <div><%= log.name %></div>
+
+                     <% if(log.send_id.email == user){ %>
+
+                     <div>to : <%= log.rece_id.name %></div>
+
+                     <% }else{ %>
+
+                     <div>from : <%= log.send_id.name %></div>
+
+                     <% } %>
+
+                     <div><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
+
+                     <!-- <a type="button" href="<%= log.url %>" style="float:right;">Down</a> -->
+
+                 </div>
+
+                 <hr/>
+
+<%            }    
+
+        }
+
+    });
+
+%>        
+
+</div>
+
 </body>

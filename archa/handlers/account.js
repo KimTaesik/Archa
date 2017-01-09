@@ -179,3 +179,15 @@ exports.deleteFriend = function(req, res, next){
 	
 }
 
+/* chatlist  2016_12_01 */
+exports.chatlist = function(req, res, next){
+
+	var user = req.session.user_id;
+	var friends = DBchat.chatPage(user);
+	friends.on('end', function(err, fds){
+		if(!err){
+			res.render('account/chatlist', { layout: false, title: '채팅', user: user, groups:user.groups, friends: fds });
+		}
+	});
+}
+

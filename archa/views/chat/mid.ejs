@@ -1,11 +1,46 @@
 <body>
 	<section class="topSection fright">
 		<div class="dropdown fleft" hidden="true">
-		  <button class="roomUser dropdown-toggle" type="button" id="roomInfo" style="width:10%;" data-toggle="dropdown" aria-expanded="true">
+		<div id="room-image"></div>
+		  <button class="roomUser dropdown-toggle" type="button" id="roomInfo"  data-toggle="dropdown" aria-expanded="true">
 		    <span class="caret"></span>
 		  </button>
 		  <ul class="dropdown-menu userInfo" role="menu" aria-labelledby="dropdownMenu1">
 		  </ul>
+		 
+		 				<!-- 채팅방인원 modal  2016.12.01 -->	  
+						<!-- Modal -->
+					  <div class="modal fade" id="myModal" role="dialog">
+					<!--     <div class="modal-dialog">
+					    Modal content
+					      <div class="modal-content">
+					        <div class="modal-header">
+					          <button type="button" class="close" data-dismiss="modal">&times;</button>
+					          <h4 class="modal-title">Invite new member</h4>
+					        </div>
+					        <div class="modal-body">
+					        
+					          <div class="col-md-6 member-select">meberSelect
+					          
+					          <div class=""></div>
+					          <div id="group-img"> </div>
+					          <div class=""></div>
+					          <div class=""></div>
+					          
+					          </div>
+					          <div class="col-md-6 select-list">selectList</div>
+					          
+					        </div>
+					        <div class="modal-footer">
+					          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					        </div>
+					      </div>    
+					    </div> -->
+					  </div> 
+		  
+		  
+		  
+		  
 		</div>
 		<input type="text" id="room" disabled="disabled">
 
@@ -22,7 +57,8 @@
 		    </form> -->
 		    
 		<div class="roomOption fright">
-			<div class="dropdown fright" style="width:15%;">
+		<div id="chatbar"></div>
+			<div class="dropdown fright">
 			  <button class="setting dropdown-toggle" type="button" id="setting" data-toggle="dropdown" aria-expanded="true">
 			  </button>
 			  <ul class="setList dropdown-menu" role="menu" style="min-width: 20px;padding: 0;margin: 0;">
@@ -32,7 +68,8 @@
 			  	</li>
 			  </ul>
 			</div>
-			<button type="button" class="noti fright"></button>
+			<input class="noti fright" type="text" class="form-control" placeholder="search">
+			<!-- <button type="button" class="noti fright"></button> -->
 			<input type="hidden" id='joinRoom'>
 		</div>
 		
@@ -53,12 +90,12 @@
 		</div>
 	</section>
 	<div class ="msgbox " id="messages"></div>
-	<div class="actionBox">
+	<div class="actionBox"> 
 		<div class="dropup fleft" id="plus">
 			<button class="plusbtn btn dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true">
 				<span class="caret"></span>
 			</button>
-			<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+			<div class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 				<form enctype="multipart/form-data" id="fileInfo">
 					<input type="hidden" id='you' name='you'>
 					<input type="hidden" id='me' name='me'>
@@ -66,7 +103,7 @@
 					<input type="file" id="file" name="userfile">
 					<button id="fileSend" class="send" type="button">파일전송</button>
 				</form>
-			</ul>
+			</div>
 		</div>
 		<input type="text" id="inputMe" class="msg">
 		<button id="btnSend" class="sendBtn" type="button"></button>

@@ -2,21 +2,32 @@
 $(document).ready(function() {
 			
 			$('#leftSection').css('height' ,  $(window).height() );
+			$('#friendlist').css('height' ,  $(window).height() - 465);
 			$('.searchResult,#room-list').css('height' ,  $(window).height()-$('#setGroup').height()-$('.menuTop').height()-$('.memberSection').height()-$('.myInfo').height()-$('.nav').height() -67 );
-			
+		/*	$('.topMenu').css('width', $(window).width()-$('#leftSection').width());*/
 			$(window).resize(function() {
 				$('#leftSection').css('height' ,  $(window).height());
+				$('#friendlist').css('height' ,  $(window).height() - 465);
+				/*$('.topMenu').css('width', $(window).width()-$('#leftSection').width());*/
             	$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-$('.topMenu').height());
-            	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -10);
-            	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-20 );
+            	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -10);
+            	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-10);*/
 				$('.searchResult,#room-list').css('height' ,  $(window).height()-$('#setGroup').height()-$('.menuTop').height()-$('.memberSection').height()-$('.myInfo').height()-$('.nav').height() -67);
+            	$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()); 
+            	$('.archiveback').css('height', $(window).height() - $('.topMenu').height()-$('.mySection').height());
+            	$('#dataList').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()); 
+            	/*$('.mySection').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
 				if($('#rightSection').width()>10){
 					$('#rightSection').css('width' ,  185 );
 	            	$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-$('.topMenu').height());
-	            	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -10);
-	            	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-20 );
+/*	            	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-10);
+	            	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-10 );*/
 					$('#rightSection').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-20);
 					$('#rightContent').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-$('#myTab').height()-30);
+	            	$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
+	            	$('.archiveback').css('height', $(window).height() - $('.topMenu').height()-$('.mySection').height());
+	            	$('#dataList').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()); 
+	            	/*$('.mySection').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
 				}
 			});
 			
@@ -108,7 +119,7 @@ $(document).ready(function() {
 		    	$('#rightSection').css('width' ,  185 );
 		    	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-20 );
 		    	$('#rightSection').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-20);
-		    	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-20 );
+		    	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-20 );*/
 		        $.ajax({
 		            type: "post",
 		            url: "/search",
@@ -324,7 +335,7 @@ $(document).ready(function() {
 		    /*
 		     * 좌측에서 친구 리스트 가져옴
 		     */
-		    $('#leftSection').on("click","#getFriendList",function(e) {
+		    $('#leftSection').on("click","#getcontacts",function(e) {
 		    	var search = $("#inputAll").val();
 		        $.ajax({
 		            type: "post",
@@ -462,6 +473,9 @@ $(document).ready(function() {
 			 * 단, 메시지를 보내야 채팅방이 생성됌
 			 */
 			$( "#leftSection" ).on( "dblclick", ".has-sub", function( event ) {
+				
+				$('.group-img').css('border','none')
+				
 			    event.preventDefault();
 			    $('#room').val('');
 			    var you = $(this).attr("id");
@@ -476,9 +490,11 @@ $(document).ready(function() {
 		            url: "/joinChat",
 		            success: function(result,status,xhr){
 		            	$(".background").html(result);
-		            	$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-30);
-		            	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);
-		            	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);
+		            	/*$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-30);*/
+		            	$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-$('.topMenu').height());
+		            	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
+		            	/*	$('.mid').css('margin-left' , -15);*/
+		            	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
 					    $("#messages").empty();
 					    socket.emit('join', room, me);		            	
 		            },
@@ -501,8 +517,8 @@ $(document).ready(function() {
 		            success: function(result,status,xhr){
 		            	$(".background").html(result);
 		            	$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-30);
-		            	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);
-		            	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);
+		            	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -10);
+		            	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -10);
 					    $("#messages").empty();
 					    socket.emit('rejoin', roomName,me);	            	
 		            },
@@ -510,7 +526,7 @@ $(document).ready(function() {
 		        });
 			});			
 			/*
-			 * 그냥 채팅룸 뷰 닫는거
+			 * 그냥 채팅룸 뷰 닫는거$( "#leftSection" ).on( "dblclick", ".has-sub", function( event ) {
 			 */
 			$('.topSection').on('click', '#roomClose', function(e){
 		    	$('.background, .userInfo').empty();
@@ -557,7 +573,7 @@ $(document).ready(function() {
 			/*
 			 * 왼쪽 방 정보 가져오기.
 			 */
-		    $('#leftSection').on("click","#getRoomList",function(){
+		    $('#leftSection').on("click","#getmessages",function(){
 		    	socket.emit('rooms', $('.myInfoView').attr("id"));
 //				setInterval(function() {
 //					socket.emit('rooms', $('.myInfoView').attr("id"));
@@ -769,14 +785,17 @@ $(document).ready(function() {
 		            url: "/myArchive",
 		            success: function(result,status,xhr){
 		            	$(".background").html(result);
-		            	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);
+		            	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
+		            	$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
+		            	$('.archiveback').css('height', $(window).height() - $('.topMenu').height()-$('.mySection').height());
+		            	/*$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-$('.topMenu').height());*/
 		            },
 		            error: function(xhr, status, er){}
 		        });
 
 			});
 			
-			/**
+			/*
 			 * 아카이브 탭 got / sent 클릭시 카테고리 구분하여 불러옴......
 			 */
 			$(".mid").on("click", ".march", function(event){
@@ -786,11 +805,14 @@ $(document).ready(function() {
 				var div;
 				
 				if(url=='tabgot'){
-					div = $('#got');
-				}else{
-					div = $('#sent');
-				}
-					
+                    div = $('#got');
+                    $('#got').show();
+                    $('#sent').hide();
+                }else{
+                    div = $('#sent');
+                    $('#sent').show();
+                    $('#got').hide();
+                }
 		        $.ajax({
 		            type: "post",
 		            url: "/"+url,
@@ -801,6 +823,26 @@ $(document).ready(function() {
 		            error: function(xhr, status, er){}
 		        });				
 			});
+			/*
+			 * 아카이브 탭 got / sent 클릭시 css......
+			 */
+			$(".mid").on("click", "#tabgot", function(event){
+	
+				$("#tabsent").css({backgroundColor: '#CFD8DC'});
+				$("#tabgot").css({backgroundColor: 'white'});
+				$("#tabgot").css({color:  '#4A7DFF'});
+				$("#tabsent").css({color: '#78909C'});
+			});
+			
+			$(".mid").on("click", "#tabsent", function(event){
+
+				$("#tabgot").css({backgroundColor: '#CFD8DC'});
+				$("#tabsent").css({backgroundColor: 'white'});
+				$("#tabsent").css({color: '#4A7DFF'});
+				$("#tabgot").css({color: '#78909C'});
+			});
+			
+			
 			/*
 			 * 아카이브 카테고리 변경시 변경
 			 */
@@ -814,9 +856,14 @@ $(document).ready(function() {
 		            url: "/"+url,
 		            success: function(result,status,xhr){
 		            	$("#dataList").html(result);
+		            	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
+		            	$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
+		            	$('.archiveback').css('height', $(window).height() - $('.topMenu').height()-$('.mySection').height());
+		            	
 		            }
 		        });
 			});
+			
 			/*
 			 * 알람 뷰
 			 */
@@ -938,4 +985,67 @@ $(document).ready(function() {
 			$(document).on('click', '#tabalarm li', function (e) {
 				  e.stopPropagation();
 			});
+			
+			
+			/*  채팅방목록 모달 2016_11_25 NA*/
+
+				$('.mid').on('click', '#chativ', function(e){
+						alert('invite click'); 
+						e.preventDefault();
+						var femail = $(this).attr("class");
+						alert($(this).attr("class"));
+				        $.ajax({
+				            type: "post", 
+				            url: "/chatlist",
+				            data : { "friend" : femail },
+				            success: function(result,status,xhr){
+				            	alert("ajax success");
+				            	$("#myModal").html(result);
+				            	$("#myModal").modal();
+				            },
+				            error: function(xhr, status, er){}
+				        });
+					});
+				/* archive mouseover 2016-01-06 */
+				
+				$(".mid").on("mouseenter",".filebox", function(event){
+	
+					var icon= '<div id="archive-icon">\
+							   <div id="archive-delete"></div>\
+			  				   <div id="archive-link"></div>\
+			  				   <div id="archive-download"></div></div>';
+
+					$(this).append(icon);
+					
+			});
+				$(".mid").on("mouseleave",".filebox", function(event){
+					
+					$(this).find("#archive-delete").remove();
+					$(this).find("#archive-link").remove();
+					$(this).find("#archive-download").remove();
+
+			});
+				
+				/* gallery mouseover 2016-01-06 */
+				
+				$(".mid").on("mouseenter",".gallery", function(event){
+	
+					var icon= '<div id="gallery-icon">\
+							   <div id="gallery-delete"></div>\
+			  				   <div id="gallery-link"></div>\
+			  				   <div id="gallery-download"></div></div>';
+
+					$(this).append(icon);
+					
+			});
+				$(".mid").on("mouseleave",".gallery", function(event){
+					
+					$(this).find("#gallery-delete").remove();
+					$(this).find("#gallery-link").remove();
+					$(this).find("#gallery-download").remove();
+
+			});
+
+				
+
 });
