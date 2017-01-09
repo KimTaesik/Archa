@@ -155,41 +155,14 @@ exports.deleteFriend = function(user, friend){
 	var evt = new EventEmitter();
 	
 	User.findOne({'email':friend}).exec(function(err,friend){
-		User.update({'email':user.email}, { $pull: { 'friends': { 'friend' : friend._id } } })
-		.exec(function(err,result){
-			if(err) console.log(err);
-			
-			if(result.nModified == 1){
-				var fd = new Friend({
-					friend: friend,
-					groupname : friend.friends.groupname
-				})
-				user.friends.pull({friend:friend});
-			}
+		User.findOneAndUpdate({'email': user.email}, { $pull:{'request':{'email':you}} },{upsert: true, 'new': true})
+		.populate({
+			path	: 'friends.friend'
+		}).exec(function(err, doc){
+			req.session.user_id = doc;
 			evt.emit('end',err,user,user.friends);
 		});
 	});
 	return evt;
-	
-	
-//	User.findOne({'email':me.email}).exec(function(err,user){
-//		User.findOne({'email': friend }).exec(function(err,friends){
-//			if(friends){
-//				user.friends.pull(friends);
-//				user.save(function(err){
-//					if(err){
-//						console.log(err);
-//						res.redirect('/chatPage',{ saveFail : '실패' });
-//						return;
-//					}
-//					req.session.user_id = user;
-//					res.redirect('/chatPage');
-//				});
-//			}else{
-//				console.log(err);
-//			}
-//			return;
-//		});
-//	});	
 }
 

@@ -142,27 +142,7 @@ $(document).ready(function() {
 		    	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() );
 		    });
 		    
-		    /*
-		     * 우측 섹션에 아카이브 공간 보여줌.
-		     */
-/*		    $('.topSection').on('click', '#archive', function(e){
-		    	$('#rightSection').css('width' ,  185 );
-		    	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-30 );
-		    	$('#rightSection').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-20);
-		    	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);
-		    	e.preventDefault();
-		    	var room = $('#thisRoom').val();
-		        $.ajax({
-		            type: "post",
-		            url: "/archive",
-		            data: { "room":room },
-		            success: function(result,status,xhr){
-		            	$('#rightSection').html(result);
-		            	$('#rightContent').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-$('#myTab').height()-30);
-		            },
-		            error: function(xhr, status, er){}
-		        });
-		    });*/
+
 		    /*
 		     * 사람초대, 친구목록 가져옴. 이 채팅방 이외의 사람들을 보여줘야지
 		     * 
@@ -192,29 +172,7 @@ $(document).ready(function() {
 				socket.emit('inviteRoom', room, arrayParam);
 				
 			});
-/*		    $('#rightSection').on( "click", "#fileMessageFind", function( event ) {
-		    	event.preventDefault();
-		    	var search = $("#fileMessageInput").val();
-		    	var room = $('#thisRoom').val();
-		    	var url = $("ul#myTab li.active").attr('id');
-		    	var div;
-		    	if(url=='searchMessage'){
-		    		div = $('#messageSec');
-		    	}else{
-		    		div = $('#fileSec');
-		    	}
-		 
-		        $.ajax({
-		            type: "post",
-		            url: "/"+url,
-		            data: { "inputSearchRight": search, "room":room },
-		            success: function(result,status,xhr){
-		            	div.html(result);
-		            },
-		            error: function(xhr, status, er){}
-		        });
-		    });*/
-		    
+		  
 			/*
 			 * 우측검색에서 아카이브에서 검색하는지, 메시지로그에서 검색하는지 구분하여 검색
 			 * 
@@ -244,23 +202,6 @@ $(document).ready(function() {
 					}
 				}
 			});		    
-		    
-		    /*
-		     * 메시지 엔터
-		     */
-			$("#inputMe").keyup(function(key){
-				if($("#inputMe").val()){
-				  if(key.keyCode==13){
-					var message = {
-							email : $(".myInfoView").attr('id'),
-					        me  : $("#userId").val(),
-					        msg: $("#inputMe").val()
-					};
-				    socket.emit('message', message);
-				    $("#inputMe").val("");
-				  }
-				}
-			});
 			
 			/*
 			 * 파일 검색하는데 있어서 받은건지 보낸건지 구분해줘서 검색
@@ -290,30 +231,6 @@ $(document).ready(function() {
 					}
 				}
 			});
-			
-/*		    $('#rightSection').on( "click", "#fileFind", function( event ) {
-		    	event.preventDefault();
-		    	var search = $("#fileInput").val();
-		    	var room = $('#thisRoom').val();
-		    	var url = $("ul#myTab li.active").attr('id');
-		    	var div;
-		    	
-		    	if(url=='sendFile'){
-		    		div = $('#send');
-		    	}else{
-		    		div = $('#receive');
-		    	}
-		 
-		        $.ajax({
-		            type: "post",
-		            url: "/"+url,
-		            data: { "input": search, "room":room },
-		            success: function(result,status,xhr){
-		            	div.html(result);
-		            },
-		            error: function(xhr, status, er){}
-		        });
-		    });	*/
 		    
 			/*
 			 * 모든 친구검색. 아마 고쳐지거나 사라질려나?
@@ -439,10 +356,13 @@ $(document).ready(function() {
 			$(".mid").on('keyup','#inputMe',function(key){
 				if($("#inputMe").val()){
 				  if(key.keyCode==13){
+					var id = $('#you').val();
 					var message = {
+							type	: 'text',
 							email : $(".myInfoView").attr('id'),
 					        me  : $("#userId").val(),
-					        msg: $("#inputMe").val()
+					        msg: $("#inputMe").val(),
+					        yourName : $(this).attr("name")
 					};
 				    socket.emit('message', message);
 				    $("#inputMe").val("");
@@ -450,23 +370,6 @@ $(document).ready(function() {
 				}
 			});
 			
-			/*
-			 * 센드버튼 누를때 메시지 전송
-			 */
-			$(".mid").on('click', "#btnSend",function(){
-				var email = $(".myInfoView").attr('id');
-				var me = $("#userId").val();
-				if($("#inputMe").val()){
-				    var message = {
-				    		type	: 'text',
-				    		email	: email,
-				            me		: me,
-				            msg		: $("#inputMe").val()
-				    };
-					socket.emit('message', message);
-					$("#inputMe").val("");
-				}
-			});
 			/*
 			 * 왼쪽 친구리스트에서 친구를 더블클릭 했을시
 			 * 채팅방 뷰가 생성되면서 채빙방 입장.
@@ -480,6 +383,7 @@ $(document).ready(function() {
 			    $('#room').val('');
 			    var you = $(this).attr("id");
 			    var me = $('.myInfoView').attr("id");
+			    var youName = $(this).children("#group-profile").children("#fname").attr("class");
 			    var room = {
 			    		you : you,
 			    		me : me
@@ -488,6 +392,7 @@ $(document).ready(function() {
 		        $.ajax({
 		            type: "post",
 		            url: "/joinChat",
+		            data:{ "yourName": youName },
 		            success: function(result,status,xhr){
 		            	$(".background").html(result);
 		            	/*$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-30);*/
@@ -496,7 +401,7 @@ $(document).ready(function() {
 		            	/*	$('.mid').css('margin-left' , -15);*/
 		            	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
 					    $("#messages").empty();
-					    socket.emit('join', room, me);		            	
+					    socket.emit('join', room, me, youName);		     	
 		            },
 		            error: function(xhr, status, er){}
 		        });
@@ -525,27 +430,14 @@ $(document).ready(function() {
 		            error: function(xhr, status, er){}
 		        });
 			});			
-			/*
-			 * 그냥 채팅룸 뷰 닫는거$( "#leftSection" ).on( "dblclick", ".has-sub", function( event ) {
-			 */
-			$('.topSection').on('click', '#roomClose', function(e){
-		    	$('.background, .userInfo').empty();
-		    	$('#roomInfo').text('');
-		    	$('#room').val('');
-		    	var me = $('.myInfoView').attr("id");
-		    	var room = $('#joinRoom').val();
-		    	socket.emit('roomOut', room, me);
-			});
-			/*
-			 * 
-			 */
-			$('.topSection').on('dblclick', '#room', function(){
+
+			$('.mid').on('dblclick', '#room', function(){
 				$('#room').attr("disabled",false);
 			});
 			/*
 			 * 채팅방 이름 개인설정. 채팅방 이름 더블클릭하면 수정 가능
 			 */
-			$('.topSection').on("keyup", "#room",function(key){
+			$('.mid').on("keyup", "#room",function(key){
 				if($("#room").val()){
 					if(key.keyCode==13){
 						var id = $('.myInfoView').attr("id");
@@ -705,7 +597,7 @@ $(document).ready(function() {
 			/*
 			 * 친구 이름 누르면 정보를 모달로 띄움 ^^
 			 */
-			$('#leftSection').on('click', '#fname', function(e){
+/*			$('#leftSection').on('click', '#fname', function(e){
 				e.preventDefault();
 				var femail = $(this).attr("class");
 		        $.ajax({
@@ -719,60 +611,7 @@ $(document).ready(function() {
 		            },
 		            error: function(xhr, status, er){}
 		        });
-			});
-			/**
-			 * message search 테스트용
-			 */
-			
-	        lstEl = null;
-	        cntr = -1;
-	        $(".mid").on('click', '#btnSearch', function() {    	
-		        var vl = $('#searchTerm').val();
-		        $("#messages").removeHighlight();
-		        $("#messages").highlight(vl);
-		    });
-		 
-		    $('#btnNext').on('click', function() {
-		        if (lstEl === null) {
-		        	alert(lstEl);
-		            lstEl = $('#messages').find('span.highlight');
-		            if (!lstEl || lstEl.length === 0) {
-		                lstEl = null;
-		                return;
-		            }
-		        }
-		        if (cntr < lstEl.length - 1) {
-		            cntr++;
-		            if (cntr > 0) {
-		                $(lstEl[0]).removeClass('current');
-		            }
-		            var elm = lstEl[cntr];
-		            $(elm).addClass('current');
-		        } else
-		            alert("End of search reached!");
-		    });
-		 
-		    $('#btnPrev').on('click',function() {
-		        if (lstEl === null) {
-		            lstEl = $('#messages').find('span.highlight');
-		            if (!lstEl || lstEl.length === 0) {
-		                lstEl = null;
-		                return;
-		            }
-		        }
-		        if (cntr > 0) {
-		            cntr--;
-		            if (cntr < lstEl.length) {
-		                $(lstEl[cntr + 1]).removeClass('current');
-		            }
-		            var elm = lstEl[cntr];
-		            $(elm).addClass('current');
-		        } else
-		            alert("Begining of search!");
-		    });
-		    /**
-		     * 여기까지 테스트용
-		     */
+			});*/
 		    
 		    /**
 		     * 새로운 아카이브 화면
@@ -967,18 +806,40 @@ $(document).ready(function() {
 		     */
 		    $('.mid').on("click", ".addRelation", function(e){
 		    	var id = $(this).attr("id");
+		    	var name = $(".myInfoView").children("#name").attr("class");
+		    	var company = $(".myInfoView").children("#company").attr("class");
+		    	var position = $(".myInfoView").children("#position").attr("class");
 		    	$('.background').empty();
-		    	socket.emit('newRelation', id);
+		    	socket.emit('newRelation', id, name, company, position);
 		    });
 		    /*
 		     * 알람->리퀘스트에서 Connect를 누르면 서로 친구추가해주긔
 		     */
 		    $('.topMenu').on("click", ".conn", function(e){
 		    	e.preventDefault();
-		    	var id = $(this).attr("id");
-		    	var me = $('.myInfoView').attr("id");
-		    	socket.emit('requestConn',id,me);
+		    	var friend = $(this).attr("id");
+		        $.ajax({
+		            type: "post",
+		            url: "/connFriend",
+		            data: { 'friendId':friend },
+		            success: function(result,status,xhr){
+		            	$(".searchResult").html(result);
+		            	
+//		            	socket.emit('connHistory',id,me);
+		            },
+		            error: function(xhr, status, er){}
+		        });
+		    	
 		    });
+		    /*
+		     * 알람에서 dec클릭하면 지움
+		     */
+		    
+		    $('.topMenu').on("click", ".dec", function(e){
+		    	e.stopPropagation();
+		    	$(this).parent().remove();
+		    	socket.emit('decline', $(this).attr("id"));
+		    });		    
 			/*
 			 * 드롭다운 클릭해도 사라지지않게
 			 */
@@ -1045,7 +906,275 @@ $(document).ready(function() {
 					$(this).find("#gallery-download").remove();
 
 			});
-
+			/*
+			 * 친구 프로필 클릭하면 우측에 생성
+			 */
+/*			$('#leftSection').on('click', '.has-sub', function(e){
+				$('#rightSection').css('width' ,  185 );
+				$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-30 );
+				$('#rightSection').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-20);
+				$('.actionBox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);
+				e.preventDefault();
+				var room = $('#thisRoom').val();
+				var id = $(this).attr("id");
+			    $.ajax({
+			        type: "post",
+			        url: "/friendInfo",
+			        data: { "room":room , "friend" : id },
+			        success: function(result,status,xhr){
+			        	$('#rightSection').html(result);
+			        	$('#rightContent').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-$('#myTab').height()-30);
+			        },
+			        error: function(xhr, status, er){}
+			    });
+			});*/
+			/*
+			 * 룸아카이브 선택시 여러가지......시발
+			 */
+			$('.mid').on('click', '.roomRight', function(e){
+				$('#rightSection').css('width' ,  185 );
+				$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-30 );
+				$('#rightSection').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-20);
+				$('.actionBox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);
+				e.preventDefault();
+				var room = $('#thisRoom').val();
+				var url = $(this).attr("id");
 				
+			    $.ajax({
+			        type: "post",
+			        url: "/"+url,
+			        data: { "room":room },
+			        success: function(result,status,xhr){
+			        	$('#rightSection').html(result);
+			        	$('#rightContent').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-$('#myTab').height()-30);
+			        },
+			        error: function(xhr, status, er){}
+			    });
+			});		
+			/*
+			 * 응~ 룸 아카이브 검색~
+			 */
+			var lstEl = null;
+			var cntr = -1;
+			$('.mid').on('keyup', '#searchRoomArchive', function(key){
+				var sp = $(this).val().split(":");
+				if(key.keyCode==13){
+					if(sp[0] == 'file' || sp[0] == 'gallery' || sp[0] == 'url'){
+						var url;
+						var search;
+						switch(sp[0]){
+							case 'file'		: url = 'roomArchive'; search = sp[1]; break;
+							case 'gallery'	: url = 'roomGallery'; search = sp[1]; break;
+							case 'url'		: url = 'roomLinks';   search = sp[1]; break;
+//								default	: url = $('.roomArchivetitle').attr("id"); search = $('#searchRoomArchive').val();
+						}
+						var room = $('#thisRoom').val();
+//							var search = $('#searchRoomArchive').val();
+					    $.ajax({
+					        type: "post",
+					        url: "/"+url,
+					        data: { "room":room, "search":search },
+					        success: function(result,status,xhr){
+								$('#rightSection').css('width' ,  185 );
+								$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-30 );
+								$('#rightSection').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-20);
+								$('.actionBox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);
+					        	$('#rightSection').html(result);
+					        	$('#rightContent').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-$('#myTab').height()-30);
+					        },
+					        error: function(xhr, status, er){
+					        	/*console.log("code:"+xhr.status+"\n"+"message:"+xhr.responseText+"\n"+"error:"+er);*/
+					        }
+					    });
+					}else{
+						$("#messageSearch,#closeSearchMsg").show();
+						lstEl = null;
+						cntr = -1;
+						var vl = $(this).val();
+						$(".talk").removeHighlight();
+						$(".talk").highlight(vl);
+						if (lstEl === null) {
+							lstEl = $('.talk').find('span.highlight');
+							$("#lengthSearch").val(lstEl.length);
+							$("#countNum").val(lstEl.length==0? 0:1);
+							if (!lstEl || lstEl.length === 0) {
+								lstEl = null;
+								return;
+							}
+						}
+					}  
+				}
+			});
+			$('.mid').on('click','#closeSearchMsg',function(){
+				lstEl = null;
+				cntr = -1;
+				$(".talk").removeHighlight();
+				$(this).hide();
+				$('#messageSearch').hide();
+			});
+			$(".mid").on("click", '#btnNext', function(){
+				if (cntr < lstEl.length - 1) {
+					if($('.highlight').hasClass('this')){
+						$('.highlight').removeClass('this');
+					}
+					cntr++;
+					$("#countNum").val(cntr+1);
+					if (cntr > 0) {
+//					      $('#messages').animate({ scrollTop : $(".this").offset().top }, 400);
+						$(lstEl[0]).removeClass('current');
+					}
+					var elm = lstEl[cntr];
+					$(elm).addClass('current');
+					$(elm).addClass('this');
+					var position = $(".this").position(); // 위치값
+					$('#messages').animate({ scrollTop : position.top }, 400);
+				}else alert("End of search reached!");
+			});
+				
+			$(".mid").on("click", '#btnPrev', function(){
+				if (cntr > 0) {
+					if($('.highlight').hasClass('this')){
+						$('.highlight').removeClass('this');
+					}
+					cntr--;
+					$("#countNum").val(cntr+1);
+					if (cntr < lstEl.length) {
+						$(lstEl[cntr + 1]).removeClass('current');
+					}
+					var elm = lstEl[cntr];
+					$(elm).addClass('current');
+					$(elm).addClass('this');
+					var position = $(".this").position(); // 위치값
+					$('#messages').animate({ scrollTop : position.top }, 400);
+				} else alert("Begining of search!");
+			});
+				
+			jQuery.fn.highlight = function(pat) {
+				 function innerHighlight(node, pat) {
+				  var skip = 0;
+				  if (node.nodeType == 3) {
+				   var pos = node.data.toUpperCase().indexOf(pat);
+				   pos -= (node.data.substr(0, pos).toUpperCase().length - node.data.substr(0, pos).length);
+				   if (pos >= 0) {
+				    var spannode = document.createElement('span');
+				    spannode.className = 'highlight';
+				    var middlebit = node.splitText(pos);
+				    var endbit = middlebit.splitText(pat.length);
+				    var middleclone = middlebit.cloneNode(true);
+				    spannode.appendChild(middleclone);
+				    middlebit.parentNode.replaceChild(spannode, middlebit);
+				    skip = 1;
+				   }
+				  }
+				  else if (node.nodeType == 1 && node.childNodes && !/(script|style)/i.test(node.tagName)) {
+				   for (var i = 0; i < node.childNodes.length; ++i) {
+				    i += innerHighlight(node.childNodes[i], pat);
+				   }
+				  }
+				  return skip;
+				 }
+				 return this.length && pat && pat.length ? this.each(function() {
+				  innerHighlight(this, pat.toUpperCase());
+				 }) : this;
+				};
 
+				jQuery.fn.removeHighlight = function() {
+				 return this.find("span.highlight").each(function() {
+				  this.parentNode.firstChild.nodeName;
+				  with (this.parentNode) {
+				   replaceChild(this.firstChild, this);
+				   normalize();
+				  }
+				 }).end();
+				};
+		    /*
+		     * 우측섹션 열린거 닫는거
+		     */
+		    $('.mid').on('click','#rigthClose', function(){
+		    	$('#rightSection').empty();
+		    	$('#rightSection').css('width' , 0);
+		    	$('#rightSection').css('height', 0);
+		    	$('.actionBox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);
+		    	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-20 );
+		    	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -30);
+		    });
+		    
+		    /*
+		     * room search autocomplete
+		     */
+		    $('.mid').on('keyup', '#searchRoomArchive', function(e){
+		    	e.preventDefault();
+		    	if($(this).val().length<5){
+		    		$(this).autocomplete({ disabled: false });
+		    		$(this).attr({
+		    			autocomplete: "on",
+		    			autocapitalize: "on",
+		    			autocorrect: "on"
+		    		});
+			    	var result = [];
+				       $('#searchRoomArchive').autocomplete({
+				            source: function (request, response) {
+				                result = [{
+				                	"id"	: "1",
+				                    "name"	: "file:",
+				                    "value"	: "file:"
+				                }, {
+				                	"id"	: "2",
+				                    "name"	: "gallery:",
+				                    "value"	: "gallery:"
+				                }, {
+				                	"id"	: "3",
+				                    "name"	: "url:",
+				                    "value"	: "url:"
+				                }];
+				                
+				                response(result);
+				                return;
+				            },
+				            select: function (e, ui) {
+				            	e.preventDefault();
+				            	$('#searchRoomArchive').val(ui.item.label+$('#searchRoomArchive').val());
+				            }
+				        });	
+		    		
+		    	}else{
+		    		$(this).autocomplete({ disabled: true });
+		    		$(this).attr({
+		    			autocomplete: "off",
+		    			autocapitalize: "off",
+		    			autocorrect: "off"
+		    		});
+		    	}
+		    });
+		    
+		    /*
+		     * 유저 프로필 이미지 전송
+		     */
+		    $('#leftSection').on("click", "#profile_view", function(e){
+		    	if (this === e.target) {
+		    		$('#profile_img_input').trigger("click");
+		    	}
+		    });
+
+		    $('#leftSection').on('change', '#profile_img_input', function(event){
+		    	event.preventDefault();
+
+		        var data = new FormData();
+		        var filesList =  document.getElementById('profile_img_input');
+		        
+		        for (var i = 0; i < filesList.files.length; i ++) {
+		            data.append('userfile', filesList.files[i]);
+		        }
+		        $.ajax({
+		            url			:	"/userProfileImg",	
+		            processData	:	false,
+		            type		:	'POST',
+		            contentType	:	false,
+		            data		:	data,
+		            datatype	:	"json",
+		            success		:	function(data,status,xhr){
+		            	$('#profile_view').css('background-image','url('+data);
+		            }
+		        });
+		    });
 });

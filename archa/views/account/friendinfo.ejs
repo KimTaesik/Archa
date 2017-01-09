@@ -1,63 +1,22 @@
-<head>
-<script type="text/javascript">
-$(function() {
-
-	$('.toggle-btn').click(function() {
-	  $('.filter-btn').toggleClass('open');
-	});
-	
-	$('.filter-btn a').click(function() {
-	  $('.filter-btn').removeClass('open');
-	});
-	
-	$('.chatbtn').click(function() {
-	  $('.tasks li:not(.chatbtn)').slideUp(300, function() {
-	    $('.chatbtn').slideDown(300);
-	  });
-	});
-	  
-});
-</script>
-</head>
 <body>
-		  <div class="modal-dialog">
-		    <div class="modal-content">
-		      <div class="modal-body">
-
-				<div class="muck-up">
-				  <div class="overlay"></div>
-				  <div class="top">
-				    <div class="nav">
-				      <span class="ion-android-menu"></span>
-				    </div>
-				    <div class="user-profile">
-				      <img src="https://raw.githubusercontent.com/arjunamgain/FilterMenu/master/images/profile.jpg">
-				      <div class="user-details">
-				        <h4><%= user.name %></h4>
-				        <p><%= user.email %></p>
-				      </div>
-				    </div>
-				  </div>
-				  <div class="clearfix"></div>
-				  <div class="filter-btn">
-				    <a id="<%= user.email %>" class="chatbtn" href="#" data-dismiss="modal"><i class="ion-ios-checkmark-outline"></i></a>
-				    <span class="toggle-btn ion-android-funnel"></span>
-				  </div>
-				  <div class="clearfix"></div>
-				  <div class="bottom">
-				    <div class="title">
-				      <h3>User Information</h3>
-				      <small><%= moment(new Date).format('YYYY.MM.DD [(]dd[)] h:mm a') %></small>
-				    </div>
-				    <%= user.company %><br/>
-				    <%= user.position %><br/>
-				    <%= user.phoneNumber %>
-				  </div>
-				</div>
-				
-		      </div>
-		    </div>
-		  </div>
-		
-
+<div class="friendInfo">
+	<div class="close" id="rigthClose">X</div>
+	<div class="friendPicture"></div>
+	<div class="status"></div>
+	<div class="friendName">Teasik Kim</div>
+	<div class="info">
+		<div>Title</div>
+		<div class="title" ><%= user.position %></div>
+		<div>Company</div>
+		<div class="company"><%= user.company %></div>
+		<div>E-mail</div>
+		<div  class="email"><%= user.email %></div>
+		<div>Phone</div>
+		<div class="phone"><%= user.phoneNumber %></div>	
+	</div>
+	<div class="button">
+		<button class="message" id="<%= user.email %>">Message</button>
+		<button class="profile">Profile</button>
+	</div>
+</div>
 </body>

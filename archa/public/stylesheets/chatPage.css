@@ -1200,3 +1200,7 @@ ul li.hang img {
 }
 
 .mid{}
+
+/*메시지검색 하이라이트*/
+.highlight { background-color:yellow; }
+.current { background-color: #957F68 !important; color: #ffffff; }

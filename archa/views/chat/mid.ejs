@@ -37,42 +37,36 @@
 					      </div>    
 					    </div> -->
 					  </div> 
-		  
-		  
-		  
-		  
+
 		</div>
 		<input type="text" id="room" disabled="disabled">
 
-<!-- 		<div class="buttonGroup fright">
-			<button id="searchSec"></button>
-			<button id="archive"></button>
-		</div> -->
-		
-<!-- 		    <form name="frmMain" id="frmMain" method="post">
-		        <input type="text" id="searchTerm" />
-		        <input type="button" id="btnSearch" value="search" />
-		        <input type="button" id="btnNext" value="next" />
-		        <input type="button" id="btnPrev" value="prev" />
-		    </form> -->
 		    
 		<div class="roomOption fright">
 		<div id="chatbar"></div>
-			<div class="dropdown fright">
+			<div class="dropdown fright" >
 			  <button class="setting dropdown-toggle" type="button" id="setting" data-toggle="dropdown" aria-expanded="true">
 			  </button>
 			  <ul class="setList dropdown-menu" role="menu" style="min-width: 20px;padding: 0;margin: 0;">
 			  	<li>
-			  		<button id="roomClose"></button>
-			  		<button id="invite">초대</button>
+			  		<button id="roomArchive" class="roomRight">Archive</button>
+			  		<button id="roomGallery" class="roomRight">Gallery</button>
+			  		<button id="roomLinks" class="roomRight">Links</button>
 			  	</li>
 			  </ul>
 			</div>
-			<input class="noti fright" type="text" class="form-control" placeholder="search">
-			<!-- <button type="button" class="noti fright"></button> -->
+			<input class="noti fright" type="text" id="searchRoomArchive" class="form-control" placeholder="search">
+			<div id="closeSearchMsg" style="position: relative;top:-23px;float:right;margin-right: 10px;" hidden>X</div>
 			<input type="hidden" id='joinRoom'>
 		</div>
 		
+		<div class="fright" id="messageSearch" style="width: 15%;" hidden>
+			<!-- <input type="button" id="btnSearch" value="search" /> -->
+			<input id="countNum" disabled>/<input id="lengthSearch" disabled>
+	        <input type="button" class="fright" id="btnNext" value="next" style="width: 4%" />
+	        <input type="button" class="fright" id="btnPrev" value="prev" style="width: 4%;"/>  
+		</div>
+				
 		<div class="modal fade" id="inviteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
@@ -105,7 +99,9 @@
 				</form>
 			</div>
 		</div>
-		<input type="text" id="inputMe" class="msg">
+		<input type="text" id="inputMe" class="msg" name="<%= yourName %>">
 		<button id="btnSend" class="sendBtn" type="button"></button>
+	</div>
+	<div id="rightSection" class="fright">
 	</div>
 </body>

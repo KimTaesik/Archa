@@ -5,6 +5,9 @@ var message = mongoose.Schema({
 	email	: String,
 	name	: String,
 	message : String, 
+	url		: String,
+	og		: {title: String, description: String},
+	readby: [{ type: String }],
 	mdate 	: Date
 });
 

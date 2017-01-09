@@ -6,14 +6,20 @@
 		</ul>
 		
 		<div class="tab-content">
-			<div role="tabpanel" class="arch-tab tab-pane active" id="request">
+			<div role="tabpanel" class="arch-tab tab-pane active" style="width: 250px; " id="request">
 				<%
 					if(req){
 						req.forEach(function(req, index) { 
 				%>
-				 <%= req %>
-				 <button type="button" id="<%= req%>" class="conn">Connect</button>
-				 <button type="button" id="<%= req%>" class="dec">Decline</button>
+				<div class="request" id="<%= req.email %>">
+					<div class="fleft">
+						 <%= req.name %>
+						 <%= req.position %>
+						 <%= req.company %>
+				 	</div>
+					<button type="button" id="<%= req.email %>" class="conn fleft">Connect</button>
+					<button type="button" id="<%= req.email %>" class="dec">Decline</button>
+				</div>
 				<%
 						});
 					}
@@ -24,7 +30,7 @@
 					if(his){
 						his.forEach(function(his, index) { 
 				%>
-				 <%= his %>
+				 <%= his.name %><br/>
 				<%	
 						});
 					}

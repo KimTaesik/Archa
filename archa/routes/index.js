@@ -29,7 +29,7 @@ db.once('open', function callback(){
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Main' });
+  res.render('index', { title: 'Archa' });
 });
 
 router.post('/login', account.login);
@@ -48,11 +48,13 @@ router.post('/deleteFriend', account.deleteFriend);
 router.post('/getFriend', account.getFriend);
 router.post('/friendInfo', account.friendInfo);
 
+router.get('/profile', account.profile);
 
 router.post('/roomList', room.roomlist);
 
 router.post('/fileSend', s3.filesend);
 router.post('/getList', s3.getList);
+router.post('/userProfileImg', s3.userProfileImg);
 
 router.post('/searchMessage', search.messageSearch);
 router.post('/searchfile', search.fileSearch);
@@ -87,5 +89,10 @@ router.post('/findRelation', alarm.findRelation);
 router.post('/tabReq', alarm.tabReq);
 router.post('/tabNoti', alarm.tabNoti);
 router.post('/findRelationUser', alarm.findRelationUser);
+router.post('/connFriend', alarm.connFriend);
+
+router.post('/roomArchive', search.roomArchive);
+router.post('/roomGallery', search.roomGallery);
+router.post('/roomLinks', search.roomLinks);
 
 module.exports = router;

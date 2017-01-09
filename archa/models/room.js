@@ -1,9 +1,16 @@
 var mongoose = require('mongoose');
 
 var room = mongoose.Schema({
-	roomname	: { type : String, required : true, trim : true },
+	id			: { type : String, required : true, trim : true },
 	users		: [{ type : String, required: true, trim : true }],
-	messagelog	: [{ mtype: String, email: String, name : String, message : String, mdate : Date }],
+	messagelog	: [{ mtype: String, 
+					email: String, 
+					name : String, 
+					message : String, 
+					url : String,
+					og:{title: String, description: String},
+					readby: [{ type: String }],
+					mdate : Date }],
 	roomdate	: Date
 });
 

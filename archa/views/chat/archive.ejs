@@ -1,53 +1,27 @@
 <body>
-
 <div class="roomArchivetitle fleft" id="roomArchive">Archive</div>
-
 <div class="close" id="rigthClose">X</div>
-
 <hr/>
-
 <div class="roomArchive">
-
 <%
-
-    data.forEach(function(log, index) {
-
-        if(search == null || log.send_id.name.indexOf(search)>-1 || log.rece_id.name.indexOf(search)>-1|| log.name.indexOf(search)>-1 ){
-
-            if(log.rtype != 'image'){
-
+	data.forEach(function(log, index) {
+		if(search == null || log.send_id.name.indexOf(search)>-1 || log.rece_id.name.indexOf(search)>-1|| log.name.indexOf(search)>-1 ){
+			if(log.rtype != 'image'){
 %>
-
-                 <div>
-
-                     <div><%= log.name %></div>
-
-                     <% if(log.send_id.email == user){ %>
-
-                     <div>to : <%= log.rece_id.name %></div>
-
-                     <% }else{ %>
-
-                     <div>from : <%= log.send_id.name %></div>
-
-                     <% } %>
-
-                     <div><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
-
-                     <!-- <a type="button" href="<%= log.url %>" style="float:right;">Down</a> -->
-
-                 </div>
-
-                 <hr/>
-
-<%            }    
-
-        }
-
-    });
-
-%>        
-
+		 		<div>
+		 			<div><%= log.name %></div>
+		 			<% if(log.send_id.email == user){ %>
+		 			<div>to : <%= log.rece_id.name %></div>
+		 			<% }else{ %>
+		 			<div>from : <%= log.send_id.name %></div>
+		 			<% } %>
+		 			<div><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
+		 			<!-- <a type="button" href="<%= log.url %>" style="float:right;">Down</a> -->
+		 		</div>
+		 		<hr/>
+<%			}	
+		}
+	});
+%>		
 </div>
-
 </body>

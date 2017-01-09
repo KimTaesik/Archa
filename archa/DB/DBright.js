@@ -22,10 +22,10 @@ exports.chatPage = function(user){
 	});
 	return evt;
 }
-exports.getData = function(roomname){
+exports.getData = function(id){
 	var evt = new EventEmitter();
 	
-	Data.find({'room_name' : roomname}, function(err,data){
+	Data.find({'room_id' : id}, function(err,data){
 		if(err) console.log(err);
 
 		evt.emit('end', err, data);
@@ -33,11 +33,17 @@ exports.getData = function(roomname){
 	});
 	return evt;
 }
-
-exports.getRoom = function(roomname){
+exports.getMessageLog = function(id){
+	var evt = new EventEmitter();
+	Room.findOne({'id' : id},'-_id messagelog').exec(function(err,log){
+		evt.emit('end', err, log);
+	});
+	return evt;		
+}
+exports.getRoom = function(id){
 	var evt = new EventEmitter();
 
-	Room.findOne({'roomname' : roomname}, function(err,room){
+	Room.findOne({'id' : id}, function(err,room){
 		evt.emit('end', err, room);
 	});
 	
