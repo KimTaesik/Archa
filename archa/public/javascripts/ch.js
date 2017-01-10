@@ -8,21 +8,22 @@ $(document).ready(function() {
 	    return (bytes / Math.pow(1024, i)).toFixed(1) + '' + sizes[i];
 	};
 	
-	function me(msg){
-		console.log(msg.msg.length);
-		var msglength = msg.msg.length;
-		var text= '<div class="message_box_send">\
-						<div id="me_image" class="message_sender"></div>\
-						<div class="talk me"><div id="talkname">'+msg.me+'</div></br>'+msg.msg+'</div>\
-					</div>';
-		return text;
-	}
+    function me(msg){
+        console.log(msg.msg.length);
+        var msglength = msg.msg.length;
+        var text= '<div class="message_box_send">\
+                                <div id="me_image" class="message_sender"></div>\
+                                <div class="talk me"><div id="talkname">'+msg.me+'</div></br>'+msg.msg+'</div>\
+                          </div></br>';
+        return text;
+  }
+
 	
 	function other(msg){
 		return '<div class="message_box_re">\
 					<div id="other_image" class="message_re"></div>\
 					<div class="talk other"><div id="talkother">'+msg.me+'</div><br>'+msg.msg+'</div>\
-				</div>';
+				</div></br>';
 	}
 	
 	function myYoutube(msg,meta){
@@ -80,20 +81,7 @@ $(document).ready(function() {
 						<div class="file_container"> \
 							<h4 class="file_name" >'+data.name+'</h4> \
 							<span class="meta_size" >'+bytesToSize(data.size)+'</span> \
-							<span class="meta_rtype" >'+data.rtype+'</span>\
-						</div>\
-					</a>\
-				</div>';
-	}
-	function myImage(data,send_userEmail,send_userName){
-		return '<div class="message_box_send sendData">\
-					<a id='+send_userEmail+' class="message_sender">'+send_userName+'</a>\
-					uploaded an image: <a href="'+data.url+'" target="'+data.url+'"> \
-					<h6 class="file_preview_link_name">'+data.name+'</h6>\
-					</a>\
-					<a data-src="'+data.url+'" href="'+data.url+'" target="'+data.url+'" class="dataImage" data-link-url="'+data.url+'">\
-						<div class="dataImageBody">\
-							<img class="image_body" data-real-src="'+data.url+'" src="'+data.url+'">\
+							<span class="meta_rtype" >'+data.rtype+'</span>\ 
 						</div>\
 					</a>\
 				</div>';
@@ -111,18 +99,30 @@ $(document).ready(function() {
 					</a>\
 				</div>';
 	}
+	
+	function myImage(data,send_userEmail,send_userName){
+		return '<div class="message_box_send sendData">\
+		 <div id="me_image" class="message_sender"></div>\
+		 <div class="myimage me"><div id="imagename">'+send_userName+'</div></br>\
+			<a data-src="'+data.url+'" href="'+data.url+'" target="'+data.url+'" class="dataImage" data-link-url="'+data.url+'">\
+			<div class="dataImageBody">\
+				<img class="image_body" data-real-src="'+data.url+'" src="'+data.url+'">\
+			</div>\
+		</a>\
+		 </div>\
+				</div></br>';
+	}
+
 	function otherImage(data,re_userEmail,re_userName){
 		return '<div class="message_box_re reData">\
-					<a id='+re_userEmail+' class="message_re">'+re_userName+'</a>\
-					uploaded an image: <a href="'+data.url+'" target="'+data.url+'"> \
-					<h6 class="file_preview_link_name">'+data.name+'</h6>\
-					</a>\
+				<div id="other_image" class="message_re"></div>\
+		 		<div class="otherimage me"><div id="otherimagename">'+re_userName+'</div></br>\
 					<a data-src="'+data.url+'" href="'+data.url+'" target="'+data.url+'" style="width: 50%;" class="image_file_body" data-link-url="'+data.url+'">\
 						<div class="image_preserve_aspect_ratio">\
 							<img class="image_body" data-real-src="'+data.url+'" src="'+data.url+'"\>\
 						</div>\
 					</a>\
-				</div>';
+				</div></div></br>';
 	}
 	
 	socket = io.connect();
