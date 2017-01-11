@@ -19,8 +19,10 @@
  	
  	<%
  				}else if(category == 'ARCHIVE' && log.rtype != 'image'){
- 							<div class="filebox">
- 	%>						 <!--css ppt icon  -->
+
+ 	%>
+ 	 							<div class="filebox">
+ 							 <!--css ppt icon  -->
 				  			<% if(log.type == 'pptx'){ %>
 				  			<div class="url" >
 				  				<div class="pptx-image"></div>
@@ -50,6 +52,7 @@
 			  			<div class="from-name">From : <%= log.send_id.name %></div>
 				        <div class="file-date"><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
 <!-- 			  			<a type="button" href="<%= log.url %>" style="float:right;">Down</a> -->
+			  		</div>
 			  		</div>
 			  		
 	<%

@@ -7,6 +7,7 @@ var Messagelog = require('../models/messageLog.js');
 var moment = require('moment');
 var DBright = require('../DB/DBright.js');
 moment.locale('ko');
+
 exports.search = function(req, res, next){
 	var data = new Data;
 	var messagelog = new Messagelog;
@@ -15,6 +16,48 @@ exports.search = function(req, res, next){
 	
 }
 
+exports.roomArchive = function(req, res, next){
+	var roomname = req.body.room;
+	var user = req.session.user_id.email;
+	var data = DBright.getData(roomname);
+	var search = req.body.search;
+	data.on('end', function(err, data){
+		if(err){
+			console.log(err);
+		}else{
+			res.render('chat/archive', { layout:false, moment:moment, data : data, user: user, search:search });
+		}
+	});
+}
+
+exports.roomGallery = function(req, res, next){
+	var roomname = req.body.room;
+	var user = req.session.user_id.email;
+	var data = DBright.getData(roomname);
+	var search = req.body.search;
+	data.on('end', function(err, data){
+		if(err){
+			console.log(err);
+		}else{
+			res.render('chat/gallery', { layout:false, moment:moment, data : data, user: user, search:search });
+		}
+	});
+}
+
+exports.roomLinks = function(req, res, next){
+	var roomname = req.body.room;
+	var user = req.session.user_id.email;
+	var messageLog = DBright.getRoom(roomname);
+	var search = req.body.search;
+	
+	messageLog.on('end', function(err, log){
+		if(err){
+			console.log(err);
+		}else{
+			res.render('chat/links', { layout:false, moment:moment, log : log.messagelog, user: user, search:search });
+		}
+	});
+}
 exports.archive = function(req, res, next){
 	var roomname = req.body.room;
 	var data = DBright.getData(roomname);

@@ -38,7 +38,8 @@ exports.chatlist = function(req, res, next){
 }
 
 exports.joinChat = function(req,res,next){
-	res.render('chat/mid', { layout: false });
+	var name = req.body.yourName;
+	res.render('chat/mid', { layout: false, yourName : name });
 }
 
 exports.inviteRoom = function(req, res, next){

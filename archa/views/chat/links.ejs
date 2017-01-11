@@ -1,0 +1,33 @@
+<body>
+<div class="roomArchivetitle fleft" id="roomLinks"><div class="links-icon"></div>Links
+ <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+</div>
+<div class="roomLinks">
+<%
+	log.forEach(function(log, index) {
+		if(log.mtype == 'url'){
+			if(search == null || log.og.title.indexOf(search)>-1 || log.url.indexOf(search)>-1  ){
+%>
+ 		<div>
+			<div class="url">
+				<img src="http://www.google.com/s2/favicons?domain=<%= log.url %>">
+				<a href="<%= log.url  %>" target="_blank"><%= log.url  %></a> 
+			</div>
+			<div>
+				<%= log.og.title %>
+			</div>
+			<% if(log.email == user){ %>
+		 		<div>from : <%= log.name %></div>
+		 	<% }else{ %>
+		 		<div>to : <%= log.name %></div>
+		 	<% } %>
+ 			<div><%= moment(log.mdate).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
+ 			<!-- <a type="button" href="<%= log.url %>" style="float:right;">Down</a> -->
+ 		</div>
+ 		<hr/>
+<%			}	
+		}
+	});
+%>		
+</div>
+</body>

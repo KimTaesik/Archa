@@ -2,6 +2,8 @@ var userListener = require('../models/userListener.js');
 var User = require('../models/user.js');
 var Friend = require('../models/friend.js');
 var DBaccount = require('../DB/DBaccount.js');
+var formidable = require('formidable');
+var fs = require('fs');
 var async = require("async");
 var moment = require('moment');
 moment.locale('ko');
@@ -21,7 +23,12 @@ exports.login = function(req, res, next){
 		}
 	});
 }
-
+exports.profile = function(req, res, next){
+	var user = req.session.user_id;
+	
+	res.render('account/profile',{ title:'profile', user:user });
+	
+}
 exports.friendInfo = function(req, res, next){
 	var friendEmail = req.body.friend;
 	
@@ -32,10 +39,33 @@ exports.friendInfo = function(req, res, next){
 	});
 	
 }
+exports.userProfileImg = function(req, res, next){
+	var user = req.session.user_id;
+	var form = new formidable.IncomingForm();
 
+	form.parse(req, function(req, fields, files){
+		
+		User.findOne({'email':user.email}).exec(function(err, user){
+			user.user_img.data = fs.readFileSync(files.userfile.path);
+			user.user_img.contentType = 'image/png';
+			user.save(function(err, user_img){
+				if(err) console.log(err);
+				var base = (new Buffer(user_img.user_img.data)).toString('base64');
+				res.send(base);
+				
+			});
+		});
+		
+	});	
+}
 exports.logout = function(req, res, next){
 	req.session.destroy(function(){
-		res.redirect('/');
+		var email = req.session.user_id.email;
+		User.findOneAndUpdate({'email':email}, { $set:{'state' : 0 }},{upsert: true, 'new': true})
+		.exec(function(err, user){
+			res.redirect('/');
+		});
+		
 	});
 }
 
@@ -191,3 +221,71 @@ exports.chatlist = function(req, res, next){
 	});
 }
 
+/*
+ * 상세 profile summary 임시
+ */
+exports.summary = function(req, res, next){
+	var email;
+
+	User.
+	findOneAndUpdate({'email': email},
+						{ $set : { 'summary' : summary } },
+						{upsert: true, 'new': true}
+	).
+	populate({
+			path	: 'friends.friend'
+	}).
+	exec(function(err, doc){
+		req.session.user_id = doc;
+	});
+}
+/*
+ * 상세 profile exp 임시
+ */
+exports.exp = function(req, res, next){
+	User.
+	findOneAndUpdate({'email': email}, 
+						{$addToset:
+							{'exp':
+								{
+									'position'	:position, 
+									'company'	:company,
+									'start'		:start,
+									'end'		:end,
+									'contents'	:contents
+								}
+							}
+						},{upsert: true, 'new': true}
+	).
+	populate({
+				path	: 'friends.friend'
+	}).
+	exec(function(err, doc){
+		req.session.user_id = doc;
+	});
+}
+/*
+ * 상세 profile exp 삭제 임시
+ */
+exports.deleteExp = function(req, res, next){
+	User.
+	findOneAndUpdate({'email': email}, 
+						{$pull:
+							{'exp':
+								{
+									'position'	:position, 
+									'company'	:company,
+									'start'		:start,
+									'end'		:end
+								}
+							}
+						},{upsert: true, 'new': true}
+	).
+	populate({
+				path	: 'friends.friend'
+	}).
+	exec(function(err, doc){
+		req.session.user_id = doc;
+	});	
+	
+}

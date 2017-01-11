@@ -39,14 +39,22 @@ module.exports = function(server){
     	sockets.push(socket);	   
     	
         socket.on('myId', function(id) {
+        	console.log('yes!');
+        	User.findOneAndUpdate({'email':id}, { $set:{'state' : 1 }},{upsert: true, 'new': true});
         	nickNames[socket.id] = id;
         });
-
-	    socket.on('join', function(room, me) {
+        
+        socket.on('disconnect', function() {
+    		User.findOneAndUpdate({'email':nickNames[socket.id]}, { $set:{'state' : 0 }},{upsert: true, 'new': true});
+        	console.log('bye!');
+            delete nickNames[socket.id];
+        });
+        
+	    socket.on('join', function(room, me, youName) {
 	    	if(nickNames[socket.id] == me){
 		    	var thisRoom;
 		    	if(room.you != room.me){
-		    		Room.count({'roomname': room.me+"/"+room.you},function(err,count){
+		    		Room.count({'id': room.me+"/"+room.you},function(err,count){
 		    			if(count == 0){
 		    		    	thisRoom = room.you+"/"+room.me;
 		    			}else{
@@ -56,7 +64,7 @@ module.exports = function(server){
 	    		        socket.join(thisRoom);
 	    			    socket.room = thisRoom;
 //	    			    console.log(io.sockets.manager.room['/'+socket.room]);
-	    		    	Room.findOne({'roomname':thisRoom}, function(err, room){
+	    		    	Room.findOne({'id':thisRoom}, function(err, room){
 	    		    		if(err) console.log(err);
 	    		    		if(room != null){
 		    		    		var chk = 1;
@@ -81,14 +89,19 @@ module.exports = function(server){
 		    		    				}
 		    		    			}
 		    		    			if(roomNameChk){
-		    		    				User.update({'email':nickNames[socket.id]},{ $addToSet:{ 'roomName': { 'roomId' : socket.room, 'rName': '내 채팅방' }}},{multi:true}).exec(function(err, result){
+		    		    				User.update({'email':nickNames[socket.id]},{ $addToSet:{ 'roomName': { 'roomId' : socket.room, 'rName': youName }}},{multi:true}).exec(function(err, result){
 		    		    					if(result){
-		    		    						rn = '내 채팅방';
-		    		    						io.sockets.to(socket.room).sockets[socket.id].emit('usercount', users, socket.room,rn);
+		    		    						io.sockets.to(socket.room).sockets[socket.id].emit('usercount', users, socket.room,youName);
 		    		    					}
 		    		    				});
 		    		    			}
-		    		    			loadMessage(socket, room);
+		    						Data.find({'room_id':socket.room}, function(err, data){
+		    				    		if(!err && data != null){
+		    				    			io.sockets.to(socket.room).sockets[socket.id].emit('roomLoad', user.email, room, data);
+		    				    		}
+		    				    	});
+		    		    			
+//		    		    			loadMessage(socket, room);
 		    		    		});
 	    		    		}
 	    		    	});
@@ -100,49 +113,88 @@ module.exports = function(server){
         socket.on('rooms', function(user) {  
         	Room.find({users:user}).exec(function (err, rooms) {
 				if(err) console.log(err);
-				socket.emit('rooms', rooms);
+				else{
+					User.findOne({'email':user},'-_id roomName').exec(function(err,roomName){
+						socket.emit('rooms', rooms,roomName, user);
+					});
+				}
 			});
+//        	Room.update({'id': socket.room}, {$addToSet: {'messagelog.$*.readby' : 'asdasd@naver.com'} }, {multi:true}, function(err){
+//                if(err){
+//                        console.log(err);
+//                }else{
+//                        console.log("Successfully added");
+//                }
+//        	});
         });
-        socket.on('newRelation', function(id){
-        	var id = id;
-        	User.update({'email':id},{ $addToSet:{ 'request': nickNames[socket.id] }},{multi:true}).exec(function(err, result){
-        		if(result){
-        			var test = findUserByName(id);
-        			if(test){
-        				io.sockets.sockets[test].emit('requst',id);
-        			}
-        		}
-        	});
+        /*
+         * user search 한 후에 상대방의 user db->request에 자신의 정보 저장
+         * 하면서 해당 사용자가 접속해있으면 socket으로 div에 삽입시킬 데이터 전송
+         */
+        socket.on('newRelation', function(id, name, company, position){
+        	var myId = nickNames[socket.id];
+        	if(myId!=id){
+	        	User
+	        	.update(
+	        			{'email':id},
+	        			{ $addToSet: { 
+	        							'request': 
+	        							{
+	        							 'email'	: myId,
+	        							 'name' 	: name,
+	        							 'company' 	: company,
+	        							 'position' : position
+	        							} 
+	        						 }
+	        			},{multi:true})
+	        	.exec(function(err, result){
+	        		if(err) console.log(err);
+	        		if(result){
+	        			var test = findUserByName(id);
+	        			if(test){
+	        				io.sockets.connected[test].emit('request',myId,name,company,position);
+	        			}
+	        		}
+	        	});
+        	}
         });
+        /*
+         * 요청승인에 대한 request쪽 뷰 수정 요청 보내기
+         */
         socket.on('requestConn', function(you, me){
-    		User.findOne({'email': you }).exec(function(err,friend){
-    			User.update({'email':me},{ $addToSet:{ 'friends': { 'friend' : friend._id }}},{multi:true}).exec(function(err, result){
-    				if(err) console.log(err);
-    				
-    				if(result.nModified == 1){
-    					var fd = new Friend({
-    						friend : friend,
-    						groupname : 'default'
-    					})
-//    					user.request.pull(); 리퀘스트 짜름
-    					user.friends.push(fd);
-//    					user.notification.push(); 노티에 삽입
-    				}
-    			});
-    			socket.emit('requestNoti',friend);
-    		});
+			var test = findUserByName(you);
+			if(test){
+				io.sockets.connected[test].emit('history',you,me);
+			}     
+        });
+        socket.on('connHistory', function(you, me){
+			var test = findUserByName(you);
+			if(test){
+				io.sockets.connected[test].emit('history',you,me);
+			}            
+        	
+        });
+        socket.on('decline', function(id){
+        	User.update({'email': nickNames[socket.id] },{$pull:{'request':{'email':id}}}).exec(function(err,result){
+        	});
         });
 	    socket.on('rejoin', function(roomName, me){
 	    	socket.join(roomName);
 	    	socket.room = roomName;
-	    	Room.findOne({'roomname':roomName}, function(err, room){
+	    	Room.findOne({'id':roomName}, function(err, room){
 	    		if(err) console.log(err);
+	    		
+	    		var name='';
+	    		
 	    		if(room != null){
 		    		var users = room.users;
 		    		var chk = 1;
 		    		for(var index in room.users){
 		    			if(nickNames[socket.id] == room.users[index]){
 		    				chk=0;
+		    			}else{
+		    				name += room.users[index]+'';
+		    				if(index>0 && index != room.users.length) name += ',';
 		    			}
 		    		}
 		    		if(chk){
@@ -160,20 +212,22 @@ module.exports = function(server){
 		    				}
 		    			}
 		    			if(roomNameChk){
-		    				User.update({'email':nickNames[socket.id]},{ $addToSet:{ 'roomName': { 'roomId' : socket.room, 'rName': '내 채팅방' }}},{multi:true}).exec(function(err, result){
+		    				User.update({'email':nickNames[socket.id]},{ $addToSet:{ 'roomName': { 'roomId' : socket.room, 'rName': name }}},{multi:true}).exec(function(err, result){
 		    					if(result){
-		    						rn = '내 채팅방';
-		    						io.sockets.to(socket.room).sockets[socket.id].emit('usercount', users, socket.room,rn);
+		    						io.sockets.to(socket.room).sockets[socket.id].emit('usercount', users, socket.room, name);
 		    					}
 		    				});
 		    			}
-		    			loadMessage(socket, room);
+						Data.find({'room_id':socket.room}, function(err, data){
+				    		if(!err && data != null){
+				    			io.sockets.to(socket.room).sockets[socket.id].emit('roomLoad', user.email, room, data);
+				    		}
+				    	});
 		    		});
 	    		}
 	    	});
 	    });
 	    socket.on('roomChange', function(newRoomId){
-	    	console.log('호잇');
 	    	socket.join(newRoomId);
 			socket.room = newRoomId;
 	    });
@@ -181,15 +235,15 @@ module.exports = function(server){
 	    socket.on('inviteRoom', function(roomID, inviteUsers){
 	    	
 	    	var roomchk = roomID.split('/');
-	    	var newroom = roomID+'/group';
+	    	var newId = roomID+'/group';
 //	    	var changeRoom = new Room();
 	    	if(!roomchk[2] && inviteUsers.length > 0){
 //	    		var changeRoom = Room.findOne({'roomname':roomID});
-	    		Room.findOne({'roomname':roomID}, function(err, room){
+	    		Room.findOne({'id':roomID}, function(err, room){
 
 					async.waterfall([
 						function (callback) {
-							room.roomname = newroom;
+							room.id = newId;
 //			    			room.users.push(inviteUsers);
 			    			for(var index in inviteUsers){
 			    				room.users.push(inviteUsers[index]);
@@ -199,7 +253,7 @@ module.exports = function(server){
 						},
 						function (room, callback) {
 			    			for( i in room.users){
-			    				User.update({'email':String(room.users[i])},{ $addToSet:{ 'roomName': { 'roomId' : room.roomname, 'rName': '그룹 채팅방' }}},{multi:true}).exec(function(err, result){
+			    				User.update({'email':String(room.users[i])},{ $addToSet:{ 'roomName': { 'roomId' : room.id, 'rName': '그룹 채팅방' }}},{multi:true}).exec(function(err, result){
 			    				});
 			    			}
 							callback(null, room);
@@ -217,8 +271,6 @@ module.exports = function(server){
 	    			    			io.sockets.to(socket.room).clients(function(error,clients){
 	    			    				if(clients){
 	    				    				for(var index in clients){
-	    				    					
-	    				    					console.log(clients[index]);
 	    				    					io.sockets.to(socket.room).sockets[clients[index]].emit('roomChange', newroom, newuser, roomName);
 	    				    				}
 	    			    				}
@@ -231,7 +283,7 @@ module.exports = function(server){
 	    		
 	    	}else{
 	    		//그룹방에서의ㅣ 초대
-	    		Room.findOne({'roomname':roomID}, function(err, room){
+	    		Room.findOne({'id':roomID}, function(err, room){
 					async.waterfall([
 						function (callback) {
 //			    			room.users.push(inviteUsers);
@@ -242,7 +294,7 @@ module.exports = function(server){
 						},
 						function (room, callback) {
 			    			for( i in room.users){
-			    				User.update({'email':String(room.users[i])},{ $addToSet:{ 'roomName': { 'roomId' : room.roomname, 'rName': '그룹 채팅방' }}},{multi:true}).exec(function(err, result){
+			    				User.update({'email':String(room.users[i])},{ $addToSet:{ 'roomName': { 'roomId' : room.id, 'rName': '그룹 채팅방' }}},{multi:true}).exec(function(err, result){
 			    				});
 			    			}
 							callback(null, room);
@@ -266,7 +318,7 @@ module.exports = function(server){
 				mdate	: new Date
 			});
 			
-			Room.findOne({'roomname':socket.room},function(err, room){
+			Room.findOne({'id':socket.room},function(err, room){
 				if(err) console.log(err);
 				else {
 					room.messagelog.push(message);
@@ -285,71 +337,168 @@ module.exports = function(server){
 	    });
 	    
 	    socket.on('changeRoomName', function(id, room, newName){
+//	    	User.update({'email':id,'roomName':{ 'roomId': socket.room }},
+//	    			{$set:{ 'roomName.$.rName': newName } },{upsert: true, multi:true}).exec(function(err,result){
+//	    		if(err) console.log(err);
+//	    	});
+	    	
 	    	User.findOne({'email':id}, function(err, user){
 	    		for(index in user.roomName){
 	    			if(user.roomName[index].roomId == socket.room){
 	    				user.roomName[index].rName = newName;
+	    				io.sockets.sockets[socket.id].emit('roomNameChange', socket.room , newName);	
 	    			} 
 	    		}
 	    		user.save();
 	    	});	
 	    });
-	    
-		socket.on('message', function(msg){  
+	    socket.on('getOgData', function(url, sendEmail,i){
+	    	var youtube = youPattern.exec(url);
+	    	og(url, function(err, meta){
+	    		if(meta.url == undefined && meta.image== undefined){
+	    			var meta = {
+	    				url : url,
+	    				image : { url : 'https://www.google.com/s2/favicons?domain='+url},
+	    				description : ''
+	    			}
+	    			io.sockets.to(socket.room).sockets[socket.id].emit('ogData', meta, url, sendEmail,nickNames[socket.id],i);
+	    		}else{
+		    		if(youtube != null && youtube.length>1){
+		    			io.sockets.to(socket.room).sockets[socket.id].emit('youOgData', meta, url, sendEmail,nickNames[socket.id],i);
+		    		}else{
+		    			io.sockets.to(socket.room).sockets[socket.id].emit('ogData', meta, url, sendEmail,nickNames[socket.id],i);
+		    		}	    			
+	    		}
+
+	    	});
+	    });
+	    socket.on('readMessageSave', function(room){
+	    	console.log(room.messagelog[0].readby);
+	    	Room.findOne({'id':room.id}).exec(function(err, result){
+	    		result.messagelog = room.messagelog;
+	    		result.save();
+	    	});
+	    });
+		socket.on('message', function(msg){
 			var messageDate = new Date();
-			var message = new Message({
-				mtype	: msg.type,
-				email	: nickNames[socket.id],
-				name	: msg.me,
-				message : msg.msg, 
-				mdate	: messageDate
-			});
-			
-			Room.findOne({'roomname':socket.room},function(err, room){
-				if(room == null){
-					console.log('룸없다');
-					User.update({'email':msg.email},{ $addToSet:{ 'roomName': { 'roomId' : socket.room, 'rName': '내 채팅방' }}},{multi:true}).exec(function(err, result){
-						if(err) console.log(err);
-						
-						if(result){
-							var uList = socket.room.split('/');
-							var room = new Room({
-								roomname : socket.room,
-								users : uList,
-								messagelog : message,
-								roomdate : new Date()
+			var roomUser= new Message;
+			async.waterfall([
+			    function (callback) {
+	    			io.sockets.to(socket.room).clients(function(error,clients){
+	    				if(clients){
+		    				for(var index in clients){
+		    					roomUser.readby.push(nickNames[clients[index]]);
+		    					if(index==clients.length-1){
+		    						callback(null);
+		    					}
+		    				}
+	    				}
+	    			});
+			    },function (callback) {
+					var checkMatch = urlPattern.exec(msg.msg);
+				    if(checkMatch != null && checkMatch.length>1){
+				    	
+				    	var checkText = checkMatch[0];
+				    	og(checkText, function(err, meta){
+				    		callback(null, meta);
+				    	});
+				    }else{
+				    	var meta = 'end';
+				    	callback(null, meta);
+				    }
+				    
+				},function (meta, callback) {
+					var message = new Message();
+				    if(meta != 'end'){
+				    	var checkMatch = urlPattern.exec(msg.msg);
+				    	var checkText = checkMatch[0];
+						message = new Message({
+							mtype	: 'url',
+							email	: nickNames[socket.id],
+							name	: msg.me,
+							message : msg.msg, 
+							url		: meta.url == undefined ? checkText : meta.url,
+							og		: { 'title' : meta.title == undefined ? checkText : meta.title,
+										'description' : meta.description == undefined ? '' : meta.description
+							},
+							readby	: roomUser.readby,
+							mdate	: messageDate
+						});
+						callback(null, message);
+				    }else{
+						message = new Message({
+							mtype	: msg.type,
+							email	: nickNames[socket.id],
+							name	: msg.me,
+							message : msg.msg, 
+							readby	: roomUser.readby,
+							mdate	: messageDate
+						});
+						callback(null, message);
+				    }
+				},function (message, callback) {
+					Room.findOne({'id':socket.room},function(err, room){
+						if(room == null){
+							User.update({'email':msg.email},{ $addToSet:{ 'roomName': { 'roomId' : socket.room, 'rName': msg.yourName }}},{multi:true}).exec(function(err, result){
+								if(err) console.log(err);
+								
+								if(result){
+									var uList = socket.room.split('/');
+									var room = new Room({
+										id : socket.room,
+										users : uList,
+										messagelog : message,
+										roomdate : new Date()
+									});
+									
+									room.save();
+									io.sockets.to(socket.room).emit('usercount', uList, socket.room, msg.yourName);									
+								}
 							});
-							
+						}else{
+							room.messagelog.push(message);
 							room.save();
-							io.sockets.to(socket.room).emit('usercount', uList, socket.room,'내 채팅방');									
 						}
 					});
-				}else{
-					room.messagelog.push(message);
-					room.save();
+					callback(null, message);
+				}],function (err, room) {
+				    match = urlPattern.exec(msg.msg);
+				    if(match != null && match.length>1){
+				    	var text = match[0];
+				    	var ytMatch = youPattern.exec(text);
+				    	
+				    	og(text, function(err, meta){
+				    		if(ytMatch != null && ytMatch.length>1){
+				    			console.log('유툽')
+							    io.sockets.to(socket.room).sockets[socket.id].emit('my message youtube', msg, meta);
+								socket.broadcast.to(socket.room).emit('other message youtube', msg, meta);
+				    		}else if(meta.url != undefined){
+				    			console.log('url메시지')
+							    io.sockets.to(socket.room).sockets[socket.id].emit('my message url', msg, meta);
+								socket.broadcast.to(socket.room).emit('other message url', msg, meta);
+				    		}else{
+				    			var meta = {
+					    				url : text,
+					    				image : { url : 'https://www.google.com/s2/favicons?domain='+text},
+					    				description : ''
+					    			}
+				    			console.log('일반메시지');
+							    io.sockets.to(socket.room).sockets[socket.id].emit('my message url', msg, meta);
+								socket.broadcast.to(socket.room).emit('other message url', msg, meta);
+//							    io.sockets.to(socket.room).sockets[socket.id].emit('my message', msg);
+//								socket.broadcast.to(socket.room).emit('other message', msg);
+				    		}
+				    	});
+	
+				    }else{
+					    io.sockets.to(socket.room).sockets[socket.id].emit('my message', msg);
+						socket.broadcast.to(socket.room).emit('other message', msg);
+				    }
+				    Room.findOne({'id': socket.room}).exec(function(err,room){
+				    	io.sockets.sockets[socket.id].emit('refresh', socket.room , msg.msg, messageDate,room,nickNames[socket.id]);	
+				    });
 				}
-			});
-			//메시지 저장
-		    match = urlPattern.exec(msg.msg);
-		    if(match != null && match.length>1){
-		    	var text = match[0];
-		    	var ytMatch = youPattern.exec(text);
-		    	
-		    	og(text, function(err, meta){
-		    		if(ytMatch != null && ytMatch.length>1){
-					    io.sockets.to(socket.room).sockets[socket.id].emit('my message youtube', msg, meta);
-						socket.broadcast.to(socket.room).emit('other message youtube', msg, meta);
-		    		}else{
-					    io.sockets.to(socket.room).sockets[socket.id].emit('my message url', msg, meta);
-						socket.broadcast.to(socket.room).emit('other message url', msg, meta);
-		    		}
-		    	});
-
-		    }else{
-			    io.sockets.to(socket.room).sockets[socket.id].emit('my message', msg);
-				socket.broadcast.to(socket.room).emit('other message', msg);
-		    }
-		    io.sockets.sockets[socket.id].emit('refresh', socket.room , msg.msg, messageDate);
+			);
 		    
 		});
 	});
