@@ -397,9 +397,9 @@ $(document).ready(function() {
 		            	$(".background").html(result);
 		            	/*$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-30);*/
 		            	$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-$('.topMenu').height());
-		            	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
+		            	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
 		            	/*	$('.mid').css('margin-left' , -15);*/
-		            	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
+		            	/*$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
 					    $("#messages").empty();
 					    socket.emit('join', room, me, youName);		     	
 		            },
@@ -422,7 +422,7 @@ $(document).ready(function() {
 		            success: function(result,status,xhr){
 		            	$(".background").html(result);
 		            	$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-30);
-		            	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -10);
+		            	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -10);*/
 		            	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -10);
 					    $("#messages").empty();
 					    socket.emit('rejoin', roomName,me);	            	
@@ -940,10 +940,14 @@ $(document).ready(function() {
 			 * 룸아카이브 선택시 여러가지......시발
 			 */
 			$('.mid').on('click', '.roomRight', function(e){
-				$('#rightSection').css('width' ,  185 );
+			/*	$('#rightSection').css('width' ,  185 );
 				$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-30 );
 				$('#rightSection').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-20);
-				$('.actionBox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);
+				$('.actionBox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);*/
+				$("#mySidenav").css('width',330);
+				
+			/*	$(".topchat").css('margin-right',250);*/
+				$("#mySidenav").css('height', $(window).height()-$('#archive').height()-$('.searchDiv').height()-125);
 				e.preventDefault();
 				var room = $('#thisRoom').val();
 				var url = $(this).attr("id");
@@ -953,12 +957,28 @@ $(document).ready(function() {
 			        url: "/"+url,
 			        data: { "room":room },
 			        success: function(result,status,xhr){
-			        	$('#rightSection').html(result);
-			        	$('#rightContent').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-$('#myTab').height()-30);
+			        	$('#mySidenav').html(result);
+			        	/*$('#rightContent').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-$('#myTab').height()-30);*/
 			        },
 			        error: function(xhr, status, er){}
 			    });
 			});		
+			
+		    /*
+		     * 우측섹션 열린거 닫는거
+		     */
+		    $('.mid').on('click','.closebtn', function(){
+				$("#mySidenav").css('width',0);
+				/*$(".topchat").css('margin-right',0);*/
+/*		    	$('#rightSection').empty();
+		    	$('#rightSection').css('width' , 0);
+		    	$('#rightSection').css('height', 0);
+		    	$('.actionBox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);
+		    	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-20 );
+		    	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -30);*/
+		    });
+		    
+			
 			/*
 			 * 응~ 룸 아카이브 검색~
 			 */
@@ -1095,18 +1115,7 @@ $(document).ready(function() {
 				  }
 				 }).end();
 				};
-		    /*
-		     * 우측섹션 열린거 닫는거
-		     */
-		    $('.mid').on('click','#rigthClose', function(){
-		    	$('#rightSection').empty();
-		    	$('#rightSection').css('width' , 0);
-		    	$('#rightSection').css('height', 0);
-		    	$('.actionBox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);
-		    	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-20 );
-		    	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -30);
-		    });
-		    
+
 		    /*
 		     * room search autocomplete
 		     */

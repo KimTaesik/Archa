@@ -1,6 +1,5 @@
 <body>
  	<%
- 	if(data != undefined){
  		data.forEach(function(log, index) {
  			if(log.rece_id.email == user){
  			if(search == null || log.send_id.name.indexOf(search)>-1 || log.send_id.company.indexOf(search)>-1 ||log.send_id.position.indexOf(search)>-1 || log.send_id.email.indexOf(search)>-1 || log.name.indexOf(search)>-1){
@@ -19,9 +18,10 @@
 			  		</div>
  	
  	<%
- 				}else if(category == 'ARCHIVE' && log.rtype != 'image'){				
+ 				}else if(category == 'ARCHIVE' && log.rtype != 'image'){
+
  	%>
-						<div class="filebox">
+ 	 							<div class="filebox">
  							 <!--css ppt icon  -->
 				  			<% if(log.type == 'pptx'){ %>
 				  			<div class="url" >
@@ -46,14 +46,15 @@
 				  				<div class="docx-image"></div>
 				  			</div>
 				  			<% } %>
-					  		<div class="textbox">
-					  			<!-- css수정  -->
-					  			<div class="file-name"><%= log.name %></div>
-					  			<div class="from-name">From : <%= log.send_id.name %></div>
-						        <div class="file-date"><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
-		<!-- 			  			<a type="button" href="<%= log.url %>" style="float:right;">Down</a> -->
-					  		</div>
-			  			</div>	
+			  		<div class="textbox">
+			  			<!-- css수정  -->
+			  			<div class="file-name"><%= log.name %></div>
+			  			<div class="from-name">From : <%= log.send_id.name %></div>
+				        <div class="file-date"><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
+<!-- 			  			<a type="button" href="<%= log.url %>" style="float:right;">Down</a> -->
+			  		</div>
+			  		</div>
+			  		
 	<%
 				}else if(category == 'ALL'){
 	%>
@@ -100,6 +101,5 @@
  				}
  			}
  		});
- 	}
  	%>
 </body>
