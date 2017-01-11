@@ -3,7 +3,7 @@ var StorageList = require('../models/storagelist.js');
 
 exports.savelist = function(roomName,sendId,receId,dataUrl,fileName,size,type,rtype){
 	var slist = new StorageList({
-		'room_name'	:	roomName,
+		'room_id'	:	roomName,
 		'url'		:	dataUrl,
 		'name'		:	fileName,
 		'size'		:	size,

@@ -9,7 +9,6 @@ $(document).ready(function() {
 	};
 	
 	function me(msg){
-		console.log(msg.msg.length);
 		var msglength = msg.msg.length;
 		var text= '<div class="message_box_send">\
 						<div id="me_image" class="message_sender"></div>\
@@ -221,9 +220,9 @@ $(document).ready(function() {
 					$.each(data, function(j, dv){
 						if(dv.name == val.message){
 							if(dv.rtype == 'image'){
-								odata = otherImage(dv, dv.rece_id.email, dv.rece_Id.name);
+								odata = otherImage(dv, dv.rece_id.email, dv.rece_id.name);
 							}else{
-								odata = otherData(dv, dv.rece_id.email, dv.rece_Id.name);
+								odata = otherData(dv, dv.rece_id.email, dv.rece_id.name);
 							}
 							$('#messages').append(odata);
 							$('#messages').scrollTop($('#messages').prop('scrollHeight'));
@@ -347,7 +346,6 @@ $(document).ready(function() {
 	});
 
 	socket.on('rooms', function(rooms, roomName, me) {
-		console.log(rooms);
         $('#room-list').empty();
         var text;
         var pasttime;
@@ -414,14 +412,6 @@ $(document).ready(function() {
 		});
     	socket.emit('roomChange', thisRoom);
     });
-	
-	socket.on('refresh', function(roomId, msg, messageDate){
-			
-		if( $('[id="'+roomId+'"]').length > 0){
-			$('[id="'+roomId+'"]').children("h4").text('마지막 : '+msg);
-			$('[id="'+roomId+'"]').children("h5").text(messageDate);
-		}
-	});
 	
 	
 });

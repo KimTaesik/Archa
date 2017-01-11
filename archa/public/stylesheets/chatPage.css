@@ -207,7 +207,7 @@ body {
 	background-size:100% 100%;
 	background-image: url('../img/setting button.png');
 }
-#alarm{
+.alarm{
 	display:inline-block;
 	background-color: transparent;
 	width:3.0rem;
@@ -1204,3 +1204,7 @@ ul li.hang img {
 /*메시지검색 하이라이트*/
 .highlight { background-color:yellow; }
 .current { background-color: #957F68 !important; color: #ffffff; }
+
+/* test */
+.clearfix:before,.clearfix:after { content: " "; display: table; } 
+.clearfix:after { clear:both; }

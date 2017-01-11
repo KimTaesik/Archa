@@ -16,13 +16,15 @@ exports.alarm = function(req,res,next){
 exports.findRelationUser = function(req, res, next){
 	var input = req.body.search;
 	var term = new RegExp(input, 'i');
+	var sessionUser = req.session.user_id;
+	var me = sessionUser.email;
 	User.find().or([{ email: { $regex: term }}, 
 	                { name: { $regex: term }}, 
 	                { company: { $regex: term }}, 
 	                { position: { $regex: term }}, 
 	                { phoneNumber: { $regex: term }}]).
 	                exec(function(err,user){
-	                	if(!err) res.render('alarm/result', { layout:false , friends:user});
+	                	if(!err) res.render('alarm/result', { layout:false , friends:user, user:sessionUser, me : me});
 	            	});
 };
 /*

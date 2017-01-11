@@ -1,19 +1,28 @@
 <body>
 <%
-		friends.forEach(function(friends, index) { 
+		var chk=1;
+		friends.forEach(function(friends, index) {
+			user.friends.forEach(function(user, index){
+				if(friends.email == user.friend.email){
+					chk=0;
+				}
+			});
+			if(chk && friends.email != me){
 %>
-
-			<div id="<%= friends.email %>"  class='has-sub active'>
-				<div id ="group-profile" href='#'>
-				   <div id="group-img"> </div>
-					<div id="fname" class="<%= friends.name %>"><%= friends.name %><br/>
-						<div id="company" class="<%= friends.company %>"><%= friends.company %> / </div> 
-						<div id="position" class="<%= friends.position %>"><%= friends.position %></div><br/>
-					</div><br/>
-					<button type="button" id="<%= friends.email %>" class="addRelation">ADD</button>							
+				나 : <%= me %>
+				<div id="<%= friends.email %>"  class='has-sub active'>
+					<div id ="group-profile" href='#'>
+					   <div id="group-img"> </div>
+						<div id="fname" class="<%= friends.name %>"><%= friends.name %><br/>
+							<div id="company" class="<%= friends.company %>"><%= friends.company %> / </div> 
+							<div id="position" class="<%= friends.position %>"><%= friends.position %></div><br/>
+						</div>
+						<button type="button" id="<%= friends.email %>" class="addRelation">ADD</button>							
+					</div>
 				</div>
-			</div>
-<%
+				<br/>
+<%			}
+			chk=1;
 		});
 %>
 </body>

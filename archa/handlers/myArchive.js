@@ -11,7 +11,6 @@ exports.myArchive = function(req,res,next){
 	            	  
 		if(err) console.log(err);
 
-		console.log(data);
 		res.render('myArchive/marchive', { layout: false, moment:moment, data : data, user : user });
 	});
 	
@@ -25,7 +24,6 @@ exports.ALL = function(req,res,next){
 	            	  
 		if(err) console.log(err);
 
-		console.log(data);
 		res.render('myArchive/all', { layout: false, moment:moment, data : data, user : user });
 	});
 	
@@ -39,7 +37,6 @@ exports.ARCHIVE = function(req,res,next){
 	            	  
 		if(err) console.log(err);
 
-		console.log(data);
 		res.render('myArchive/archive', { layout: false, moment:moment, data : data, user : user });
 	});
 	
@@ -53,7 +50,6 @@ exports.GALLERY = function(req,res,next){
 	            	  
 		if(err) console.log(err);
 
-		console.log(data);
 		res.render('myArchive/gallery', { layout: false, moment:moment, data : data, user : user });
 	});
 	
@@ -64,10 +60,8 @@ exports.tabgot = function(req,res,next){
 	var category = req.body.category;
 	var search = req.body.search;
 	Data.find().or([{ 'rece_id.email' : user },
-	              { 'send_id.email' : user }]).exec(function(err,data){
-	            	  
+	              { 'send_id.email' : user }]).exec(function(err,data){  
 		if(err) console.log(err);
-
 		res.render('myArchive/got', { layout: false, moment:moment, data : data, user : user, category : category, search:search });
 	});
 	

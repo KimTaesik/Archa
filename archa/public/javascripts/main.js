@@ -659,7 +659,9 @@ $(document).ready(function() {
 		            success: function(result,status,xhr){
 		            	div.html(result);
 		            },
-		            error: function(xhr, status, er){}
+		            error: function(xhr, status, er){
+		            	/*console.log("code:"+xhr.status+"\n"+"message:"+xhr.responseText+"\n"+"error:"+er);*/
+		            }
 		        });				
 			});
 			/*
@@ -758,6 +760,13 @@ $(document).ready(function() {
 		            error: function(xhr, status, er){}
 		        });				
 			});
+			
+			/*
+			 * 드롭다운 클릭해도 사라지지않게
+			 */
+			$(document).on('click', '#tabalarm li', function (e) {
+				  e.stopPropagation();
+			});
 			/*
 			 * 아카이브 검색
 			 */
@@ -796,7 +805,9 @@ $(document).ready(function() {
 		            success: function(result,status,xhr){
 		            	$("#relationResult").html(result);
 		            },
-		            error: function(xhr, status, er){}
+		            error: function(xhr, status, er){
+		            	/*console.log("code:"+xhr.status+"\n"+"message:"+xhr.responseText+"\n"+"error:"+er);*/
+		            }
 		        });
 		        e.preventDefault();
 		    });
@@ -806,9 +817,12 @@ $(document).ready(function() {
 		     */
 		    $('.mid').on("click", ".addRelation", function(e){
 		    	var id = $(this).attr("id");
-		    	var name = $(".myInfoView").children("#name").attr("class");
-		    	var company = $(".myInfoView").children("#company").attr("class");
-		    	var position = $(".myInfoView").children("#position").attr("class");
+//		    	var name = $(this).parent('#group-profile').children("#fname").attr('class');
+//		    	var company = $(this).parent('#group-profile').children("#fname").children("#company").attr("class");
+//		    	var position = $(this).parent('#group-profile').children("#fname").children("#position").attr("class");
+		    	var name = $(".myInfoView").children("#name").val();
+		    	var company = $(".myInfoView").children("#company").val();
+		    	var position = $(".myInfoView").children("#position").val();
 		    	$('.background').empty();
 		    	socket.emit('newRelation', id, name, company, position);
 		    });
@@ -840,12 +854,6 @@ $(document).ready(function() {
 		    	$(this).parent().remove();
 		    	socket.emit('decline', $(this).attr("id"));
 		    });		    
-			/*
-			 * 드롭다운 클릭해도 사라지지않게
-			 */
-			$(document).on('click', '#tabalarm li', function (e) {
-				  e.stopPropagation();
-			});
 			
 			
 			/*  채팅방목록 모달 2016_11_25 NA*/

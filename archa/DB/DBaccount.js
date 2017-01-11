@@ -6,7 +6,7 @@ var EventEmitter = require('events').EventEmitter;
 exports.login = function(email, password){
 	var evt = new EventEmitter();
 	
-	User.findOne({'email':email, 'password':password}).exec(function(err,user){
+	User.findOne({'email':email, 'password':password}).populate({path: 'friends.friend'}).exec(function(err,user){
 		evt.emit('end', err, user);
 	});
 	
