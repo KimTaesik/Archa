@@ -11,7 +11,7 @@ var userSchema = mongoose.Schema({
 	signDate 	: Date,
 	roomName	: [{ roomId: String, rName: String, "_id": false }],
 	groups		: [{ type: String, unique : true }],
-	request		: [{ email : String, name: String, company: String, position: String }],
+	request		: [{ email : String, name: String, company: String, position: String, "_id": false }],
 	history		: [{ name : String, notidate : Date }],
 	friends		: [{ friend :{ type : mongoose.Schema.Types.ObjectId, require : true, ref : 'user' }, groupname:{ type:String, required:true, "default":'default' }, "_id": false }],
 	state		: { type: Number, "default": 0},

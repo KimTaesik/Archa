@@ -292,7 +292,7 @@ body {
 	background-size:100% 100%;
 	background-image: url('../img/setting button.png');
 }
-#alarm{
+.alarm{
 	display:inline-block;
 	background-color: transparent;
 	width:3.0rem;
@@ -1420,6 +1420,7 @@ ul li.hang img {
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
+<<<<<<< HEAD
 }
 
 /*  chat file image */
@@ -1474,3 +1475,4 @@ ul li.hang img {
 	color:#546E7A;
 	font-size:1.5rem;
 }
+

@@ -26,7 +26,6 @@ exports.filesend = function(req, res){
 //		console.log(files.userfile);
 //		s3.createBucket({Bucket: bucketName}, function(err) {
 //			if(err) console.log(err);
-			console.log('address:'+address);
 
 			var params = {
 					Bucket: bucketName, 
@@ -40,7 +39,6 @@ exports.filesend = function(req, res){
 			    if(!data){
 			    	
 			    }else{
-			    	console.log(data);
 			    	Storage.savelist(fields.roomName, user.email, fields.you, data.Location, files.userfile.name, files.userfile.size, fileType, realType );
 			    	var data = {
 			    			name	: files.userfile.name,

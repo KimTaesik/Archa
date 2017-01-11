@@ -134,9 +134,7 @@ module.exports = function(server){
         socket.on('newRelation', function(id, name, company, position){
         	var myId = nickNames[socket.id];
         	if(myId!=id){
-	        	User
-	        	.update(
-	        			{'email':id},
+	        	User.update({'email':id},
 	        			{ $addToSet: { 
 	        							'request': 
 	        							{
@@ -144,11 +142,13 @@ module.exports = function(server){
 	        							 'name' 	: name,
 	        							 'company' 	: company,
 	        							 'position' : position
-	        							} 
+	        							}
 	        						 }
 	        			},{multi:true})
 	        	.exec(function(err, result){
 	        		if(err) console.log(err);
+	        		console.log(result)
+	        		
 	        		if(result){
 	        			var test = findUserByName(id);
 	        			if(test){
