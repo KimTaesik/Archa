@@ -139,7 +139,7 @@ $(document).ready(function() {
 		    	$('#rightSection').css('width' , 0);
 		    	$('#rightSection').css('height', 0);
 		    	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-20 );
-		    	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() );
+		    	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() );*/
 		    });
 		    
 
@@ -423,7 +423,7 @@ $(document).ready(function() {
 		            	$(".background").html(result);
 		            	$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-30);
 		            	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -10);*/
-		            	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -10);
+		            	/*$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -10);*/
 					    $("#messages").empty();
 					    socket.emit('rejoin', roomName,me);	            	
 		            },
@@ -624,7 +624,7 @@ $(document).ready(function() {
 		            url: "/myArchive",
 		            success: function(result,status,xhr){
 		            	$(".background").html(result);
-		            	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
+		            	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
 		            	$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
 		            	$('.archiveback').css('height', $(window).height() - $('.topMenu').height()-$('.mySection').height());
 		            	/*$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-$('.topMenu').height());*/
@@ -695,7 +695,7 @@ $(document).ready(function() {
 		            url: "/"+url,
 		            success: function(result,status,xhr){
 		            	$("#dataList").html(result);
-		            	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
+		            /*	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
 		            	$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
 		            	$('.archiveback').css('height', $(window).height() - $('.topMenu').height()-$('.mySection').height());
 		            	
@@ -729,7 +729,7 @@ $(document).ready(function() {
 		            url: "/findRelation",
 		            success: function(result,status,xhr){
 		            	$(".background").html(result);
-		            	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);
+		            	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);*/
 		            },
 		            error: function(xhr, status, er){}
 		        });				

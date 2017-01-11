@@ -75,29 +75,60 @@ $(document).ready(function() {
 	}
 
 	function myData(data,send_userEmail,send_userName){
-		return '<div class="message_box_send sendData">\
-						<a id='+send_userEmail+' class="message_sender">'+send_userName+'</a>\
+		var text ="";
+		if(data.type == 'pptx'){
+			text= "pptximage";			
+		}
+		if(data.type =='xlsx'){
+			text= "xlsximage";
+		}
+		if(data.type =='pdf'){
+			text= "pdfimage";
+		}
+		if(data.type =='docx'){
+			text= "docximage";
+		}
+		return '<div class="file_box_send sendData">\
+		 <div id="me_image" class="message_sender"></div>\
+		 <div class="myfileimage me"><div id="imagename">'+send_userName+'</div></br>\
+			<div class="url"><div class='+text+'></div></div>\
 						<a href="'+data.url+'" target="'+data.url+'"> \
 						<div class="file_container"> \
-							<h4 class="file_name" >'+data.name+'</h4> \
-							<span class="meta_size" >'+bytesToSize(data.size)+'</span>\
-							<span class="meta_rtype" >'+data.rtype+'</span>\
+							<div class="file_name" >'+data.name+'</div> \
+							<div class="meta_size" >'+bytesToSize(data.size)+'  '+ data.type+'</div>\
 						</div>\
 					</a>\
-				</div>';
+				</div></div></br>';
+		
+		
+		
 	}
 	
 	function otherData(data,re_userEmail,re_userName){
-		return '<div class="message_box_re reData">\
-						<a id='+re_userEmail+' class="message_re">'+re_userName+'</a>\
+		var text ="";
+		if(data.type == 'pptx'){
+			text= "pptximage";			
+		}
+		if(data.type =='xlsx'){
+			text= "xlsximage";
+		}
+		if(data.type =='pdf'){
+			text= "pdfimage";
+		}
+		if(data.type =='docx'){
+			text= "docximage";
+		}
+		return '<div class="file_box_re reData">\
+				<div id="other_image" class="message_re"></div>\
+				<div class="otherfileimage me"><div id="otherimagename">'+re_userName+'</div></br>\
+				<div class="url"><div class='+text+'></div></div>\
 						<a href="'+data.url+'" target="'+data.url+'"> \
 						<div class="file_container"> \
-							<h4 class="file_name" >'+data.name+'</h4> \
-							<span class="meta_size" >'+bytesToSize(data.size)+'</span> \
-							<span class="meta_rtype" >'+data.rtype+'</span>\
+						<div class="file_name" >'+data.name+'</div> \
+						<div class="meta_size" >'+bytesToSize(data.size)+'  '+ data.type+'</div>\
 						</div>\
 					</a>\
-				</div>';
+				</div></div></br>';
 	}
 	
 	function myImage(data,send_userEmail,send_userName){
@@ -117,7 +148,7 @@ $(document).ready(function() {
 		return '<div class="message_box_re reData">\
 				<div id="other_image" class="message_re"></div>\
 		 		<div class="otherimage me"><div id="otherimagename">'+re_userName+'</div></br>\
-					<a data-src="'+data.url+'" href="'+data.url+'" target="'+data.url+'" style="width: 50%;" class="image_file_body" data-link-url="'+data.url+'">\
+					<a data-src="'+data.url+'" href="'+data.url+'" target="'+data.url+'" class="image_file_body" data-link-url="'+data.url+'">\
 						<div class="image_preserve_aspect_ratio">\
 							<img class="image_body" data-real-src="'+data.url+'" src="'+data.url+'"\>\
 						</div>\
@@ -221,9 +252,9 @@ $(document).ready(function() {
 					$.each(data, function(j, dv){
 						if(dv.name == val.message){
 							if(dv.rtype == 'image'){
-								odata = otherImage(dv, dv.rece_id.email, dv.rece_Id.name);
+								odata = otherImage(dv, dv.rece_id.email, dv.rece_id.name);
 							}else{
-								odata = otherData(dv, dv.rece_id.email, dv.rece_Id.name);
+								odata = otherData(dv, dv.rece_id.email, dv.rece_id.name);
 							}
 							$('#messages').append(odata);
 							$('#messages').scrollTop($('#messages').prop('scrollHeight'));
