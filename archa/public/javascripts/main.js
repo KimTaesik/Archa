@@ -944,7 +944,7 @@ $(document).ready(function() {
 				$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-30 );
 				$('#rightSection').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-20);
 				$('.actionBox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);*/
-				$("#mySidenav").css('width',330);
+				$("#mySidenav").css('width',350);
 				
 			/*	$(".topchat").css('margin-right',250);*/
 				$("#mySidenav").css('height', $(window).height()-$('#archive').height()-$('.searchDiv').height()-125);

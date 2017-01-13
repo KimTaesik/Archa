@@ -8,23 +8,33 @@
 		if(log.mtype == 'url'){
 			if(search == null || log.og.title.indexOf(search)>-1 || log.url.indexOf(search)>-1  ){
 %>
- 		<div>
-			<div class="url">
-				<img src="http://www.google.com/s2/favicons?domain=<%= log.url %>">
-				<a href="<%= log.url  %>" target="_blank"><%= log.url  %></a> 
+ 		<div class="link-filbox">
+ 		
+			<div class="url-link">
+				<div id="link-img">
+				<img src="http://www.google.com/s2/favicons?domain=<%= log.url %>"></div>
+				<div id="titlelink">
+				<a id="texturl" href="<%= log.url  %>" target="_blank"><%= log.url  %></a> 
+				</div>
+				
 			</div>
-			<div>
-				<%= log.og.title %>
-			</div>
-			<% if(log.email == user){ %>
-		 		<div>from : <%= log.name %></div>
-		 	<% }else{ %>
-		 		<div>to : <%= log.name %></div>
-		 	<% } %>
- 			<div><%= moment(log.mdate).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
+
+			<div class="link-textbox">
+				<div>
+					<%= log.og.title %>
+				</div>
+				
+				 <div class="link-text">
+						<% if(log.email == user){ %>
+				 	<div>from : <%= log.name %></div>
+				 		<% }else{ %>
+				 	<div>to : <%= log.name %></div>
+				 	<% } %>
+		 			<div><%= moment(log.mdate).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
+ 				</div>
+ 			</div>
  			<!-- <a type="button" href="<%= log.url %>" style="float:right;">Down</a> -->
  		</div>
- 		<hr/>
 <%			}	
 		}
 	});

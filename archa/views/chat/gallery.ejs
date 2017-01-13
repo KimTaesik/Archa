@@ -10,19 +10,23 @@
 			if(log.rtype == 'image'){
 %>
  		<div>
-			<div class="url">
-				<img alt="<%= log.name %>" src="<%= log.url %>">
-			</div>
- 			<div><%= log.name %></div>
- 			<% if(log.send_id.email == user){ %>
- 			<div>to : <%= log.rece_id.name %></div>
- 			<% }else{ %>
- 			<div>from : <%= log.send_id.name %></div>
- 			<% } %>
- 			<div><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
+
+				<div class="gallery-filebox">
+					<div class="gallery-img">
+						<img class="img-gallery"alt="<%= log.name %>" src="<%= log.url %>">
+					</div>
+					<div class="gallery-textbox">
+		 			<div id="gallery-filename"><%= log.name %></div>
+		 			<% if(log.send_id.email == user){ %>
+		 			<div class="username">to : <%= log.rece_id.name %></div>
+		 			<% }else{ %>
+		 			<div class="username">from : <%= log.send_id.name %></div>
+		 			<% } %>
+		 			<div class="username"><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
+ 					</div>
+ 				</div>
  			<!-- <a type="button" href="<%= log.url %>" style="float:right;">Down</a> -->
  		</div>
- 		<hr/>
 <%			}
 		}
 	});

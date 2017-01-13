@@ -219,6 +219,7 @@ $(document).ready(function() {
 		var msg;
 		var mdata, odata;
 		var chk;
+		
 		$.each(room.messagelog,function(i, val){
 			if(val.mtype == 'text'){
 				msg = {
@@ -236,7 +237,7 @@ $(document).ready(function() {
 			}else if(val.mtype == 'data'){
 				if(val.email == email){
 					$.each(data, function(j, dv){
-						if(dv.name == val.message){
+						if(dv.name == val.message && dv.send_id.email == val.email){
 							if(dv.rtype == 'image'){
 								mdata = myImage(dv, dv.send_id.email, dv.send_id.name);
 							}else{
@@ -248,7 +249,7 @@ $(document).ready(function() {
 					});
 				}else{
 					$.each(data, function(j, dv){
-						if(dv.name == val.message){
+						if(dv.name == val.message && dv.rece_id.email == val.email){
 							if(dv.rtype == 'image'){
 								odata = otherImage(dv, dv.rece_id.email, dv.rece_id.name);
 							}else{
