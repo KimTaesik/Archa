@@ -15,15 +15,25 @@ $(document).ready(function() {
                                 <div class="talk me"><div id="talkname">'+msg.me+'</div></br>'+msg.msg+'</div>\
                           </div></br>';
         return text;
-  }
-	
+	}
+    function nearMe(msg){
+        var msglength = msg.msg.length;
+        var text= '<div class="message_box_send">\
+                                <div class="talk me">'+msg.msg+'</div>\
+                          </div></br>';
+        return text;
+	}	
 	function other(msg){
 		return '<div class="message_box_re">\
 					<div id="other_image" class="message_re"></div>\
 					<div class="talk other"><div id="talkother">'+msg.me+'</div><br>'+msg.msg+'</div>\
 				</div></br>';
 	}
-	
+	function nearOther(msg){
+		return '<div class="message_box_re">\
+					<div class="talk other">'+msg.msg+'</div>\
+				</div></br>';
+	}	
 	function myYoutube(msg,meta){
 		return '<div class="message_box_send">\
 					<a id="'+msg.me+'" class="message_sender">'+msg.me+'</a>\
@@ -84,7 +94,18 @@ $(document).ready(function() {
 					</a>\
 				</div>';
 	}
-	
+	function nearMyData(data,send_userEmail,send_userName){
+		return '<div class="message_box_send sendData">\
+					<a id='+send_userEmail+' class="message_sender">'+send_userName+'</a>\
+						<a href="'+data.url+'" target="'+data.url+'"> \
+						<div class="file_container"> \
+							<h4 class="file_name" >'+data.name+'</h4> \
+							<span class="meta_size" >'+bytesToSize(data.size)+'</span>\
+							<span class="meta_rtype" >'+data.rtype+'</span>\
+						</div>\
+					</a>\
+				</div>';
+	}	
 	function otherData(data,re_userEmail,re_userName){
 		return '<div class="message_box_re reData">\
 						<a id='+re_userEmail+' class="message_re">'+re_userName+'</a>\
@@ -110,7 +131,17 @@ $(document).ready(function() {
 		 </div>\
 				</div></br>';
 	}
-
+	function nearMyImage(data,send_userEmail,send_userName){
+		return '<div class="message_box_send sendData">\
+					 <div class="myimage me"></br>\
+							<a data-src="'+data.url+'" href="'+data.url+'" target="'+data.url+'" class="dataImage" data-link-url="'+data.url+'">\
+								<div class="dataImageBody">\
+									<img class="image_body" data-real-src="'+data.url+'" src="'+data.url+'">\
+								</div>\
+							</a>\
+					 </div>\
+				</div></br>';
+	}
 	function otherImage(data,re_userEmail,re_userName){
 		return '<div class="message_box_re reData">\
 				<div id="other_image" class="message_re"></div>\
@@ -122,7 +153,17 @@ $(document).ready(function() {
 					</a>\
 				</div></div></br>';
 	}
-	
+	function nearOtherImage(data,re_userEmail,re_userName){
+		return '<div class="message_box_re reData">\
+			 		<div class="otherimage me"></br>\
+						<a data-src="'+data.url+'" href="'+data.url+'" target="'+data.url+'" style="width: 50%;" class="image_file_body" data-link-url="'+data.url+'">\
+							<div class="image_preserve_aspect_ratio">\
+								<img class="image_body" data-real-src="'+data.url+'" src="'+data.url+'"\>\
+							</div>\
+						</a>\
+					</div>\
+				</div></br>';
+	}	
 	socket = io.connect();
 	socket.emit('myId', $('.myInfoView').attr("id"));
 	
@@ -188,7 +229,13 @@ $(document).ready(function() {
 		var msg;
 		var mdata, odata;
 		var chk;
-		$.each(room.messagelog,function(i, val){
+		var temp;
+		room.messagelog.forEach(function(val, i){
+			if(i!=0){
+				var testDate = new Date(val.mdate);
+				var tempDate = new Date(temp.mdate);
+				var cal = new Date(testDate-tempDate);
+			}
 			if(val.mtype == 'text'){
 				msg = {
 					email : val.email,
@@ -196,35 +243,65 @@ $(document).ready(function() {
 					msg : val.message
 				}
 				if(val.email == email){
-					$('#messages').append(me(msg));
-					$('#messages').scrollTop($('#messages').prop('scrollHeight'));
+					if(i!=0 && val.email == temp.email && cal.getDate()==1 && cal.getHours()==9 && cal.getMinutes() <= 5){
+						$('#messages').append(nearMe(msg));
+						$('#messages').scrollTop($('#messages').prop('scrollHeight'));						
+					}else{
+						$('#messages').append(me(msg));
+						$('#messages').scrollTop($('#messages').prop('scrollHeight'));
+					}
 				}else{
-					$('#messages').append(other(msg));
-					$('#messages').scrollTop($('#messages').prop('scrollHeight'));					
+					if(i!=0 && val.email == temp.email && cal.getDate()==1 && cal.getHours()==9 && cal.getMinutes() <= 5){
+						$('#messages').append(nearOther(msg));
+						$('#messages').scrollTop($('#messages').prop('scrollHeight'));						
+					}else{
+						$('#messages').append(other(msg));
+						$('#messages').scrollTop($('#messages').prop('scrollHeight'));								
+					}
 				}
 			}else if(val.mtype == 'data'){
 				if(val.email == email){
 					$.each(data, function(j, dv){
-						if(dv.name == val.message){
-							if(dv.rtype == 'image'){
-								mdata = myImage(dv, dv.send_id.email, dv.send_id.name);
+						if(dv.name == val.message && dv.send_id.email == val.email && dv.date == val.mdate){
+							if(i!=0 && val.email == temp.email && cal.getDate()==1 && cal.getHours()==9 && cal.getMinutes() <= 5){
+								if(dv.rtype == 'image'){
+									mdata = nearMyImage(dv, dv.send_id.email, dv.send_id.name);
+								}else{
+									mdata = nearMyData(dv, dv.send_id.email, dv.send_id.name);
+								}
+								$('#messages').append(mdata);
+								$('#messages').scrollTop($('#messages').prop('scrollHeight'));								
 							}else{
-								mdata = myData(dv, dv.send_id.email, dv.send_id.name);
-							}
-							$('#messages').append(mdata);
-							$('#messages').scrollTop($('#messages').prop('scrollHeight'));
+								if(dv.rtype == 'image'){
+									mdata = myImage(dv, dv.send_id.email, dv.send_id.name);
+								}else{
+									mdata = myData(dv, dv.send_id.email, dv.send_id.name);
+								}
+								$('#messages').append(mdata);
+								$('#messages').scrollTop($('#messages').prop('scrollHeight'));								
+							}					
 						}
 					});
 				}else{
 					$.each(data, function(j, dv){
-						if(dv.name == val.message){
-							if(dv.rtype == 'image'){
-								odata = otherImage(dv, dv.rece_id.email, dv.rece_id.name);
+						if(dv.name == val.message && dv.rece_id.email == val.email && dv.date == val.mdate){
+							if(i!=0 && val.email == temp.email && cal.getDate()==1 && cal.getHours()==9 && cal.getMinutes() <= 5){
+								if(dv.rtype == 'image'){
+									odata = nearOtherImage(dv, dv.rece_id.email, dv.rece_id.name);
+								}else{
+									odata = otherData(dv, dv.rece_id.email, dv.rece_id.name);
+								}
+								$('#messages').append(odata);
+								$('#messages').scrollTop($('#messages').prop('scrollHeight'));									
 							}else{
-								odata = otherData(dv, dv.rece_id.email, dv.rece_id.name);
+								if(dv.rtype == 'image'){
+									odata = otherImage(dv, dv.rece_id.email, dv.rece_id.name);
+								}else{
+									odata = otherData(dv, dv.rece_id.email, dv.rece_id.name);
+								}
+								$('#messages').append(odata);
+								$('#messages').scrollTop($('#messages').prop('scrollHeight'));								
 							}
-							$('#messages').append(odata);
-							$('#messages').scrollTop($('#messages').prop('scrollHeight'));
 						}
 					});
 				}
@@ -249,6 +326,7 @@ $(document).ready(function() {
 				chk = 1;
 				val.readby.push(email);
 			}
+			temp = val;
 		});
 		if(chk){
 			socket.emit('readMessageSave', room);

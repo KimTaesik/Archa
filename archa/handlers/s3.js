@@ -8,6 +8,7 @@ var formidable = require('formidable');
 var fs = require('fs');
 var Storage = require('../DB/storage.js');
 var User = require('../models/user.js');
+var StorageList = require('../models/storagelist.js');
 
 exports.filesend = function(req, res){
 	var user = req.session.user_id;
@@ -27,9 +28,16 @@ exports.filesend = function(req, res){
 //		s3.createBucket({Bucket: bucketName}, function(err) {
 //			if(err) console.log(err);
 
+		    var text = "";
+		    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+		    for( var i=0; i < 8; i++ ){
+		        text += possible.charAt(Math.floor(Math.random() * possible.length));
+		    }
+
 			var params = {
 					Bucket: bucketName, 
-					Key: address+'/'+files.userfile.name,
+					Key: address+'/'+text+'/'+files.userfile.name,
 					Body: fs.createReadStream(files.userfile.path),
 					ACL:'public-read'
 				};
@@ -39,7 +47,31 @@ exports.filesend = function(req, res){
 			    if(!data){
 			    	
 			    }else{
-			    	Storage.savelist(fields.roomName, user.email, fields.you, data.Location, files.userfile.name, files.userfile.size, fileType, realType );
+			    	var slist = new StorageList({
+			    		'room_id'	:	fields.roomName,
+			    		'url'		:	data.Location,
+			    		'name'		:	files.userfile.name,
+			    		'size'		:	files.userfile.size,
+			    		'type'		: 	fileType,
+			    		'rtype'		:	realType,
+			    		'date'		:	new Date
+			    	});
+			    	User.findOne({email:user.email},"email name position company phoneNumber", function(err, senduser){
+			    		User.findOne({email:fields.you},"email name position company phoneNumber", function(err, receuser){
+			    			slist.send_id = senduser;
+			    			slist.rece_id = receuser;
+			    			
+			    			slist.save(function(err){
+			    				if(err){
+			    					console.log(err);
+			    				}
+			    			});
+			    		});
+			    	});			    	
+			    			    	
+/*			    	var testData = Storage.savelist(fields.roomName, user.email, fields.you, data.Location, files.userfile.name, files.userfile.size, fileType, realType );
+			    	console.log('테스트데이타');
+			    	console.log(testData);
 			    	var data = {
 			    			name	: files.userfile.name,
 			    			url		: data.Location,
@@ -47,8 +79,8 @@ exports.filesend = function(req, res){
 			    			size	: files.userfile.size,
 			    			type	: fileType,
 			    			rtype	: realType
-			    		}
-			    	res.json(data);
+			    		}*/
+			    	res.json(slist);
 				}
 			});
 //		});
@@ -65,7 +97,8 @@ exports.userProfileImg = function(req, res, next){
 		var bucketName = 'archa-bucket'
 		var params = {
 			Bucket: bucketName, 
-			Key: address+'/userProfileImg/'+files.userfile.name,
+			Key: address+'/userProfileImg/user_profile_img.png',
+/*			Key: address+'/userProfileImg/'+files.userfile.name,*/
 			Body: fs.createReadStream(files.userfile.path),
 			ACL:'public-read'
 		};

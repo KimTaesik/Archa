@@ -314,9 +314,10 @@ module.exports = function(server){
 				mtype	: 'data',
 				email	: send_userEmail,
 				name	: send_userName,
-				message : data.name, 
-				mdate	: new Date
+				message : data.name,
+				mdate	: data.date
 			});
+			console.log(data.date);
 			
 			Room.findOne({'id':socket.room},function(err, room){
 				if(err) console.log(err);

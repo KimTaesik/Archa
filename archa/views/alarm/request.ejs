@@ -3,15 +3,17 @@
 	if(req){
 		req.forEach(function(req, index) { 
 %>
-<div class="request" id="<%= req.email %>">
-	<div class="fleft">
-		 <%= req.name %>
-		 <%= req.position %>
-		 <%= req.company %>
- 	</div>
-	<button type="button" id="<%= req.email %>" class="conn fleft">Connect</button>
-	<button type="button" id="<%= req.email %>" class="dec">Decline</button>
-</div>
+				<div id="<%= req.email %>"  class='request'>
+					<div id ="group-profile" href='#'>
+					   <div id="group-img" style='<%= "background-image:url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/"+req.email+"/userProfileImg/user_profile_img.png"%>'> </div>
+						<div id="<%= req.name %>" class="rname"><%= req.name %><br/>
+							<div id="<%= req.position %>" class="rposition"><%= req.position %> / </div> 
+							<div id="<%= req.company %>" class="rcompany"><%= req.company %></div><br/>
+						</div>
+					<button type="button" id="<%= req.email %>" class="conn fleft">Connect</button>
+					<button type="button" id="<%= req.email %>" class="dec">Decline</button>						
+					</div>
+				</div>
 <%
 		});
 	}
