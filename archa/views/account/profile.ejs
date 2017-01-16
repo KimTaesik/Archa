@@ -1,33 +1,98 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<meta name="google" value="notranslate">
-  	<script src="//code.jquery.com/jquery-1.10.2.js"></script> 	
-  	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
- 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-	<link rel="Stylesheet" href="/stylesheets/chatPage.css" />
-	<link rel="Stylesheet" href="/stylesheets/detailStyles.css" />
-	<link rel="Stylesheet" href="/stylesheets/style2.css" />
-	<link rel="stylesheet prefetch" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <title>Archa</title>
-    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-    <!-- <script src="/javascripts/socket.io.js"></script> -->
-	<script src="/javascripts/ch.js"></script>
-	<script src="/javascripts/main.js"></script>
-	<title>Archa</title>
-</head>
-<body>
-<div>top</div>
-<a href="/chatPage">X</a>
-<div><%= user.email %></div>
-<div></div>
-<div></div>
-</body>
-</html>
+
+<div class="dtprofile-background">
+
+	<div class="container">
+	 <div class="row">
+		<div class="col-md-12">
+			<div class="dtprofile-contents">
+				<div class="row">
+					<div id="dtprofile-icon"></div>
+					<div class="dtprofile-title">PROFILE</div>
+					<div id="dtprofile-closebtn"><a href="/chatPage">X</a></div>
+				</div>
+				<div class="row">	
+					<div class="dtprofile-image">
+						<div class="dtprofile-onoff"></div>
+						<div class="dtprofile-name"><%= user.name %></div>
+					</div>	
+					<div class="dtprofile-text">
+						<div class="dt-title">TITLE</div>
+						<div class="dt-text"><%= user.position %></div>
+						<div class="dt-title">COMPANY</div>
+						<div class="dt-text"><%= user.company %></div>
+						<div class="dt-title">EMAIL Address</div>
+						<div class="dt-text"><%= user.email %></div>
+						<div class="dt-title">Phone Number</div>
+						<div class="dt-text"><%= user.phoneNumber %></div>
+  
+					</div>
+				</div>	
+			</div>
+			
+		<div class="dtprofile-setting">
+			<div class="row">
+				<div id="dtsetting-icon"></div>
+				<div class="dtprofile-title">Account Setting</div>
+			</div>
+
+			<div class="setting-title">E-mail Address</div>
+			<div class="setting-line"></div>
+			<div class="setting-text">
+
+				<div class="inputtext">Current E-mail Address</div>
+					<div class="phoneform">
+					  <input type="text" class="form-control" id="emailAdress">
+					</div>
+				<div class="inputtext">New E-mail Address</div>
+					<div class="phoneform">
+					  <input type="text" class="form-control" id="emailAdress">
+					</div>
+						<button class="account-message" id="<%= user.email %>">Update E-mail</button>
+			</div>
+			
+			
+			
+			<div class="setting-title">Phone Number</div>
+			<div class="setting-line"></div>
+			<div class="setting-text">
+
+				<div class="inputtext">Current Phone number</div>
+					<div class="phoneform">
+					  <select class="form-control" id="emailPhone"> 
+					  <option>+82</option>
+					  <option>+61</option> 
+					  <option>+33</option> 
+					  <option>+60</option> 
+					  <option>+13</option> 
+					  </select>
+					  <input type="text" class="form-control" id="phoneNumber">
+					  	<button class="profile-message" id="<%= user.email %>">Message</button>
+					</div>
+				<div class="inputtext">New Phone number</div>
+					<div class="phoneform">
+					  <select class="form-control" id="emailPhone"> 
+					  <option>+82</option>
+					  <option>+61</option> 
+					  <option>+33</option> 
+					  <option>+60</option> 
+					  <option>+13</option> 
+					  </select>
+					  <input type="text" class="form-control" id="phoneNumber">
+					  <button class="profile-message" id="<%= user.email %>">Message</button>
+					</div>
+			</div>
+			
+			
+			<div class="setting-title">Password</div>
+			
+			
+			<div class="setting-signout">
+			</div>
+			
+		
+		</div>	
+	  </div>
+	 </div>
+	</div>
+</div>
+

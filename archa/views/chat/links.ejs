@@ -8,7 +8,7 @@
 		if(log.mtype == 'url'){
 			if(search == null || log.og.title.indexOf(search)>-1 || log.url.indexOf(search)>-1  ){
 %>
- 		<div class="link-filbox">
+ 		<div class="link-filebox">
  		
 			<div class="url-link">
 				<div id="link-img">
@@ -20,7 +20,7 @@
 			</div>
 
 			<div class="link-textbox">
-				<div>
+				<div id="linkcontents">
 					<%= log.og.title %>
 				</div>
 				

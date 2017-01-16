@@ -5,8 +5,8 @@ html{
 body {
  /*  font: 12px "Lucida Grande", Helvetica, Arial, sans-serif; naki_20161210 */
  /* font basic set  2016_12_19 */
- /* font-family: "Source Sans Pro"; */
- font-family: "fontello";
+font-family: "Source Sans Pro";
+ /* font-family: "fontello"; */
  }
 .menuTop{
 	height:10%;
@@ -1318,6 +1318,7 @@ ul li.hang img {
 	margin-top:15px;
 	width: 100%;
 	height:55px;
+	font-weight: bold;
 	border-bottom: 10px solid;
 	border-color: #ECEFF1;
 }
@@ -1327,6 +1328,7 @@ ul li.hang img {
 	margin-top:15px;
 	width: 100%;
 	height:55px;
+	font-weight: bold;
 	border-bottom: 10px solid;
 	border-color: #ECEFF1;
 }
@@ -1336,6 +1338,7 @@ ul li.hang img {
 	margin-top:15px;
 	width: 100%;
 	height:55px;
+	font-weight: bold;
 	border-bottom: 10px solid;
 	border-color: #ECEFF1;
 }
@@ -1351,6 +1354,7 @@ ul li.hang img {
     /* margin-top: 11px; */
     margin-left: 15px;
     margin-right: 15px;
+
 }
 .gallery-icon{
     background-image: url(../img/right/Galleryicon.png);
@@ -1364,6 +1368,7 @@ ul li.hang img {
     /* margin-top: 11px; */
     margin-left: 15px;
     margin-right: 15px;
+
 }
 .links-icon{
     background-image: url(../img/right/linkicon.png);
@@ -1377,6 +1382,7 @@ ul li.hang img {
     /* margin-top: 11px; */
     margin-left: 15px;
     margin-right: 15px;
+
 }
 .sidenav {
     /* height: 100%; */
@@ -1395,7 +1401,7 @@ ul li.hang img {
 .sidenav a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
-    font-size: 1.2rem;
+    font-size: 3.0rem;
     color: #818181;
     /* display: block; */
     transition: 0.3s
@@ -1537,6 +1543,7 @@ ul li.hang img {
     /* width: 100%; */
     height: 40px;
     overflow: hidden;
+    font-weight: bold;
     /* overflow-x: hidden; */
 }
 .username{
@@ -1561,6 +1568,7 @@ ul li.hang img {
     color: #546E7A;
     /* width: 100%; */
     height: 30px;
+    font-weight: bold;
     overflow: hidden;
 }
 .gallery-filebox{
@@ -1585,13 +1593,16 @@ ul li.hang img {
 .url-link{
 	/* float:left; */
 }
+#linkcontents{
+	font-weight:bold;
+}
 #link-img{
 	padding-left:15px;
 	padding-top:10px;
 	position: absolute;
 	
 }
-.link-filbox{
+.link-filebox{
 	height:140px;
 	padding-top: 10px; 
     border-bottom: 1px solid;
@@ -1607,6 +1618,8 @@ ul li.hang img {
 #texturl{
 	margin-left: 10px;
 	display: inline-block;
+	font-size:1.2rem;
+	color:#00B8D4;
 
 }
 .link-textbox{
@@ -1617,7 +1630,114 @@ ul li.hang img {
 }
 .link-text{
 	font-size:1.3rem;
+	color:#B0BEC5;
 	margin-top:10px;
 }
+/* archive mouseover icon */
+#rarchive-download{
+	
+	float:right;
+	width: 4.0rem;
+    height: 4.0rem;  
+    /* margin-left: 45px; */
+    margin-right: 15px;
+   /*  margin-top: 25px; */
+    background-repeat: no-repeat; 
+    background-size: 100% 100%;
+    background-image: url(../img/downloadbutton.png);
+}
+#rarchive-link{
+	
+	float:right;
+	width: 4.0rem;
+    height: 4.0rem;  
+    /* margin-left: 45px; */
+    margin-right: 15px;
+    /* margin-top: 25px; */
+    background-repeat: no-repeat; 
+    background-size: 100% 100%;
+    background-image: url(../img/linkbutton.png);
+}
 
-  
+#rgallery-download{
+	position:relative;
+	/* float:right; */
+	width: 4.0rem;
+    height: 4.0rem;  
+    margin-top: 30px;
+    margin-left: 210px;
+    /* margin-right: 145px; */
+    background-repeat: no-repeat; 
+    background-size: 100% 100%;
+    background-image: url(../img/downloadbutton.png);
+}
+#rgallery-link{
+	position:relative;
+	/* float:right; */
+	width: 4.0rem;
+    height: 4.0rem;  
+    margin-top: 30px;
+    margin-left: 270px;
+   /*  margin-right: 90px; */
+    background-repeat: no-repeat; 
+    background-size: 100% 100%;
+    background-image: url(../img/linkbutton.png);
+}
+/* rightsection profile */ 
+.friendPicture{
+	margin-left:100px;
+	margin-top:10px;
+	width:150px;
+	height:150px;
+	box-shadow: 0 0 1px 4px #ccc;
+	border-radius:10px;
+	background-repeat: no-repeat; 
+    background-size: 100% 100%;
+    background-image: url(../img/momo.png);
+}
+.friendName{
+	text-align:center;
+	font-size:2.2rem;
+	margin-top:20px;
+	font-weight:bold;
+}
+ .status{
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background-color: #2CCA70;
+    border-radius: 6px;
+    margin-left: 260px;
+    margin-top: 110px;
+}
+.rightsec-info{
+	border:none;
+	background-color:transparent;
+	padding-top:40px;
+	padding-left:70px;
+}
+.title-tab{
+	color:#455A64;
+	font-size:1.5rem;
+	margin-bottom:2px; 
+	font-weight:bold;
+} 
+.title-text{
+	color:#B0BEC5;
+	font-size:1.3rem;
+	margin-bottom:15px;
+}
+.profile-message{
+    background-color: #4A7DFF;
+    height: 50px;
+    width: 140px;
+    text-align: center;
+    margin-top: 40px;
+    margin-left: 110px;
+    border-radius: 12px;
+    color: #ffffff;
+    font-size: 1.6rem;
+    font-weight: bold;
+    
+    
+}

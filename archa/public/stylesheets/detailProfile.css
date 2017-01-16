@@ -1,0 +1,144 @@
+body{
+font-size:10px; 	
+overflow-x: hidden;
+overflow: scroll;
+}
+.dtprofile-background{
+	background-color:#ECEFF1;
+
+}
+.dtprofile-contents{
+	height: 400px;
+    width: 900px;
+    padding-top: 30px;
+    background-color: #ffffff;
+    margin-left: 100px;
+}
+#dtprofile-icon{
+    width: 80px;
+    height: 80px;
+    background-image: url(../img/Galleryicon.png);
+    background-repeat: no-repeat;
+    background-size: 40%;
+    background-position: center;
+    float: left;
+    margin-left: 30px;
+}
+.dtprofile-title{
+	float: left;
+	color:#37474F;
+    margin-top: 20px;
+    font-size: 2.8rem;
+    font-weight: 600;
+}
+#dtprofile-closebtn{
+	float: right;
+    margin-right: 50px;
+    font-size: 2.0rem;
+}
+.dtprofile-text{
+	float:left;
+	margin-left: 100px;
+}
+
+.dtprofile-image{
+	margin-left: 100px;
+    margin-top: 10px;
+    float:left;
+    width: 200px;
+    height: 200px;
+    box-shadow: 0 0 1px 4px #ccc;
+    border-radius: 10px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url(../img/momo.png);
+}
+.dtprofile-name{
+    margin-top: 210px;
+    font-size: 2.6rem;
+    font-weight: bold;
+    text-align: center;
+}
+.dtprofile-onoff{
+	float: left;
+    width: 12px;
+    height: 12px;
+    background-color: #00e676;
+    border-radius: 6px;
+    margin-top: 222px;	
+}
+.dt-title{
+	color:#455A64;
+	font-size:2.0rem;
+	font-weight:bold;
+}
+.dt-text{
+	color:#546E7A;
+	margin-top:5px;
+	margin-bottom:20px;
+	font-size:1.4rem;
+}
+.dtprofile-setting{
+	margin-top:20px;
+	margin-left:100px;
+	width:900px;
+	height:2000px;
+	background-color: #ffffff;
+}
+
+#dtsetting-icon{
+    width: 80px;
+    height: 80px;
+    background-image: url(../img/alarmon.png);
+    background-repeat: no-repeat;
+    background-size: 40%;
+    background-position: center;
+    float: left;
+    margin-left: 30px;
+}
+.setting-title{
+	font-size:2.0rem;
+	font-weight:bold;
+	color:#607D8B;
+	margin-left:80px;
+	margin-bottom:20px;
+}
+.setting-line{
+	border-bottom:3px solid;
+	color:#ECEFF1;
+}
+.setting-text{
+	margin-top:20px;
+	margin-left:80px;
+	margin-bottom:50px;
+}
+.inputtext{
+	font-size:1.4rem;
+	color:#607D8B;
+}
+#emailPhone{
+	width:70px;
+	margin-right:10px;
+	float:left;
+}
+#emailAdress{
+	width:500px;
+}
+.phoneform{
+	margin-bottom:20x;	
+}
+#phoneNumber{
+	width:300px;
+}
+.account-message{
+	background-color: #4A7DFF;
+    height: 50px;
+    width: 140px;
+    text-align: center;
+    margin-top: 20px;
+    margin-left: 360px;
+    border-radius: 12px;
+    color: #ffffff;
+    font-size: 1.6rem;
+    font-weight: bold;
+}
