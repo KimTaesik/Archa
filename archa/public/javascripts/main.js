@@ -1253,23 +1253,5 @@ $(document).ready(function() {
 		            }
 		        });
 		    });
-		    
-<<<<<<< HEAD
-		    /*전체 상세프로필*/
-		    $('#mySidenav').on('click', '.profile_detail', function(){
 
-                var id = $(this).attr('id');
-
-                $.ajax({
-                    type: "post",
-                    url: "/profile",
-                    data: { "id":id },
-                    success: function(result,status,xhr){
-                        $('body').html(result);
-                    },
-                    error: function(xhr, status, er){}
-                });
-            });
-=======
->>>>>>> branch 'master' of https://github.com/KimTaesik/Archa.git
 });
