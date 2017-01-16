@@ -1254,7 +1254,6 @@ $(document).ready(function() {
 		        });
 		    });
 		    
-<<<<<<< HEAD
 		    /*전체 상세프로필*/
 		    $('#mySidenav').on('click', '.profile_detail', function(){
 
@@ -1270,6 +1269,13 @@ $(document).ready(function() {
                     error: function(xhr, status, er){}
                 });
             });
-=======
->>>>>>> branch 'master' of https://github.com/KimTaesik/Archa.git
+
+
+		    /*상세 프로필*/
+		    $('.dtprofile-background').on('click', '.setting-close', function(){
+		    	alert("떴따 유환씨벌");
+				$(this).find(".setting-text").remove();
+				/*$(this).find("#rgallery-download").remove();*/
+		    });
+		    
 });
