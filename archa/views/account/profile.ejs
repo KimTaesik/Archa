@@ -13,7 +13,6 @@
  	<!-- font apply : Source Sans Pro -->
  	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet"> 
  	<link rel="stylesheet" href="/css/fontello.css">
-
 	<link rel="Stylesheet" href="/stylesheets/chatPage.css" />
 	<link rel="Stylesheet" href="/stylesheets/detailStyles.css" />
 	<link rel="Stylesheet" href="/stylesheets/style2.css" />
@@ -56,7 +55,7 @@
 				</div>
 				<div class="row">	
 					<div class="dtprofile-image">
-						<div class="dtprofile-onoff"></div>
+						<!-- <div class="dtprofile-onoff"></div> -->
 						<div class="dtprofile-name"><%= user.name %></div>
 					</div>	
 					<div class="dtprofile-text">
@@ -79,63 +78,88 @@
 				<div class="dtprofile-title">Account Setting</div>
 			</div>
 
-			<div class="setting-title">E-mail Address</div>
+			<div class="setting-title">E-mail Address<button class="setting-close emailcl">CLOSE</button></div>
+			 
 			<div class="setting-line"></div>
-			<div class="setting-text">
+			<div class="setting-text email">
+				<div class="inputtext">Current E-mail Address</div>
+				<div class="inputform">
+				  <input type="text" class="form-control" id="emailAdress">
+				</div>
+				<div class="inputtext">New E-mail Address</div>
+				<div class="inputform">
+				  <input type="text" class="form-control" id="emailAdress">
+				</div>
+				<button class="account-message" id="#">Update E-mail</button>
+			</div>
+			
+			<div class="setting-title">Phone Number<button class="setting-close phcl">CLOSE</button></div>
+			<div class="setting-line"></div>
+			<div class="setting-text ph">
+
+				<div class="inputtext">Current Phone number</div>
+					<div class="inputform">
+					  <select class="form-control" id="emailPhone"> 
+					  <option>+82</option>
+					  <option>+01</option> 
+					  <option>+81</option> 
+					  <option>+86</option> 
+					  <option>+61</option> 
+					  <option>+44</option>
+					  <option>+63</option> 
+					  <option>+852</option> 
+					  <option>+66</option> 		
+					  </select>
+					  <input type="text" class="form-control" id="phoneNumber">
+					</div>
+				<div class="inputtext">New Phone number</div>
+					<div class="inputform">
+					  <select class="form-control" id="emailPhone"> 
+					  <option>+82</option>
+					  <option>+01</option> 
+					  <option>+81</option> 
+					  <option>+86</option> 
+					  <option>+61</option> 
+					  <option>+44</option>
+					  <option>+63</option> 
+					  <option>+852</option> 
+					  <option>+66</option> 					  
+					  </select>
+					  <input type="text" class="form-control" id="phoneNumber">
+					</div>
+						<button class="account-message" id="#">Update Phone</button>
+			</div>
+			
+			
+			<div class="setting-title">Password<button class="setting-close pwcl">CLOSE</button></div>
+			<div class="setting-line"></div>
+			<div class="setting-text pw">
 
 				<div class="inputtext">Current E-mail Address</div>
-					<div class="phoneform">
+					<div class="inputform">
 					  <input type="text" class="form-control" id="emailAdress">
 					</div>
 				<div class="inputtext">New E-mail Address</div>
-					<div class="phoneform">
+					<div class="inputform">
 					  <input type="text" class="form-control" id="emailAdress">
 					</div>
-						<button class="account-message" id="<%= user.email %>">Update E-mail</button>
+						<button class="account-message" id="<%= user.email %>">Save Password</button>
 			</div>
 			
-			
-			
-			<div class="setting-title">Phone Number</div>
+			<div class="setting-signout">Sign Out</div>
 			<div class="setting-line"></div>
 			<div class="setting-text">
 
-				<div class="inputtext">Current Phone number</div>
-					<div class="phoneform">
-					  <select class="form-control" id="emailPhone"> 
-					  <option>+82</option>
-					  <option>+61</option> 
-					  <option>+33</option> 
-					  <option>+60</option> 
-					  <option>+13</option> 
-					  </select>
-					  <input type="text" class="form-control" id="phoneNumber">
-					  	<button class="profile-message" id="<%= user.email %>">Message</button>
-					</div>
-				<div class="inputtext">New Phone number</div>
-					<div class="phoneform">
-					  <select class="form-control" id="emailPhone"> 
-					  <option>+82</option>
-					  <option>+61</option> 
-					  <option>+33</option> 
-					  <option>+60</option> 
-					  <option>+13</option> 
-					  </select>
-					  <input type="text" class="form-control" id="phoneNumber">
-					  <button class="profile-message" id="<%= user.email %>">Message</button>
-					</div>
+				<div class="inputtext">Confirm your password</div>
+				<div class="inputform">
+				  <input type="text" class="form-control" id="emailAdress">
+				</div>
+				<button class="account-signout" id="<%= user.email %>">Sign out</button>
 			</div>
-			
-			
-			<div class="setting-title">Password</div>
-			
-			
-			<div class="setting-signout">
-			</div>
-			
-		
+		</div>
 		</div>	
 	  </div>
 	 </div>
-	</div>
-</div>
+	</div>	
+</body>
+</html>

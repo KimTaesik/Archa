@@ -1253,5 +1253,38 @@ $(document).ready(function() {
 		            }
 		        });
 		    });
+		    
+		    /*전체 상세프로필*/
+		    $('#mySidenav').on('click', '.profile_detail', function(){
+                var id = $(this).attr('id');
+
+                $.ajax({
+                    type: "post",
+                    url: "/profile",
+                    data: { "id":id },
+                    success: function(result,status,xhr){
+                        $('body').html(result);
+                    },
+                    error: function(xhr, status, er){}
+                });
+            });
+
+
+		    /*상세 프로필*/
+		    $('.dtprofile-background').on('click', '.emailcl', function(){
+		    	$(this).hide();
+				$('.email').remove();
+				/*$(this).find("#rgallery-download").remove();*/
+		    });
+		    $('.dtprofile-background').on('click', '.phcl', function(){
+		    	$(this).hide();
+				$('.ph').remove();
+				/*$(this).find("#rgallery-download").remove();*/
+		    });
+		    $('.dtprofile-background').on('click', '.pwcl', function(){
+		    	$(this).hide();
+				$('.pw').remove();
+				/*$(this).find("#rgallery-download").remove();*/
+		    });
 
 });

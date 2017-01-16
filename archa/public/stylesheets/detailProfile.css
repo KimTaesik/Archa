@@ -59,14 +59,14 @@ overflow: scroll;
     font-weight: bold;
     text-align: center;
 }
-.dtprofile-onoff{
+/* .dtprofile-onoff{
 	float: left;
     width: 12px;
     height: 12px;
     background-color: #00e676;
     border-radius: 6px;
     margin-top: 222px;	
-}
+} */
 .dt-title{
 	color:#455A64;
 	font-size:2.0rem;
@@ -76,13 +76,13 @@ overflow: scroll;
 	color:#546E7A;
 	margin-top:5px;
 	margin-bottom:20px;
-	font-size:1.4rem;
+	font-size:1.6rem;
 }
 .dtprofile-setting{
 	margin-top:20px;
 	margin-left:100px;
 	width:900px;
-	height:2000px;
+	height: 100%;
 	background-color: #ffffff;
 }
 
@@ -113,7 +113,7 @@ overflow: scroll;
 	margin-bottom:50px;
 }
 .inputtext{
-	font-size:1.4rem;
+	font-size:1.6rem;
 	color:#607D8B;
 }
 #emailPhone{
@@ -124,14 +124,46 @@ overflow: scroll;
 #emailAdress{
 	width:500px;
 }
-.phoneform{
-	margin-bottom:20x;	
+.inputform{
+	margin-bottom:10px;	
 }
 #phoneNumber{
 	width:300px;
 }
 .account-message{
 	background-color: #4A7DFF;
+    height: 50px;
+    width: 140px;
+    text-align: center;
+    margin-top: 20px;
+    margin-left: 360px;
+    border-radius: 12px;
+    color: #ffffff;
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+.setting-close{
+    float: right;
+    background-color: #ffffff;
+    height: 35px;
+    width: 100px;
+    text-align: center;
+    border-radius: 8px;
+    color: #b0bec5;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-right: 100px;
+}
+.setting-signout{
+	font-size:2.0rem;
+	font-weight:bold;
+	color:#FF5722;
+	margin-left:80px;
+	margin-bottom:20px;
+}
+.account-signout{
+	background-color: #FF5722;
     height: 50px;
     width: 140px;
     text-align: center;
