@@ -1202,17 +1202,4 @@ $(document).ready(function() {
 		        });
 		    });
 		    
-		    $('.right').on('click', '.profile_detail', function(){
-		    	var id = $(this).attr('id');
-		    	alert(id)
-			    $.ajax({
-			        type: "post",
-			        url: "/profile",
-			        data: { "id":id },
-			        success: function(result,status,xhr){
-			        	$('body').html(result);
-			        },
-			        error: function(xhr, status, er){}
-			    });
-		    });
 });

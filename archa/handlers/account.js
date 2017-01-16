@@ -25,9 +25,9 @@ exports.login = function(req, res, next){
 }
 exports.profile = function(req, res, next){
 /*	var user = req.session.user_id;*/
-	User.findOne({'email':req.body.id}).exec(function(err, user){
+	User.findOne({'email':req.body.userId}).exec(function(err, user){
 		if(err) console.log(err)
-		else res.render('account/profile',{ layout:false, title:'profile', user:user });
+		else res.render('account/profile',{ title:'profile', user:user });
 	});
 }
 exports.friendInfo = function(req, res, next){
