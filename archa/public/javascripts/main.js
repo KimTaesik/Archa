@@ -4,7 +4,7 @@ $(document).ready(function() {
 			$('#leftSection').css('height' ,  $(window).height() );
 			$('#friendlist').css('height' ,  $(window).height() - 465);
 			$('.searchResult,#room-list').css('height' ,  $(window).height()-$('#setGroup').height()-$('.menuTop').height()-$('.memberSection').height()-$('.myInfo').height()-$('.nav').height() -67 );
-		/*	$('.topMenu').css('width', $(window).width()-$('#leftSection').width());*/
+			$('.dtprofile').css('height' ,  $(window).height() );
 			$(window).resize(function() {
 				$('#leftSection').css('height' ,  $(window).height());
 				$('#friendlist').css('height' ,  $(window).height() - 465);
@@ -902,10 +902,28 @@ $(document).ready(function() {
 
 			});
 				
+				/* right archive mouseover 2016-01-06 */
+				
+				$(".mid").on("mouseenter",".archive-textbox", function(event){
+	
+					var icon= '<div id="archive-icon">\
+			  				   <div id="rarchive-link"></div>\
+			  				   <div id="rarchive-download"></div></div>';
+
+					$(this).append(icon);
+					
+			});
+				$(".mid").on("mouseleave",".archive-textbox", function(event){
+					
+					$(this).find("#rarchive-link").remove();
+					$(this).find("#rarchive-download").remove();
+
+			});
+				
 				/* gallery mouseover 2016-01-06 */
 				
 				$(".mid").on("mouseenter",".gallery", function(event){
-	
+	 
 					var icon= '<div id="gallery-icon">\
 							   <div id="gallery-delete"></div>\
 			  				   <div id="gallery-link"></div>\
@@ -921,14 +939,33 @@ $(document).ready(function() {
 					$(this).find("#gallery-download").remove();
 
 			});
+				/* right gallery mouseover 2016-01-06 */
+				
+				$(".mid").on("mouseenter",".gallery-filebox", function(event){
+	 
+					var icon= '<div id="gallery-icon">\
+							   <div id="rgallery-link"></div>\
+			  				   <div id="rgallery-download"></div></div>';
+
+					$(this).append(icon);
+					
+			});
+				$(".mid").on("mouseleave",".gallery-filebox", function(event){
+					
+					$(this).find("#rgallery-link").remove();
+					$(this).find("#rgallery-download").remove();
+
+			});
 			/*
 			 * 친구 프로필 클릭하면 우측에 생성
 			 */
 			$('#leftSection').on('click', '.has-sub', function(e){
-				$('#rightSection').css('width' ,  185 );
+/*				$('#rightSection').css('width' ,  185 );
 				$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-30 );
 				$('#rightSection').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-20);
-				$('.actionBox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);
+				$('.actionBox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);*/
+				$("#mySidenav").css('width',350);
+				$("#mySidenav").css('height', $(window).height()-$('#archive').height()-$('.searchDiv').height()-125);
 				e.preventDefault();
 				var room = $('#thisRoom').val();
 				var id = $(this).attr("id");
@@ -937,8 +974,9 @@ $(document).ready(function() {
 			        url: "/friendInfo",
 			        data: { "room":room , "friend" : id },
 			        success: function(result,status,xhr){
-			        	$('#rightSection').html(result);
-			        	$('#rightContent').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-$('#myTab').height()-30);
+			        	$('#mySidenav').html(result);
+			        	/*$('#rightSection').html(result);
+			        	$('#rightContent').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-$('#myTab').height()-30);*/
 			        },
 			        error: function(xhr, status, er){}
 			    });
@@ -975,6 +1013,20 @@ $(document).ready(function() {
 		     * 우측섹션 열린거 닫는거
 		     */
 		    $('.mid').on('click','.closebtn', function(){
+				$("#mySidenav").css('width',0);
+				/*$(".topchat").css('margin-right',0);*/
+/*		    	$('#rightSection').empty();
+		    	$('#rightSection').css('width' , 0);
+		    	$('#rightSection').css('height', 0);
+		    	$('.actionBox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);
+		    	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-20 );
+		    	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -30);*/
+		    });
+		    
+		    /*
+		     * 우측섹션 열린거 닫는거
+		     */
+		    $('.topchat').on('click','.closebtn', function(){
 				$("#mySidenav").css('width',0);
 				/*$(".topchat").css('margin-right',0);*/
 /*		    	$('#rightSection').empty();
@@ -1202,4 +1254,22 @@ $(document).ready(function() {
 		        });
 		    });
 		    
+<<<<<<< HEAD
+		    /*전체 상세프로필*/
+		    $('#mySidenav').on('click', '.profile_detail', function(){
+
+                var id = $(this).attr('id');
+
+                $.ajax({
+                    type: "post",
+                    url: "/profile",
+                    data: { "id":id },
+                    success: function(result,status,xhr){
+                        $('body').html(result);
+                    },
+                    error: function(xhr, status, er){}
+                });
+            });
+=======
+>>>>>>> branch 'master' of https://github.com/KimTaesik/Archa.git
 });

@@ -1,18 +1,18 @@
 <body>
 <div class="friendInfo">
-	<div class="close" id="rigthClose">X</div>
-	<div class="friendPicture"></div>
+<a href="javascript:void(0)" class="closebtn">&times;</a>
 	<div class="status"></div>
-	<div class="friendName">Teasik Kim</div>
-	<div class="info">
-		<div>Title</div>
-		<div class="title" ><%= user.position %></div>
-		<div>Company</div>
-		<div class="company"><%= user.company %></div>
-		<div>E-mail</div>
-		<div  class="email"><%= user.email %></div>
-		<div>Phone</div>
-		<div class="phone"><%= user.phoneNumber %></div>	
+	<div class="friendPicture"></div>
+	<div class="friendName"><%= user.name %></div>
+	<div class="rightsec-info">
+		<div class="title-tab">Title</div>
+		<div class="title-text" ><%= user.position %></div>
+		<div class="title-tab">Company</div>
+		<div class="title-text"><%= user.company %></div>
+		<div class="title-tab">E-mail</div>
+		<div  class="title-text"><%= user.email %></div>
+		<div class="title-tab">Phone</div>
+		<div class="title-text"><%= user.phoneNumber %></div>	
 	</div>
 	<div class="button">
 		<button class="message" id="<%= user.email %>">Message</button>
