@@ -1275,6 +1275,7 @@ $(document).ready(function() {
 		    $('.dtprofile-background').on('click', '.setting-close', function(){
 		    	alert("떴따 유환씨벌");
 				$(this).find(".setting-text").remove();
+				$(this).find(".dtprofile-title").remove();
 				/*$(this).find("#rgallery-download").remove();*/
 		    });
 		    
