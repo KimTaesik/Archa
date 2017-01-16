@@ -12,6 +12,7 @@ var moment = require('moment');
 moment.locale('ko');
 var og = require('open-graph');
 var util = require('util');
+var ogs = require('open-graph-scraper');
 
 var io,
     guestNumber,
@@ -314,9 +315,10 @@ module.exports = function(server){
 				mtype	: 'data',
 				email	: send_userEmail,
 				name	: send_userName,
-				message : data.name, 
-				mdate	: new Date
+				message : data.name,
+				mdate	: data.date
 			});
+			console.log(data.date);
 			
 			Room.findOne({'id':socket.room},function(err, room){
 				if(err) console.log(err);
@@ -352,25 +354,46 @@ module.exports = function(server){
 	    		user.save();
 	    	});	
 	    });
-	    socket.on('getOgData', function(url, sendEmail,i){
-	    	var youtube = youPattern.exec(url);
-	    	og(url, function(err, meta){
-	    		if(meta.url == undefined && meta.image== undefined){
+	    socket.on('getOgData', function(val,i){
+	    	var youtube = youPattern.exec(val.url);
+	    	var options = {'url': val.url};
+	    	ogs(options, function (err, meta) {
+	    		console.log('og:', meta);
+	    		if(meta == undefined || meta.data.ogUrl == undefined && meta.data.ogImage== undefined){
 	    			var meta = {
-	    				url : url,
-	    				image : { url : 'https://www.google.com/s2/favicons?domain='+url},
-	    				description : ''
+	    				data:{
+		    				ogUrl : val.url,
+		    				ogImage : { url : 'https://www.google.com/s2/favicons?domain='+val.url},
+		    				ogDescription : meta.data.ogDescription == undefined && meta.data.ogTitle != undefined ? meta.data.ogTitle : ''
+	    				}
 	    			}
-	    			io.sockets.to(socket.room).sockets[socket.id].emit('ogData', meta, url, sendEmail,nickNames[socket.id],i);
+	    			io.sockets.to(socket.room).sockets[socket.id].emit('ogData', meta, val.url, val.email,nickNames[socket.id],i,val);
 	    		}else{
 		    		if(youtube != null && youtube.length>1){
-		    			io.sockets.to(socket.room).sockets[socket.id].emit('youOgData', meta, url, sendEmail,nickNames[socket.id],i);
+		    			io.sockets.to(socket.room).sockets[socket.id].emit('youOgData', meta, val.url, val.email,nickNames[socket.id],i,val);
 		    		}else{
-		    			io.sockets.to(socket.room).sockets[socket.id].emit('ogData', meta, url, sendEmail,nickNames[socket.id],i);
+		    			io.sockets.to(socket.room).sockets[socket.id].emit('ogData', meta, val.url, val.email,nickNames[socket.id],i,val);
+		    		}	    			
+	    		}
+	    	});
+/*	    	og(val.url, function(err, meta){
+	    		console.log('og:', meta);
+	    		if(meta == undefined && meta.url == undefined && meta.image== undefined){
+	    			var meta = {
+	    				url : val.url,
+	    				image : { url : 'https://www.google.com/s2/favicons?domain='+val.url},
+	    				description : ''
+	    			}
+	    			io.sockets.to(socket.room).sockets[socket.id].emit('ogData', meta, val.url, val.email,nickNames[socket.id],i,val);
+	    		}else{
+		    		if(youtube != null && youtube.length>1){
+		    			io.sockets.to(socket.room).sockets[socket.id].emit('youOgData', meta, val.url, val.email,nickNames[socket.id],i,val);
+		    		}else{
+		    			io.sockets.to(socket.room).sockets[socket.id].emit('ogData', meta, val.url, val.email,nickNames[socket.id],i,val);
 		    		}	    			
 	    		}
 
-	    	});
+	    	});*/
 	    });
 	    socket.on('readMessageSave', function(room){
 	    	console.log(room.messagelog[0].readby);
@@ -396,10 +419,13 @@ module.exports = function(server){
 	    			});
 			    },function (callback) {
 					var checkMatch = urlPattern.exec(msg.msg);
+					console.log(checkMatch);
 				    if(checkMatch != null && checkMatch.length>1){
 				    	
 				    	var checkText = checkMatch[0];
-				    	og(checkText, function(err, meta){
+				    	
+				    	var options = {'url': checkText};
+				    	ogs(options, function (err, meta) {
 				    		callback(null, meta);
 				    	});
 				    }else{
@@ -417,9 +443,9 @@ module.exports = function(server){
 							email	: nickNames[socket.id],
 							name	: msg.me,
 							message : msg.msg, 
-							url		: meta.url == undefined ? checkText : meta.url,
-							og		: { 'title' : meta.title == undefined ? checkText : meta.title,
-										'description' : meta.description == undefined ? '' : meta.description
+							url		: meta == undefined || meta.data.ogUrl == undefined ? checkText : meta.data.ogUrl,
+							og		: { 'title' : meta == undefined || meta.data.ogTitle == undefined ? checkText : meta.data.ogTitle,
+										'description' :meta == undefined || meta.data.ogDescription == undefined ? '' : meta.data.ogDescription
 							},
 							readby	: roomUser.readby,
 							mdate	: messageDate
@@ -461,21 +487,23 @@ module.exports = function(server){
 						}
 					});
 					callback(null, message);
-				}],function (err, room) {
-				    match = urlPattern.exec(msg.msg);
+				}],function (err, message) {
+					console.log(message);
+				    match = urlPattern.exec(message.message);
 				    if(match != null && match.length>1){
 				    	var text = match[0];
 				    	var ytMatch = youPattern.exec(text);
-				    	
-				    	og(text, function(err, meta){
+				    	var options = {'url': text};
+				    	ogs(options, function (err, meta) {
+				    		console.log(meta);
 				    		if(ytMatch != null && ytMatch.length>1){
 				    			console.log('유툽')
-							    io.sockets.to(socket.room).sockets[socket.id].emit('my message youtube', msg, meta);
-								socket.broadcast.to(socket.room).emit('other message youtube', msg, meta);
-				    		}else if(meta.url != undefined){
+							    io.sockets.to(socket.room).sockets[socket.id].emit('my message youtube', message, meta);
+								socket.broadcast.to(socket.room).emit('other message youtube', message, meta);
+				    		}else if(meta != undefined && meta.data.ogUrl != undefined){
 				    			console.log('url메시지')
-							    io.sockets.to(socket.room).sockets[socket.id].emit('my message url', msg, meta);
-								socket.broadcast.to(socket.room).emit('other message url', msg, meta);
+							    io.sockets.to(socket.room).sockets[socket.id].emit('my message url', message, meta);
+								socket.broadcast.to(socket.room).emit('other message url', message, meta);
 				    		}else{
 				    			var meta = {
 					    				url : text,
@@ -483,19 +511,19 @@ module.exports = function(server){
 					    				description : ''
 					    			}
 				    			console.log('일반메시지');
-							    io.sockets.to(socket.room).sockets[socket.id].emit('my message url', msg, meta);
-								socket.broadcast.to(socket.room).emit('other message url', msg, meta);
+							    io.sockets.to(socket.room).sockets[socket.id].emit('my message url', message, meta);
+								socket.broadcast.to(socket.room).emit('other message url', message, meta);
 //							    io.sockets.to(socket.room).sockets[socket.id].emit('my message', msg);
 //								socket.broadcast.to(socket.room).emit('other message', msg);
 				    		}
 				    	});
 	
 				    }else{
-					    io.sockets.to(socket.room).sockets[socket.id].emit('my message', msg);
-						socket.broadcast.to(socket.room).emit('other message', msg);
+					    io.sockets.to(socket.room).sockets[socket.id].emit('my message', message);
+						socket.broadcast.to(socket.room).emit('other message', message);
 				    }
 				    Room.findOne({'id': socket.room}).exec(function(err,room){
-				    	io.sockets.sockets[socket.id].emit('refresh', socket.room , msg.msg, messageDate,room,nickNames[socket.id]);	
+				    	io.sockets.sockets[socket.id].emit('refresh', socket.room , message.message, messageDate,room,nickNames[socket.id]);	
 				    });
 				}
 			);

@@ -1,24 +1,26 @@
 <body>
-    <div role="tabpanel">
+    <div role="tabpanel" style="box-shadow:2px 2px 1px 2px #CFD8DC;">
 		<ul class="nav nav-tabs nav-justified" role="tablist" id="tabalarm">
-		  <li role="presentation" id="tabReq" class="altab active"><a href="#request" aria-controls="#request" role="tab" data-toggle="tab">Request</a></li>
-		  <li role="presentation" id="tabNoti" class="altab"><a href="#notification" aria-controls="#notification" role="tab" data-toggle="tab">Notification</a></li>
+		  <li role="presentation" id="tabReq" class="altab active"><div aria-controls="#request" role="tab" data-toggle="tab" style="height:60px;width: 270px;">Request</div></li>
+		  <li role="presentation" id="tabNoti" class="altab"><div aria-controls="#notification" role="tab" data-toggle="tab" style="height:60px;width: 270px;">Notification</div></li>
 		</ul>
 		
 		<div class="tab-content">
-			<div role="tabpanel" class="arch-tab tab-pane active" style="width: 250px; " id="request">
+			<div role="tabpanel" class="arch-tab tab-pane active" id="request" >
 				<%
 					if(req){
 						req.forEach(function(req, index) { 
 				%>
-				<div class="request" id="<%= req.email %>">
-					<div class="fleft">
-						 <%= req.name %>
-						 <%= req.position %>
-						 <%= req.company %>
-				 	</div>
-					<button type="button" id="<%= req.email %>" class="conn fleft">Connect</button>
-					<button type="button" id="<%= req.email %>" class="dec">Decline</button>
+				<div id="<%= req.email %>"  class='request'>
+					<button type="button" id="<%= req.email %>" class="dec fright">Decline</button>	
+					<button type="button" id="<%= req.email %>" class="conn fright">Connect</button>
+					<div id ="group-profile" href='#'>
+					   <div id="group-img-alarm" style='<%= "background-image:url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/"+req.email+"/userProfileImg/user_profile_img.png"%>'> </div>
+						<div id="<%= req.name %>" class="rname fright"><%= req.name %><br/>
+							<div id="<%= req.position %>" class="rposition"><%= req.position %> / </div> 
+							<div id="<%= req.company %>" class="rcompany"><%= req.company %></div><br/>
+						</div>					
+					</div>
 				</div>
 				<%
 						});
@@ -30,13 +32,17 @@
 					if(his){
 						his.forEach(function(his, index) { 
 				%>
-				 <%= his.name %><br/>
+				 <div>
+				 	<div class="user-img"></div>
+				 	<div>Now, <%= his.name %> is connected with you</div>
+				 </div><br/>
 				<%	
 						});
 					}
 				%>
 			</div>
-			<button type="button" id="findRelation" style="width: 100%;">Find New Relation</button>
+			<hr style="border-top:1px #eee">
+			<button type="button" id="findRelation" style="font-weight:bold;font-size:2.0rem;color :#36d484;width: 100%;height: 90px;background-color: white;border: 0;padding:0px;">Find New Relation</button>
 		</div>
 	</div>
 </body>

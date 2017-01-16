@@ -431,7 +431,7 @@ $(document).ready(function() {
 		        });
 			});			
 
-			$('.mid').on('dblclick', '#room', function(){
+			$('.mide').on('dblclick', '#room', function(){
 				$('#room').attr("disabled",false);
 			});
 			/*
@@ -739,21 +739,24 @@ $(document).ready(function() {
 			/*
 			 * 알람 req / noti 클릭
 			 */
-			$(".mid").on("click", ".altab", function(event){
+			$(".topMenu").on("click", ".altab", function(event){
 				event.preventDefault();
 				var url = $(this).attr("id");
 				var div;
-				
+
 				if(url=='tabReq'){
 					div = $('#request');
+					$('#request').show();
+					$('#notification').hide();
 				}else{
 					div = $('#notification');
+					$('#notification').show();
+					$('#request').hide();
 				}
 					
 		        $.ajax({
 		            type: "post",
 		            url: "/"+url,
-		            data : { "category" : category },
 		            success: function(result,status,xhr){
 		            	div.html(result);
 		            },
@@ -779,8 +782,12 @@ $(document).ready(function() {
 				    	
 				    	if(url=='tabgot'){
 				    		div = $('#got');
+				    		$('#got').show();
+				    		$('#sent').hide();
 				    	}else{
 				    		div = $('#sent');
+				    		$('#sent').show();
+				    		$('#got').hide();
 				    	}
 				 
 				        $.ajax({
@@ -1247,6 +1254,7 @@ $(document).ready(function() {
 		        });
 		    });
 		    
+<<<<<<< HEAD
 		    /*전체 상세프로필*/
 		    $('#mySidenav').on('click', '.profile_detail', function(){
 
@@ -1262,4 +1270,6 @@ $(document).ready(function() {
                     error: function(xhr, status, er){}
                 });
             });
+=======
+>>>>>>> branch 'master' of https://github.com/KimTaesik/Archa.git
 });
