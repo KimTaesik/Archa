@@ -139,7 +139,7 @@ $(document).ready(function() {
 		    	$('#rightSection').css('width' , 0);
 		    	$('#rightSection').css('height', 0);
 		    	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-20 );
-		    	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() );
+		    	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() );*/
 		    });
 		    
 
@@ -423,7 +423,7 @@ $(document).ready(function() {
 		            	$(".background").html(result);
 		            	$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-30);
 		            	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -10);*/
-		            	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -10);
+		            	/*$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -10);*/
 					    $("#messages").empty();
 					    socket.emit('rejoin', roomName,me);	            	
 		            },
@@ -624,7 +624,7 @@ $(document).ready(function() {
 		            url: "/myArchive",
 		            success: function(result,status,xhr){
 		            	$(".background").html(result);
-		            	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
+		            	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
 		            	$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
 		            	$('.archiveback').css('height', $(window).height() - $('.topMenu').height()-$('.mySection').height());
 		            	/*$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-$('.topMenu').height());*/
@@ -697,7 +697,7 @@ $(document).ready(function() {
 		            url: "/"+url,
 		            success: function(result,status,xhr){
 		            	$("#dataList").html(result);
-		            	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
+		            /*	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
 		            	$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
 		            	$('.archiveback').css('height', $(window).height() - $('.topMenu').height()-$('.mySection').height());
 		            	
@@ -731,7 +731,7 @@ $(document).ready(function() {
 		            url: "/findRelation",
 		            success: function(result,status,xhr){
 		            	$(".background").html(result);
-		            	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);
+		            	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);*/
 		            },
 		            error: function(xhr, status, er){}
 		        });				
@@ -924,7 +924,7 @@ $(document).ready(function() {
 			/*
 			 * 친구 프로필 클릭하면 우측에 생성
 			 */
-/*			$('#leftSection').on('click', '.has-sub', function(e){
+			$('#leftSection').on('click', '.has-sub', function(e){
 				$('#rightSection').css('width' ,  185 );
 				$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-30 );
 				$('#rightSection').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-20);
@@ -942,7 +942,7 @@ $(document).ready(function() {
 			        },
 			        error: function(xhr, status, er){}
 			    });
-			});*/
+			});
 			/*
 			 * 룸아카이브 선택시 여러가지......시발
 			 */
@@ -951,7 +951,7 @@ $(document).ready(function() {
 				$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-30 );
 				$('#rightSection').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-20);
 				$('.actionBox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);*/
-				$("#mySidenav").css('width',330);
+				$("#mySidenav").css('width',350);
 				
 			/*	$(".topchat").css('margin-right',250);*/
 				$("#mySidenav").css('height', $(window).height()-$('#archive').height()-$('.searchDiv').height()-125);
@@ -1200,5 +1200,19 @@ $(document).ready(function() {
 		            	$('#profile_view').css('background-image','url('+data);
 		            }
 		        });
+		    });
+		    
+		    $('.right').on('click', '.profile_detail', function(){
+		    	var id = $(this).attr('id');
+		    	alert(id)
+			    $.ajax({
+			        type: "post",
+			        url: "/profile",
+			        data: { "id":id },
+			        success: function(result,status,xhr){
+			        	$('body').html(result);
+			        },
+			        error: function(xhr, status, er){}
+			    });
 		    });
 });

@@ -14,6 +14,7 @@
     height:3.5rem;
     margin-top:1.2rem;
     margin-left:3.5rem;
+    position: absolute;
     background-color:transparent;
     border:none;
     background-image: url(../img/optionbutton.png);
@@ -22,6 +23,7 @@
 }
 
 .archiveInputSearch{
+	float:right;
     width:26.5rem;
     height:3.5rem;
     border:2px solid;
@@ -41,18 +43,24 @@
 }
 
 .arcSearch{
-	/* width: 20%; */
+    /* width: 100%; */
+    position: relative;
+    /* position: absolute; */
+    /* width: 20%; */
+    float: right;
+    display: inline-block;
 }
 /* .mySection{
 	width:100%;
 	background-color: #f8f8f8;
 } */
 .archiveName{
-	margin-left:3.0rem;
-	margin-top:1.3rem;
-	color:#546E7A;
-	font-size:2.2rem;
-	width: 60%;
+    position: absolute;
+    margin-left: 8.0rem;
+    margin-top: 1.3rem;
+    color: #546E7A;
+    font-size: 2.2rem;
+    width: 60%;
 }
 .gallery-div{
 	float:left;
@@ -62,7 +70,7 @@
     margin-right: 3.0rem;
     margin-top: 1.2rem;
     width: 2px;
-    float: left;
+    float: right;
     height: 3.5rem;
     border-left: 2px solid;
     color: #B0BEC5;

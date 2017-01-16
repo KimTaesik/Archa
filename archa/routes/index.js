@@ -48,7 +48,7 @@ router.post('/deleteFriend', account.deleteFriend);
 router.post('/getFriend', account.getFriend);
 router.post('/friendInfo', account.friendInfo);
 
-router.get('/profile', account.profile);
+router.post('/profile', account.profile);
 
 router.post('/roomList', room.roomlist);
 

@@ -11,20 +11,49 @@ Archive
 			if(log.rtype != 'image'){
 %>
 		 		<div>
-		 			<div><%= log.name %></div>
-		 			<% if(log.send_id.email == user){ %>
-		 			<div>to : <%= log.rece_id.name %></div>
-		 			<% }else{ %>
-		 			<div>from : <%= log.send_id.name %></div>
-		 			<% } %>
-		 			<div><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
+				  			 
+
+		 					<div class="filebox-archive">
+
+				  			<!--css ppt icon  -->
+				  			<% if(log.type == 'pptx'){ %>
+				  			<div class="url" >
+				  				<div class="pptx-archive"></div>
+				  			</div>
+				  			<% } %>
+				  			<!--css xlsx icon  -->
+				  			<% if(log.type == 'xlsx'){ %>
+				  			<div class="url" >
+				  				<div class="xlsx-archive"></div>
+				  			</div>
+				  			<% } %>
+				  			<!--css pdf icon  -->
+				  			<% if(log.type == 'pdf'){ %>
+				  			<div class="url" >
+				  				<div class="pdf-archive"></div>
+				  			</div>
+				  			<% } %>
+				  			<!--css doc icon  -->
+				  			<% if(log.type == 'docx'){ %>
+				  			<div class="url" >
+				  				<div class="docx-archive"></div>
+				  			</div>
+				  			<% } %>
+				  		<div class="archive-textbox">
+				 			<div id="filename"><%= log.name %></div>
+				 			<% if(log.send_id.email == user ){ %>
+				 			<div class="username">to : <%= log.rece_id.name %></div>
+				 			<% }else{ %>
+				 			<div class="username">from : <%= log.send_id.name %></div>
+				 			<% } %>
+				 			<div class="username"><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
+		 				</div>
 		 			<!-- <a type="button" href="<%= log.url %>" style="float:right;">Down</a> -->
 		 		</div>
-		 		<hr/>
 <%			}	
 		}
 	});
 %>		
-</div>
+</div></div>
 
 </body>

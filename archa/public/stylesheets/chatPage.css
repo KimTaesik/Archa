@@ -106,7 +106,38 @@ body {
 	margin-right: 5px;
 	text-align: left;
 }
-
+/* chat file myimage   */
+.myfileimage{
+	width: auto;
+    position: relative;
+    padding-top: 15px;
+    margin: 1em 0 1em;
+    border-radius: 10px;
+}
+.myfileimage.me{
+	margin-left: 110px;
+    margin-top: 20px;
+    border: 1px solid #e0e0e0;
+    background-color: #4A7DFF;
+    color: white;
+    font-size: 1.3rem;
+}
+.otherfileimage{
+	width: auto;
+    position: relative;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin: 1em 0 1em;
+    border-radius: 10px;
+}
+.otherfileimage.me{
+    margin-left: 110px;
+    margin-top: 20px;
+    border: 1px solid #e0e0e0;
+    background-color: #fff;
+    color: #455A64;
+    font-size: 1.3rem;
+}
 /* chat myimage   */
 .myimage{
 	width: auto;
@@ -123,6 +154,7 @@ body {
     background-color: #4A7DFF;
     color: white;
     font-size: 1.3rem;
+    max-width: 360px;
 }
 #imagename{
 	margin-left:15px;
@@ -137,7 +169,7 @@ body {
     padding-bottom: 15px;
     margin: 1em 0 1em;
     border-radius: 10px;
-}```````
+}
 .otherimage.me{
     margin-left: 110px;
     margin-top: 20px;
@@ -155,7 +187,7 @@ body {
 
 .image_body{
 	/* width: 30%; */
-	max-width: 650px;
+	max-width: 350px;
 }
 .topMenu{
 /* 	background-color: #000000;
@@ -225,7 +257,7 @@ body {
 
 }
 .noti{
-    margin-right: 40px;
+    margin-right: 55px;
     height: 34px;
     border: 2px solid;
     width: 20rem;
@@ -425,9 +457,10 @@ footer .form-group input{
 }
 textarea{width: 100%; height: 100%;}
 .file_container{
-	border: 1px solid rgba(0,0,0,1);
+	/* border: 1px solid rgba(0,0,0,1); */
 	background: #fff;
 	padding-left: 10px;
+	height:100px;
 }
 .toggler { width: 500px; height: 200px; position: relative; }
 #tbutton { float:right; position:relative; width:40px; height:30px; background:url(button2.gif); text-indent:-9999px; cursor:pointer;}
@@ -442,16 +475,25 @@ textarea{width: 100%; height: 100%;}
   background-color: white;
   width: 100%; 
 }
+/* 2016-01-12 */
+.file_box_send{
+	display:inline-block;
+	width:750px;
+		
+}
+.file_box_re{
+		width:750px;
+}
 .message_box_send{
 	display:inline-block;
-	min-width:250px;
-	max-width: 750px;
+ 	min-width:250px;
+	max-width: 750px; 
 
 }
 .message_box_re{
 	display:inline-block;
-	min-width:250px;	
-	max-width: 750px;
+ 	min-width:250px;	
+	max-width: 750px; 
 }
 .talk {
   width:auto; 
@@ -1256,9 +1298,9 @@ ul li.hang img {
 }
 #chatbar
 {
- 	margin-right: 3.0rem;
+ 	margin-right: 1.5rem;
     width: 2px;
-    float: left;
+    float: right;
     height: 3.5rem;
     border-left: 2px solid;
     color: #B0BEC5;
@@ -1353,9 +1395,9 @@ ul li.hang img {
 .sidenav a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
-    font-size: 25px;
+    font-size: 1.2rem;
     color: #818181;
-    display: block;
+    /* display: block; */
     transition: 0.3s
 }
 
@@ -1378,6 +1420,7 @@ ul li.hang img {
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
+<<<<<<< HEAD
 }
 
 /* 알람 css */
@@ -1415,3 +1458,202 @@ ul li.hang img {
     margin-bottom:15px;
     cursor:pointer;
 }
+
+/*  chat file image */
+.pptximage{
+ 	width: 4.0rem;
+    height: 5.0rem; 
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 23px;
+    background-repeat: no-repeat; 
+    background-size: 100% 100%;
+    background-image: url(../img/file/PPTicon.png);
+}
+.xlsximage{
+ 	width: 4.0rem;
+    height: 5.0rem; 
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 23px;
+    background-repeat: no-repeat; 
+    background-size: 100% 100%;
+    background-image: url(../img/file/Excelicon.png);	
+}
+.pdfimage{
+ 	width: 4.0rem;
+    height: 5.0rem; 
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 23px;
+    background-repeat: no-repeat; 
+    background-size: 100% 100%;
+    background-image: url(../img/file/PDFicon.png);	
+}
+.docximage{
+ 	width: 4.0rem;
+    height: 5.0rem;  
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 23px;
+    background-repeat: no-repeat; 
+    background-size: 100% 100%;
+    background-image: url(../img/file/wordicon.png);	
+}
+.file_name{
+	padding-top:20px;
+	color:#37474F;
+	font-size:1.8rem;
+	font-weight: bold;
+}
+.meta_size{
+	margin-top:10px;
+	color:#546E7A;
+	font-size:1.5rem;
+}
+
+/* room archive file icon */
+.pptx-archive{
+ 	width: 4.0rem;
+    height: 5.0rem; 
+    margin-left: 15px;
+    margin-right: 20px;
+    margin-top: 10px	;
+    background-repeat: no-repeat; 
+    background-size: 100% 100%;
+    background-image: url(../img/file/PPTicon.png);
+}
+.xlsx-archive{
+ 	width: 4.0rem;
+    height: 5.0rem; 
+    margin-left: 15px;
+    margin-right: 20px;
+    margin-top: 10px;
+    background-repeat: no-repeat; 
+    background-size: 100% 100%;
+    background-image: url(../img/file/Excelicon.png);	
+}
+.pdf-archive{
+ 	width: 4.0rem;
+    height: 5.0rem; 
+    margin-left: 15px;
+    margin-right: 20px;
+    margin-top: 10px;
+    background-repeat: no-repeat; 
+    background-size: 100% 100%;
+    background-image: url(../img/file/PDFicon.png);	
+}
+.docx-archive{
+ 	width: 4.0rem;
+    height: 5.0rem;  
+    margin-left: 15px;
+    margin-right: 20px;
+    margin-top: 10px;
+    background-repeat: no-repeat; 
+    background-size: 100% 100%;
+    background-image: url(../img/file/wordicon.png);	
+}
+.filebox-archive{
+	height:100px;
+	border-bottom : 1px solid;
+	color:#CFD8DC;
+	padding-top:20px;
+}
+.archive-textbox{
+	    width: 250px;
+    margin-left: 80px;
+}
+.roomArchive{
+	margin-top:65px;
+}
+#filename{
+	font-size: 1.6rem;
+    word-break: normal;
+    color: #546E7A;
+    /* width: 100%; */
+    height: 40px;
+    overflow: hidden;
+    /* overflow-x: hidden; */
+}
+.username{
+	font-size:1.3rem;
+	color:#78909C;
+	width:100%;
+	
+}
+.gallery-img{
+	margin-left:15px;
+}
+.img-gallery{
+	width:125px;
+	height:125px;
+	display: inline-block;
+	float:left;
+	margin-right:15px;
+}
+#gallery-filename{
+	font-size: 1.6rem;
+    word-break: normal;
+    color: #546E7A;
+    /* width: 100%; */
+    height: 30px;
+    overflow: hidden;
+}
+.gallery-filebox{
+	height:160px;
+	padding-top: 20px;
+    border-bottom: 1px solid;
+    color: #CFD8DC;
+}
+.gallery-textbox{
+	text-overflow:ellipsis;
+	white-space:nowrap; 
+	overflow:hidden;
+	float:left;
+	display: block;
+	width:170px;
+	padding-top: 10px;
+}
+.roomGallery{
+	margin-top:65px;
+}
+/* chat archive link */
+.url-link{
+	/* float:left; */
+}
+#link-img{
+	padding-left:15px;
+	padding-top:10px;
+	position: absolute;
+	
+}
+.link-filbox{
+	height:140px;
+	padding-top: 10px; 
+    border-bottom: 1px solid;
+    color: #CFD8DC;
+}
+.roomLinks{
+	margin-top: 65px;
+	}
+#titlelink{
+	
+	display: inline-block;
+}	
+#texturl{
+	margin-left: 10px;
+	display: inline-block;
+
+}
+.link-textbox{
+	margin-left:15px;
+	width:300px;
+	color:#607D8B;
+	font-size:1.4rem;
+}
+.link-text{
+	font-size:1.3rem;
+	margin-top:10px;
+}
+
+  
