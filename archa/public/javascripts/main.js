@@ -1,13 +1,13 @@
 
 $(document).ready(function() {
-			
+			$('#leftbar').css('height' ,  $(window).height() );
 			$('#leftSection').css('height' ,  $(window).height() );
-			$('#friendlist').css('height' ,  $(window).height() - 465);
+			$('#friendlist').css('height' ,  $(window).height()-60);
 			$('.searchResult,#room-list').css('height' ,  $(window).height()-$('#setGroup').height()-$('.menuTop').height()-$('.memberSection').height()-$('.myInfo').height()-$('.nav').height() -67 );
 			$('.dtprofile').css('height' ,  $(window).height() );
 			$(window).resize(function() {
 				$('#leftSection').css('height' ,  $(window).height());
-				$('#friendlist').css('height' ,  $(window).height() - 465);
+				$('#friendlist').css('height' ,  $(window).height() - 60);
 				/*$('.topMenu').css('width', $(window).width()-$('#leftSection').width());*/
             	$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-$('.topMenu').height());
             	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -10);
@@ -1396,6 +1396,93 @@ $(document).ready(function() {
 				           <input type="text" class="form-control" id="emailAdress"></div>\
 				           <button class="account-signout" id="<%= user.email %>">Sign out</button></div>';
 		    	$('#sign-table').append(text);
+		    });
+		    
+		/*    left bar*/
+		    
+		    /**
+		     * 새로운 아카이브 화면
+		     */
+			$( "#leftbar" ).on( "click", "#archive1", function( event ) {
+			    event.preventDefault();
+			    
+		        $.ajax({
+		            type: "post",
+		            url: "/myArchive",
+		            success: function(result,status,xhr){
+		            	$(".background").html(result);
+		            	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
+		            	$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
+		            	$('.archiveback').css('height', $(window).height() - $('.topMenu').height()-$('.mySection').height());
+		            	/*$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-$('.topMenu').height());*/
+		            },
+		            error: function(xhr, status, er){}
+		        });
+
+			});
+			
+			/*
+			 * 알람 뷰
+			 */
+/*			$( "#leftbar" ).on( "click", "#dropAlarm", function( event ) {
+			    event.preventDefault();
+			    
+		        $.ajax({
+		            type: "post",
+		            url: "/alarm",
+		            success: function(result,status,xhr){
+		            	$(".alarm-drop").html(result);
+		            },
+		            error: function(xhr, status, er){}
+		        });
+
+			});*/
+			
+			
+			  /*
+		     * 우측 상단에 파일 검색이나 메시지 로그 검색
+		     */
+		    $('#leftbar').on('click', '#searchSec1', function(e){
+		    	e.preventDefault();
+		    	$('#rightSection').css('width' ,  185 );
+		    	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-20 );
+		    	$('#rightSection').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-20);
+		    	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-20 );*/
+		        $.ajax({
+		            type: "post",
+		            url: "/search",
+		            success: function(result,status,xhr){
+		            	$('#rightSection').html(result);
+		            	$('#rightContent').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-$('#myTab').height()-30);
+		            },
+		            error: function(xhr, status, er){}
+		        });
+		    });
+		    
+		    /*
+		     * 좌측에서 친구 리스트 가져옴
+		     */
+		    $('#leftbar').on("click","#getcontacts1",function(e) {
+		    	var search = $("#inputAll").val();
+		        $.ajax({
+		            type: "post",
+		            url: "/getFriend",
+		            success: function(result,status,xhr){
+		            	$(".searchResult").html(result)
+		            },
+		            error: function(xhr, status, er){}
+		        });
+		        e.preventDefault();
+		    });
+		    
+		    /*
+			 * 왼쪽 방 정보 가져오기.
+			 */
+		    $('#leftbar').on("click","#getmessages1",function(){
+		    	socket.emit('rooms', $('.myInfoView').attr("id"));
+//				setInterval(function() {
+//					socket.emit('rooms', $('.myInfoView').attr("id"));
+//			    }, 10000);
 		    });
 
 });

@@ -526,19 +526,19 @@ $(document).ready(function() {
 					});
 				}else{
 					$.each(data, function(j, dv){
-						if(dv.name == val.message && dv.send_id.email == val.email && dv.date == val.mdate){
+						if(dv.name == val.message && dv.rece_id.email == val.email && dv.date == val.mdate){
 							if(i!=0 && val.email == temp.email && cal.getDate()==1 && cal.getHours()==9 && cal.getMinutes() <= 5){
 								if(dv.rtype == 'image'){
-									odata = nearOtherImage(dv, dv.send_id.email, dv.send_id.name);
+									odata = nearOtherImage(dv, dv.rece_id.email, dv.rece_id.name);
 								}else{
-									odata = nearOtherData(dv, dv.send_id.email, dv.send_id.name);
+									odata = nearOtherData(dv, dv.rece_id.email, dv.rece_id.name);
 								}
 								$('#messages').append(odata);								
 							}else{
 								if(dv.rtype == 'image'){
-									odata = otherImage(dv, dv.send_id.email, dv.send_id.name);
+									odata = otherImage(dv, dv.rece_id.email, dv.rece_id.name);
 								}else{
-									odata = otherData(dv, dv.send_id.email, dv.send_id.name);
+									odata = otherData(dv, dv.rece_id.email, dv.rece_id.name);
 								}
 								$('#messages').append(odata);							
 							}
