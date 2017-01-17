@@ -702,7 +702,7 @@ $(document).ready(function() {
 	                				<div class="roomname">'+name.rName+'</div>\
 	                				<div class="roomtext">'+room.messagelog[room.messagelog.length-1].message+'</div>	\
 	                				<div class="roomtime">'+pasttime+'</div>\
-	                				<div class="circle">'+room.users.length+'</div></div>';
+	                				<div class="circle">'+count+'</div></div>';
 	                    $('#room-list').append(text);
                 	}       		
             	});
@@ -746,6 +746,19 @@ $(document).ready(function() {
 		});
     	socket.emit('roomChange', thisRoom);
     });
-	
+	socket.on('state', function(state){
+		if(state){
+			$('.state').css('background-color', '#2CCA70');
+		}else{
+			$('.state').css('background-color', '#c0c0c0');
+		}
+	});
+	socket.on('reState', function(state,id){
+		if(state){
+			$('[id="'+id+'"]').children('#group-profile').children('#group-state').css('background-color', '#2CCA70');
+		}else{
+			$('[id="'+id+'"]').children('#group-profile').children('#group-state').css('background-color', '#c0c0c0');
+		}
+	});
 	
 });

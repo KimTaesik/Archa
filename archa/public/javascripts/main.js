@@ -425,7 +425,7 @@ $(document).ready(function() {
 		            	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -10);*/
 		            	/*$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -10);*/
 					    $("#messages").empty();
-					    socket.emit('rejoin', roomName,me);	            	
+					    socket.emit('rejoin', roomName,me);
 		            },
 		            error: function(xhr, status, er){}
 		        });

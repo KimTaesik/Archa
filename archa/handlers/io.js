@@ -41,14 +41,55 @@ module.exports = function(server){
     	
         socket.on('myId', function(id) {
         	console.log('yes!');
-        	User.findOneAndUpdate({'email':id}, { $set:{'state' : 1 }},{upsert: true, 'new': true});
         	nickNames[socket.id] = id;
+        	User.findOneAndUpdate({'email':id}, { $set:{'state' : 1 }},{upsert: true, 'new': true}).populate({path: 'friends.friend'})
+        	.exec(function(err,user){
+        		if(err) console.log(err);
+        		else io.sockets.connected[socket.id].emit('state', 1);
+        		
+        		for(index in user.friends){
+        			var test = findUserByName(user.friends[index].friend.email);
+//        			console.log('칭구 : ', user.friends[index]);
+        			if(test != undefined){
+        				io.sockets.connected[test].emit('reState',1,id);
+        			}
+        		}
+        	});;
+        	
         });
         
         socket.on('disconnect', function() {
-    		User.findOneAndUpdate({'email':nickNames[socket.id]}, { $set:{'state' : 0 }},{upsert: true, 'new': true});
-        	console.log('bye!');
-            delete nickNames[socket.id];
+        	console.log('나가시는분:',nickNames[socket.id]);
+        	if(nickNames[socket.id] != undefined){
+        		User.findOneAndUpdate({'email':nickNames[socket.id]},  { $set:{'state' : 0 }},{upsert: true, 'new': true}).populate({path: 'friends.friend'}).exec(function(err,user){
+        			if(err) console.log(err);
+        			else{
+        				if(user.friends.length != 0){
+                    		for(index in user.friends){
+                    			var test = findUserByName(user.friends[index].friend.email);
+                    			console.log('이메일:',user.friends[index].friend.email)
+                    			console.log('소켓번호:',test);
+                    			if(test != undefined){
+                    				io.sockets.connected[test].emit('reState',0,nickNames[socket.id]);
+                    			}else{
+                                	console.log('접속한 칭구가 없어서 bye!',nickNames[socket.id]);
+                                    delete nickNames[socket.id];
+                                    return;
+                    			}
+                    			if(index == user.friends.length-1){
+                                	console.log('마지막 친구까지 다 돌고 bye!',nickNames[socket.id]);
+                                    delete nickNames[socket.id];
+                                    return;
+                    			}
+                    		}        					
+        				}else{
+                        	console.log('칭구가 없어서 bye!',nickNames[socket.id]);
+                            delete nickNames[socket.id];
+                            return;
+        				}
+        			}
+        		});
+        	}
         });
         
 	    socket.on('join', function(room, me, youName) {
@@ -120,13 +161,6 @@ module.exports = function(server){
 					});
 				}
 			});
-//        	Room.update({'id': socket.room}, {$addToSet: {'messagelog.$*.readby' : 'asdasd@naver.com'} }, {multi:true}, function(err){
-//                if(err){
-//                        console.log(err);
-//                }else{
-//                        console.log("Successfully added");
-//                }
-//        	});
         });
         /*
          * user search 한 후에 상대방의 user db->request에 자신의 정보 저장
@@ -227,6 +261,7 @@ module.exports = function(server){
 		    		});
 	    		}
 	    	});
+
 	    });
 	    socket.on('roomChange', function(newRoomId){
 	    	socket.join(newRoomId);
@@ -358,7 +393,6 @@ module.exports = function(server){
 	    	var youtube = youPattern.exec(val.url);
 	    	var options = {'url': val.url};
 	    	ogs(options, function (err, meta) {
-	    		console.log('og:', meta);
 	    		if(err){
 	    			console.log('시발');
 	    		}else if(meta == undefined || meta.data.ogUrl == undefined && meta.data.ogImage== undefined){
@@ -421,7 +455,6 @@ module.exports = function(server){
 	    			});
 			    },function (callback) {
 					var checkMatch = urlPattern.exec(msg.msg);
-					console.log(checkMatch);
 				    if(checkMatch != null && checkMatch.length>1){
 				    	
 				    	var checkText = checkMatch[0];
@@ -490,14 +523,12 @@ module.exports = function(server){
 					});
 					callback(null, message);
 				}],function (err, message) {
-					console.log(message);
 				    match = urlPattern.exec(message.message);
 				    if(match != null && match.length>1){
 				    	var text = match[0];
 				    	var ytMatch = youPattern.exec(text);
 				    	var options = {'url': text};
 				    	ogs(options, function (err, meta) {
-				    		console.log(meta);
 				    		if(ytMatch != null && ytMatch.length>1){
 				    			console.log('유툽')
 							    io.sockets.to(socket.room).sockets[socket.id].emit('my message youtube', message, meta);
@@ -515,8 +546,6 @@ module.exports = function(server){
 				    			console.log('일반메시지');
 							    io.sockets.to(socket.room).sockets[socket.id].emit('my message url', message, meta);
 								socket.broadcast.to(socket.room).emit('other message url', message, meta);
-//							    io.sockets.to(socket.room).sockets[socket.id].emit('my message', msg);
-//								socket.broadcast.to(socket.room).emit('other message', msg);
 				    		}
 				    	});
 	
