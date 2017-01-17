@@ -15,11 +15,13 @@ font-family: "Source Sans Pro";
 	min-height: 80px;
 }
 #topcontacts{
-	margin-top:15px;
-	margin-left:30px;
-	font-size: 2.2rem;
-	font-weight:bold;
-	color: #546E7A;
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #546E7A;
+    height: 60px;
+    padding-top: 15px;
+    margin-left: 35px;
+}
 }
 .state{
     display: inline-block;
@@ -242,14 +244,15 @@ font-family: "Source Sans Pro";
    	position: absolute
 }
 .setting{
-	margin-right: 40px;
+	    margin-right: 20px;
+    margin-top: 5px;
     background-color: transparent;
-    height: 3.0rem;
-	border:none;
-	width:4.0rem;
-	background-repeat:no-repeat;
-	background-size:100% 100%;
-	background-image: url('../img/Room archive button.png');
+    height: 2.5rem;
+    border: none;
+    width: 3.0rem;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url(../img/Roomarchivebutton.png);
 }
 #midbar
 {
@@ -262,10 +265,10 @@ font-family: "Source Sans Pro";
 
 }
 .noti{
-    margin-right: 55px;
+margin-right: 15px;
     height: 34px;
     border: 2px solid;
-    width: 20rem;
+    width: 24.5rem;
     border-radius: 1.0rem;
     color: #B0BEC5;
     text-indent: 40px;
@@ -273,7 +276,7 @@ font-family: "Source Sans Pro";
     background-size: 1.8rem;
     background-repeat: no-repeat;
     background-image: url(../img/searchingbutton.png);
-    }
+}
   
 #roomClose{
 	background-color: #fff;
@@ -739,23 +742,23 @@ creates the smaller  triangle
 }
 /* room-image naki 2016_12_21 */
 #roomInfo{
-		width:7.0rem;
-		height:3.5rem;
-		margin-top: 1.3rem;
+		width: 5.0rem;
+   		height: 2.5rem;
+		margin-top: 1.7rem;
 		margin-left: 4.0rem;
-		background-image: url('../img/roomimage.png');
+		background-image: url('../img/memberinroomoption.png');
 		
 }
 /* naki 2016_12_14 */
 #room-image{
-    height: 2.5rem;
-    width: 2.5rem;
+    height: 2.0rem;
+    /* width: 5.0rem; */
     position: absolute;
     display: inline-block;
     float: left;
-    margin-top: 1.5rem;
-    margin-left: 6.3rem;
-    padding-top: 5px;
+    margin-top: 1.7rem;
+    margin-left: 6.2rem;
+    padding-top: 3px;
     text-align: center;
     color: black;
     background-color: #ECEFF1;
@@ -764,14 +767,15 @@ creates the smaller  triangle
 	
 }
 #room{
-	margin-top: 20px;
-	margin-left: 20px;
+	margin-top: 15px;
+    margin-left: 20px;
     position: absolute;
-	width:40%;
-	float:left;
-	border:none;
-	color:#455a64;
-	background-color:transparent;
+    width: 40%;
+    float: left;
+    border: none;
+    color: #455a64;
+    font-size: 1.8rem;
+    background-color: transparent;
 }
 .myOption{
 	background-color: #8F97A2;
@@ -1801,7 +1805,7 @@ ul li.hang img {
     margin-left:20px;
     height: 2.5rem;
     border: none;
-    margin-top: 30px;
+    margin-top: 35px;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-image: url(../img/bell.png);	
@@ -1814,7 +1818,7 @@ ul li.hang img {
     width: 3.0rem;
     height: 2.5rem;
     border: none;
-    margin-top: 30px;
+    margin-top: 35px;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-image: url(../img/Archiveicon.png);
@@ -1826,7 +1830,7 @@ ul li.hang img {
 	margin-left:20px;
 	height:2.5rem;
 	border:none;
-	margin-top: 30px;
+	margin-top: 35px;
 	background-repeat:no-repeat;
 	background-size:100% 100%;
 	background-image: url('../img/notification button.png');
