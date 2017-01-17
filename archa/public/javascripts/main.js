@@ -965,7 +965,7 @@ $(document).ready(function() {
 				$('#rightSection').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-20);
 				$('.actionBox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);*/
 				$("#mySidenav").css('width',350);
-				$("#mySidenav").css('height', $(window).height()-$('#archive').height()-$('.searchDiv').height()-125);
+				$("#mySidenav").css('height', $(window).height()-$('#archive').height()-$('.searchDiv').height()-95);
 				e.preventDefault();
 				var room = $('#thisRoom').val();
 				var id = $(this).attr("id");
@@ -992,7 +992,7 @@ $(document).ready(function() {
 				$("#mySidenav").css('width',350);
 				
 			/*	$(".topchat").css('margin-right',250);*/
-				$("#mySidenav").css('height', $(window).height()-$('#archive').height()-$('.searchDiv').height()-125);
+				$("#mySidenav").css('height', $(window).height()-$('#archive').height()-$('.searchDiv').height()-95);
 				e.preventDefault();
 				var room = $('#thisRoom').val();
 				var url = $(this).attr("id");
