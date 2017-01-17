@@ -13,7 +13,6 @@
  	<!-- font apply : Source Sans Pro -->
  	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet"> 
  	<link rel="stylesheet" href="/css/fontello.css">
-
 	<link rel="Stylesheet" href="/stylesheets/chatPage.css" />
 	<link rel="Stylesheet" href="/stylesheets/detailStyles.css" />
 	<link rel="Stylesheet" href="/stylesheets/style2.css" />
@@ -43,9 +42,6 @@
 	<script src="/javascripts/main.js"></script>
 	
 </head>
-<body style="overflow:scroll;">
-
-
 <div class="dtprofile-background">
 
 	<div class="container">
@@ -82,87 +78,25 @@
 				<div class="dtprofile-title">Account Setting</div>
 			</div>
 
-			<div class="setting-title">E-mail Address<button class="setting-close">CLOSE</button></div>
+			<div class="setting-title emailad">E-mail Address<button class="email-edit">EDIT</button></div>
+			 <div id="email-table">
 			 
-			<div class="setting-line"></div>
-			<div class="setting-text">
+			 </div>
 
-				<div class="inputtext">Current E-mail Address</div>
-					<div class="inputform">
-					  <input type="text" class="form-control" id="emailAdress">
-					</div>
-				<div class="inputtext">New E-mail Address</div>
-					<div class="inputform">
-					  <input type="text" class="form-control" id="emailAdress">
-					</div>
-						<button class="account-message" id="#">Update E-mail</button>
+			
+			<div class="setting-title phondnm">Phone Number<button class="phone-edit">EDIT</button></div>
+			<div id="phone-table">
 			</div>
 			
 			
-			
-			<div class="setting-title">Phone Number<button class="setting-close">CLOSE</button></div>
-			<div class="setting-line"></div>
-			<div class="setting-text">
-
-				<div class="inputtext">Current Phone number</div>
-					<div class="inputform">
-					  <select class="form-control" id="emailPhone"> 
-					  <option>+82</option>
-					  <option>+01</option> 
-					  <option>+81</option> 
-					  <option>+86</option> 
-					  <option>+61</option> 
-					  <option>+44</option>
-					  <option>+63</option> 
-					  <option>+852</option> 
-					  <option>+66</option> 		
-					  </select>
-					  <input type="text" class="form-control" id="phoneNumber">
-					</div>
-				<div class="inputtext">New Phone number</div>
-					<div class="inputform">
-					  <select class="form-control" id="emailPhone"> 
-					  <option>+82</option>
-					  <option>+01</option> 
-					  <option>+81</option> 
-					  <option>+86</option> 
-					  <option>+61</option> 
-					  <option>+44</option>
-					  <option>+63</option> 
-					  <option>+852</option> 
-					  <option>+66</option> 					  
-					  </select>
-					  <input type="text" class="form-control" id="phoneNumber">
-					</div>
-						<button class="account-message" id="#">Update Phone</button>
+			<div class="setting-title passwd">Password<button class="pass-edit">EDIT</button></div>
+			<div id="pass-table">
 			</div>
 			
-			
-			<div class="setting-title">Password<button class="setting-close">CLOSE</button></div>
-			<div class="setting-line"></div>
-			<div class="setting-text">
-
-				<div class="inputtext">Current E-mail Address</div>
-					<div class="inputform">
-					  <input type="text" class="form-control" id="emailAdress">
-					</div>
-				<div class="inputtext">New E-mail Address</div>
-					<div class="inputform">
-					  <input type="text" class="form-control" id="emailAdress">
-					</div>
-						<button class="account-message" id="<%= user.email %>">Save Password</button>
+			<div class="setting-signout signot">Sign Out<button class="sign-edit">EDIT</button></div>
+			<div id="sign-table">
 			</div>
-			
-			<div class="setting-signout">Sign Out</div>
-			<div class="setting-line"></div>
-			<div class="setting-text">
 
-				<div class="inputtext">Confirm your password</div>
-					<div class="inputform">
-					  <input type="text" class="form-control" id="emailAdress">
-					</div>
-					<button class="account-signout" id="<%= user.email %>">Sign out</button>
-			</div>
 		</div>
 		</div>	
 	  </div>

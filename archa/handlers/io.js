@@ -359,7 +359,9 @@ module.exports = function(server){
 	    	var options = {'url': val.url};
 	    	ogs(options, function (err, meta) {
 	    		console.log('og:', meta);
-	    		if(meta == undefined || meta.data.ogUrl == undefined && meta.data.ogImage== undefined){
+	    		if(err){
+	    			console.log('시발');
+	    		}else if(meta == undefined || meta.data.ogUrl == undefined && meta.data.ogImage== undefined){
 	    			var meta = {
 	    				data:{
 		    				ogUrl : val.url,

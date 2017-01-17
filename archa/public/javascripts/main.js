@@ -1256,7 +1256,6 @@ $(document).ready(function() {
 		    
 		    /*전체 상세프로필*/
 		    $('#mySidenav').on('click', '.profile_detail', function(){
-
                 var id = $(this).attr('id');
 
                 $.ajax({
@@ -1272,11 +1271,131 @@ $(document).ready(function() {
 
 
 		    /*상세 프로필*/
-		    $('.dtprofile-background').on('click', '.setting-close', function(){
-		    	alert("떴따 유환씨벌");
-				$(this).find(".setting-text").remove();
-				$(this).find(".dtprofile-title").remove();
-				/*$(this).find("#rgallery-download").remove();*/
+		    $('.dtprofile-background').on('click', '.emailcl', function(){
+		    	$(this).hide();
+				$('.email').hide();
+				var icon= '<button class="email-edit">EDIT</button>';
+			$('.emailad').append(icon);
+				
 		    });
 		    
+		    $('.dtprofile-background').on('click', '.email-edit', function(){
+		    	$('.email-edit').remove();
+		    	var icon='<button class="setting-close emailcl">CLOSE</button>';
+		    	$('.emailad').append(icon);
+		    	
+		    	var text= '<div class="setting-line email"></div>\
+	                       <div class="setting-text email">\
+	                       <div class="inputtext">Current E-mail Address</div>\
+		    		       <div class="inputform">\
+	                       <input type="text" class="form-control" id="emailAdress"></div>\
+	                       <div class="inputtext">New E-mail Address</div>\
+	                        <div class="inputform">\
+	                        <input type="text" class="form-control" id="emailAdress"></div>\
+	                        <button class="account-message" id="#">Update E-mail</button></div>';
+		    	$('#email-table').append(text);
+				
+		    });
+		    
+		    
+		    $('.dtprofile-background').on('click', '.phcl', function(){
+		    	$(this).hide();
+				$('.ph').hide();
+				var icon= '<button class="phone-edit">EDIT</button>';
+				$('.phondnm').append(icon);
+		    });
+		    
+		    $('.dtprofile-background').on('click', '.phone-edit', function(){
+		    	$('.phone-edit').remove();
+		    	var icon='<button class="setting-close phcl">CLOSE</button>';
+		    	$('.phondnm').append(icon);
+		    	
+		    	var text= '<div class="setting-line ph"></div>\
+		    			   <div class="setting-text ph">\
+             			   <div class="inputtext">Current Phone number</div>\
+				           <div class="inputform">\
+					  <select class="form-control" id="emailPhone">\
+					  <option>+82</option>\
+					  <option>+01</option>\
+					  <option>+81</option>\
+					  <option>+86</option>\
+					  <option>+61</option>\
+					  <option>+44</option>\
+					  <option>+63</option>\
+					  <option>+852</option>\
+					  <option>+66</option>\
+					  </select>\
+					  <input type="text" class="form-control" id="phoneNumber">\
+					</div>\
+				<div class="inputtext">New Phone number</div>\
+					<div class="inputform">\
+					  <select class="form-control" id="emailPhone">\
+					  <option>+82</option>\
+					  <option>+01</option>\
+					  <option>+81</option>\
+					  <option>+86</option>\
+		    		  <option>+61</option>\
+					  <option>+44</option>\
+					  <option>+63</option>\
+					  <option>+852</option>\
+					  <option>+66</option>\
+					  </select>\
+					  <input type="text" class="form-control" id="phoneNumber">\
+					</div>\
+						<button class="account-message" id="#">Update Phone</button>\
+		    		</div>';
+		    	$('#phone-table').append(text);
+				
+		    });
+		    
+		    
+		    
+		    $('.dtprofile-background').on('click', '.pwcl', function(){
+		    	$(this).hide();
+				$('.pw').hide();
+				var icon= '<button class="pass-edit">EDIT</button>';
+				$('.passwd').append(icon);
+		    });
+		    
+		    $('.dtprofile-background').on('click', '.pass-edit', function(){
+		    	$('.pass-edit').remove();
+		    	var icon='<button class="setting-close pwcl">CLOSE</button>';
+		    	$('.passwd').append(icon);
+		    	
+		    	var text= '<div class="setting-line pw"></div>\
+		    			   <div class="setting-text pw">\
+		    			   <div class="inputtext">Current E-mail Address</div>\
+					       <div class="inputform">\
+					       <input type="text" class="form-control" id="emailAdress">\
+				           </div>\
+				           <div class="inputtext">New E-mail Address</div>\
+					       <div class="inputform">\
+					       <input type="text" class="form-control" id="emailAdress">\
+					       </div>\
+						   <button class="account-message" id="<%= user.email %>">Save Password</button></div>';
+		    	$('#pass-table').append(text);
+		    });
+		    
+		    
+		    $('.dtprofile-background').on('click', '.socl', function(){
+		    	$(this).hide();
+				$('.so').hide();
+				var icon= '<button class="sign-edit">EDIT</button>';
+				$('.signot').append(icon);
+		    });
+		    
+		    $('.dtprofile-background').on('click', '.sign-edit', function(){
+		    	$('.sign-edit').remove();
+		    	var icon='<button class="setting-close socl">CLOSE</button>';
+		    	$('.signot').append(icon);
+		    	
+		    	var text= '<div class="setting-line so"></div>\
+		    		       <div class="setting-text so">\
+         			       <div class="inputtext">Confirm your password</div>\
+				           <div class="inputform">\
+				           <input type="text" class="form-control" id="emailAdress"></div>\
+				           <button class="account-signout" id="<%= user.email %>">Sign out</button></div>';
+		    	$('#sign-table').append(text);
+		    });
+
 });
