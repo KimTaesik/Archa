@@ -515,10 +515,30 @@ textarea{width: 100%; height: 100%;}
 	margin-top:10px;
 }
 .talk {
+ 
+  }
+.talks {
   width:auto; 
   position: relative;
   padding-top: 10px;
   padding-left:20px;
+  padding-right:15px;
+  padding-bottom:10px;
+  color: black;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  
+  }  
+.urlrow{
+	display: inline-flex;
+}  
+/* link 채팅 말풍선 설정  */
+.link{
+  width:auto; 
+  position: relative;
+  padding-top: 10px;
+  padding-left:10px;
   padding-right:15px;
   padding-bottom:15px;
   color: black;
@@ -527,6 +547,30 @@ textarea{width: 100%; height: 100%;}
   border-radius: 10px;
   
   }
+.link.other {
+	margin-left:80px;
+   /*  margin-top:20px; */
+	border: 1px solid #e0e0e0;
+	background-color: #ffffff;
+	color:#455A64; 
+	font-size: 1.3rem;
+}
+.link.me {
+	margin-left:80px;
+    /* margin-top:20px; */
+	border: 1px solid #e0e0e0;
+	background-color:#ffffff;
+	color:black; 
+	font-size: 1.3rem;
+}
+.link.ma {
+	margin-left:80px;
+    /* margin-top:20px; */
+	border: 1px solid #e0e0e0;
+	background-color:#4A7DFF;
+	color:white; 
+	font-size: 1.3rem;
+}     
 /*  file 채팅 말풍선 설정 */  
 .file {
   width:auto; 
@@ -549,7 +593,7 @@ textarea{width: 100%; height: 100%;}
   border-radius: 10px;
   
   }
-.talk.other {
+.talks.other {
 	margin-left:80px;
    /*  margin-top:20px; */
 	border: 1px solid #e0e0e0;
@@ -566,7 +610,7 @@ textarea{width: 100%; height: 100%;}
 	font-size: 1.3rem;
 }
 
-.talk.me {
+.talks.me {
 	margin-left:80px;
     /* margin-top:20px; */
 	border: 1px solid #e0e0e0;
@@ -606,8 +650,9 @@ textarea{width: 100%; height: 100%;}
 }
 
 .imgUrl{
-	height:90%;
-	width:100%;
+	height: 85px;
+    width: 85px;
+    margin-right: 10px;
 }
 /* .talk:before {
   content: "";
@@ -635,7 +680,7 @@ creates the smaller  triangle
   width: 0; } */
 
 /* creates the larger triangle */
-.talk.other:before {
+.talks.other:before {
   top: 10px;
   bottom: auto;
   left: -30px;
@@ -643,14 +688,14 @@ creates the smaller  triangle
   border-color: transparent #e0e0e0; }
 
 /* creates the smaller  triangle */
-.talk.other:after {
+.talks.other:after {
   top: 16px;
   bottom: auto;
   left: -21px;
   border-width: 9px 21px 9px 0;
   border-color: transparent #fff; }
 
-.talk.me:before {
+.talks.me:before {
   top: 10px;
   /* controls vertical position */
   bottom: auto;
@@ -660,7 +705,7 @@ creates the smaller  triangle
   border-width: 15px 0 15px 30px;
   border-color: transparent #e0e0e0; }
 
-.talk.me:after {
+.talks.me:after {
   top: 16px;
   bottom: auto;
   left: auto;

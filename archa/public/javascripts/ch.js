@@ -12,7 +12,7 @@ $(document).ready(function() {
         var msglength = msg.message.length;
         var text= '<div class="message_box_send">\
                                 <div id="me_image" class="message_sender"></div>\
-                                <div class="talk me" id="'+msg.email+'">\
+                                <div class="talk talks me" id="'+msg.email+'">\
                                 	<div id="talkname">'+msg.name+'</div><span class="message_body"></span>\
                                 </div>\
                                 <div class="message_date" id="'+msg.mdate+'"></div>\
@@ -21,7 +21,7 @@ $(document).ready(function() {
 	}
     function nearMe(msg){
         var text= '<div class="message_box_send">\
-                                <div class="talk me" id="'+msg.email+'"><span class="message_body"></span></div>\
+                                <div class="talk talks me" id="'+msg.email+'"><span class="message_body"></span></div>\
                                 <div class="message_date" id="'+msg.mdate+'"></div>\
                           </div></br>';
         return text;
@@ -29,68 +29,65 @@ $(document).ready(function() {
 	function other(msg){
 		return '<div class="message_box_re">\
 					<div id="other_image" class="message_re"></div>\
-					<div class="talk other" id="'+msg.email+'"><div id="talkother">'+msg.name+'</div><span class="message_body"></span></div>\
+					<div class="talk talks other" id="'+msg.email+'"><div id="talkother">'+msg.name+'</div><span class="message_body"></span></div>\
 					<div class="message_date" id="'+msg.mdate+'"></div>\
 				</div></br>';
 	}
 	function nearOther(msg){
 		return '<div class="message_box_re">\
-					<div class="talk other" id="'+msg.email+'"><span class="message_body"></span></div>\
+					<div class="talk talks other" id="'+msg.email+'"><span class="message_body"></span></div>\
 					<div class="message_date" id="'+msg.mdate+'"></div>\
 				</div></br>';
 	}	
 	function myYoutube(msg,meta){
 		return '<div class="message_box_send">\
-					<a id="'+msg.name+'" class="message_sender">'+msg.name+'</a>\
-					<p class="talk me" id="'+msg.email+'"><span class="message_body"></span></p>\
+					<div class="talk link ma" id="'+msg.email+'"><span class="message_body"></span></div>\
 					<div class="message_date" id="'+msg.mdate+'"></div>\
 				</div></br>\
-				<iframe class="talk me url"\
+				<iframe class="talk talks me"\
 					src="'+meta.data.ogVideo.url+'"\
 					frameborder="0" allowfullscreen>\
 				</iframe></br>';
 	}
 	function nearMyYoutube(msg,meta){
 		return '<div class="message_box_send">\
-					<p class="talk me" id="'+msg.email+'"><span class="message_body"></span></p>\
+					<div class="talk link ma" id="'+msg.email+'"><span class="message_body"></span></div>\
 					<div class="message_date" id="'+msg.mdate+'"></div>\
 				</div></br>\
-				<iframe class="talk me url"\
+				<iframe class="talk talks me"\
 					src="'+meta.data.ogVideo.url+'"\
 					frameborder="0" allowfullscreen>\
 				</iframe></br>';
 	}
 	function otherYoutube(msg,meta){
 		return '<div class="message_box_re">\
-					<a id='+msg.name+' class="message_re">'+msg.name+'</a>\
-					<p class="talk other" id="'+msg.email+'"><span class="message_body"></span></p>\
+					<div class="talk link other" id="'+msg.email+'"><span class="message_body"></span></div>\
 					<div class="message_date" id="'+msg.mdate+'"></div>\
 				</div></br>\
-				<iframe class="talk other url"\
+				<iframe class="talk talks other"\
 					src="'+meta.data.ogVideo.url+'"\
 					frameborder="0" allowfullscreen>\
 				</iframe></br>';
 	}
 	function nearOtherYoutube(msg,meta){
 		return '<div class="message_box_re">\
-					<p class="talk other" id="'+msg.email+'"><span class="message_body"></span></p>\
+					<div class="talk talks other" id="'+msg.email+'"><span class="message_body"></span></div>\
 					<div class="message_date" id="'+msg.mdate+'"></div>\
 				</div></br>\
-				<iframe class="talk other url"\
+				<iframe class="talk talks other"\
 					src="'+meta.data.ogVideo.url+'"\
 					frameborder="0" allowfullscreen>\
 				</iframe></br>';
 	}	
 	function myUrl(msg,meta){
 		var text =  '<div class="message_box_send">\
-						<a id='+msg.name+' class="message_sender">'+msg.name+'</a>\
-						<p class="talk me" id="'+msg.email+'"><span class="message_body"></span></p>\
+						<div id="me_image"></div>\
+						<div class="talk link ma" id="'+msg.email+'"><span class="message_body"></span></div>\
 						<div class="message_date" id="'+msg.mdate+'"></div>\
-					<br/>\
-					<div class="talk me url" id="'+msg.email+'">\
-						<a  href="'+meta.data.ogUrl+'" target="_blank">\
+					<div class="talk link ma" id="'+msg.email+'">\
+						<a class="urlrow" href="'+meta.data.ogUrl+'" target="_blank">\
 							<img class="imgUrl" src="'+meta.data.ogImage.url+'"/>\
-							<span style="float:right;" >'+meta.data.ogDescription+'</span>\
+							<span style="float:right;" >'+meta.data.ogTitle+'</span>\
 						</a>\
 						<div class="message_date" id="'+msg.mdate+'"></div>\
 					</div></div><br/>';
@@ -99,13 +96,12 @@ $(document).ready(function() {
 	}
 	function nearMyUrl(msg,meta){
 		var text =  '<div class="message_box_send">\
-						<p class="talk me" id="'+msg.email+'"><span class="message_body"></span></p>\
+			<div id="me_image"></div><div class="talk talks me" id="'+msg.email+'"><span class="message_body"></span></div>\
 						<div class="message_date" id="'+msg.mdate+'"></div>\
-					<br/>\
-					<div class="talk me url" id="'+msg.email+'">\
-						<a  href="'+meta.data.ogUrl+'" target="_blank">\
+					<div class="talk link ma" id="'+msg.email+'">\
+						<a class="urlrow" href="'+meta.data.ogUrl+'" target="_blank">\
 							<img class="imgUrl" src="'+meta.data.ogImage.url+'"/>\
-							<span style="float:right;" >'+meta.data.ogDescription+'</span>\
+							<span style="float:right;" >'+meta.data.ogTitle+'</span>\
 						</a>\
 						<div class="message_date" id="'+msg.mdate+'"></div>\
 					</div></div><br/>';
@@ -114,27 +110,27 @@ $(document).ready(function() {
 	}
 	function otherUrl(msg,meta){
 		return '<div class="message_box_re">\
-					<a id='+msg.name+' class="message_re">'+msg.name+'</a>\
-					<p class="talk other" id="'+msg.email+'"><span class="message_body"></span></p>\
+		<div id="other_image" class="message_re"></div>\
+					<div class="talk talks other" id="'+msg.email+'"><span class="message_body"></span></div>\
 					<div class="message_date" id="'+msg.mdate+'"></div>\
 				</div>\
-				<div class="talk other url" id="'+msg.email+'"> \
-					<a href="'+meta.data.ogUrl+'" target="_blank">\
+				<div class="talk link other" id="'+msg.email+'">\
+					<a class="urlrow" href="'+meta.data.ogUrl+'" target="_blank">\
 						<img class="imgUrl" src="'+meta.data.ogImage.url+'"/>\
-						<span style="float:left;" >'+meta.data.ogDescription+'</span>\
+						<span style="float:left;" >'+meta.data.ogTitle+'</span>\
 					</a>\
 					<div class="message_date" id="'+msg.mdate+'"></div>\
 				</div></br>';
 	}
 	function nearOtherUrl(msg,meta){
 		return '<div class="message_box_re">\
-					<p class="talk other" id="'+msg.email+'"><span class="message_body"></span></p>\
+		<div id="other_image" class="message_re"></div><div class="talk talks other" id="'+msg.email+'"><span class="message_body"></span></div>\
 					<div class="message_date" id="'+msg.mdate+'"></div>\
 				</div>\
-				<div class="talk other url" id="'+msg.email+'"> \
-					<a href="'+meta.data.ogUrl+'" target="_blank">\
+				<div class="talk link other" id="'+msg.email+'">\
+					<a class="urlrow" href="'+meta.data.ogUrl+'" target="_blank">\
 						<img class="imgUrl" src="'+meta.data.ogImage.url+'"/>\
-						<span style="float:left;" >'+meta.data.ogDescription+'</span>\
+						<span style="float:left;" >'+meta.data.ogTitle+'</span>\
 					</a>\
 					<div class="message_date" id="'+msg.mdate+'"></div>\
 				</div></br>';
@@ -616,25 +612,26 @@ $(document).ready(function() {
 	});
 	function myUrlHead(msg,i){
 		var text =  '<div class="message_box_send" id='+i+'>\
-						<a id='+msg.name+' class="message_sender">'+msg.name+'</a>\
-						<p class="talk me" id="'+msg.email+'">'+msg.message+'</p>\
+						<div id="me_image" class="message_sender"></div>\
+						<div class="talk link ma" id="'+msg.email+'">'+msg.message+'</div>\
 						<div class="message_date" id="'+msg.mdate+'"></div>\
 					</div><br/>';
 		return text;
 	}
 	function nearMyUrlHead(msg,i){
 		var text =  '<div class="message_box_send" id='+i+'>\
-						<p class="talk me" id="'+msg.email+'">'+msg.message+'</p>\
+					 <div id="me_image" class="message_sender"></div>\
+						<div class="talk link ma" id="'+msg.email+'">'+msg.message+'</div>\
 						<div class="message_date" id="'+msg.mdate+'"></div>\
 					</div><br/>';
 		return text;
 	}
 	function myUrlMeta(meta,me,val){
-		var text =  '<div class="talk me url" id="'+me+'">\
-						<a  href="'+(meta.data.ogUrl == undefined ? val.url : meta.data.ogUrl)+'" target="_blank">\
+		var text =  '<div class="talk link me" id="'+me+'">\
+						<div class="urlrow" href="'+(meta.data.ogUrl == undefined ? val.url : meta.data.ogUrl)+'" target="_blank">\
 							<img class="imgUrl" src="'+(meta.data.ogImage.url == undefined ? 'https://www.google.com/s2/favicons?domain='+val.url:meta.data.ogImage.url)+'"/>\
 							<span style="float:right;" >'+(meta.data.ogDescription == undefined && meta.data.ogTitle != undefined ? meta.data.ogTitle : meta.data.ogDescription )+'</span>\
-						</a>\
+						</div>\
 						<div class="message_date" id="'+val.mdate+'"></div>\
 					</div></br>';			
 
@@ -643,34 +640,35 @@ $(document).ready(function() {
 	
 	function otherUrlHead(msg,i){
 		return '<div class="message_box_re" id='+i+'>\
-					<a id='+msg.name+' class="message_re">'+msg.name+'</a>\
-					<p class="talk other" id="'+msg.email+'">'+msg.message+'</p>\
+				<div id="other_image" class="message_re"></div>\
+					<div class="talk link other" id="'+msg.email+'">'+msg.message+'</div>\
 					<div class="message_date" id="'+msg.mdate+'"></div>\
 				</div></br>';
 	}
 	function nearOtherUrlHead(msg,i){
 		return '<div class="message_box_re" id='+i+'>\
-					<p class="talk other" id="'+msg.email+'">'+msg.message+'</p>\
+				<div id="other_image" class="message_re"></div>\
+					<div class="talk link other" id="'+msg.email+'">'+msg.message+'</div>\
 					<div class="message_date" id="'+msg.mdate+'"></div>\
 				</div></br>';
 	}
 	function otherUrlMeta(meta,me,val){
-		return '<div class="talk other url" id="'+me+'"> \
-					<a href="'+meta.data.ogUrl+'" target="_blank">\
+		return '<div class="talk link other" id="'+me+'"> \
+					<div class="urlrow" href="'+meta.data.ogUrl+'" target="_blank">\
 						<img class="imgUrl" src="'+meta.data.ogImage.url+'"/>\
-						<span style="float:left;" >'+meta.data.ogDescription+'</span>\
-					</a>\
+						<span style="float:left;" >'+meta.data.ogTitle+'</span>\
+					</div>\
 					<div class="message_date" id="'+val.mdate+'"></div>\
 				</div></br>';
 	}
 	function myYoutubeMeta(meta,me){
-		return '<iframe class="talk me url" \
+		return '<iframe class="talk link me" \
 					src="'+meta.data.ogVideo.url+'"\
 					frameborder="0" allowfullscreen>\
 				</iframe></br>';
 	}
 	function otherYoutubeMeta(meta,me){
-		return '<iframe class="talk other url" \
+		return '<iframe class="talk link other" \
 					src="'+meta.data.ogVideo.url+'"\
 					frameborder="0" allowfullscreen>\
 				</iframe></br>';
