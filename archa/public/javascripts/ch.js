@@ -155,7 +155,7 @@ $(document).ready(function() {
 		}
 		return '<div class="file_box_send sendData">\
 				 <div id="me_image" class="message_sender"></div>\
-				 <div class="myfileimage file me" id="'+send_userEmail+'"><div id="imagename">'+send_userName+'</div></br>\
+				 <div class="myfileimage file me" id="'+send_userEmail+'"><div id="imagename">'+send_userName+'</div>\
 					<div class="url"><div class='+text+'></div></div>\
 								<a href="'+data.url+'" target="'+data.url+'"> \
 								<div class="file_container"> \
@@ -182,7 +182,8 @@ $(document).ready(function() {
 			text= "docximage";
 		}
 		return '<div class="file_box_send sendData">\
-					 <div class="myfileimage file me" id="'+send_userEmail+'"><div id="imagename"></div></br>\
+				<div id="me_image" class="message_sender"></div>\
+					 <div class="myfileimage file me" id="'+send_userEmail+'"><div id="imagename">'+send_userName+'</div>\
 						<div class="url"><div class='+text+'></div></div>\
 									<a href="'+data.url+'" target="'+data.url+'"> \
 									<div class="file_container"> \
@@ -210,7 +211,7 @@ $(document).ready(function() {
 		}
 		return '<div class="file_box_re reData">\
 					<div id="other_image" class="message_re"></div>\
-					<div class="otherfileimage talk other" id="'+re_userEmail+'"><div id="otherimagename">'+re_userName+'</div></br>\
+					<div class="otherfileimage talk other" id="'+re_userEmail+'"><div id="otherimagename">'+re_userName+'</div>\
 					<div class="url"><div class='+text+'></div></div>\
 							<a href="'+data.url+'" target="'+data.url+'"> \
 							<div class="file_container"> \
@@ -237,7 +238,8 @@ $(document).ready(function() {
 			text= "docximage";
 		}
 		return '<div class="file_box_re reData">\
-				<div class="otherfileimage talk other" id="'+re_userEmail+'"></br>\
+					<div id="other_image" class="message_re"></div>\
+					<div class="otherfileimage talk other" id="'+re_userEmail+'"><div id="otherimagename">'+re_userName+'</div>\
 				<div class="url"><div class='+text+'></div></div>\
 						<a href="'+data.url+'" target="'+data.url+'"> \
 						<div class="file_container"> \
@@ -252,7 +254,7 @@ $(document).ready(function() {
 	function myImage(data,send_userEmail,send_userName){
 		return '<div class="message_box_send sendData">\
 				 <div id="me_image" class="message_sender"></div>\
-				 <div class="myimage talk me" id="'+send_userEmail+'"><div id="imagename">'+send_userName+'</div></br>\
+				 <div class="myimage images me" id="'+send_userEmail+'"><div id="imagename">'+send_userName+'</div>\
 					<a data-src="'+data.url+'" href="'+data.url+'" target="'+data.url+'" class="dataImage" data-link-url="'+data.url+'">\
 						<div class="dataImageBody">\
 							<img class="image_body" data-real-src="'+data.url+'" src="'+data.url+'">\
@@ -264,7 +266,8 @@ $(document).ready(function() {
 	}
 	function nearMyImage(data,send_userEmail,send_userName){
 		return '<div class="message_box_send sendData">\
-					 <div class="myimage talk me" id="'+send_userEmail+'"></br>\
+				<div id="me_image" class="message_sender"></div>\
+					 <div class="myimage images me" id="'+send_userEmail+'"><div id="imagename">'+send_userName+'</div>\
 							<a data-src="'+data.url+'" href="'+data.url+'" target="'+data.url+'" class="dataImage" data-link-url="'+data.url+'">\
 								<div class="dataImageBody">\
 									<img class="image_body" data-real-src="'+data.url+'" src="'+data.url+'">\
@@ -277,7 +280,7 @@ $(document).ready(function() {
 	function otherImage(data,re_userEmail,re_userName){
 		return '<div class="message_box_re reData">\
 					<div id="other_image" class="message_re"></div>\
-			 		<div class="otherimage talk other" id="'+re_userEmail+'"><div id="otherimagename">'+re_userName+'</div></br>\
+			 		<div class="otherimage images other" id="'+re_userEmail+'"><div id="otherimagename">'+re_userName+'</div>\
 						<a data-src="'+data.url+'" href="'+data.url+'" target="'+data.url+'" class="image_file_body" data-link-url="'+data.url+'">\
 							<div class="image_preserve_aspect_ratio">\
 								<img class="image_body" data-real-src="'+data.url+'" src="'+data.url+'"\>\
@@ -289,7 +292,8 @@ $(document).ready(function() {
 	}
 	function nearOtherImage(data,re_userEmail,re_userName){
 		return '<div class="message_box_re reData">\
-			 		<div class="otherimage talk other" id="'+re_userEmail+'"></br>\
+				<div id="other_image" class="message_re"></div>\
+			 		<div class="otherimage images other" id="'+re_userEmail+'"><div id="otherimagename">'+re_userName+'</div>\
 						<a data-src="'+data.url+'" href="'+data.url+'" target="'+data.url+'" style="width: 50%;" class="image_file_body" data-link-url="'+data.url+'">\
 							<div class="image_preserve_aspect_ratio">\
 								<img class="image_body" data-real-src="'+data.url+'" src="'+data.url+'"\>\
@@ -526,19 +530,19 @@ $(document).ready(function() {
 					});
 				}else{
 					$.each(data, function(j, dv){
-						if(dv.name == val.message && dv.rece_id.email == val.email && dv.date == val.mdate){
+						if(dv.name == val.message && dv.send_id.email == val.email && dv.date == val.mdate){
 							if(i!=0 && val.email == temp.email && cal.getDate()==1 && cal.getHours()==9 && cal.getMinutes() <= 5){
 								if(dv.rtype == 'image'){
-									odata = nearOtherImage(dv, dv.rece_id.email, dv.rece_id.name);
+									odata = nearOtherImage(dv, dv.send_id.email, dv.rece_id.name);
 								}else{
-									odata = nearOtherData(dv, dv.rece_id.email, dv.rece_id.name);
+									odata = nearOtherData(dv, dv.send_id.email, dv.rece_id.name);
 								}
 								$('#messages').append(odata);								
 							}else{
 								if(dv.rtype == 'image'){
-									odata = otherImage(dv, dv.rece_id.email, dv.rece_id.name);
+									odata = otherImage(dv, dv.send_id.email, dv.rece_id.name);
 								}else{
-									odata = otherData(dv, dv.rece_id.email, dv.rece_id.name);
+									odata = otherData(dv, dv.send_id.email, dv.rece_id.name);
 								}
 								$('#messages').append(odata);							
 							}
@@ -576,7 +580,7 @@ $(document).ready(function() {
 		if(chk){
 			socket.emit('readMessageSave', room);
 			if( $('[id="'+room.id+'"]').length > 0){
-				$('[id="'+room.id+'"]').text('');
+				$('[id="'+room.id+'"]').text(0);
 			}
 		}
 	});
