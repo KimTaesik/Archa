@@ -46,7 +46,7 @@ exports.getInvite = function(roomId, user){
 	})
 	.exec(function (err, fd) {
 		if(!err){
-			Room.findOne({'roomname':roomId}, function(err, room){
+			Room.findOne({'id':roomId}, function(err, room){
 				var fds = fd.friends;
 				evt.emit('end', err, fds, room.users);					
 			});	

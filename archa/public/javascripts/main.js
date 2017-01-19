@@ -147,7 +147,7 @@ $(document).ready(function() {
 		     * 사람초대, 친구목록 가져옴. 이 채팅방 이외의 사람들을 보여줘야지
 		     * 
 		     * */
-			$('.topSection').on('click', "#invite", function(e){
+			$('.mid').on('click', "#invite", function(e){
 				var room = $('#joinRoom').val();
 		        $.ajax({
 		            type: "post",
@@ -156,14 +156,56 @@ $(document).ready(function() {
 		            success: function(result,status,xhr){
 		            	$('#inviteModal').modal();
 		            	$("#inviteBody").html(result);
-		            	
 		            },
 		            error: function(xhr, status, er){}
 		        });
 		        e.preventDefault();
 			});
 			
-			$('.topSection').on('click', '#inviteUser', function(){
+			/*	채팅방목록 모달 2016_11_25 NA
+			 * 	수정 17_01_18
+			 * 
+			 */
+
+			$('.mid').on('click', '#chativ', function(e){
+					e.preventDefault();
+					var room = $('#joinRoom').val();
+			        $.ajax({
+			            type: "post", 
+			            url: "/inviteRoom",
+			            data : { "room" : room },
+			            success: function(result,status,xhr){
+			            	$('#inviteModal').modal();
+			            	$("#inviteModal").html(result);
+			            },
+			            error: function(xhr, status, er){}
+			        });
+			});
+			/*
+			 * 체크박스 선택시 액션
+			 */
+			$('.mid').on('change', '.roomInvite',function(){
+				var pa = $(this).parent('.has-sub');
+				var id = pa.attr('id');
+				var temp = $('<div/>').attr('id', id).addClass('selectResult');
+				var img = $(this).parent('.has-sub').children('#group-profile').children('#group-img').clone();
+				var name = $(this).parent('.has-sub').children('#group-profile').children('#fname').attr('class');
+				var nameDiv = $('<div/>').addClass('selectName').text(name);
+				console.log(name);
+				temp.append(img);
+				temp.append(nameDiv);
+				console.log(temp)
+				if($(this).is(":checked")){
+					temp.clone().appendTo('.select-list');
+				}else{
+					$('.select-list').children('[id="'+id+'"]').remove();
+				}
+				
+			});
+			
+			
+			$('.mid').on('click', '#inviteUser', function(){
+
 				var arrayParam = new Array();
 				var room = $('#joinRoom').val();
 				$("input:checkbox[id=inUser]:checked").each(function(){
@@ -425,13 +467,14 @@ $(document).ready(function() {
 		            	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -10);*/
 		            	/*$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -10);*/
 					    $("#messages").empty();
-					    socket.emit('rejoin', roomName,me);	            	
+					    socket.emit('rejoin', roomName,me);
 		            },
 		            error: function(xhr, status, er){}
 		        });
 			});			
 
-			$('.mide').on('dblclick', '#room', function(){
+			$('.mid').on('dblclick', '#room', function(){
+				alert('test')
 				$('#room').attr("disabled",false);
 			});
 			/*
@@ -863,25 +906,7 @@ $(document).ready(function() {
 		    });		    
 			
 			
-			/*  채팅방목록 모달 2016_11_25 NA*/
 
-				$('.mid').on('click', '#chativ', function(e){
-						alert('invite click'); 
-						e.preventDefault();
-						var femail = $(this).attr("class");
-						alert($(this).attr("class"));
-				        $.ajax({
-				            type: "post", 
-				            url: "/chatlist",
-				            data : { "friend" : femail },
-				            success: function(result,status,xhr){
-				            	alert("ajax success");
-				            	$("#myModal").html(result);
-				            	$("#myModal").modal();
-				            },
-				            error: function(xhr, status, er){}
-				        });
-					});
 				/* archive mouseover 2016-01-06 */
 				
 				$(".mid").on("mouseenter",".filebox", function(event){

@@ -209,9 +209,12 @@ $(document).ready(function() {
 		if(data.type =='docx'){
 			text= "docximage";
 		}
+		if(data.type =='zip'){
+			text= "zipimage";
+		}
 		return '<div class="file_box_re reData">\
 					<div id="other_image" class="message_re"></div>\
-					<div class="otherfileimage talk other" id="'+re_userEmail+'"><div id="otherimagename">'+re_userName+'</div>\
+					<div class="otherfileimage file other" id="'+re_userEmail+'"><div id="otherimagename">'+re_userName+'</div>\
 					<div class="url"><div class='+text+'></div></div>\
 							<a href="'+data.url+'" target="'+data.url+'"> \
 							<div class="file_container"> \
@@ -221,7 +224,7 @@ $(document).ready(function() {
 						</a>\
 					</div>\
 					<div class="message_date" id="'+data.date+'"></div>\
-				</div></br>';
+				</div>';
 	}
 	function nearOtherData(data,re_userEmail,re_userName){
 		var text ="";
@@ -237,9 +240,12 @@ $(document).ready(function() {
 		if(data.type =='docx'){
 			text= "docximage";
 		}
+		if(data.type =='zip'){
+			text= "zipimage";
+		}
 		return '<div class="file_box_re reData">\
 					<div id="other_image" class="message_re"></div>\
-					<div class="otherfileimage talk other" id="'+re_userEmail+'"><div id="otherimagename">'+re_userName+'</div>\
+					<div class="otherfileimage file other" id="'+re_userEmail+'"><div id="otherimagename">'+re_userName+'</div>\
 				<div class="url"><div class='+text+'></div></div>\
 						<a href="'+data.url+'" target="'+data.url+'"> \
 						<div class="file_container"> \
@@ -249,7 +255,7 @@ $(document).ready(function() {
 					</a>\
 				</div>\
 				<div class="message_date" id="'+data.date+'"></div>\
-			</div></br>';
+			</div>';
 	}	
 	function myImage(data,send_userEmail,send_userName){
 		return '<div class="message_box_send sendData">\
@@ -533,16 +539,16 @@ $(document).ready(function() {
 						if(dv.name == val.message && dv.send_id.email == val.email && dv.date == val.mdate){
 							if(i!=0 && val.email == temp.email && cal.getDate()==1 && cal.getHours()==9 && cal.getMinutes() <= 5){
 								if(dv.rtype == 'image'){
-									odata = nearOtherImage(dv, dv.send_id.email, dv.rece_id.name);
+									odata = nearOtherImage(dv, dv.send_id.email, dv.send_id.name);
 								}else{
-									odata = nearOtherData(dv, dv.send_id.email, dv.rece_id.name);
+									odata = nearOtherData(dv, dv.send_id.email, dv.send_id.name);
 								}
 								$('#messages').append(odata);								
 							}else{
 								if(dv.rtype == 'image'){
-									odata = otherImage(dv, dv.send_id.email, dv.rece_id.name);
+									odata = otherImage(dv, dv.send_id.email, dv.send_id.name);
 								}else{
-									odata = otherData(dv, dv.send_id.email, dv.rece_id.name);
+									odata = otherData(dv, dv.send_id.email, dv.send_id.name);
 								}
 								$('#messages').append(odata);							
 							}
@@ -576,6 +582,10 @@ $(document).ready(function() {
 				val.readby.push(email);
 			}
 			temp = val;
+			if(i == room.messagelog.length-1){
+				console.log('last',room.messagelog.length-1);
+				$('#messages').scrollTop($('#messages').prop('scrollHeight'));
+			}
 		});
 		if(chk){
 			socket.emit('readMessageSave', room);
@@ -583,6 +593,9 @@ $(document).ready(function() {
 				$('[id="'+room.id+'"]').text(0);
 			}
 		}
+		
+
+		$('#messages').scrollTop($('#messages').prop('scrollHeight'));
 	});
 
 	socket.on('ogData', function(meta,url, sendEmail, me,i,val){
@@ -591,13 +604,15 @@ $(document).ready(function() {
 		}else{
 			$('#messages').children('[id="'+i+'"]').append(otherUrlMeta(meta,me,val));
 		}
+		$('#messages').scrollTop($('#messages').prop('scrollHeight'));
 	});
 	socket.on('youOgData', function(meta, url, sendEmail, me, i,val){
 		if(sendEmail == me){
 			$('#messages').children('[id="'+i+'"]').append(myYoutubeMeta(meta,me,val));
 		}else{
 			$('#messages').children('[id="'+i+'"]').append(otherYoutubeMeta(meta,me,val));
-		}	
+		}
+		$('#messages').scrollTop($('#messages').prop('scrollHeight'));
 	});
 	function myUrlHead(msg,i){
 		var text =  '<div class="message_box_send" id='+i+'>\
@@ -682,7 +697,25 @@ $(document).ready(function() {
         $('.userInfo').append('<div id="close"><a>CLOSE</a></div>');	    /*  추가  */
         
 	});
-
+    //상단바 여기서 조정 후 멤버들에게 방 재입장 보냄
+    // socket.join(new)
+    socket.on('roomChange', function(thisRoom, users, name){
+    	$('.dropdown').show();
+    	$('#room-image').text(users.length);
+		$('#users').empty();
+		$('.userInfo').empty();
+		$('#room').val(name);
+		$('#thisRoom').val(thisRoom);
+		$('#joinRoom').val(thisRoom);
+		users.forEach(function(users, index){
+			if(users == $('.myInfoView').attr("id")) $('#me').val(users);
+			else $('#you').val(users);
+			text = '<li role="presentation"><a role="menuitem" tabindex="-1" data-target="#">'+users+'</a></li>'
+			$('.userInfo').append(text);
+		});
+        $('.userInfo').append('<div id="close"><a>CLOSE</a></div>');
+    	socket.emit('roomChange', thisRoom);
+    });
 	socket.on('rooms', function(rooms, roomName, me) {
         $('#room-list').empty();
         var text;
@@ -706,7 +739,7 @@ $(document).ready(function() {
 	                				<div class="roomname">'+name.rName+'</div>\
 	                				<div class="roomtext">'+room.messagelog[room.messagelog.length-1].message+'</div>	\
 	                				<div class="roomtime">'+pasttime+'</div>\
-	                				<div class="circle">'+room.users.length+'</div></div>';
+	                				<div class="circle">'+count+'</div></div>';
 	                    $('#room-list').append(text);
                 	}       		
             	});
@@ -732,24 +765,19 @@ $(document).ready(function() {
 		}
 	});
  	
-    //상단바 여기서 조정 후 멤버들에게 방 재입장 보냄
-    // socket.join(new)
-    socket.on('roomChange', function(thisRoom, users, name){
-    	$('.dropdown').show();
-		$('#roomInfo').text(users.length);
-		$('#users').empty();
-		$('.userInfo').empty();
-		$('#room').val(name);
-		$('#thisRoom').val(thisRoom);
-		$('#joinRoom').val(thisRoom);
-		users.forEach(function(users, index){
-			if(users == $('.myInfoView').attr("id")) $('#me').val(users);
-			else $('#you').val(users);
-			
-			$('.userInfo').append('<li role="presentation"><a role="menuitem" tabindex="-1" data-target="#">'+users+'</a></li>');
-		});
-    	socket.emit('roomChange', thisRoom);
-    });
-	
+	socket.on('state', function(state){
+		if(state){
+			$('.state').css('background-color', '#2CCA70');
+		}else{
+			$('.state').css('background-color', '#c0c0c0');
+		}
+	});
+	socket.on('reState', function(state,id){
+		if(state){
+			$('[id="'+id+'"]').children('#group-profile').children('#group-state').css('background-color', '#2CCA70');
+		}else{
+			$('[id="'+id+'"]').children('#group-profile').children('#group-state').css('background-color', '#c0c0c0');
+		}
+	});
 	
 });

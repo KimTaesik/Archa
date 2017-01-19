@@ -1,23 +1,43 @@
-<body>
-	<%
-			var result = 1;
-			friends.forEach(function(friends, index) {
-				rUser.forEach(function(rUser, index){
-					if(friends.friend.email == rUser){ 
-						result=0;
+ <div class="modal-dialog">
+   <div class="modal-content">
+     <div class="modal-header">
+       <h4 class="modal-title" id="myModalLabel">Invite new member</h4>
+     </div>
+     <div class="modal-body" id="inviteBody">
+      <div class="col-md-6 member-select">meberSelect
+      	<div class="panel-body">
+		<%
+				var result = 1;
+				friends.forEach(function(friends, index) {
+					rUser.forEach(function(rUser, index){
+						if(friends.friend.email == rUser){ 
+							result=0;
+						}
+					});
+					if(result){
+					%>
+						<div id="<%= friends.friend.email %>"  class='has-sub active'>
+							<input type="checkbox" id="inUser" class="roomInvite" value="<%= friends.friend.email %>">
+							<div id ="group-profile" href='#'>
+							   	<div id="group-img" style='<%= friends.friend.user_img != null ? "background-image:url("+friends.friend.user_img : "" %>'></div>
+								<div id="fname" class="<%= friends.friend.name %>"><%= friends.friend.name %><br/>
+								<div id="company"><%= friends.friend.company %> / </div> 
+								<div id="position"><%= friends.friend.position %></div><br/>
+								</div><br/>					
+							</div>
+					   </div>
+					<%
 					}
+					result=1;
 				});
-				if(result){
-				%>
-					<div style="border:solid 1px;">
-						<input type="checkbox" id="inUser" value="<%= friends.friend.email %>">
-						<span><%= friends.friend.name %></span><br/>
-						<span><%= friends.friend.company %></span> / 
-						<span><%= friends.friend.position %></span><br/>
-					</div>
-				<%
-				}
-				result=1;
-			});
-	%>
-</body>
+		%>		      	
+      	</div>		      
+    </div>
+	<div class="select-list col-md-6">selectList</div>
+     </div>
+     <div class="modal-footer">
+       <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+       <button type="button" id="inviteUser" class="btn btn-primary" data-dismiss="modal">확인</button>
+     </div>
+   </div>
+ </div>

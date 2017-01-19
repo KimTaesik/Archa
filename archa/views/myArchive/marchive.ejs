@@ -85,6 +85,12 @@
 				  				<div class="docx-image"></div>
 				  			</div>
 				  			<% } %>
+				  			<!--css doc icon  -->
+				  			<% if(log.type == 'zip'){ %>
+				  			<div class="url" >
+				  				<div class="zip-image"></div>
+				  			</div>
+				  			<% } %>
 				  			<!--css 수정  -->
 				  			<div class="textbox">
 				  			<div class="file-name"><%= log.name %></div>
@@ -134,6 +140,12 @@
 				  			<% if(log.type == 'docx'){ %>
 				  			<div class="url" >
 				  				<div class="docx-image"></div>
+				  			</div>
+				  			<% } %>
+				  			<!--css doc icon  -->
+				  			<% if(log.type == 'zip'){ %>
+				  			<div class="url" >
+				  				<div class="zip-image"></div>
 				  			</div>
 				  			<% } %>
 				  			<!--css 수정  -->

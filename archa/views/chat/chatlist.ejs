@@ -1,66 +1,42 @@
-<head>
-<script type="text/javascript">
-$(function() {
 
-/*  	$('.toggle-btn').click(function() {
-	  $('.filter-btn').toggleClass('open');
-	});
-	
-	$('.filter-btn a').click(function() {
-	  $('.filter-btn').removeClass('open');
-	});
-	
-	$('.chatbtn').click(function() {
-	  $('.tasks li:not(.chatbtn)').slideUp(300, function() {
-	    $('.chatbtn').slideDown(300);
-	  });
-	});  */
-	  
-});
-</script>
-</head>
-<body>
-					    <div class="modal-dialog">
-					    <!-- Modal content-->
-					      <div class="modal-content">
-					        <div class="modal-header">
-					          <button type="button" class="close" data-dismiss="modal">&times;</button>
-					          <h4 class="modal-title">Invite new member</h4>
-					        </div>
-					        <div class="modal-body">
-					        
-					          <div class="col-md-6 member-select">meberSelect
-					          
-					          
-						      <div class="panel-body">
-								<%
-										friends.forEach(function(friends, index) { 
-											if(groups==friends.groupname){
-								%>
-								
- 											<div id="<%= friends.friend.email %>"  class='has-sub active'>
-												<div id ="group-profile" href='#'>
-												   <div id="group-img"> </div>
-													<div id="fname" class="<%= friends.friend.email %>"><%= friends.friend.name %><br/>
-													<div id="company"><%= friends.friend.company %> / </div> 
-													<div id="position"><%= friends.friend.position %></div><br/>
-													</div><br/>					
-												</div>
-										   </div>  
-								<% 			}
-										});
-								%>
-							  </div> 
-					          
-					          </div>
-					          <div class="col-md-6 select-list">selectList</div>
-					          
-					        </div>
-					        <div class="modal-footer">
-					          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					        </div>
-					      </div>    
-					    </div>
+   <div class="modal-dialog">
+   <!-- Modal content-->
+     <div class="modal-content">
+       <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal">&times;</button>
+         <h4 class="modal-title">Invite new member</h4>
+       </div>
+       <div class="modal-body">
+       
+         <div class="col-md-6 member-select">meberSelect
+         
+         
+      <div class="panel-body">
+		<%
+				friends.forEach(function(friends, index) { 
+					if(groups==friends.groupname){
+		%>
 		
-
-</body>
+						<div id="<%= friends.friend.email %>"  class='has-sub active'>
+						<div id ="group-profile" href='#'>
+						   <div id="group-img"> </div>
+							<div id="fname" class="<%= friends.friend.email %>"><%= friends.friend.name %><br/>
+							<div id="company"><%= friends.friend.company %> / </div> 
+							<div id="position"><%= friends.friend.position %></div><br/>
+							</div><br/>					
+						</div>
+				   </div>  
+		<% 			}
+				});
+		%>
+	  </div> 
+         
+         </div>
+         <div class="col-md-6 select-list">selectList</div>
+         
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+       </div>
+     </div>    
+   </div>

@@ -24,9 +24,9 @@
 								
  											<div id="<%= friends.friend.email %>"  class='has-sub active'>
 												<div id ="group-profile">
-													<div id="group-state"></div>
-													<div id="group-img"></div>
-														<div id="fname" class="<%= friends.friend.email %>"><%= friends.friend.name %>
+													<div id="group-state" style="<%= friends.friend.state==1 ? 'background-color: #2CCA70' : 'background-color: #c0c0c0' %>"></div>
+													<div id="group-img" style='<%= friends.friend.user_img != null ? "background-image:url("+friends.friend.user_img : "" %>' ></div>
+														<div id="fname" class="<%= friends.friend.name %>"><%= friends.friend.name %>
 														<div id="fposition"><%= friends.friend.position %></div>
 														<div id="fcompany"><%= friends.friend.company %></div> 
 														<br/>
