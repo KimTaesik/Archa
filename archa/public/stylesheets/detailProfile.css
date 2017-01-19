@@ -81,8 +81,9 @@ overflow: scroll;
 .dtprofile-setting{
 	margin-top:20px;
 	margin-left:100px;
-	width:900px;
-	height: 100%;
+	min-height: 500px;
+	width:900px;mdl
+	height:100%;
 	background-color: #ffffff;
 }
 
@@ -173,4 +174,56 @@ overflow: scroll;
     color: #ffffff;
     font-size: 1.6rem;
     font-weight: bold;
+}
+.email-edit{
+	float: right;
+    background-color: #ffffff;
+    height: 35px;
+    width: 100px;
+    text-align: center;
+    border-radius: 8px;
+    color: #b0bec5;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-right: 100px;
+    margin-bottom:10px;
+}
+.phone-edit{
+	float: right;
+    background-color: #ffffff;
+    height: 35px;
+    width: 100px;
+    text-align: center;
+    border-radius: 8px;
+    color: #b0bec5;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-right: 100px;
+    margin-bottom:10px;
+}
+.pass-edit{
+	float: right;
+    background-color: #ffffff;
+    height: 35px;
+    width: 100px;
+    text-align: center;
+    border-radius: 8px;
+    color: #b0bec5;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-right: 100px;
+    margin-bottom:10px;
+}
+.sign-edit{
+	float: right;
+    background-color: #ffffff;
+    height: 35px;
+    width: 100px;
+    text-align: center;
+    border-radius: 8px;
+    color: #b0bec5;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-right: 100px;
+    margin-bottom:10px;
 }

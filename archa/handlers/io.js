@@ -269,30 +269,31 @@ module.exports = function(server){
 	    });
 	    
 	    socket.on('inviteRoom', function(roomID, inviteUsers){
-	    	
+		    var text = "";
+		    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+		    for( var i=0; i < 9; i++ ){
+		        text += possible.charAt(Math.floor(Math.random() * possible.length));
+		    }	    	
 	    	var roomchk = roomID.split('/');
-	    	var newId = roomID+'/group';
-//	    	var changeRoom = new Room();
+	    	var newId = roomID+'/'+text;
+	    	
 	    	if(!roomchk[2] && inviteUsers.length > 0){
-//	    		var changeRoom = Room.findOne({'roomname':roomID});
 	    		Room.findOne({'id':roomID}, function(err, room){
 
 					async.waterfall([
 						function (callback) {
 							room.id = newId;
-//			    			room.users.push(inviteUsers);
 			    			for(var index in inviteUsers){
 			    				room.users.push(inviteUsers[index]);
+			    				if(index == inviteUsers.length-1) callback(null, room);
 			    			}
-
-							callback(null, room);
 						},
 						function (room, callback) {
 			    			for( i in room.users){
-			    				User.update({'email':String(room.users[i])},{ $addToSet:{ 'roomName': { 'roomId' : room.id, 'rName': '그룹 채팅방' }}},{multi:true}).exec(function(err, result){
-			    				});
+			    				User.update({'email':String(room.users[i])},{ $addToSet:{ 'roomName': { 'roomId' : room.id, 'rName': '그룹 채팅방' }}},{multi:true}).exec(function(err, result){});
+			    				if(i == room.users.length-1) callback(null, room);
 			    			}
-							callback(null, room);
 						},
 					],
 						function (err, room) {
@@ -305,9 +306,10 @@ module.exports = function(server){
 	    							var roomName = '그룹 채팅방';	    							
 	    			    			//방에 접속한 사람들에게 방 변경 메시지 보냄
 	    			    			io.sockets.to(socket.room).clients(function(error,clients){
+	    			    				console.log(clients);
 	    			    				if(clients){
 	    				    				for(var index in clients){
-	    				    					io.sockets.to(socket.room).sockets[clients[index]].emit('roomChange', newroom, newuser, roomName);
+	    				    					io.sockets.to(socket.room).sockets[clients[index]].emit('roomChange', newId, newuser, roomName);
 	    				    				}
 	    			    				}
 	    			    			});
@@ -322,18 +324,17 @@ module.exports = function(server){
 	    		Room.findOne({'id':roomID}, function(err, room){
 					async.waterfall([
 						function (callback) {
-//			    			room.users.push(inviteUsers);
 			    			for(var index in inviteUsers){
 			    				room.users.push(inviteUsers[index]);
+			    				
+			    				if(index == inviteUsers.length-1) callback(null, room);
 			    			}
-							callback(null, room);
 						},
 						function (room, callback) {
 			    			for( i in room.users){
-			    				User.update({'email':String(room.users[i])},{ $addToSet:{ 'roomName': { 'roomId' : room.id, 'rName': '그룹 채팅방' }}},{multi:true}).exec(function(err, result){
-			    				});
+			    				User.update({'email':String(room.users[i])},{ $addToSet:{ 'roomName': { 'roomId' : room.id, 'rName': '그룹 채팅방' }}},{multi:true}).exec(function(err, result){});
+			    				if(i == room.users.length-1) callback(null, room);
 			    			}
-							callback(null, room);
 						},
 					],
 						function (err, room) {

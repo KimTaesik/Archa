@@ -1,13 +1,13 @@
 
 $(document).ready(function() {
-			
+			$('#leftbar').css('height' ,  $(window).height() );
 			$('#leftSection').css('height' ,  $(window).height() );
-			$('#friendlist').css('height' ,  $(window).height() - 465);
+			$('#friendlist').css('height' ,  $(window).height()-60);
 			$('.searchResult,#room-list').css('height' ,  $(window).height()-$('#setGroup').height()-$('.menuTop').height()-$('.memberSection').height()-$('.myInfo').height()-$('.nav').height() -67 );
 			$('.dtprofile').css('height' ,  $(window).height() );
 			$(window).resize(function() {
 				$('#leftSection').css('height' ,  $(window).height());
-				$('#friendlist').css('height' ,  $(window).height() - 465);
+				$('#friendlist').css('height' ,  $(window).height() - 60);
 				/*$('.topMenu').css('width', $(window).width()-$('#leftSection').width());*/
             	$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-$('.topMenu').height());
             	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -10);
@@ -147,7 +147,7 @@ $(document).ready(function() {
 		     * 사람초대, 친구목록 가져옴. 이 채팅방 이외의 사람들을 보여줘야지
 		     * 
 		     * */
-			$('.topSection').on('click', "#invite", function(e){
+			$('.mid').on('click', "#invite", function(e){
 				var room = $('#joinRoom').val();
 		        $.ajax({
 		            type: "post",
@@ -156,14 +156,56 @@ $(document).ready(function() {
 		            success: function(result,status,xhr){
 		            	$('#inviteModal').modal();
 		            	$("#inviteBody").html(result);
-		            	
 		            },
 		            error: function(xhr, status, er){}
 		        });
 		        e.preventDefault();
 			});
 			
-			$('.topSection').on('click', '#inviteUser', function(){
+			/*	채팅방목록 모달 2016_11_25 NA
+			 * 	수정 17_01_18
+			 * 
+			 */
+
+			$('.mid').on('click', '#chativ', function(e){
+					e.preventDefault();
+					var room = $('#joinRoom').val();
+			        $.ajax({
+			            type: "post", 
+			            url: "/inviteRoom",
+			            data : { "room" : room },
+			            success: function(result,status,xhr){
+			            	$('#inviteModal').modal();
+			            	$("#inviteModal").html(result);
+			            },
+			            error: function(xhr, status, er){}
+			        });
+			});
+			/*
+			 * 체크박스 선택시 액션
+			 */
+			$('.mid').on('change', '.roomInvite',function(){
+				var pa = $(this).parent('.has-sub');
+				var id = pa.attr('id');
+				var temp = $('<div/>').attr('id', id).addClass('selectResult');
+				var img = $(this).parent('.has-sub').children('#group-profile').children('#group-img').clone();
+				var name = $(this).parent('.has-sub').children('#group-profile').children('#fname').attr('class');
+				var nameDiv = $('<div/>').addClass('selectName').text(name);
+				console.log(name);
+				temp.append(img);
+				temp.append(nameDiv);
+				console.log(temp)
+				if($(this).is(":checked")){
+					temp.clone().appendTo('.select-list');
+				}else{
+					$('.select-list').children('[id="'+id+'"]').remove();
+				}
+				
+			});
+			
+			
+			$('.mid').on('click', '#inviteUser', function(){
+
 				var arrayParam = new Array();
 				var room = $('#joinRoom').val();
 				$("input:checkbox[id=inUser]:checked").each(function(){
@@ -431,7 +473,8 @@ $(document).ready(function() {
 		        });
 			});			
 
-			$('.mide').on('dblclick', '#room', function(){
+			$('.mid').on('dblclick', '#room', function(){
+				alert('test')
 				$('#room').attr("disabled",false);
 			});
 			/*
@@ -863,25 +906,7 @@ $(document).ready(function() {
 		    });		    
 			
 			
-			/*  채팅방목록 모달 2016_11_25 NA*/
 
-				$('.mid').on('click', '#chativ', function(e){
-						alert('invite click'); 
-						e.preventDefault();
-						var femail = $(this).attr("class");
-						alert($(this).attr("class"));
-				        $.ajax({
-				            type: "post", 
-				            url: "/chatlist",
-				            data : { "friend" : femail },
-				            success: function(result,status,xhr){
-				            	alert("ajax success");
-				            	$("#myModal").html(result);
-				            	$("#myModal").modal();
-				            },
-				            error: function(xhr, status, er){}
-				        });
-					});
 				/* archive mouseover 2016-01-06 */
 				
 				$(".mid").on("mouseenter",".filebox", function(event){
@@ -965,7 +990,7 @@ $(document).ready(function() {
 				$('#rightSection').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-20);
 				$('.actionBox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);*/
 				$("#mySidenav").css('width',350);
-				$("#mySidenav").css('height', $(window).height()-$('#archive').height()-$('.searchDiv').height()-125);
+				$("#mySidenav").css('height', $(window).height()-$('#archive').height()-$('.searchDiv').height()-95);
 				e.preventDefault();
 				var room = $('#thisRoom').val();
 				var id = $(this).attr("id");
@@ -992,7 +1017,7 @@ $(document).ready(function() {
 				$("#mySidenav").css('width',350);
 				
 			/*	$(".topchat").css('margin-right',250);*/
-				$("#mySidenav").css('height', $(window).height()-$('#archive').height()-$('.searchDiv').height()-125);
+				$("#mySidenav").css('height', $(window).height()-$('#archive').height()-$('.searchDiv').height()-95);
 				e.preventDefault();
 				var room = $('#thisRoom').val();
 				var url = $(this).attr("id");
@@ -1273,18 +1298,216 @@ $(document).ready(function() {
 		    /*상세 프로필*/
 		    $('.dtprofile-background').on('click', '.emailcl', function(){
 		    	$(this).hide();
-				$('.email').remove();
-				/*$(this).find("#rgallery-download").remove();*/
+				$('.email').hide();
+				var icon= '<button class="email-edit">EDIT</button>';
+			$('.emailad').append(icon);
+				
 		    });
+		    
+		    $('.dtprofile-background').on('click', '.email-edit', function(){
+		    	$('.email-edit').remove();
+		    	var icon='<button class="setting-close emailcl">CLOSE</button>';
+		    	$('.emailad').append(icon);
+		    	
+		    	var text= '<div class="setting-line email"></div>\
+	                       <div class="setting-text email">\
+	                       <div class="inputtext">Current E-mail Address</div>\
+		    		       <div class="inputform">\
+	                       <input type="text" class="form-control" id="emailAdress"></div>\
+	                       <div class="inputtext">New E-mail Address</div>\
+	                        <div class="inputform">\
+	                        <input type="text" class="form-control" id="emailAdress"></div>\
+	                        <button class="account-message" id="#">Update E-mail</button></div>';
+		    	$('#email-table').append(text);
+				
+		    });
+		    
+		    
 		    $('.dtprofile-background').on('click', '.phcl', function(){
 		    	$(this).hide();
-				$('.ph').remove();
-				/*$(this).find("#rgallery-download").remove();*/
+				$('.ph').hide();
+				var icon= '<button class="phone-edit">EDIT</button>';
+				$('.phondnm').append(icon);
 		    });
+		    
+		    $('.dtprofile-background').on('click', '.phone-edit', function(){
+		    	$('.phone-edit').remove();
+		    	var icon='<button class="setting-close phcl">CLOSE</button>';
+		    	$('.phondnm').append(icon);
+		    	
+		    	var text= '<div class="setting-line ph"></div>\
+		    			   <div class="setting-text ph">\
+             			   <div class="inputtext">Current Phone number</div>\
+				           <div class="inputform">\
+					  <select class="form-control" id="emailPhone">\
+					  <option>+82</option>\
+					  <option>+01</option>\
+					  <option>+81</option>\
+					  <option>+86</option>\
+					  <option>+61</option>\
+					  <option>+44</option>\
+					  <option>+63</option>\
+					  <option>+852</option>\
+					  <option>+66</option>\
+					  </select>\
+					  <input type="text" class="form-control" id="phoneNumber">\
+					</div>\
+				<div class="inputtext">New Phone number</div>\
+					<div class="inputform">\
+					  <select class="form-control" id="emailPhone">\
+					  <option>+82</option>\
+					  <option>+01</option>\
+					  <option>+81</option>\
+					  <option>+86</option>\
+		    		  <option>+61</option>\
+					  <option>+44</option>\
+					  <option>+63</option>\
+					  <option>+852</option>\
+					  <option>+66</option>\
+					  </select>\
+					  <input type="text" class="form-control" id="phoneNumber">\
+					</div>\
+						<button class="account-message" id="#">Update Phone</button>\
+		    		</div>';
+		    	$('#phone-table').append(text);
+				
+		    });
+		    
+		    
+		    
 		    $('.dtprofile-background').on('click', '.pwcl', function(){
 		    	$(this).hide();
-				$('.pw').remove();
-				/*$(this).find("#rgallery-download").remove();*/
+				$('.pw').hide();
+				var icon= '<button class="pass-edit">EDIT</button>';
+				$('.passwd').append(icon);
+		    });
+		    
+		    $('.dtprofile-background').on('click', '.pass-edit', function(){
+		    	$('.pass-edit').remove();
+		    	var icon='<button class="setting-close pwcl">CLOSE</button>';
+		    	$('.passwd').append(icon);
+		    	
+		    	var text= '<div class="setting-line pw"></div>\
+		    			   <div class="setting-text pw">\
+		    			   <div class="inputtext">Current E-mail Address</div>\
+					       <div class="inputform">\
+					       <input type="text" class="form-control" id="emailAdress">\
+				           </div>\
+				           <div class="inputtext">New E-mail Address</div>\
+					       <div class="inputform">\
+					       <input type="text" class="form-control" id="emailAdress">\
+					       </div>\
+						   <button class="account-message" id="<%= user.email %>">Save Password</button></div>';
+		    	$('#pass-table').append(text);
+		    });
+		    
+		    
+		    $('.dtprofile-background').on('click', '.socl', function(){
+		    	$(this).hide();
+				$('.so').hide();
+				var icon= '<button class="sign-edit">EDIT</button>';
+				$('.signot').append(icon);
+		    });
+		    
+		    $('.dtprofile-background').on('click', '.sign-edit', function(){
+		    	$('.sign-edit').remove();
+		    	var icon='<button class="setting-close socl">CLOSE</button>';
+		    	$('.signot').append(icon);
+		    	
+		    	var text= '<div class="setting-line so"></div>\
+		    		       <div class="setting-text so">\
+         			       <div class="inputtext">Confirm your password</div>\
+				           <div class="inputform">\
+				           <input type="text" class="form-control" id="emailAdress"></div>\
+				           <button class="account-signout" id="<%= user.email %>">Sign out</button></div>';
+		    	$('#sign-table').append(text);
+		    });
+		    
+		/*    left bar*/
+		    
+		    /**
+		     * 새로운 아카이브 화면
+		     */
+			$( "#leftbar" ).on( "click", "#archive1", function( event ) {
+			    event.preventDefault();
+			    
+		        $.ajax({
+		            type: "post",
+		            url: "/myArchive",
+		            success: function(result,status,xhr){
+		            	$(".background").html(result);
+		            	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
+		            	$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
+		            	$('.archiveback').css('height', $(window).height() - $('.topMenu').height()-$('.mySection').height());
+		            	/*$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-$('.topMenu').height());*/
+		            },
+		            error: function(xhr, status, er){}
+		        });
+
+			});
+			
+			/*
+			 * 알람 뷰
+			 */
+/*			$( "#leftbar" ).on( "click", "#dropAlarm", function( event ) {
+			    event.preventDefault();
+			    
+		        $.ajax({
+		            type: "post",
+		            url: "/alarm",
+		            success: function(result,status,xhr){
+		            	$(".alarm-drop").html(result);
+		            },
+		            error: function(xhr, status, er){}
+		        });
+
+			});*/
+			
+			
+			  /*
+		     * 우측 상단에 파일 검색이나 메시지 로그 검색
+		     */
+		    $('#leftbar').on('click', '#searchSec1', function(e){
+		    	e.preventDefault();
+		    	$('#rightSection').css('width' ,  185 );
+		    	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-20 );
+		    	$('#rightSection').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-20);
+		    	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-20 );*/
+		        $.ajax({
+		            type: "post",
+		            url: "/search",
+		            success: function(result,status,xhr){
+		            	$('#rightSection').html(result);
+		            	$('#rightContent').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-$('#myTab').height()-30);
+		            },
+		            error: function(xhr, status, er){}
+		        });
+		    });
+		    
+		    /*
+		     * 좌측에서 친구 리스트 가져옴
+		     */
+		    $('#leftbar').on("click","#getcontacts1",function(e) {
+		    	var search = $("#inputAll").val();
+		        $.ajax({
+		            type: "post",
+		            url: "/getFriend",
+		            success: function(result,status,xhr){
+		            	$(".searchResult").html(result)
+		            },
+		            error: function(xhr, status, er){}
+		        });
+		        e.preventDefault();
+		    });
+		    
+		    /*
+			 * 왼쪽 방 정보 가져오기.
+			 */
+		    $('#leftbar').on("click","#getmessages1",function(){
+		    	socket.emit('rooms', $('.myInfoView').attr("id"));
+//				setInterval(function() {
+//					socket.emit('rooms', $('.myInfoView').attr("id"));
+//			    }, 10000);
 		    });
 
 });

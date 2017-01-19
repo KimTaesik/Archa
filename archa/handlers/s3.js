@@ -31,7 +31,7 @@ exports.filesend = function(req, res){
 		    var text = "";
 		    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-		    for( var i=0; i < 8; i++ ){
+		    for( var i=0; i < 9; i++ ){
 		        text += possible.charAt(Math.floor(Math.random() * possible.length));
 		    }
 
