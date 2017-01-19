@@ -13,7 +13,7 @@ $(document).ready(function() {
         var text= '<div class="message_box_send">\
                                 <div id="me_image" class="message_sender"></div>\
                                 <div class="talk me" id="'+msg.email+'">\
-                                	<div id="talkname">'+msg.name+'</div></br><span class="message_body"></span>\
+                                	<div id="talkname">'+msg.name+'</div><span class="message_body"></span>\
                                 </div>\
                                 <div class="message_date" id="'+msg.mdate+'"></div>\
                           </div></br>';
@@ -29,7 +29,7 @@ $(document).ready(function() {
 	function other(msg){
 		return '<div class="message_box_re">\
 					<div id="other_image" class="message_re"></div>\
-					<div class="talk other" id="'+msg.email+'"><div id="talkother">'+msg.name+'</div><br><span class="message_body"></span></div>\
+					<div class="talk other" id="'+msg.email+'"><div id="talkother">'+msg.name+'</div><span class="message_body"></span></div>\
 					<div class="message_date" id="'+msg.mdate+'"></div>\
 				</div></br>';
 	}
@@ -155,7 +155,7 @@ $(document).ready(function() {
 		}
 		return '<div class="file_box_send sendData">\
 				 <div id="me_image" class="message_sender"></div>\
-				 <div class="myfileimage talk me" id="'+send_userEmail+'"><div id="imagename">'+send_userName+'</div></br>\
+				 <div class="myfileimage file me" id="'+send_userEmail+'"><div id="imagename">'+send_userName+'</div></br>\
 					<div class="url"><div class='+text+'></div></div>\
 								<a href="'+data.url+'" target="'+data.url+'"> \
 								<div class="file_container"> \
@@ -182,7 +182,7 @@ $(document).ready(function() {
 			text= "docximage";
 		}
 		return '<div class="file_box_send sendData">\
-					 <div class="myfileimage talk me" id="'+send_userEmail+'"><div id="imagename"></div></br>\
+					 <div class="myfileimage file me" id="'+send_userEmail+'"><div id="imagename"></div></br>\
 						<div class="url"><div class='+text+'></div></div>\
 									<a href="'+data.url+'" target="'+data.url+'"> \
 									<div class="file_container"> \
