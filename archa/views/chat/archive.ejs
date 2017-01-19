@@ -39,6 +39,12 @@ Archive
 				  				<div class="docx-archive"></div>
 				  			</div>
 				  			<% } %>
+				  			<!--css doc icon  -->
+				  			<% if(log.type == 'zip'){ %>
+				  			<div class="url" >
+				  				<div class="zip-archive"></div>
+				  			</div>
+				  			<% } %>
 				  		<div class="archive-textbox">
 				 			<div id="filename"><%= log.name %></div>
 				 			<% if(log.send_id.email == user ){ %>

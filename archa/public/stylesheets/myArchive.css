@@ -223,6 +223,16 @@
     background-size: 100% 100%;
     background-image: url(../img/file/wordicon.png);	
 }
+.zip-image{
+ 	width: 4.0rem;
+    height: 5.0rem;  
+    margin-left: 45px;
+    margin-right: 15px;
+    margin-top: 25px;
+    background-repeat: no-repeat; 
+    background-size: 100% 100%;
+    background-image: url(../img/file/zipicon.png);	
+}
 /* gallery */
 .gallery-image
 {

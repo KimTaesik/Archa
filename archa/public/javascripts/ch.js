@@ -155,7 +155,7 @@ $(document).ready(function() {
 		}
 		return '<div class="file_box_send sendData">\
 				 <div id="me_image" class="message_sender"></div>\
-				 <div class="myfileimage file me" id="'+send_userEmail+'"><div id="imagename">'+send_userName+'</div></br>\
+				 <div class="myfileimage file me" id="'+send_userEmail+'"><div id="imagename">'+send_userName+'</div>\
 					<div class="url"><div class='+text+'></div></div>\
 								<a href="'+data.url+'" target="'+data.url+'"> \
 								<div class="file_container"> \
@@ -182,7 +182,8 @@ $(document).ready(function() {
 			text= "docximage";
 		}
 		return '<div class="file_box_send sendData">\
-					 <div class="myfileimage file me" id="'+send_userEmail+'"><div id="imagename"></div></br>\
+				<div id="me_image" class="message_sender"></div>\
+					 <div class="myfileimage file me" id="'+send_userEmail+'"><div id="imagename">'+send_userName+'</div>\
 						<div class="url"><div class='+text+'></div></div>\
 									<a href="'+data.url+'" target="'+data.url+'"> \
 									<div class="file_container"> \
@@ -208,9 +209,12 @@ $(document).ready(function() {
 		if(data.type =='docx'){
 			text= "docximage";
 		}
+		if(data.type =='zip'){
+			text= "zipimage";
+		}
 		return '<div class="file_box_re reData">\
 					<div id="other_image" class="message_re"></div>\
-					<div class="otherfileimage talk other" id="'+re_userEmail+'"><div id="otherimagename">'+re_userName+'</div></br>\
+					<div class="otherfileimage file other" id="'+re_userEmail+'"><div id="otherimagename">'+re_userName+'</div>\
 					<div class="url"><div class='+text+'></div></div>\
 							<a href="'+data.url+'" target="'+data.url+'"> \
 							<div class="file_container"> \
@@ -220,7 +224,7 @@ $(document).ready(function() {
 						</a>\
 					</div>\
 					<div class="message_date" id="'+data.date+'"></div>\
-				</div></br>';
+				</div>';
 	}
 	function nearOtherData(data,re_userEmail,re_userName){
 		var text ="";
@@ -236,8 +240,12 @@ $(document).ready(function() {
 		if(data.type =='docx'){
 			text= "docximage";
 		}
+		if(data.type =='zip'){
+			text= "zipimage";
+		}
 		return '<div class="file_box_re reData">\
-				<div class="otherfileimage talk other" id="'+re_userEmail+'"></br>\
+					<div id="other_image" class="message_re"></div>\
+					<div class="otherfileimage file other" id="'+re_userEmail+'"><div id="otherimagename">'+re_userName+'</div>\
 				<div class="url"><div class='+text+'></div></div>\
 						<a href="'+data.url+'" target="'+data.url+'"> \
 						<div class="file_container"> \
@@ -247,12 +255,12 @@ $(document).ready(function() {
 					</a>\
 				</div>\
 				<div class="message_date" id="'+data.date+'"></div>\
-			</div></br>';
+			</div>';
 	}	
 	function myImage(data,send_userEmail,send_userName){
 		return '<div class="message_box_send sendData">\
 				 <div id="me_image" class="message_sender"></div>\
-				 <div class="myimage talk me" id="'+send_userEmail+'"><div id="imagename">'+send_userName+'</div></br>\
+				 <div class="myimage images me" id="'+send_userEmail+'"><div id="imagename">'+send_userName+'</div>\
 					<a data-src="'+data.url+'" href="'+data.url+'" target="'+data.url+'" class="dataImage" data-link-url="'+data.url+'">\
 						<div class="dataImageBody">\
 							<img class="image_body" data-real-src="'+data.url+'" src="'+data.url+'">\
@@ -264,7 +272,8 @@ $(document).ready(function() {
 	}
 	function nearMyImage(data,send_userEmail,send_userName){
 		return '<div class="message_box_send sendData">\
-					 <div class="myimage talk me" id="'+send_userEmail+'"></br>\
+				<div id="me_image" class="message_sender"></div>\
+					 <div class="myimage images me" id="'+send_userEmail+'"><div id="imagename">'+send_userName+'</div>\
 							<a data-src="'+data.url+'" href="'+data.url+'" target="'+data.url+'" class="dataImage" data-link-url="'+data.url+'">\
 								<div class="dataImageBody">\
 									<img class="image_body" data-real-src="'+data.url+'" src="'+data.url+'">\
@@ -277,7 +286,7 @@ $(document).ready(function() {
 	function otherImage(data,re_userEmail,re_userName){
 		return '<div class="message_box_re reData">\
 					<div id="other_image" class="message_re"></div>\
-			 		<div class="otherimage talk other" id="'+re_userEmail+'"><div id="otherimagename">'+re_userName+'</div></br>\
+			 		<div class="otherimage images other" id="'+re_userEmail+'"><div id="otherimagename">'+re_userName+'</div>\
 						<a data-src="'+data.url+'" href="'+data.url+'" target="'+data.url+'" class="image_file_body" data-link-url="'+data.url+'">\
 							<div class="image_preserve_aspect_ratio">\
 								<img class="image_body" data-real-src="'+data.url+'" src="'+data.url+'"\>\
@@ -289,7 +298,8 @@ $(document).ready(function() {
 	}
 	function nearOtherImage(data,re_userEmail,re_userName){
 		return '<div class="message_box_re reData">\
-			 		<div class="otherimage talk other" id="'+re_userEmail+'"></br>\
+				<div id="other_image" class="message_re"></div>\
+			 		<div class="otherimage images other" id="'+re_userEmail+'"><div id="otherimagename">'+re_userName+'</div>\
 						<a data-src="'+data.url+'" href="'+data.url+'" target="'+data.url+'" style="width: 50%;" class="image_file_body" data-link-url="'+data.url+'">\
 							<div class="image_preserve_aspect_ratio">\
 								<img class="image_body" data-real-src="'+data.url+'" src="'+data.url+'"\>\
@@ -580,7 +590,7 @@ $(document).ready(function() {
 		if(chk){
 			socket.emit('readMessageSave', room);
 			if( $('[id="'+room.id+'"]').length > 0){
-				$('[id="'+room.id+'"]').text('');
+				$('[id="'+room.id+'"]').text(0);
 			}
 		}
 		
