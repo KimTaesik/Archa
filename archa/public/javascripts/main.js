@@ -685,7 +685,7 @@ $(document).ready(function() {
 				var url = $(this).attr("id");
 				var category = $(".archiveName").text();
 				var div;
-				alert(url);
+				
 				if(url=='tabgot'){
                     div = $('#got');
                     $('#got').show();
@@ -756,7 +756,7 @@ $(document).ready(function() {
 				event.preventDefault();
 				var url = $(this).attr("id");
 				$(".archiveName").text(url);
-				alert(url);
+				
 		        $.ajax({
 		            type: "post",
 		            url: "/"+url,
@@ -1470,9 +1470,9 @@ $(document).ready(function() {
 		        });
 		        $(".leftchat").hide();
 		        var text= '<div class="left-archive">\
-		        	<div class="category" id="all"><div id="allfilesmenu"></div><div class="archive-text">ALL FILES</div></div>\
-		        	<div class="category" id="archive"><div id="archivemunu"></div><div class="archive-text">ARCHIVE</div></div>\
-		        	<div class="category" id="gallery"><div id="gallerymenu"></div><div class="archive-text">GALLERY</div></div></div>';
+		        	<div class="category" id="ALL"><div id="allfilesmenu"></div><div class="archive-text">ALL FILES</div></div>\
+		        	<div class="category" id="ARCHIVE"><div id="archivemunu"></div><div class="archive-text">ARCHIVE</div></div>\
+		        	<div class="category" id="GALLERY"><div id="gallerymenu"></div><div class="archive-text">GALLERY</div></div></div>';
 		        $('.leftarch').append(text);
 
 			});
