@@ -269,7 +269,8 @@
 .gallerybox{
 	padding-left: 20px;
     margin-top: 20px;
-    height: 320px;
+    height: 340px;
+    width: 22.0rem;
     background-color: white;
     box-shadow: 2px 1px 3px 0px #aaabad;
 }
@@ -358,10 +359,10 @@
 }
 .category{
 	/* width:3.0rem; */
-	float:left;
+/* 	float:left;
 	height:25px;
 	font-size:3.0rem;
-	margin-left:20px;
+	margin-left:20px; */
 	/* margin-top:15px; */
 	/* margin-right:30px; */
 }

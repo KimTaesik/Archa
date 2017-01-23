@@ -197,6 +197,7 @@ font-family: "Source Sans Pro";
 	/* width: 30%; */
 	/* padding-right:30px; */
 	max-width:350px;
+	min-width: 200px;
 }
 .topMenu{
 /* 	background-color: #000000;
@@ -316,7 +317,7 @@ font-family: "Source Sans Pro";
 	background-size:100% 100%;
 	background-image: url('../img/notification button.png');
 }
-#archive{
+/* #archive{
 	display:inline-block;
 	background-color: transparent;
 	width:3.0rem;
@@ -328,7 +329,7 @@ font-family: "Source Sans Pro";
 	background-repeat:no-repeat;
 	background-size:100% 100%;
 	background-image: url('../img/Archiveicon.png');
-}
+} */
 .actionBox{
 	width:100%;
 	margin-bottom: 10px;
@@ -570,6 +571,7 @@ textarea{width: 100%; height: 100%;}
 	background-color:#4A7DFF;
 	color:white; 
 	font-size: 1.3rem;
+	min-width: 328px;
 }     
 /*  file 채팅 말풍선 설정 */  
 .file {
@@ -632,8 +634,9 @@ textarea{width: 100%; height: 100%;}
 {  
 	width:4.5rem;
     height:4.5rem;
-    margin-left:30px;
+    margin-left:23px;
 	float:left;
+	border-radius: 5px;
 	background-repeat:no-repeat;
 	background-size:100% 100%;
 	background-image: url('../img/momo.png');
@@ -642,8 +645,9 @@ textarea{width: 100%; height: 100%;}
 {  
 	width:4.5rem;
     height:4.5rem;
-    margin-left:30px;
+    margin-left:23px;
 	float:left;
+	border-radius: 5px;
 	background-repeat:no-repeat;
 	background-size:100% 100%;
 	background-image: url('../img/archa.png');
@@ -653,6 +657,10 @@ textarea{width: 100%; height: 100%;}
 	height: 85px;
     width: 85px;
     margin-right: 10px;
+}
+.urltitle{
+	font-weight:bold;
+	font-size: 1.5rem;
 }
 /* .talk:before {
   content: "";
@@ -1926,7 +1934,7 @@ ul li.hang img {
     margin-top: 35px;
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    background-image: url(../img/Archiveicon.png);
+    background-image: url(../img/allfileicon.png);
 }
 .alarm1{
 	display:inline-block;
@@ -1976,4 +1984,55 @@ ul li.hang img {
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-image: url(../img/message1.png);		
+}
+/*  leftsection archive menu */
+.leftarch{
+/* 	height:500px;*/
+	width:310px;
+	
+}
+.category{
+	height: 90px;
+	color:#455A64;
+    border-bottom:1px solid;
+    border-color:#CFD8DC;
+}
+.archive-text{
+	padding-top:30px;
+    font-size:1.8rem;
+    font-weight:bold;
+}
+#allfilesmenu{
+    float: left;
+    margin-left: 80px;
+    margin-right:20px;
+    margin-top: 25px;
+    width: 3.5rem;
+    height: 3.5rem;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url(../img/inbox.png);
+}
+
+#archivemunu{
+    float: left;
+    margin-left: 80px;
+    margin-right:20px;
+    margin-top: 25px;
+    width: 3.5rem;
+    height: 3.5rem;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url(../img/archiveicon.png);
+}
+#gallerymenu{
+    float: left;
+    margin-left: 80px;
+    margin-right:20px;
+    margin-top: 25px;
+    width: 3.5rem;
+    height: 3.5rem;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url(../img/Galleryicon.png);	
 }

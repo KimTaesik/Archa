@@ -5,17 +5,29 @@
  			if(search == null || log.send_id.name.indexOf(search)>-1 || log.send_id.company.indexOf(search)>-1 ||log.send_id.position.indexOf(search)>-1 || log.send_id.email.indexOf(search)>-1 || log.name.indexOf(search)>-1){
  				if(category == 'GALLERY' && log.rtype == 'image'){
  	%>
-				  	<div class="gallery-div filebox">
+<!-- 				  	<div class="gallery-div filebox">
 			  			<div class="url" >
 			  				<img class="url-image" alt="<%= log.name %>" src="<%= log.url %>">
 			  			</div>
-						<!-- css수정  -->
+						css수정 
 						<div class="textbox">
 			  			<div class="file-name"><%= log.name %></div>
 			  			<div class="from-name">From : <%= log.send_id.name %></div>
 				        <div class="file-date"><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
 			  			</div>
-			  		</div>
+			  		</div> -->
+			  								  	<div class="gallery">
+					  			<div class="url" >
+					  				<img class="gallery-image" alt="<%= log.name %>" src="<%= log.url %>">
+					  			</div>
+					  			
+					  			<!--css 수정  -->
+					  			<div class="gallerybox">
+					  			<div class="gallery-file"><%= log.name %></div>
+					  			<div class="gallery-name">From : <%= log.send_id.name %></div>
+								<div class="gallery-date"><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
+					  		</div>
+					  		</div>
  	
  	<%
  				}else if(category == 'ARCHIVE' && log.rtype != 'image'){

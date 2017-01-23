@@ -13,7 +13,7 @@ $(document).ready(function() {
             	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -10);
             	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-10);*/
 				$('.searchResult,#room-list').css('height' ,  $(window).height()-$('#setGroup').height()-$('.menuTop').height()-$('.memberSection').height()-$('.myInfo').height()-$('.nav').height() -67);
-            	$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()); 
+            	/*$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()); */
             	$('.archiveback').css('height', $(window).height() - $('.topMenu').height()-$('.mySection').height());
             	$('#dataList').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()); 
             	/*$('.mySection').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
@@ -24,7 +24,7 @@ $(document).ready(function() {
 	            	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-10 );*/
 					$('#rightSection').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-20);
 					$('#rightContent').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-$('#myTab').height()-30);
-	            	$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
+	            	/*$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
 	            	$('.archiveback').css('height', $(window).height() - $('.topMenu').height()-$('.mySection').height());
 	            	$('#dataList').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()); 
 	            	/*$('.mySection').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
@@ -668,7 +668,7 @@ $(document).ready(function() {
 		            success: function(result,status,xhr){
 		            	$(".background").html(result);
 		            	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
-		            	$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
+		            	/*$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
 		            	$('.archiveback').css('height', $(window).height() - $('.topMenu').height()-$('.mySection').height());
 		            	/*$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-$('.topMenu').height());*/
 		            },
@@ -685,7 +685,7 @@ $(document).ready(function() {
 				var url = $(this).attr("id");
 				var category = $(".archiveName").text();
 				var div;
-				
+				alert(url);
 				if(url=='tabgot'){
                     div = $('#got');
                     $('#got').show();
@@ -730,7 +730,7 @@ $(document).ready(function() {
 			/*
 			 * 아카이브 카테고리 변경시 변경
 			 */
-			$(".mid").on("click", ".category", function(event){
+/*			$(".mid").on("click", ".category", function(event){
 				event.preventDefault();
 				var url = $(this).attr("id");
 				$(".archiveName").text(url);
@@ -740,8 +740,30 @@ $(document).ready(function() {
 		            url: "/"+url,
 		            success: function(result,status,xhr){
 		            	$("#dataList").html(result);
-		            /*	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
+		            	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
 		            	$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
+		            	$('.archiveback').css('height', $(window).height() - $('.topMenu').height()-$('.mySection').height());
+		            	
+		            }
+		        });
+			});*/
+			
+			/*
+			 * 아카이브 카테고리 변경시 변경
+			 */
+			$("#leftSection").on("click", ".category", function(event){
+
+				event.preventDefault();
+				var url = $(this).attr("id");
+				$(".archiveName").text(url);
+				alert(url);
+		        $.ajax({
+		            type: "post",
+		            url: "/"+url,
+		            success: function(result,status,xhr){
+		            	$("#dataList").html(result);
+		            /*	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
+		            /*	$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
 		            	$('.archiveback').css('height', $(window).height() - $('.topMenu').height()-$('.mySection').height());
 		            	
 		            }
@@ -821,6 +843,7 @@ $(document).ready(function() {
 						var category = $(".archiveName").text();
 				    	var search = $(".archiveInputSearch").val();
 				    	var url = $("ul#tabgs li.active").attr('id');
+				    	
 				    	var div;
 				    	
 				    	if(url=='tabgot'){
@@ -1430,21 +1453,36 @@ $(document).ready(function() {
 		     */
 			$( "#leftbar" ).on( "click", "#archive1", function( event ) {
 			    event.preventDefault();
-			    
+		    	$(".leftarch").show();
+			    $('.leftarch').empty();
 		        $.ajax({
 		            type: "post",
 		            url: "/myArchive",
 		            success: function(result,status,xhr){
 		            	$(".background").html(result);
 		            	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
-		            	$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
+		            	/*$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
 		            	$('.archiveback').css('height', $(window).height() - $('.topMenu').height()-$('.mySection').height());
 		            	/*$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-$('.topMenu').height());*/
+		            	
 		            },
 		            error: function(xhr, status, er){}
 		        });
+		        $(".leftchat").hide();
+		        var text= '<div class="left-archive">\
+		        	<div class="category" id="all"><div id="allfilesmenu"></div><div class="archive-text">ALL FILES</div></div>\
+		        	<div class="category" id="archive"><div id="archivemunu"></div><div class="archive-text">ARCHIVE</div></div>\
+		        	<div class="category" id="gallery"><div id="gallerymenu"></div><div class="archive-text">GALLERY</div></div></div>';
+		        $('.leftarch').append(text);
 
 			});
+			
+			$( ".leftarch" ).on( "click", ".category", function( event ) {
+				$('.category').css({color:  '#455A64'});
+				$(this).css({color:  '#4A7DFF'});
+			});
+			
+			
 			
 			/*
 			 * 알람 뷰
@@ -1488,6 +1526,8 @@ $(document).ready(function() {
 		     * 좌측에서 친구 리스트 가져옴
 		     */
 		    $('#leftbar').on("click","#getcontacts1",function(e) {
+		    	$(".leftarch").hide();
+		    	$(".leftchat").show();
 		    	var search = $("#inputAll").val();
 		        $.ajax({
 		            type: "post",
@@ -1504,10 +1544,14 @@ $(document).ready(function() {
 			 * 왼쪽 방 정보 가져오기.
 			 */
 		    $('#leftbar').on("click","#getmessages1",function(){
+		    	$(".leftarch").hide();
+		    	$(".leftchat").show();
 		    	socket.emit('rooms', $('.myInfoView').attr("id"));
 //				setInterval(function() {
 //					socket.emit('rooms', $('.myInfoView').attr("id"));
 //			    }, 10000);
 		    });
+		    
+		    
 
 });
