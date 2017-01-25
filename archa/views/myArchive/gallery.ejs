@@ -12,7 +12,7 @@
 		  			if(log.rece_id.email == user){
 		  				if(log.rtype == 'image'){
 		  	%>
-						  	<div class="gallery">
+						  	<div class="gallery" id="<%= log.url %>">
 					  			<div class="url" >
 					  				<img class="gallery-image" alt="<%= log.name %>" src="<%= log.url %>">
 					  			</div>
@@ -36,7 +36,7 @@
 		  			if(log.send_id.email == user){
 		  				if(log.rtype == 'image'){
 		  	%>
-				  	<div class="gallery">
+				  	<div class="gallery" id="<%= log.url %>">
 			  			<div class="url">
 			  				<img class="gallery-image" alt="<%= log.name %>" src="<%= log.url %>">
 			  			</div>

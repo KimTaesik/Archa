@@ -1,11 +1,11 @@
-<body>
+
  	<%
  		data.forEach(function(log, index) {
  			if(log.send_id.email == user){
  			if(search == null || log.rece_id.name.indexOf(search)>-1 || log.rece_id.company.indexOf(search)>-1 ||log.rece_id.position.indexOf(search)>-1 || log.rece_id.email.indexOf(search)>-1 || log.name.indexOf(search)>-1){
  				if(category == 'GALLERY' && log.rtype == 'image'){
  	%>
-						  	<div class="gallery">
+						  	<div class="gallery" id="<%= log.url %>">
 					  			<div class="url" >
 					  				<img class="gallery-image" alt="<%= log.name %>" src="<%= log.url %>">
 					  			</div>
@@ -21,8 +21,8 @@
  	<%
  				}else if(category == 'ARCHIVE' && log.rtype != 'image'){
  	%>
- 							<div class="filebox">
- 	%>						 <!--css ppt icon  -->
+ 							<div class="filebox" id="<%= log.url %>">
+ 							 <!--css ppt icon  -->
 				  			<% if(log.type == 'pptx'){ %>
 				  			<div class="url" >
 				  				<div class="pptx-image"></div>
@@ -63,7 +63,7 @@
 	<%
 				}else if(category == 'ALL'){
 	%>
-			  		<div class="filebox">
+			  		<div class="filebox" id="<%= log.url %>">
 			  			<% if(log.rtype == 'image'){ %>
 			  			<div class="url" >
 			  				<img class="url-image" alt="<%= log.name %>" src="<%= log.url %>">
@@ -112,4 +112,3 @@
  			}
  		});
  	%>
-</body>

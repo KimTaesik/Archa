@@ -1,4 +1,3 @@
-<body>
  	<%
  		data.forEach(function(log, index) {
  			if(log.rece_id.email == user){
@@ -16,7 +15,7 @@
 				        <div class="file-date"><%= moment(log.date).format('YY.MM.DD [(]dd[)] h:mm a') %></div>
 			  			</div>
 			  		</div> -->
-			  								  	<div class="gallery">
+			  				<div class="gallery" id="<%= log.url %>">
 					  			<div class="url" >
 					  				<img class="gallery-image" alt="<%= log.name %>" src="<%= log.url %>">
 					  			</div>
@@ -33,7 +32,7 @@
  				}else if(category == 'ARCHIVE' && log.rtype != 'image'){
 
  	%>
- 	 							<div class="filebox">
+ 	 						<div class="filebox">
  							 <!--css ppt icon  -->
 				  			<% if(log.type == 'pptx'){ %>
 				  			<div class="url" >
@@ -76,7 +75,7 @@
 	<%
 				}else if(category == 'ALL'){
 	%>
-			  		<div class="filebox">
+			  		<div class="filebox" id="<%= log.url %>">
 			  			<% if(log.rtype == 'image'){ %>
 			  			<div class="url" >
 			  				<img class="url-image" alt="<%= log.name %>" src="<%= log.url %>">
@@ -126,4 +125,3 @@
  			}
  		});
  	%>
-</body>

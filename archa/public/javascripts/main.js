@@ -705,10 +705,14 @@ $(document).ready(function() {
 				
 				if(url=='tabgot'){
                     div = $('#got');
+                    $('#tabgot').addClass('active');
+                    $('#tabsent').removeClass('active');
                     $('#got').show();
                     $('#sent').hide();
                 }else{
                     div = $('#sent');
+                    $('#tabsent').addClass('active');
+                    $('#tabgot').removeClass('active');
                     $('#sent').show();
                     $('#got').hide();
                 }
@@ -891,32 +895,31 @@ $(document).ready(function() {
 			 * 아카이브 검색
 			 */
 			$('.mid').on("keyup", ".archiveInputSearch",function(key){
-					if(key.keyCode==13){
-						var category = $(".archiveName").text();
-				    	var search = $(".archiveInputSearch").val();
-				    	var url = $("ul#tabgs li.active").attr('id');
-				    	
-				    	var div;
-				    	
-				    	if(url=='tabgot'){
-				    		div = $('#got');
-				    		$('#got').show();
-				    		$('#sent').hide();
-				    	}else{
-				    		div = $('#sent');
-				    		$('#sent').show();
-				    		$('#got').hide();
-				    	}
-				 
-				        $.ajax({
-				            type: "post",
-				            url: "/"+url,
-				            data: { "search": search, "category": category },
-				            success: function(result,status,xhr){
-				            	div.html(result);
-				            }
-				        });
-					}
+				if(key.keyCode==13){
+					var category = $(".archiveName").text();
+			    	var search = $(".archiveInputSearch").val();
+			    	var url = $("div.archiveback div.active").attr('id');
+			    	var div;
+			    	
+			    	if(url=='tabgot'){
+			    		div = $('#got');
+			    		$('#got').show();
+			    		$('#sent').hide();
+			    	}else{
+			    		div = $('#sent');
+			    		$('#sent').show();
+			    		$('#got').hide();
+			    	}
+			 
+			        $.ajax({
+			            type: "post",
+			            url: "/"+url,
+			            data: { "search": search, "category": category },
+			            success: function(result,status,xhr){
+			            	div.html(result);
+			            }
+			        });
+				}
 			});
 			/*
 			 * relation 검색, 유저리스트
@@ -1001,10 +1004,7 @@ $(document).ready(function() {
 		    	$(this).parent().remove();
 		    	socket.emit('decline', $(this).attr("id"));
 		    });		    
-			
-			
-
-				/* archive mouseover 2016-01-06 */
+			/* archive mouseover 2016-01-06 */
 				
 			$(".mid").on("mouseenter",".filebox", function(event){
 				var icon= '<div id="archive-icon">\
@@ -1014,11 +1014,27 @@ $(document).ready(function() {
 
 				$(this).append(icon);
 			});
-			$(".mid").on('click', "#archive-download", function(e){
+			/* gallery mouseover 2016-01-06 */
+			
+			$(".mid").on("mouseenter",".gallery", function(event){
+				var icon= '<div id="gallery-icon">\
+						   <div id="gallery-delete" class="'+$(this).attr('id')+'"></div>\
+		  				   <div id="gallery-link" class="'+$(this).attr('id')+'"></div>\
+		  				   <div id="gallery-download" class="'+$(this).attr('id')+'"></div></div>';
+
+				$(this).append(icon);
+			});
+			$(".mid").on("mouseleave",".gallery", function(event){
+				$(this).find("#gallery-delete").remove();
+				$(this).find("#gallery-link").remove();
+				$(this).find("#gallery-download").remove();
+			});
+			
+			$(".mid").on('click', "#archive-download, #gallery-download", function(e){
 				var url = $(this).attr('class');
 				$(location).attr('href',url);
 			});
-			$(".mid").on('click', "#archive-link", function(e){
+			$(".mid").on('click', "#archive-link, #gallery-link", function(e){
 			    var temp = $("<input>");
 			    var text = $(this).attr('class');
 			    $(this).append(temp);
@@ -1027,66 +1043,36 @@ $(document).ready(function() {
 			    temp.remove();
 			});
 			$(".mid").on("mouseleave",".filebox", function(event){
-					
-					$(this).find("#archive-delete").remove();
-					$(this).find("#archive-link").remove();
-					$(this).find("#archive-download").remove();
+				$(this).find("#archive-delete").remove();
+				$(this).find("#archive-link").remove();
+				$(this).find("#archive-download").remove();
 
 			});
-				
-				/* right archive mouseover 2016-01-06 */
+			/* right archive mouseover 2016-01-06 */
 				
 			$(".mid").on("mouseenter",".archive-textbox", function(event){
-	
-					var icon= '<div id="archive-icon">\
-			  				   <div id="rarchive-link"></div>\
-			  				   <div id="rarchive-download"></div></div>';
-
-					$(this).append(icon);
-					
+				var icon= '<div id="archive-icon">\
+		  				   <div id="rarchive-link"></div>\
+		  				   <div id="rarchive-download"></div></div>';
+				$(this).append(icon);
 			});
 			$(".mid").on("mouseleave",".archive-textbox", function(event){
-					
-					$(this).find("#rarchive-link").remove();
-					$(this).find("#rarchive-download").remove();
-
+				$(this).find("#rarchive-link").remove();
+				$(this).find("#rarchive-download").remove();
 			});
+			
+			/* right gallery mouseover 2016-01-06 */
 				
-				/* gallery mouseover 2016-01-06 */
-				
-				$(".mid").on("mouseenter",".gallery", function(event){
-	 
-					var icon= '<div id="gallery-icon">\
-							   <div id="gallery-delete"></div>\
-			  				   <div id="gallery-link"></div>\
-			  				   <div id="gallery-download"></div></div>';
+			$(".mid").on("mouseenter",".gallery-filebox", function(event){
+				var icon= '<div id="gallery-icon">\
+						   <div id="rgallery-link"></div>\
+		  				   <div id="rgallery-download"></div></div>';
 
-					$(this).append(icon);
-					
+				$(this).append(icon);
 			});
-				$(".mid").on("mouseleave",".gallery", function(event){
-					
-					$(this).find("#gallery-delete").remove();
-					$(this).find("#gallery-link").remove();
-					$(this).find("#gallery-download").remove();
-
-			});
-				/* right gallery mouseover 2016-01-06 */
-				
-				$(".mid").on("mouseenter",".gallery-filebox", function(event){
-	 
-					var icon= '<div id="gallery-icon">\
-							   <div id="rgallery-link"></div>\
-			  				   <div id="rgallery-download"></div></div>';
-
-					$(this).append(icon);
-					
-			});
-				$(".mid").on("mouseleave",".gallery-filebox", function(event){
-					
-					$(this).find("#rgallery-link").remove();
-					$(this).find("#rgallery-download").remove();
-
+			$(".mid").on("mouseleave",".gallery-filebox", function(event){
+				$(this).find("#rgallery-link").remove();
+				$(this).find("#rgallery-download").remove();
 			});
 			/*
 			 * 친구 프로필 클릭하면 우측에 생성
