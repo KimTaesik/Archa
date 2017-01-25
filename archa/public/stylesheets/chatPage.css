@@ -197,6 +197,7 @@ font-family: "Source Sans Pro";
 	/* width: 30%; */
 	/* padding-right:30px; */
 	max-width:350px;
+	min-width: 200px;
 }
 .topMenu{
 /* 	background-color: #000000;
@@ -316,7 +317,7 @@ font-family: "Source Sans Pro";
 	background-size:100% 100%;
 	background-image: url('../img/notification button.png');
 }
-#archive{
+/* #archive{
 	display:inline-block;
 	background-color: transparent;
 	width:3.0rem;
@@ -328,7 +329,7 @@ font-family: "Source Sans Pro";
 	background-repeat:no-repeat;
 	background-size:100% 100%;
 	background-image: url('../img/Archiveicon.png');
-}
+} */
 .actionBox{
 	width:100%;
 	margin-bottom: 10px;
@@ -515,10 +516,30 @@ textarea{width: 100%; height: 100%;}
 	margin-top:10px;
 }
 .talk {
+ 
+  }
+.talks {
   width:auto; 
   position: relative;
   padding-top: 10px;
   padding-left:20px;
+  padding-right:15px;
+  padding-bottom:10px;
+  color: black;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  
+  }  
+.urlrow{
+	display: inline-flex;
+}  
+/* link 채팅 말풍선 설정  */
+.link{
+  width:auto; 
+  position: relative;
+  padding-top: 10px;
+  padding-left:10px;
   padding-right:15px;
   padding-bottom:15px;
   color: black;
@@ -527,6 +548,31 @@ textarea{width: 100%; height: 100%;}
   border-radius: 10px;
   
   }
+.link.other {
+	margin-left:80px;
+   /*  margin-top:20px; */
+	border: 1px solid #e0e0e0;
+	background-color: #ffffff;
+	color:#455A64; 
+	font-size: 1.3rem;
+}
+.link.me {
+	margin-left:80px;
+    /* margin-top:20px; */
+	border: 1px solid #e0e0e0;
+	background-color:#ffffff;
+	color:black; 
+	font-size: 1.3rem;
+}
+.link.ma {
+	margin-left:80px;
+    /* margin-top:20px; */
+	border: 1px solid #e0e0e0;
+	background-color:#4A7DFF;
+	color:white; 
+	font-size: 1.3rem;
+	min-width: 328px;
+}     
 /*  file 채팅 말풍선 설정 */  
 .file {
   width:auto; 
@@ -549,7 +595,7 @@ textarea{width: 100%; height: 100%;}
   border-radius: 10px;
   
   }
-.talk.other {
+.talks.other {
 	margin-left:80px;
    /*  margin-top:20px; */
 	border: 1px solid #e0e0e0;
@@ -566,7 +612,7 @@ textarea{width: 100%; height: 100%;}
 	font-size: 1.3rem;
 }
 
-.talk.me {
+.talks.me {
 	margin-left:80px;
     /* margin-top:20px; */
 	border: 1px solid #e0e0e0;
@@ -588,8 +634,9 @@ textarea{width: 100%; height: 100%;}
 {  
 	width:4.5rem;
     height:4.5rem;
-    margin-left:30px;
+    margin-left:23px;
 	float:left;
+	border-radius: 5px;
 	background-repeat:no-repeat;
 	background-size:100% 100%;
 	background-image: url('../img/momo.png');
@@ -598,16 +645,22 @@ textarea{width: 100%; height: 100%;}
 {  
 	width:4.5rem;
     height:4.5rem;
-    margin-left:30px;
+    margin-left:23px;
 	float:left;
+	border-radius: 5px;
 	background-repeat:no-repeat;
 	background-size:100% 100%;
 	background-image: url('../img/archa.png');
 }
 
 .imgUrl{
-	height:90%;
-	width:100%;
+	height: 85px;
+    width: 85px;
+    margin-right: 10px;
+}
+.urltitle{
+	font-weight:bold;
+	font-size: 1.5rem;
 }
 /* .talk:before {
   content: "";
@@ -635,7 +688,7 @@ creates the smaller  triangle
   width: 0; } */
 
 /* creates the larger triangle */
-.talk.other:before {
+.talks.other:before {
   top: 10px;
   bottom: auto;
   left: -30px;
@@ -643,14 +696,14 @@ creates the smaller  triangle
   border-color: transparent #e0e0e0; }
 
 /* creates the smaller  triangle */
-.talk.other:after {
+.talks.other:after {
   top: 16px;
   bottom: auto;
   left: -21px;
   border-width: 9px 21px 9px 0;
   border-color: transparent #fff; }
 
-.talk.me:before {
+.talks.me:before {
   top: 10px;
   /* controls vertical position */
   bottom: auto;
@@ -660,7 +713,7 @@ creates the smaller  triangle
   border-width: 15px 0 15px 30px;
   border-color: transparent #e0e0e0; }
 
-.talk.me:after {
+.talks.me:after {
   top: 16px;
   bottom: auto;
   left: auto;
@@ -1268,14 +1321,6 @@ ul li.hang img {
 	text-align: center;
 }
 
-#close{
-		background-color: #EAEAEA;
-		height: 130%;
-		vertical-align: middle;
-		text-align: center;
-}
-
-
 /* chat list 2016_11_28 */
 .chat-drop{
 		width : 120px;
@@ -1552,7 +1597,7 @@ ul li.hang img {
 	font-size:1.6rem;
 	background-color: white;
 	color : #4a7dff;
-	font-weight: bold;
+/* 	font-weight: bold; */
 }
 .arch-tab{
 /* 	width: 540px;
@@ -1932,7 +1977,7 @@ ul li.hang img {
     margin-top: 35px;
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    background-image: url(../img/Archiveicon.png);
+    background-image: url(../img/allfileicon.png);
 }
 .alarm1{
 	display:inline-block;
@@ -1983,7 +2028,6 @@ ul li.hang img {
     background-size: 100% 100%;
     background-image: url(../img/message1.png);		
 }
-
 /* 체크박스 */
 .selectName{float:right;}
 .checks {position: relative;}
@@ -2126,4 +2170,284 @@ ul li.hang img {
 	font-size: 3.5rem;
 	color:#90a4ae;
 	margin-top: -5px;;
+}
+/*  leftsection archive menu */
+.leftarch{
+/* 	height:500px;*/
+	width:310px;
+	
+}
+.category{
+	height: 90px;
+	color:#455A64;
+    border-bottom:1px solid;
+    border-color:#CFD8DC;
+}
+.archive-text{
+	padding-top:30px;
+    font-size:1.8rem;
+    font-weight:bold;
+}
+#allfilesmenu{
+    float: left;
+    margin-left: 80px;
+    margin-right:20px;
+    margin-top: 25px;
+    width: 3.5rem;
+    height: 3.5rem;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url(../img/inbox.png);
+}
+
+#archivemunu{
+    float: left;
+    margin-left: 80px;
+    margin-right:20px;
+    margin-top: 25px;
+    width: 3.5rem;
+    height: 3.5rem;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url(../img/archiveicon.png);
+}
+#gallerymenu{
+    float: left;
+    margin-left: 80px;
+    margin-right:20px;
+    margin-top: 25px;
+    width: 3.5rem;
+    height: 3.5rem;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url(../img/Galleryicon.png);	
+}
+/* connection section */
+.leftconnection{
+	width:310px;
+}
+.searchbox{
+	border-top:1px solid;
+	border-color:#cfd8dc;
+	height:135px;
+}
+#topconnect{
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #546E7A;
+    height: 60px;
+    padding-top: 15px;
+    margin-left: 35px;
+}
+.contact-text{
+	margin-top:10px;
+	font-size:1.5rem;
+	color: #546E7A;
+	font-weight: bold;
+}
+.contact-input{
+	margin-top:25px;
+}
+#email-icon{
+	margin-left:35px;
+	margin-right:10px;
+	float:left;
+	width:2.0rem;
+	height:1.5rem;
+  	background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url(../img/Galleryicon.png);		
+}
+#phone-icon{
+	margin-left:35px;
+	margin-right:10px;
+	float:left;
+	width:2.0rem;
+	height:1.5rem;
+  	background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url(../img/Galleryicon.png);		
+}
+/* #email-input{
+	margin-left:35px;
+	width:250px;
+	height:30px;
+} */
+#relationInput{
+	margin-left:35px;
+	width:250px;
+	height:30px;
+}
+#phone-select{
+	margin-left:35px;
+	width:70px;
+	height:30px;
+	margin-right:10px;
+	float:left;
+}
+#phone-input{
+	width:170px;
+	height:30px;
+}
+.search-message{
+	background-color: #4A7DFF;
+	float:right;
+	margin-top:10px;
+	margin-right:25px;
+    height: 30px;
+    width: 75px;
+    text-align: center;
+    border-radius: 12px;
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: bold;
+}	
+.notibox{
+	border-top:5px solid;
+	color:#cfd8dc;
+}
+/* invite user */
+.modal-content{
+	width:620px;
+	
+}
+#myModalLabel{
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #546E7A;
+}
+.noti-modal{
+	border-bottom:5px solid;
+	border-color:#cfd8dc;
+	float:left;
+    height: 34px;
+    border: 2px solid;
+    width: 31.0rem;
+    color: #B0BEC5;
+    text-indent: 40px;
+    background: 15px;
+    background-size: 1.8rem;
+    background-repeat: no-repeat;
+    background-image: url(../img/searchingbutton.png);
+  
+}
+.member-select{
+	width:320px;
+	float: left;
+    position: relative;
+}   
+.select-list{
+/*     font-size: 1.8rem; */
+    float: left;
+    position: relative;
+    width: 298px;
+/*     background-color: #cfd8dc; */
+    color: #607D8B;
+/*     height: 45px; */
+/*     padding-top: 20px; */
+}
+#inviteBody{
+	height:461px;
+	border-bottom: solid 1px;
+    border-color: #cfd8dc;
+}
+.roomInvite{
+	width: 20px;
+    float: right;
+    margin-top: 30px;
+}
+#inUser{
+
+}
+#invite-pbody{
+	margin-top: 33px;
+    height: 417px;
+    width: 320px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+#invite-profile{
+	height: 80px;
+	border-bottom: solid 1px;
+	border-color: #cfd8dc;
+	margin-left: auto;
+	user-select: none;
+}
+#invite-fname{
+	height : 20px;
+    margin-top:10px; 
+	padding-bottom:10%;
+	display:inline-block;
+	font-size: 1.5rem;
+	color: #000000;
+	font-weight:bold;
+	position: relative;
+	cursor:pointer;
+}
+#invite-company{
+    display: block;
+    color: #90A4AE;
+    font-size: 1.4rem;
+    font-weight: normal;
+}
+#invite-position{
+    display: block;
+    color: #90A4AE;
+    font-size: 1.4rem;
+    font-weight: normal;
+    margin-top: 5px;
+}
+#invite-back{
+	height:10px;
+	width:310px;
+	float:left;
+    background-color: #cfd8dc;
+	
+}
+#subtitle{
+	font-size: 1.8rem;
+    float: left;
+    position: relative;
+    width: 298px;
+    background-color: #cfd8dc;
+    color: #607D8B;
+    height: 45px;
+    padding-top: 10px;
+    padding-left:20px;
+}
+#invite-confirm{
+    float: left;
+    margin-left: 210px;
+    background-color: #4A7DFF;
+    font-weight: bold;
+    font-size: 1.6rem;
+}
+#invite-cancel{
+    float: left;
+    margin-left: 20px;
+    background-color: #ECEFF1;
+    color: #546E7A;
+    font-weight: bold;
+    font-size: 1.6rem;
+}
+/* invite-dropdown */
+.userInfo{
+	width:300px;
+	
+}
+#chativ{
+	font-size: 1.8rem;
+	text-align:center;
+	vertical-align: middle;
+	height:30px;
+	color:#ffffff;
+	width:300px;
+	background-color:#4A7DFF;
+}
+#close{
+		background-color: #EAEAEA;
+		height: 30px;
+		font-size: 1.8rem;
+		vertical-align: middle;
+		text-align: center;
 }

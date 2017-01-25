@@ -13,7 +13,7 @@ $(document).ready(function() {
             	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -10);
             	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-10);*/
 				$('.searchResult,#room-list').css('height' ,  $(window).height()-$('#setGroup').height()-$('.menuTop').height()-$('.memberSection').height()-$('.myInfo').height()-$('.nav').height() -67);
-            	$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()); 
+            	/*$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()); */
             	$('.archiveback').css('height', $(window).height() - $('.topMenu').height()-$('.mySection').height());
             	$('#dataList').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()); 
             	/*$('.mySection').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
@@ -24,7 +24,7 @@ $(document).ready(function() {
 	            	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-10 );*/
 					$('#rightSection').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-20);
 					$('#rightContent').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-$('#myTab').height()-30);
-	            	$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
+	            	/*$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
 	            	$('.archiveback').css('height', $(window).height() - $('.topMenu').height()-$('.mySection').height());
 	            	$('#dataList').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()); 
 	            	/*$('.mySection').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
@@ -188,8 +188,8 @@ $(document).ready(function() {
 				var pa = $(this).parent('.has-sub');
 				var id = pa.attr('id');
 				var temp = $('<div/>').attr('id', id).addClass('selectResult');
-				var img = $(this).parent('.has-sub').children('#group-profile').children('#group-img').clone();
-				var name = $(this).parent('.has-sub').children('#group-profile').children('#fname').attr('class');
+				var img = $(this).parent('.has-sub').children('#invite-profile').clone();
+				var name = $(this).parent('.has-sub').children('#invite-profile').children('#invite-fname').attr('class');
 				var nameDiv = $('<div/>').addClass('selectName').text(name);
 				temp.append(img);
 				temp.append(nameDiv);
@@ -685,7 +685,7 @@ $(document).ready(function() {
 		            success: function(result,status,xhr){
 		            	$(".background").html(result);
 		            	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
-		            	$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
+		            	/*$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
 		            	$('.archiveback').css('height', $(window).height() - $('.topMenu').height()-$('.mySection').height());
 		            	/*$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-$('.topMenu').height());*/
 		            },
@@ -747,7 +747,29 @@ $(document).ready(function() {
 			/*
 			 * 아카이브 카테고리 변경시 변경
 			 */
-			$(".mid").on("click", ".category", function(event){
+/*			$(".mid").on("click", ".category", function(event){
+				event.preventDefault();
+				var url = $(this).attr("id");
+				$(".archiveName").text(url);
+				
+		        $.ajax({
+		            type: "post",
+		            url: "/"+url,
+		            success: function(result,status,xhr){
+		            	$("#dataList").html(result);
+		            	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
+		            	$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
+		            	$('.archiveback').css('height', $(window).height() - $('.topMenu').height()-$('.mySection').height());
+		            	
+		            }
+		        });
+			});*/
+			
+			/*
+			 * 아카이브 카테고리 변경시 변경
+			 */
+			$("#leftSection").on("click", ".category", function(event){
+
 				event.preventDefault();
 				var url = $(this).attr("id");
 				$(".archiveName").text(url);
@@ -758,7 +780,7 @@ $(document).ready(function() {
 		            success: function(result,status,xhr){
 		            	$("#dataList").html(result);
 		            /*	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
-		            	$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
+		            /*	$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
 		            	$('.archiveback').css('height', $(window).height() - $('.topMenu').height()-$('.mySection').height());
 		            	
 		            }
@@ -768,17 +790,52 @@ $(document).ready(function() {
 			/*
 			 * 알람 뷰
 			 */
-			$( ".topMenu" ).on( "click", "#dropAlarm", function( event ) {
+			$( "#leftbar" ).on( "click", "#dropAlarm", function( event ) {
 			    event.preventDefault();
-			    
+			    $(".leftconnection").empty();
+		    	$(".leftarch").hide();
+		    	$(".leftchat").hide();
+		    	$(".leftconnection").show();
 		        $.ajax({
 		            type: "post",
-		            url: "/alarm",
+		            url: "/findRelation",
 		            success: function(result,status,xhr){
-		            	$(".alarm-drop").html(result);
+		            	$(".background").html(result);
 		            },
 		            error: function(xhr, status, er){}
 		        });
+		        var text= '<div id="topconnect">ADD NEW CONTACTS</div>\
+		        		   <div class="searchbox">\
+		        	       <div class="contact-text"><div id="email-icon"></div>E-mail</div>\
+		        		   <div class="contact-input">\
+		    				<input type="text" class="form-control" id="relationInput"></div>\
+		    				<button class="search-message" id="searchRelation">Search</button></div>\
+		        	       </div>\
+		        		   </div>\
+		        		   <div class="searchbox">\
+			        	       <div class="contact-text"><div id="phone-icon"></div>Phone</div>\
+			        		   <div class="contact-input">\
+								  <select class="form-control" id="phone-select">\
+								  <option>+82</option>\
+								  <option>+01</option>\
+								  <option>+81</option>\
+								  <option>+86</option>\
+								  <option>+61</option>\
+								  <option>+44</option>\
+								  <option>+63</option>\
+								  <option>+852</option>\
+								  <option>+66</option>\
+								  </select>\
+								  <input type="text" class="form-control" id="phone-input">\
+    							  <button class="search-message" id="#">Search</button></div>\
+			        	       </div>\
+		        		   </div>\
+		        		   <div class="notibox">\
+		        	<div id="topconnect">Notifications</div>\
+		        	</div>\
+		        	\
+		        	';
+		        $('.leftconnection').append(text);
 
 			});
 			/*
@@ -838,6 +895,7 @@ $(document).ready(function() {
 						var category = $(".archiveName").text();
 				    	var search = $(".archiveInputSearch").val();
 				    	var url = $("ul#tabgs li.active").attr('id');
+				    	
 				    	var div;
 				    	
 				    	if(url=='tabgot'){
@@ -863,7 +921,8 @@ $(document).ready(function() {
 			/*
 			 * relation 검색, 유저리스트
 			 */
-		    $('.mid').on("click","#searchRelation",function(e) {
+		    $('.leftconnection').on("click","#searchRelation",function(e) {
+		    	
 		    	var search = $("#relationInput").val();
 		        $.ajax({
 		            type: "post",
@@ -878,11 +937,32 @@ $(document).ready(function() {
 		        });
 		        e.preventDefault();
 		    });
+		    
+			/*
+			 * relation 검색, 유저리스트
+			 */
+/*		    $('.mid').on("click","#searchRelation",function(e) {
+		    	var search = $("#relationInput").val();
+		        $.ajax({
+		            type: "post",
+		            url: "/findRelationUser",
+		            data: { "search": search },
+		            success: function(result,status,xhr){
+		            	$("#relationResult").html(result);
+		            },
+		            error: function(xhr, status, er){
+		            	console.log("code:"+xhr.status+"\n"+"message:"+xhr.responseText+"\n"+"error:"+er);
+		            }
+		        });
+		        e.preventDefault();
+		    });*/
+		    
 		    /*
 		     * 생각해보니 소켓으로 안해도 된다. 소켓서버에 부담을 줄이자. 이건 걍 ajax로 바꾸자??
 		     * 리턴이 문제네
 		     */
 		    $('.mid').on("click", ".addRelation", function(e){
+		    	
 		    	var id = $(this).attr("id");
 //		    	var name = $(this).parent('#group-profile').children("#fname").attr('class');
 //		    	var company = $(this).parent('#group-profile').children("#fname").children("#company").attr("class");
@@ -1594,6 +1674,10 @@ $(document).ready(function() {
 		     */
 			$( "#leftbar" ).on( "click", "#archive1", function( event ) {
 			    event.preventDefault();
+			    $(".leftchat").hide();
+			    $(".leftconnection").hide();
+		    	$(".leftarch").show();
+			    $('.leftarch').empty();
 			    
 		        $.ajax({
 		            type: "post",
@@ -1601,14 +1685,27 @@ $(document).ready(function() {
 		            success: function(result,status,xhr){
 		            	$(".background").html(result);
 		            	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
-		            	$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());
+		            	/*$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
 		            	$('.archiveback').css('height', $(window).height() - $('.topMenu').height()-$('.mySection').height());
 		            	/*$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-$('.topMenu').height());*/
+		            	
 		            },
 		            error: function(xhr, status, er){}
 		        });
+		        var text= '<div class="left-archive">\
+		        	<div class="category" id="ALL"><div id="allfilesmenu"></div><div class="archive-text">ALL FILES</div></div>\
+		        	<div class="category" id="ARCHIVE"><div id="archivemunu"></div><div class="archive-text">ARCHIVE</div></div>\
+		        	<div class="category" id="GALLERY"><div id="gallerymenu"></div><div class="archive-text">GALLERY</div></div></div>';
+		        $('.leftarch').append(text);
 
 			});
+			
+			$( ".leftarch" ).on( "click", ".category", function( event ) {
+				$('.category').css({color:  '#455A64'});
+				$(this).css({color:  '#4A7DFF'});
+			});
+			
+			
 			
 			/*
 			 * 알람 뷰
@@ -1652,6 +1749,8 @@ $(document).ready(function() {
 		     * 좌측에서 친구 리스트 가져옴
 		     */
 		    $('#leftbar').on("click","#getcontacts1",function(e) {
+		    	$(".leftarch").hide();
+		    	$(".leftchat").show();
 		    	var search = $("#inputAll").val();
 		        $.ajax({
 		            type: "post",
@@ -1668,10 +1767,14 @@ $(document).ready(function() {
 			 * 왼쪽 방 정보 가져오기.
 			 */
 		    $('#leftbar').on("click","#getmessages1",function(){
+		    	$(".leftarch").hide();
+		    	$(".leftchat").show();
 		    	socket.emit('rooms', $('.myInfoView').attr("id"));
 //				setInterval(function() {
 //					socket.emit('rooms', $('.myInfoView').attr("id"));
 //			    }, 10000);
 		    });
+		    
+		    
 
 });

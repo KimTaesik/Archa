@@ -24,11 +24,10 @@
 
 .archiveInputSearch{
 	float:right;
-    width:26.5rem;
+    width:30.0rem;
     height:3.5rem;
     border:2px solid;
     border-radius:1.0rem;
-    margin-right:3.0rem ;
     margin-top:1.2rem;
     color:#B0BEC5;
     text-indent:40px;
@@ -47,7 +46,7 @@
     position: relative;
     /* position: absolute; */
     /* width: 20%; */
-    float: right;
+    float: left;
     display: inline-block;
 }
 /* .mySection{
@@ -55,19 +54,19 @@
 	background-color: #f8f8f8;
 } */
 .archiveName{
-    position: absolute;
-    margin-left: 8.0rem;
-    margin-top: 1.3rem;
+    position: relative;
+    margin-left: 3.5rem;
+    margin-top: 1.7rem;
     color: #546E7A;
-    font-size: 2.2rem;
-    width: 60%;
+    font-size: 2.0rem;
+    width: 200px;
 }
 .gallery-div{
 	float:left;
 	width:25%;
 }
 #bar{
-    margin-right: 3.0rem;
+    margin-right: 2.0rem;
     margin-top: 1.2rem;
     width: 2px;
     float: right;
@@ -78,31 +77,31 @@
 #tabgot{
 	float:left;
 	display:inline-block;
-	width:50%;
-
-	height:75px;
-	font-size:2.5rem;
+	height:50px;
+	width:200px;
+	font-size:2.0rem;
 	text-align:center;
 	vertical-align:middle;
 	margin-top:15px;
-
+    margin-left: 20px;
 	position:relative;
 	background-color: white;
 	color:#4A7DFF;
-
+	font-weight:bold;
 }
 
 #tabsent{
 	float:left;
-	height:75px;
-	width:50%;
-	font-size:2.5rem;
+	height:50px;
+	width:200px;
+	font-size:2.0rem;
 	text-align:center;
 	vertical-align:middle;
 	margin-top:15px;
 	position:relative;
     background-color: #CFD8DC;
-    color:#78909C; 
+    color:#78909C;
+	font-weight:bold;
 }
 .archiveback{
 	background-color: #ECEFF1;
@@ -117,18 +116,19 @@
 	width:auto;
 }
 #tabcontent{
-	margin-top: 90px;
+	margin-top: 70px;
     background-color: white;
+    margin-left:20px;
     
 	
 }
 #textgot{
 	
-	margin-top:20px;
+	margin-top:12px;
 }
 
 #textsent{
-	margin-top:20px;
+	margin-top:12px;
 
 }
 
@@ -236,40 +236,46 @@
 /* gallery */
 .gallery-image
 {
-	width:22.0rem;
+	width:22.5rem;
 	height:22.0rem;
 	display:block;
 	margin-top:15px;
-	margin-bottom: 15px;
-    
-    /* display: inline; */
+	margin-bottom:10px;
 
 }
 .gallery{
     position: relative;
     float: left;
-    margin-right: 40px;
+    margin-right: 15px;
     width: 220px;
 
 }
 .gallery-file{
  	color:#607D8B;
- 	font-size: 1.8rem;
+ 	font-size: 1.5rem;
  	font-weight: bold;
+ 	word-wrap: break-word;
+ 	word-break:normal;
+ 	height: 32px;
+ 	width: 210px;
 }
 .gallery-name{
-	margin-top:10px;
-	font-size: 1.5rem;
-	color:#78909C;
+    margin-top: 20px;
+    font-size: 1.3rem;
+    color: #78909C;
+    position: absolute;
 }
 .gallery-date{
-	font-size: 1.5rem;
-	color:#78909C;
+	font-size: 1.3rem;
+    color: #78909C;
+    position: absolute;
+    margin-top: 35px;
 }
 .gallerybox{
-	padding-left: 20px;
-    margin-top: 20px;
-    height: 320px;
+	padding-left: 10px;
+	margin-top: 235px;
+    height: 90px;
+    width: 22.5rem;
     background-color: white;
     box-shadow: 2px 1px 3px 0px #aaabad;
 }
@@ -317,7 +323,7 @@
 	width: 4.0rem;
     height: 4.0rem;  
     margin-right: 145px;
-    margin-top: -310px;
+    margin-top: -290px;
     background-repeat: no-repeat; 
     background-size: 100% 100%;
     background-image: url(../img/downloadbutton.png);
@@ -329,7 +335,7 @@
     height: 4.0rem;  
     /* margin-left: 45px; */
     margin-right: 90px;
-    margin-top: -310px;
+    margin-top: -290px;
     background-repeat: no-repeat; 
     background-size: 100% 100%;
     background-image: url(../img/linkbutton.png);
@@ -341,7 +347,7 @@
     height: 4.0rem;  
     /* margin-left: 45px; */
      margin-right: 30px;
-    margin-top: -310px;
+    margin-top: -290px;
     background-repeat: no-repeat; 
     background-size: 100% 100%;
     background-image: url(../img/deletebutton.png);
@@ -349,7 +355,6 @@
 
 /* archive option list */
 .dropdown-menu{
-	height:155px;
 	border-radius: 30px;
 }
 #tie{
@@ -358,10 +363,10 @@
 }
 .category{
 	/* width:3.0rem; */
-	float:left;
+/* 	float:left;
 	height:25px;
 	font-size:3.0rem;
-	margin-left:20px;
+	margin-left:20px; */
 	/* margin-top:15px; */
 	/* margin-right:30px; */
 }

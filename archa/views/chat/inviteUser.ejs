@@ -1,12 +1,13 @@
  <div class="modal-dialog">
    <div class="modal-content">
-     <div class="modal-header">
+     <div class="modal-header" id="invite-title">
        <h4 class="modal-title" id="myModalLabel">Invite new member</h4>
      </div>
-     <div class="modal-body" id="inviteBody">
-     <input type="text" id="inviteSearch">
-      <div class="col-md-6 member-select">meberSelect
-      	<div class="panel-body">
+     <div class="modal-body" id="inviteBody" style="padding:0">
+      <div class="member-select" style="padding:0">
+      <input class="noti-modal fright" type="text" id="searchRoomArchive" placeholder="search">
+      	<div id= "invite-back"></div>
+      	<div class="panel-body" id="invite-pbody">
 		<%
 				var result = 1;
 				friends.forEach(function(friends, index) {
@@ -18,13 +19,14 @@
 					if(result){
 					%>
 						<div id="<%= friends.friend.email %>"  class='has-sub checks etrans active'>
-						  <input type="checkbox" id="inUser<%=index%>" class="roomInvite" value="<%= friends.friend.email %>"> 
-						  <label for="inUser<%=index%>"></label> 
-							<div id ="group-profile" href='#'>
+							<input type="checkbox" id="inUser<%=index%>" class="roomInvite" value="<%= friends.friend.email %>">
+							<label for="inUser<%=index%>"></label>
+							<div id ="invite-profile" href='#'>
+								<div id="group-state" style="<%= friends.friend.state==1 ? 'background-color: #2CCA70' : 'background-color: #c0c0c0' %>" ></div>
 							   	<div id="group-img" style='<%= friends.friend.user_img != null ? "background-image:url("+friends.friend.user_img : "" %>'></div>
-								<div id="fname" class="<%= friends.friend.name %>"><%= friends.friend.name %><br/>
-								<div id="company"><%= friends.friend.company %> / </div> 
-								<div id="position"><%= friends.friend.position %></div><br/>
+								<div id="invite-fname" class="<%= friends.friend.name %>"><%= friends.friend.name %><br/>
+								<div id="invite-position"><%= friends.friend.position %></div>
+								<div id="invite-company"><%= friends.friend.company %></div><br/>
 								</div><br/>					
 							</div>
 					   </div>
@@ -35,11 +37,12 @@
 		%>		      	
       	</div>		      
     </div>
-	<div class="select-list col-md-6">selectList</div>
+    <div id="subtitle">invited</div>
+	<div class="select-list"></div>
      </div>
      <div class="modal-footer">
-       <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-       <button type="button" id="inviteUser" class="btn btn-primary" data-dismiss="modal">확인</button>
+       <button type="button" id="invite-confirm" class="btn btn-primary" data-dismiss="modal">Confirm</button>
+       <button type="button" id="invite-cancel" class="btn btn-default" data-dismiss="modal">Cancel</button>
      </div>
    </div>
  </div>
