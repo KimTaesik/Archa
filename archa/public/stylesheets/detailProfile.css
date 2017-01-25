@@ -1,34 +1,50 @@
-body{
-font-size:10px; 	
-overflow-x: hidden;
-overflow: scroll;
-}
 .dtprofile-background{
+	font-size:10px;
 	background-color:#ECEFF1;
-
 }
+.icon-mail{
+	font-family: "fontello";
+	width: 20px;
+	height: 14px;
+	color:#4a7dff;
+	font-size: 1.5rem;
+	margin-top: 10px;
+}
+.icon-phone{
+	font-family: "fontello";
+	font-size: 1.5rem;
+	color:#38cc77;
+	margin-top: 10px;
+	float: left;
+}
+.form-control {
+	width: 600px; !important;
+}
+
 .dtprofile-contents{
-	height: 400px;
-    width: 900px;
-    padding-top: 30px;
+	height: 425px;
+/*     width: 900px; */
+/*     padding-top: 30px; */
     background-color: #ffffff;
-    margin-left: 100px;
+   /*  margin-left: 100px; */
 }
 #dtprofile-icon{
-    width: 80px;
-    height: 80px;
-    background-image: url(../img/Galleryicon.png);
+    width: 40px;
+    height: 35px;
+    background-image: url(../img/profile_icon.png);
     background-repeat: no-repeat;
-    background-size: 40%;
+    background-size: 100%;
     background-position: center;
     float: left;
-    margin-left: 30px;
+    margin-top: 22px;
+    margin-left: 80px;
 }
 .dtprofile-title{
+	margin-left: 10px;
 	float: left;
-	color:#37474F;
-    margin-top: 20px;
-    font-size: 2.8rem;
+	color:#455a64;
+    margin-top: 22px;
+    font-size: 2.0rem;
     font-weight: 600;
 }
 #dtprofile-closebtn{
@@ -38,26 +54,28 @@ overflow: scroll;
 }
 .dtprofile-text{
 	float:left;
-	margin-left: 100px;
+	margin-left: 30px;
+	margin-top: 40px;
 }
 
 .dtprofile-image{
-	margin-left: 100px;
-    margin-top: 10px;
+	margin-left: 80px;
+    margin-top: 30px;
     float:left;
-    width: 200px;
-    height: 200px;
-    box-shadow: 0 0 1px 4px #ccc;
+    width: 250px;
+    height: 250px;
+    /* box-shadow: 0 0 1px 4px #ccc; */
     border-radius: 10px;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-image: url(../img/momo.png);
 }
 .dtprofile-name{
-    margin-top: 210px;
-    font-size: 2.6rem;
+    margin-top: 265px;
+    font-size: 1.8rem;
     font-weight: bold;
     text-align: center;
+    font-family: "Source Sans Pro";
 }
 /* .dtprofile-onoff{
 	float: left;
@@ -69,40 +87,41 @@ overflow: scroll;
 } */
 .dt-title{
 	color:#455A64;
-	font-size:2.0rem;
+	font-size:1.8rem;
 	font-weight:bold;
 }
 .dt-text{
 	color:#546E7A;
-	margin-top:5px;
+	margin-top:10px;
 	margin-bottom:20px;
-	font-size:1.6rem;
+	font-size:1.5rem;
 }
 .dtprofile-setting{
-	margin-top:20px;
-	margin-left:100px;
+	margin-top:10px;
+/* 	margin-left:100px; */
 	min-height: 500px;
-	width:900px;mdl
+/* 	width:900px; */
 	height:100%;
 	background-color: #ffffff;
 }
 
 #dtsetting-icon{
-    width: 80px;
-    height: 80px;
-    background-image: url(../img/alarmon.png);
+    width: 30px;
+    height: 30px;
+    background-image: url(../img/account_setting_icon.png);
     background-repeat: no-repeat;
-    background-size: 40%;
+    background-size: 100%;
     background-position: center;
+    margin-top:22px;
+    margin-left: 80px;
     float: left;
-    margin-left: 30px;
 }
 .setting-title{
 	font-size:2.0rem;
 	font-weight:bold;
 	color:#607D8B;
-	margin-left:80px;
-	margin-bottom:20px;
+	margin-left:115px;
+	margin-bottom:30px;
 }
 .setting-line{
 	border-bottom:3px solid;
@@ -110,8 +129,9 @@ overflow: scroll;
 }
 .setting-text{
 	margin-top:20px;
-	margin-left:80px;
+	margin-left:115px;
 	margin-bottom:50px;
+	width: 650px;
 }
 .inputtext{
 	font-size:1.6rem;
@@ -122,7 +142,7 @@ overflow: scroll;
 	margin-right:10px;
 	float:left;
 }
-#emailAdress{
+.form-control{
 	width:500px;
 }
 .inputform{
@@ -154,13 +174,13 @@ overflow: scroll;
     color: #b0bec5;
     font-size: 1.8rem;
     font-weight: bold;
-    margin-right: 100px;
+    margin-right: 400px;
 }
 .setting-signout{
 	font-size:2.0rem;
 	font-weight:bold;
 	color:#FF5722;
-	margin-left:80px;
+	margin-left:115px;
 	margin-bottom:20px;
 }
 .account-signout{
@@ -176,6 +196,32 @@ overflow: scroll;
     font-weight: bold;
 }
 .email-edit{
+	float: right;
+    background-color: #ffffff;
+    height: 35px;
+    width: 100px;
+    text-align: center;
+    border-radius: 8px;
+    color: #b0bec5;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-right: 100px;
+    margin-bottom:10px;
+}
+.edit{
+	float: right;
+    background-color: #ffffff;
+    height: 35px;
+    width: 100px;
+    text-align: center;
+    border-radius: 8px;
+    color: #b0bec5;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-right: 400px;
+    margin-bottom:10px;	
+}
+.com-edit{
 	float: right;
     background-color: #ffffff;
     height: 35px;

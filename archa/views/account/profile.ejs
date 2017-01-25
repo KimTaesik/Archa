@@ -1,100 +1,145 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="google" value="notranslate">
-  	<script src="//code.jquery.com/jquery-1.10.2.js"></script> 	
-  	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<!--   	<script type=”text/javascript” src=”/javascripts/bootstrap.min.js”></script> -->
-  	<!-- <script src="//johannburkard.de/resources/Johann/jquery.highlight-5.js"></script> -->
-	<!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"> -->
-	<!-- <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
- 	
- 	<!-- font apply : Source Sans Pro -->
- 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet"> 
- 	<link rel="stylesheet" href="/css/fontello.css">
-	<link rel="Stylesheet" href="/stylesheets/chatPage.css" />
-	<link rel="Stylesheet" href="/stylesheets/detailStyles.css" />
-	<link rel="Stylesheet" href="/stylesheets/style2.css" />
-	<link rel="Stylesheet" href="/stylesheets/myArchive.css" />
-	<link rel="Stylesheet" href="/stylesheets/detailProfile.css" />
-	
-	<link rel="stylesheet prefetch" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-	
-	<!-- bootstrap apply -->
-	<link rel="stylesheet" href="/css/bootstrap.css">
-	<script src="/js/bootstrap.min.js"></script>
-
-	<!-- <script src="//assets.codepen.io/assets/common/stopExecutionOnTimeout-f961f59a28ef4fd551736b43f94620b5.js"></script> -->
-
-	<!-- Latest compiled and minified CSS -->
-	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"> -->
-	
-	<!-- Optional theme -->
-	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous"> -->
-	
-	<!-- Latest compiled and minified JavaScript -->
-	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> -->
-    <title>Archa</title>
-	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-    <!-- <script src="/javascripts/socket.io.js"></script> -->
-	<script src="/javascripts/ch.js"></script>
-	<script src="/javascripts/main.js"></script>
-	
-</head>
 <div class="dtprofile-background">
-
-	<div class="container">
-	 <div class="row">
-		<div class="col-md-12">
+<% if(perr){%>
+	<script type="text/javascript">
+	alert('비밀번호가 일치하지 않습니다.');
+	</script>
+<% }%>
+	<div class="container" style="padding:0;">
+	 <div class="row" style="margin:0;">
+		<div class="col-md-12" style="padding:0;">
 			<div class="dtprofile-contents">
-				<div class="row">
+				<div class="row" style="height: 80px;">
 					<div id="dtprofile-icon"></div>
 					<div class="dtprofile-title">PROFILE</div>
-					<div id="dtprofile-closebtn"><a href="/chatPage">X</a></div>
 				</div>
-				<div class="row">	
-					<div class="dtprofile-image">
+				<div class="row" style="height: 345px;">	
+					<div class="dtprofile-image" style="background-image: url(<%= user.user_img%>), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);">
 						<!-- <div class="dtprofile-onoff"></div> -->
 						<div class="dtprofile-name"><%= user.name %></div>
 					</div>	
 					<div class="dtprofile-text">
 						<div class="dt-title">TITLE</div>
-						<div class="dt-text"><%= user.position %></div>
+						<div class="dt-text" id="myTitle"><%= user.position %></div>
 						<div class="dt-title">COMPANY</div>
-						<div class="dt-text"><%= user.company %></div>
+						<div class="dt-text" id="myCom"><%= user.company %></div>
 						<div class="dt-title">EMAIL Address</div>
-						<div class="dt-text"><%= user.email %></div>
+						<div class="icon-mail fleft"></div>
+						<div class="dt-text" id="myEmail" style="float: right;margin-left: 8px;"><%= user.email %></div>
 						<div class="dt-title">Phone Number</div>
-						<div class="dt-text"><%= user.phoneNumber %></div>
+						<div class="icon-phone"></div>
+						<div class="dt-text" id="myPh" style="margin-left: 25px;"><%= user.phoneNumber %></div>
   
 					</div>
 				</div>	
 			</div>
 			
 		<div class="dtprofile-setting">
-			<div class="row">
+			<div class="row" style="height: 75px;">
 				<div id="dtsetting-icon"></div>
 				<div class="dtprofile-title">Account Setting</div>
 			</div>
-
-			<div class="setting-title emailad">E-mail Address<button class="email-edit">EDIT</button></div>
-			 <div id="email-table">
-			 
-			 </div>
-
 			
-			<div class="setting-title phondnm">Phone Number<button class="phone-edit">EDIT</button></div>
-			<div id="phone-table">
+<!-- 			<div class="setting-title emailad">E-mail Address<button class="email-edit">EDIT</button></div>
+			<div id="email-table">
+			</div> -->
+			<div class="userCompany">
+				<div class="setting-title com">Company<button class="edit" id="com">EDIT</button><button class="setting-close" id="comcl" hidden>CLOSE</button></div>
+				<div id="company-table" hidden>
+					<div class="setting-line"></div>
+		            <div class="setting-text">
+		            	<div class="inputtext">Current Company</div>
+			    		<div class="inputform">
+		                <input type="text" class="form-control" id="currentCom"></div>
+		                <div class="inputtext">New Company</div>
+		                <div class="inputform">
+		                <input type="text" class="form-control" id="newCom"></div>
+		                <button class="account-message" id="updateCom">Update Company</button>
+		            </div>
+				</div>
+			</div>
+
+			<div class="userTitle">
+				<div class="setting-title ti">Title<button class="edit" id="tit">EDIT</button><button class="setting-close" id="ticl" hidden>CLOSE</button></div>
+				<div id="title-table" hidden>
+					<div class="setting-line"></div>
+		            <div class="setting-text">
+		            	<div class="inputtext">Current Title</div>
+			    		<div class="inputform">
+		                <input type="text" class="form-control" id="currentTitle"></div>
+		                <div class="inputtext">New Title</div>
+		                <div class="inputform">
+		                <input type="text" class="form-control" id="newTitle"></div>
+		                <button class="account-message" id="updateTitle">Update Title</button>
+		            </div>
+				</div>
 			</div>
 			
-			
-			<div class="setting-title passwd">Password<button class="pass-edit">EDIT</button></div>
-			<div id="pass-table">
+			<div class="userPh">
+				<div class="setting-title phondnm">Phone Number<button class="edit" id="ph">EDIT</button><button class="setting-close" id="phcl" hidden>CLOSE</button></div>
+				<div id="phone-table" hidden>
+					<div class="setting-line ph"></div>
+					<div class="setting-text ph">
+						<div class="inputtext">Current Phone number</div>
+						<div class="inputform">
+							<select class="form-control" id="emailPhone">
+								<option>+82</option>
+								<option>+01</option>
+								<option>+81</option>
+								<option>+86</option>
+								<option>+61</option>
+								<option>+44</option>
+								<option>+63</option>
+								<option>+852</option>
+								<option>+66</option>
+						  	</select>
+							<input type="text" class="form-control" id="currentPh" placeholder="010-0000-0000">
+						</div>
+						<div class="inputtext">New Phone number</div>
+						<div class="inputform">
+							<select class="form-control" id="emailPhone">
+								<option>+82</option>
+								<option>+01</option>
+								<option>+81</option>
+								<option>+86</option>
+								<option>+61</option>
+								<option>+44</option>
+								<option>+63</option>
+								<option>+852</option>
+								<option>+66</option>
+							</select>
+							<input type="text" class="form-control" id="newPh" placeholder="010-0000-0000">
+						</div>
+						<button class="account-message" id="updatePh">Update Phone</button>
+			    	</div>
+				</div>
 			</div>
 			
-			<div class="setting-signout signot">Sign Out<button class="sign-edit">EDIT</button></div>
-			<div id="sign-table">
+			<div class="userPwd">
+				<div class="setting-title passwd">Password<button class="edit" id="pass">EDIT</button><button class="setting-close" id="passcl" hidden>CLOSE</button></div>
+				<div id="pass-table" hidden>
+					<div class="setting-line"></div>
+		            <div class="setting-text">
+		            	<div class="inputtext">Current Password</div>
+			    		<div class="inputform">
+		                <input type="text" class="form-control" id="currentPwd"></div>
+		                <div class="inputtext">New Password</div>
+		                <div class="inputform">
+		                <input type="text" class="form-control" id="newPwd"></div>
+		                <button class="account-message" id="updatePwd">Update Password</button>
+		            </div>
+				</div>
+			</div>
+			
+			<div class="userDelete">
+				<div class="setting-signout signot">Sign Out<button class="edit" id="out">EDIT</button><button class="setting-close" id="outcl" hidden>CLOSE</button></div>
+				<div id="sign-table" hidden>
+					<div class="setting-line so"></div>
+					<div class="setting-text so">
+						<div class="inputtext">Confirm your password</div>
+					<div class="inputform">
+					<input type="text" class="form-control" id="outPwd"></div>
+					<button class="account-signout" id="signOut">Sign out</button></div>
+				</div>
 			</div>
 
 		</div>

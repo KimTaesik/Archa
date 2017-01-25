@@ -3,6 +3,7 @@ var User = require('../models/user.js');
 var Friend = require('../models/friend.js');
 var Room = require('../models/room.js');
 var EventEmitter = require('events').EventEmitter;
+var async = require("async");
 
 exports.chatPage = function(user){
 	
@@ -16,6 +17,44 @@ exports.chatPage = function(user){
 	.exec(function (err, fd) {
 		var fds = fd.friends;
 		evt.emit('end', err, fds);
+	});
+	return evt;
+}
+exports.getRoomInfo = function(room, me){
+	var evt = new EventEmitter();
+	var users = [];
+	var rooms = new Room;
+	async.waterfall([
+			function (callback) {
+				Room.findOne({'id': room}).exec(function(err, room){
+					rooms=room;
+					rooms.users.pull(me.email);
+					callback(null,rooms,evt,users);
+				});
+			},function(rooms, callback){
+				if(rooms.users.length<2){
+					User.findOne({'email':rooms.users[0]}).exec(function(err, user){
+						users.push(user);
+						callback(null,rooms);
+					});
+				}else{
+	    			for(i in rooms.users){
+	    				User.findOne({'email':String(rooms.users[i])}).exec(function(err, user){
+	    					if(!err && user != null){
+	    						users.push(user);
+	    						if(i == rooms.users.length-1) callback(null,rooms);
+	    					}else{
+	    						console.log(err);
+	    						if(i == rooms.users.length-1) callback(null,rooms);
+	    					}
+	    				});
+	    			}								
+				}
+			}
+			],function (err,rooms) {
+		console.log(rooms);
+		evt.emit('end', err, rooms, users);
+
 	});
 	return evt;
 }

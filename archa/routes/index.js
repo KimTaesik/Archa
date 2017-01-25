@@ -49,6 +49,7 @@ router.post('/getFriend', account.getFriend);
 router.post('/friendInfo', account.friendInfo);
 
 router.post('/profile', account.profile);
+router.post('/profileEdit', account.profileEdit);
 
 router.post('/roomList', room.roomlist);
 
@@ -74,8 +75,8 @@ router.post('/addChkUser', chat.addChkUser);
 router.post('/deleteGroup', chat.deleteGroup);
 router.post('/joinChat', chat.joinChat);
 router.post('/inviteRoom', chat.inviteRoom);
-/* 채팅방인원 modal */
-router.post('/chatlist', chat.chatlist);
+router.post('/inviteUserSearch', chat.inviteUserSearch);
+router.post('/roomInfo', chat.roomInfo);
 
 router.post('/myArchive', myArchive.myArchive);
 router.post('/ALL', myArchive.ALL);

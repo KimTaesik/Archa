@@ -143,10 +143,10 @@ $(document).ready(function() {
 		    });
 		    
 
-		    /*
+/*		    
 		     * 사람초대, 친구목록 가져옴. 이 채팅방 이외의 사람들을 보여줘야지
 		     * 
-		     * */
+		     * 
 			$('.mid').on('click', "#invite", function(e){
 				var room = $('#joinRoom').val();
 		        $.ajax({
@@ -160,14 +160,14 @@ $(document).ready(function() {
 		            error: function(xhr, status, er){}
 		        });
 		        e.preventDefault();
-			});
+			});*/
 			
 			/*	채팅방목록 모달 2016_11_25 NA
 			 * 	수정 17_01_18
 			 * 
 			 */
 
-			$('.mid').on('click', '#chativ', function(e){
+			$('.mid').on('click', '.invite-room', function(e){
 					e.preventDefault();
 					var room = $('#joinRoom').val();
 			        $.ajax({
@@ -191,10 +191,8 @@ $(document).ready(function() {
 				var img = $(this).parent('.has-sub').children('#group-profile').children('#group-img').clone();
 				var name = $(this).parent('.has-sub').children('#group-profile').children('#fname').attr('class');
 				var nameDiv = $('<div/>').addClass('selectName').text(name);
-				console.log(name);
 				temp.append(img);
 				temp.append(nameDiv);
-				console.log(temp)
 				if($(this).is(":checked")){
 					temp.clone().appendTo('.select-list');
 				}else{
@@ -203,18 +201,37 @@ $(document).ready(function() {
 				
 			});
 			
-			
+			/*
+			 * 채팅방 초대 모달에서 확인 누르면 친구 바로 초대
+			 */
 			$('.mid').on('click', '#inviteUser', function(){
 
 				var arrayParam = new Array();
 				var room = $('#joinRoom').val();
-				$("input:checkbox[id=inUser]:checked").each(function(){
+				$("input:checkbox[class=roomInvite]:checked").each(function(){
 					arrayParam.push($(this).val());
 				});
 				socket.emit('inviteRoom', room, arrayParam);
-				
+				$("#mySidenav").css('width',0);
 			});
-		  
+			/*
+			 * room invite modal에서 유저검색.
+			 */
+			$('.mid').on('keyup', '#inviteSearch' , function(key){
+				if(key.keyCode == 13){
+					var search = $('#inviteSearch').val();
+					var room = $('#joinRoom').val();
+			        $.ajax({
+			            type: "post",
+			            url: "/inviteUserSearch",
+			            data: { "search": search, "room":room },
+			            success: function(result,status,xhr){
+			            	$('.member-select').children('.panel-body').html(result);
+			            },
+			            error: function(xhr, status, er){}
+			        });
+				}
+			});
 			/*
 			 * 우측검색에서 아카이브에서 검색하는지, 메시지로그에서 검색하는지 구분하여 검색
 			 * 
@@ -473,21 +490,21 @@ $(document).ready(function() {
 		        });
 			});			
 
-			$('.mid').on('dblclick', '#room', function(){
-				alert('test')
-				$('#room').attr("disabled",false);
+			$('.mid').on('dblclick', '.room-name-change', function(){
+				$('.room-name-change').attr("disabled",false);
 			});
 			/*
 			 * 채팅방 이름 개인설정. 채팅방 이름 더블클릭하면 수정 가능
 			 */
-			$('.mid').on("keyup", "#room",function(key){
+			$('.mid').on("keyup", ".room-name-change",function(key){
 				if($("#room").val()){
 					if(key.keyCode==13){
 						var id = $('.myInfoView').attr("id");
 						var room = $('#thisRoom').val();
-						var val = $("#room").val();
+						var val = $(".room-name-change").val();
+						$('#room').val(val);
 						socket.emit('changeRoomName', id, room, val);
-						$('#room').attr("disabled",true);
+						$('.room-name-change').attr("disabled",true);
 					}
 				}
 			});	
@@ -909,17 +926,27 @@ $(document).ready(function() {
 
 				/* archive mouseover 2016-01-06 */
 				
-				$(".mid").on("mouseenter",".filebox", function(event){
-	
-					var icon= '<div id="archive-icon">\
-							   <div id="archive-delete"></div>\
-			  				   <div id="archive-link"></div>\
-			  				   <div id="archive-download"></div></div>';
+			$(".mid").on("mouseenter",".filebox", function(event){
+				var icon= '<div id="archive-icon">\
+						   <div id="archive-delete" class="'+$(this).attr('id')+'"></div>\
+		  				   <div id="archive-link" class="'+$(this).attr('id')+'"></div>\
+		  				   <div id="archive-download"  class="'+$(this).attr('id')+'"></div></div>';
 
-					$(this).append(icon);
-					
+				$(this).append(icon);
 			});
-				$(".mid").on("mouseleave",".filebox", function(event){
+			$(".mid").on('click', "#archive-download", function(e){
+				var url = $(this).attr('class');
+				$(location).attr('href',url);
+			});
+			$(".mid").on('click', "#archive-link", function(e){
+			    var temp = $("<input>");
+			    var text = $(this).attr('class');
+			    $(this).append(temp);
+			    temp.val(text).select();
+			    document.execCommand("copy");
+			    temp.remove();
+			});
+			$(".mid").on("mouseleave",".filebox", function(event){
 					
 					$(this).find("#archive-delete").remove();
 					$(this).find("#archive-link").remove();
@@ -929,7 +956,7 @@ $(document).ready(function() {
 				
 				/* right archive mouseover 2016-01-06 */
 				
-				$(".mid").on("mouseenter",".archive-textbox", function(event){
+			$(".mid").on("mouseenter",".archive-textbox", function(event){
 	
 					var icon= '<div id="archive-icon">\
 			  				   <div id="rarchive-link"></div>\
@@ -938,7 +965,7 @@ $(document).ready(function() {
 					$(this).append(icon);
 					
 			});
-				$(".mid").on("mouseleave",".archive-textbox", function(event){
+			$(".mid").on("mouseleave",".archive-textbox", function(event){
 					
 					$(this).find("#rarchive-link").remove();
 					$(this).find("#rarchive-download").remove();
@@ -1006,6 +1033,28 @@ $(document).ready(function() {
 			        error: function(xhr, status, er){}
 			    });
 			});
+			/*
+			 * 룸 타이틀 이미지 클릭하면 우측에 정보 생성
+			 */
+			$('.mid').on('click', '.myRoom-title-img', function(e){
+				$("#mySidenav").css('width',350);
+				$("#mySidenav").css('height', $(window).height()-$('#archive').height()-$('.searchDiv').height()-95);
+				var room = $('#thisRoom').val();			
+			    $.ajax({
+			        type: "post",
+			        url: "/roomInfo",
+			        data: { "room":room },
+			        success: function(result,status,xhr){
+			        	socket.emit('roomInfoImage', room);
+			        	$('#mySidenav').html(result);
+			        	$('.room-name-change').val($('#room').val());
+			        },
+			        error: function(xhr, status, er){
+			        	console.log("code:"+xhr.status+"\n"+"message:"+xhr.responseText+"\n"+"error:"+er);
+			        }
+			    });		
+			});
+			
 			/*
 			 * 룸아카이브 선택시 여러가지......시발
 			 */
@@ -1279,16 +1328,18 @@ $(document).ready(function() {
 		        });
 		    });
 		    
-		    /*전체 상세프로필*/
-		    $('#mySidenav').on('click', '.profile_detail', function(){
+		    //전체 상세프로필
+		   /* $('#mySidenav').on('click', '.profile_detail', function(){*/
+			$('#leftbar').on('click', '#searchSec1', function(){
                 var id = $(this).attr('id');
+				var id= $('.myInfoView').attr("id");
 
                 $.ajax({
                     type: "post",
                     url: "/profile",
                     data: { "id":id },
                     success: function(result,status,xhr){
-                        $('body').html(result);
+                        $('#leftSection').html(result);
                     },
                     error: function(xhr, status, er){}
                 });
@@ -1296,41 +1347,154 @@ $(document).ready(function() {
 
 
 		    /*상세 프로필*/
-		    $('.dtprofile-background').on('click', '.emailcl', function(){
+/*		    $('.dtprofile-background').on('click', '.emailcl', function(){
 		    	$(this).hide();
 				$('.email').hide();
 				var icon= '<button class="email-edit">EDIT</button>';
 			$('.emailad').append(icon);
 				
-		    });
+		    });*/
 		    
-		    $('.dtprofile-background').on('click', '.email-edit', function(){
+/*		    $('.dtprofile-background').on('click', '.email-edit', function(){
 		    	$('.email-edit').remove();
 		    	var icon='<button class="setting-close emailcl">CLOSE</button>';
 		    	$('.emailad').append(icon);
 		    	
 		    	var text= '<div class="setting-line email"></div>\
-	                       <div class="setting-text email">\
-	                       <div class="inputtext">Current E-mail Address</div>\
-		    		       <div class="inputform">\
-	                       <input type="text" class="form-control" id="emailAdress"></div>\
-	                       <div class="inputtext">New E-mail Address</div>\
-	                        <div class="inputform">\
-	                        <input type="text" class="form-control" id="emailAdress"></div>\
-	                        <button class="account-message" id="#">Update E-mail</button></div>';
+                    <div class="setting-text email">\
+                    <div class="inputtext">Current E-mail Address</div>\
+	    		       <div class="inputform">\
+                    <input type="text" class="form-control" id="emailAdress"></div>\
+                    <div class="inputtext">New E-mail Address</div>\
+                     <div class="inputform">\
+                     <input type="text" class="form-control" id="emailAdress"></div>\
+                     <button class="account-message" id="updateEmail">Update E-mail</button></div>';
 		    	$('#email-table').append(text);
 				
+		    });*/
+		    
+		    
+		    $('#leftSection').on('click', '.edit', function(){
+		    	$(this).hide();
+		    	var id = $(this).attr('id');
+		    	if(id=='com'){
+		    		$('.userTitle,.userPh,.userPwd,.userDelete').hide();
+			    	$('#comcl').show();
+			    	$('#company-table').show();
+		    	}else if(id=='tit'){
+		    		$('.userCompany,.userPh,.userPwd,.userDelete').hide();
+		    		$('#ticl').show();
+		    		$('#title-table').show();
+		    	}else if(id=='ph'){
+		    		$('.userCompany,.userTitle,.userPwd,.userDelete').hide();
+		    		$('#phcl').show();
+		    		$('#phone-table').show();
+		    	}else if(id=='pass'){
+		    		$('.userCompany,.userTitle,.userPh,.userDelete').hide();
+		    		$('#passcl').show();
+		    		$('#pass-table').show();
+		    	}else if(id='out'){
+		    		$('.userCompany,.userTitle,.userPh,.userPwd').hide();
+		    		$('#outcl').show();
+		    		$('#sign-table').show();
+		    	}
+
+		    	
+		    });
+		    $('#leftSection').on('click', '.setting-close', function(){
+		    	$(this).hide();
+		    	var id = $(this).attr('id');
+		    	$('.userCompany,.userTitle,.userPh,.userPwd,.userDelete').show();
+		    	if(id == 'comcl'){
+			    	$('#com').show();
+			    	$('#company-table').hide();		    		
+		    	}else if(id == 'ticl'){
+			    	$('#tit').show();
+			    	$('#title-table').hide();				    		
+		    	}else if(id=='phcl'){
+		    		$('#ph').show();
+		    		$('#phone-table').hide();
+		    	}else if(id=='passcl'){
+		    		$('#pass').show();
+		    		$('#pass-table').hide();
+		    	}else if(id=='outcl'){
+		    		$('#out').show();
+		    		$('#sign-table').hide();
+		    	}
 		    });
 		    
+		    $('#leftSection').on('click', '.account-message', function(){
+		    	var id = $(this).attr('id');
+		    	var input,pwd;
+		    	var state = false;
+		    	if(id=='updateCom'){
+		    		if($('#currentCom').val() == $('#myCom').text()){
+		    			input = $('#newCom').val();
+		    			state = true;
+		    		}else{
+		    			alert('현재 회사와 같지않습니다.');
+		    			$('#currentCom').val('');
+		    		}
+		    	}else if(id=='updateTitle'){
+		    		if($('#currentTitle').val() == $('#myTitle').text()){
+		    			input = $('#newTitle').val();
+		    			state = true;
+		    		}else{
+		    			alert('현재 직책과 같지않습니다.');
+		    			$('#currentTitle').val();
+		    		}		    		
+		    	}else if(id=='updatePh'){
+		    		var regTel = /^(01[016789]{1}|070|02|0[3-9]{1}[0-9]{1})-[0-9]{3,4}-[0-9]{4}$/;
+		    		if(!regTel.test($('#newPh').val())){
+		    			alert('올바른 전화번호를 입력해주세요. ex) 010-0000-000');
+		    		}else{
+			    		if($('#currentPh').val() == $('#myPh').text()){
+			    			input = $('#newPh').val();
+			    			state = true;
+			    		}else{
+			    			alert('현재 전화번호와 같지않습니다.');
+			    		}			    			
+		    		}
+	    		
+		    	}else if(id=='updatePwd'){
+		    		pwd = $('#currentPwd').val();
+		    		if($('#newPwd').val().length<8 || $('#newPwd').val().length>16){
+		    			alert('비밀번호는 최소 8자 이상, 16자 이하');
+		    		}else if(/^\d/.test($('#newPwd').val().substr(1).match)){
+		    			alert('비밀번호는 숫자로 시작할 수 없습니다.')
+		    		}else if(/(\w)\1/.test($('#newPwd').val())){
+		    			alert('비밀번호는 반복된 숫자또는 문자를 입력할 수 없습니다.');
+		    		}else{
+			    		input = $('#newPwd').val();
+			    		state = true;		    			
+		    		}
+		    	}else if(id=='signOut'){
+		    		input = $('#outPwd').val();
+		    		state = true;
+		    	}
+		    	
+		    	if(state && input != null && input.length != 0){
+	                $.ajax({
+	                    type: "post",
+	                    url: "/profileEdit",
+	                    data: { "input": input, "category": id, "pwd":pwd },
+	                    success: function(result,status,xhr){
+	                        $('#leftSection').html(result);
+	                    },
+	                    error: function(xhr, status, er){}
+	                });		    		
+		    	}
+
+		    });
 		    
-		    $('.dtprofile-background').on('click', '.phcl', function(){
+/*		    $('.dtprofile-background').on('click', '.phcl', function(){
 		    	$(this).hide();
 				$('.ph').hide();
 				var icon= '<button class="phone-edit">EDIT</button>';
 				$('.phondnm').append(icon);
-		    });
+		    });*/
 		    
-		    $('.dtprofile-background').on('click', '.phone-edit', function(){
+/*		    $('.dtprofile-background').on('click', '.phone-edit', function(){
 		    	$('.phone-edit').remove();
 		    	var icon='<button class="setting-close phcl">CLOSE</button>';
 		    	$('.phondnm').append(icon);
@@ -1367,22 +1531,22 @@ $(document).ready(function() {
 					  </select>\
 					  <input type="text" class="form-control" id="phoneNumber">\
 					</div>\
-						<button class="account-message" id="#">Update Phone</button>\
+						<button class="account-message" id="updatePh">Update Phone</button>\
 		    		</div>';
 		    	$('#phone-table').append(text);
 				
-		    });
+		    });*/
 		    
 		    
 		    
-		    $('.dtprofile-background').on('click', '.pwcl', function(){
+/*		    $('.dtprofile-background').on('click', '.pwcl', function(){
 		    	$(this).hide();
 				$('.pw').hide();
 				var icon= '<button class="pass-edit">EDIT</button>';
 				$('.passwd').append(icon);
-		    });
+		    });*/
 		    
-		    $('.dtprofile-background').on('click', '.pass-edit', function(){
+/*		    $('.dtprofile-background').on('click', '.pass-edit', function(){
 		    	$('.pass-edit').remove();
 		    	var icon='<button class="setting-close pwcl">CLOSE</button>';
 		    	$('.passwd').append(icon);
@@ -1397,12 +1561,12 @@ $(document).ready(function() {
 					       <div class="inputform">\
 					       <input type="text" class="form-control" id="emailAdress">\
 					       </div>\
-						   <button class="account-message" id="<%= user.email %>">Save Password</button></div>';
+						   <button class="account-message" id="updatePwd">Save Password</button></div>';
 		    	$('#pass-table').append(text);
-		    });
+		    });*/
 		    
 		    
-		    $('.dtprofile-background').on('click', '.socl', function(){
+/*		    $('.dtprofile-background').on('click', '.socl', function(){
 		    	$(this).hide();
 				$('.so').hide();
 				var icon= '<button class="sign-edit">EDIT</button>';
@@ -1419,9 +1583,9 @@ $(document).ready(function() {
          			       <div class="inputtext">Confirm your password</div>\
 				           <div class="inputform">\
 				           <input type="text" class="form-control" id="emailAdress"></div>\
-				           <button class="account-signout" id="<%= user.email %>">Sign out</button></div>';
+				           <button class="account-signout" id="signOut">Sign out</button></div>';
 		    	$('#sign-table').append(text);
-		    });
+		    });*/
 		    
 		/*    left bar*/
 		    

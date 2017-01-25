@@ -55,7 +55,7 @@
 		  		data.forEach(function(log, index) {
 		  			if(log.rece_id.email == user){
 		  	%>
-				  		<div class="filebox">
+				  		<div class="filebox" id="<%= log.url %>">
 				  			<% if(log.rtype == 'image'){ %>
 				  			<div class="url" >
 				  				<img class="url-image" alt="<%= log.name %>" src="<%= log.url %>">
@@ -112,7 +112,7 @@
 		  		data.forEach(function(log, index) {
 		  			if(log.send_id.email == user){
 		  	%>
-				  		<div class="filebox">
+				  		<div class="filebox" id="<%= log.name %>">
 				  			<% if(log.rtype == 'image'){ %>
 				  			<div class="url" >
 				  				<img class="url-image" alt="<%= log.name %>" src="<%= log.url %>" >

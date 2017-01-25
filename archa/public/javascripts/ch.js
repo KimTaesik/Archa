@@ -11,7 +11,7 @@ $(document).ready(function() {
     function me(msg){	
         var msglength = msg.message.length;
         var text= '<div class="message_box_send">\
-                                <div id="me_image" class="message_sender"></div>\
+                                <div id="me_image" class="message_sender" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
                                 <div class="talk me" id="'+msg.email+'">\
                                 	<div id="talkname">'+msg.name+'</div><span class="message_body"></span>\
                                 </div>\
@@ -28,7 +28,7 @@ $(document).ready(function() {
 	}	
 	function other(msg){
 		return '<div class="message_box_re">\
-					<div id="other_image" class="message_re"></div>\
+					<div id="other_image" class="message_re" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
 					<div class="talk other" id="'+msg.email+'"><div id="talkother">'+msg.name+'</div><span class="message_body"></span></div>\
 					<div class="message_date" id="'+msg.mdate+'"></div>\
 				</div></br>';
@@ -54,32 +54,31 @@ $(document).ready(function() {
 		return '<div class="message_box_send">\
 					<p class="talk me" id="'+msg.email+'"><span class="message_body"></span></p>\
 					<div class="message_date" id="'+msg.mdate+'"></div>\
-				</div></br>\
 				<iframe class="talk me url"\
 					src="'+meta.data.ogVideo.url+'"\
 					frameborder="0" allowfullscreen>\
-				</iframe></br>';
+				</iframe></div></br>';
 	}
 	function otherYoutube(msg,meta){
 		return '<div class="message_box_re">\
 					<a id='+msg.name+' class="message_re">'+msg.name+'</a>\
 					<p class="talk other" id="'+msg.email+'"><span class="message_body"></span></p>\
 					<div class="message_date" id="'+msg.mdate+'"></div>\
-				</div></br>\
+				</br>\
 				<iframe class="talk other url"\
 					src="'+meta.data.ogVideo.url+'"\
 					frameborder="0" allowfullscreen>\
-				</iframe></br>';
+				</iframe></div></br>';
 	}
 	function nearOtherYoutube(msg,meta){
 		return '<div class="message_box_re">\
 					<p class="talk other" id="'+msg.email+'"><span class="message_body"></span></p>\
 					<div class="message_date" id="'+msg.mdate+'"></div>\
-				</div></br>\
+				</br>\
 				<iframe class="talk other url"\
 					src="'+meta.data.ogVideo.url+'"\
 					frameborder="0" allowfullscreen>\
-				</iframe></br>';
+				</iframe></div></br>';
 	}	
 	function myUrl(msg,meta){
 		var text =  '<div class="message_box_send">\
@@ -154,7 +153,7 @@ $(document).ready(function() {
 			text= "docximage";
 		}
 		return '<div class="file_box_send sendData">\
-				 <div id="me_image" class="message_sender"></div>\
+				 <div id="me_image" class="message_sender" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+send_userEmail+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
 				 <div class="myfileimage file me" id="'+send_userEmail+'"><div id="imagename">'+send_userName+'</div>\
 					<div class="url"><div class='+text+'></div></div>\
 								<a href="'+data.url+'" target="'+data.url+'"> \
@@ -182,7 +181,7 @@ $(document).ready(function() {
 			text= "docximage";
 		}
 		return '<div class="file_box_send sendData">\
-				<div id="me_image" class="message_sender"></div>\
+				<div id="me_image" class="message_sender" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+send_userEmail+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
 					 <div class="myfileimage file me" id="'+send_userEmail+'"><div id="imagename">'+send_userName+'</div>\
 						<div class="url"><div class='+text+'></div></div>\
 									<a href="'+data.url+'" target="'+data.url+'"> \
@@ -213,7 +212,7 @@ $(document).ready(function() {
 			text= "zipimage";
 		}
 		return '<div class="file_box_re reData">\
-					<div id="other_image" class="message_re"></div>\
+					<div id="other_image" class="message_re" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+re_userEmail+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
 					<div class="otherfileimage file other" id="'+re_userEmail+'"><div id="otherimagename">'+re_userName+'</div>\
 					<div class="url"><div class='+text+'></div></div>\
 							<a href="'+data.url+'" target="'+data.url+'"> \
@@ -244,7 +243,7 @@ $(document).ready(function() {
 			text= "zipimage";
 		}
 		return '<div class="file_box_re reData">\
-					<div id="other_image" class="message_re"></div>\
+					<div id="other_image" class="message_re" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+re_userEmail+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
 					<div class="otherfileimage file other" id="'+re_userEmail+'"><div id="otherimagename">'+re_userName+'</div>\
 				<div class="url"><div class='+text+'></div></div>\
 						<a href="'+data.url+'" target="'+data.url+'"> \
@@ -259,7 +258,7 @@ $(document).ready(function() {
 	}	
 	function myImage(data,send_userEmail,send_userName){
 		return '<div class="message_box_send sendData">\
-				 <div id="me_image" class="message_sender"></div>\
+				 <div id="me_image" class="message_sender" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+send_userEmail+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
 				 <div class="myimage images me" id="'+send_userEmail+'"><div id="imagename">'+send_userName+'</div>\
 					<a data-src="'+data.url+'" href="'+data.url+'" target="'+data.url+'" class="dataImage" data-link-url="'+data.url+'">\
 						<div class="dataImageBody">\
@@ -272,7 +271,7 @@ $(document).ready(function() {
 	}
 	function nearMyImage(data,send_userEmail,send_userName){
 		return '<div class="message_box_send sendData">\
-				<div id="me_image" class="message_sender"></div>\
+				<div id="me_image" class="message_sender" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+send_userEmail+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
 					 <div class="myimage images me" id="'+send_userEmail+'"><div id="imagename">'+send_userName+'</div>\
 							<a data-src="'+data.url+'" href="'+data.url+'" target="'+data.url+'" class="dataImage" data-link-url="'+data.url+'">\
 								<div class="dataImageBody">\
@@ -285,7 +284,7 @@ $(document).ready(function() {
 	}
 	function otherImage(data,re_userEmail,re_userName){
 		return '<div class="message_box_re reData">\
-					<div id="other_image" class="message_re"></div>\
+					<div id="other_image" class="message_re" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+re_userEmail+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
 			 		<div class="otherimage images other" id="'+re_userEmail+'"><div id="otherimagename">'+re_userName+'</div>\
 						<a data-src="'+data.url+'" href="'+data.url+'" target="'+data.url+'" class="image_file_body" data-link-url="'+data.url+'">\
 							<div class="image_preserve_aspect_ratio">\
@@ -298,7 +297,7 @@ $(document).ready(function() {
 	}
 	function nearOtherImage(data,re_userEmail,re_userName){
 		return '<div class="message_box_re reData">\
-				<div id="other_image" class="message_re"></div>\
+				<div id="other_image" class="message_re" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+re_userEmail+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
 			 		<div class="otherimage images other" id="'+re_userEmail+'"><div id="otherimagename">'+re_userName+'</div>\
 						<a data-src="'+data.url+'" href="'+data.url+'" target="'+data.url+'" style="width: 50%;" class="image_file_body" data-link-url="'+data.url+'">\
 							<div class="image_preserve_aspect_ratio">\
@@ -311,12 +310,27 @@ $(document).ready(function() {
 	}	
 	socket = io.connect();
 	socket.emit('myId', $('.myInfoView').attr("id"));
-	
+	socket.on('disconnect', function() {
+	    socket.socket.reconnect();
+	});
 	socket.on('my message', function (msg) {
     	if($('#messages').children('div').index() > -1){
     		var preDate = new Date($('#messages').children('div').last().children('.message_date').attr('id'));
     		var nowDate = new Date(msg.mdate);
     		var cal = new Date(nowDate-preDate);
+    		var day;
+			switch(nowDate.getDay()){
+				case 0		: day = 'Sunday'; break;
+				case 1		: day = 'Monday'; break;
+				case 2		: day = 'Tuesday'; break;
+				case 3		: day = 'Wednesday'; break;
+				case 4		: day = 'Thursday'; break;
+				case 5		: day = 'Friday'; break;
+				case 6		: day = 'Saturday'; break;
+			};
+			if(cal.getDate()!=1){
+				$('#messages').append('<div class="newdate"><div class="icon-clock fleft"></div>'+nowDate.getFullYear().toString()+'.'+(nowDate.getMonth()+1).toString()+'.'+nowDate.getDate().toString()+' '+day+'</div>');
+			}
     		if($('#messages').children('div').last().children('.talk').attr('id') == msg.email && cal.getDate()==1 && cal.getHours()==9 && cal.getMinutes() <= 5){
     			$('#messages').append(nearMe(msg));
     		}else{
@@ -334,6 +348,19 @@ $(document).ready(function() {
     		var preDate = new Date($('#messages').children('div').last().children('.message_date').attr('id'));
     		var nowDate = new Date(msg.mdate);
     		var cal = new Date(nowDate-preDate);
+    		var day;
+			switch(nowDate.getDay()){
+				case 0		: day = 'Sunday'; break;
+				case 1		: day = 'Monday'; break;
+				case 2		: day = 'Tuesday'; break;
+				case 3		: day = 'Wednesday'; break;
+				case 4		: day = 'Thursday'; break;
+				case 5		: day = 'Friday'; break;
+				case 6		: day = 'Saturday'; break;
+			};
+			if(cal.getDate()!=1){
+				$('#messages').append('<div class="newdate"><div class="icon-clock fleft"></div>'+nowDate.getFullYear().toString()+'.'+(nowDate.getMonth()+1).toString()+'.'+nowDate.getDate().toString()+' '+day+'</div>');
+			}
     		if($('#messages').children('div').last().children('.talk').attr('id') == msg.email && cal.getDate()==1 && cal.getHours()==9 && cal.getMinutes() <= 5){
     			$('#messages').append(nearOther(msg));
     		}else{
@@ -347,14 +374,28 @@ $(document).ready(function() {
 	});
 
 	socket.on('my message youtube', function(msg,meta){
+		console.log('myUrl');
 		var me = $("#userId").val();
 		if(me == msg.name){
 	    	if($('#messages').children('div').index() > -1){
 	    		var preDate = new Date($('#messages').children('div').last().children('.message_date').attr('id'));
 	    		var nowDate = new Date(msg.mdate);
 	    		var cal = new Date(nowDate-preDate);
+	    		var day;
+				switch(nowDate.getDay()){
+					case 0		: day = 'Sunday'; break;
+					case 1		: day = 'Monday'; break;
+					case 2		: day = 'Tuesday'; break;
+					case 3		: day = 'Wednesday'; break;
+					case 4		: day = 'Thursday'; break;
+					case 5		: day = 'Friday'; break;
+					case 6		: day = 'Saturday'; break;
+				};
+				if(cal.getDate()!=1){
+					$('#messages').append('<div class="newdate"><div class="icon-clock fleft"></div>'+nowDate.getFullYear().toString()+'.'+(nowDate.getMonth()+1).toString()+'.'+nowDate.getDate().toString()+' '+day+'</div>');
+				}
 	    		if($('#messages').children('div').last().children('.talk').attr('id') == msg.email && cal.getDate()==1 && cal.getHours()==9 && cal.getMinutes() <= 5){
-	    			$('#messages').append(nearMyYouTube(msg,meta));
+	    			$('#messages').append(nearMyYoutube(msg,meta));
 	    		}else{
 	        		$('#messages').append(myYoutube(msg,meta));	   			
 	    		}
@@ -371,6 +412,19 @@ $(document).ready(function() {
     		var preDate = new Date($('#messages').children('div').last().children('.message_date').attr('id'));
     		var nowDate = new Date(msg.mdate);
     		var cal = new Date(nowDate-preDate);
+    		var day;
+			switch(nowDate.getDay()){
+				case 0		: day = 'Sunday'; break;
+				case 1		: day = 'Monday'; break;
+				case 2		: day = 'Tuesday'; break;
+				case 3		: day = 'Wednesday'; break;
+				case 4		: day = 'Thursday'; break;
+				case 5		: day = 'Friday'; break;
+				case 6		: day = 'Saturday'; break;
+			};
+			if(cal.getDate()!=1){
+				$('#messages').append('<div class="newdate"><div class="icon-clock fleft"></div>'+nowDate.getFullYear().toString()+'.'+(nowDate.getMonth()+1).toString()+'.'+nowDate.getDate().toString()+' '+day+'</div>');
+			}
     		if($('#messages').children('div').last().children('.talk').attr('id') == msg.email && cal.getDate()==1 && cal.getHours()==9 && cal.getMinutes() <= 5){
     			$('#messages').append(nearOtherYoutube(msg,meta));
     		}else{
@@ -390,6 +444,19 @@ $(document).ready(function() {
 	    		var preDate = new Date($('#messages').children('div').last().children('.message_date').attr('id'));
 	    		var nowDate = new Date(msg.mdate);
 	    		var cal = new Date(nowDate-preDate);
+	    		var day;
+				switch(nowDate.getDay()){
+					case 0		: day = 'Sunday'; break;
+					case 1		: day = 'Monday'; break;
+					case 2		: day = 'Tuesday'; break;
+					case 3		: day = 'Wednesday'; break;
+					case 4		: day = 'Thursday'; break;
+					case 5		: day = 'Friday'; break;
+					case 6		: day = 'Saturday'; break;
+				};
+				if(cal.getDate()!=1){
+					$('#messages').append('<div class="newdate"><div class="icon-clock fleft"></div>'+nowDate.getFullYear().toString()+'.'+(nowDate.getMonth()+1).toString()+'.'+nowDate.getDate().toString()+' '+day+'</div>');
+				}
 	    		if($('#messages').children('div').last().children('.talk').attr('id') == msg.email && cal.getDate()==1 && cal.getHours()==9 && cal.getMinutes() <= 5){
 	    			$('#messages').append(nearMyUrl(msg,meta));
 	    		}else{
@@ -408,6 +475,19 @@ $(document).ready(function() {
     		var preDate = new Date($('#messages').children('div').last().children('.message_date').attr('id'));
     		var nowDate = new Date(msg.mdate);
     		var cal = new Date(nowDate-preDate);
+    		var day;
+			switch(nowDate.getDay()){
+				case 0		: day = 'Sunday'; break;
+				case 1		: day = 'Monday'; break;
+				case 2		: day = 'Tuesday'; break;
+				case 3		: day = 'Wednesday'; break;
+				case 4		: day = 'Thursday'; break;
+				case 5		: day = 'Friday'; break;
+				case 6		: day = 'Saturday'; break;
+			};
+			if(cal.getDate()!=1){
+				$('#messages').append('<div class="newdate"><div class="icon-clock fleft"></div>'+nowDate.getFullYear().toString()+'.'+(nowDate.getMonth()+1).toString()+'.'+nowDate.getDate().toString()+' '+day+'</div>');
+			}
     		if($('#messages').children('div').last().children('.talk').attr('id') == msg.email && cal.getDate()==1 && cal.getHours()==9 && cal.getMinutes() <= 5){
     			$('#messages').append(nearOtherUrl(msg,meta));
     		}else{
@@ -427,6 +507,19 @@ $(document).ready(function() {
     		var preDate = new Date($('#messages').children('div').last().children('.message_date').attr('id'));
     		var nowDate = new Date(data.date);
     		var cal = new Date(nowDate-preDate);
+    		var day;
+			switch(nowDate.getDay()){
+				case 0		: day = 'Sunday'; break;
+				case 1		: day = 'Monday'; break;
+				case 2		: day = 'Tuesday'; break;
+				case 3		: day = 'Wednesday'; break;
+				case 4		: day = 'Thursday'; break;
+				case 5		: day = 'Friday'; break;
+				case 6		: day = 'Saturday'; break;
+			};
+			if(cal.getDate()!=1){
+				$('#messages').append('<div class="newdate"><div class="icon-clock fleft"></div>'+nowDate.getFullYear().toString()+'.'+(nowDate.getMonth()+1).toString()+'.'+nowDate.getDate().toString()+' '+day+'</div>');
+			}
     		if($('#messages').children('div').last().children('.talk').attr('id') == send_userEmail && cal.getDate()==1 && cal.getHours()==9 && cal.getMinutes() <= 5){
     			if(data.rtype != 'image'){
     				mdata = nearMyData(data,send_userEmail,send_userName);
@@ -458,6 +551,19 @@ $(document).ready(function() {
     		var preDate = new Date($('#messages').children('div').last().children('.message_date').attr('id'));
     		var nowDate = new Date(data.date);
     		var cal = new Date(nowDate-preDate);
+    		var day;
+			switch(nowDate.getDay()){
+				case 0		: day = 'Sunday'; break;
+				case 1		: day = 'Monday'; break;
+				case 2		: day = 'Tuesday'; break;
+				case 3		: day = 'Wednesday'; break;
+				case 4		: day = 'Thursday'; break;
+				case 5		: day = 'Friday'; break;
+				case 6		: day = 'Saturday'; break;
+			};
+			if(cal.getDate()!=1){
+				$('#messages').append('<div class="newdate"><div class="icon-clock fleft"></div>'+nowDate.getFullYear().toString()+'.'+(nowDate.getMonth()+1).toString()+'.'+nowDate.getDate().toString()+' '+day+'</div>');
+			}
     		if($('#messages').children('div').last().children('.talk').attr('id') == send_userEmail && cal.getDate()==1 && cal.getHours()==9 && cal.getMinutes() <= 5){
     			if(data.rtype != 'image'){
     				odata = nearOtherData(data,send_userEmail,send_userName);
@@ -488,11 +594,25 @@ $(document).ready(function() {
 		var mdata, odata;
 		var chk;
 		var temp;
+		var day;
 		room.messagelog.forEach(function(val, i){
 			if(i!=0){
 				var testDate = new Date(val.mdate);
 				var tempDate = new Date(temp.mdate);
 				var cal = new Date(testDate-tempDate);
+				switch(testDate.getDay()){
+					case 0		: day = 'Sunday'; break;
+					case 1		: day = 'Monday'; break;
+					case 2		: day = 'Tuesday'; break;
+					case 3		: day = 'Wednesday'; break;
+					case 4		: day = 'Thursday'; break;
+					case 5		: day = 'Friday'; break;
+					case 6		: day = 'Saturday'; break;
+				};
+				if(cal.getDate()!=1){
+					$('#messages').append('<div class="newdate"><div class="icon-clock fleft"></div>'+testDate.getFullYear().toString()+'.'+(testDate.getMonth()+1).toString()+'.'+testDate.getDate().toString()+' '+day+'</div>');
+				} 
+					
 			}
 			if(val.mtype == 'text'){
 				if(val.email == email){
@@ -577,16 +697,17 @@ $(document).ready(function() {
 					socket.emit('getOgData', val,i);					
 				}
 			}
+			temp = val;
 			if(jQuery.inArray(email,val.readby) == -1){
 				chk = 1;
 				val.readby.push(email);
 			}
-			temp = val;
 			if(i == room.messagelog.length-1){
-				console.log('last',room.messagelog.length-1);
 				$('#messages').scrollTop($('#messages').prop('scrollHeight'));
 			}
+			
 		});
+		
 		if(chk){
 			socket.emit('readMessageSave', room);
 			if( $('[id="'+room.id+'"]').length > 0){
@@ -594,7 +715,6 @@ $(document).ready(function() {
 			}
 		}
 		
-
 		$('#messages').scrollTop($('#messages').prop('scrollHeight'));
 	});
 
@@ -675,7 +795,29 @@ $(document).ready(function() {
 					frameborder="0" allowfullscreen>\
 				</iframe></br>';
 	}	
-	
+	socket.on('roomInfoImage', function(users){
+		var roomInfo = $.grep(users, function( a ) {
+	      	  return a !== $('.myInfoView').attr("id");
+	    });
+		
+        if(roomInfo.length==1){
+        	$('.room-info-image').css({'background-image':'url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+roomInfo[0]+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png)'});
+        }else if(roomInfo.length==2){
+        	$('.room-info-image').css({'background-image':'url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+roomInfo[0]+'/userProfileImg/user_profile_img.png), url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+roomInfo[1]+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png)'});
+        	$('.room-info-image').css({'background-position':'left, right,left, right'});
+        	$('.room-info-image').css({'background-size':'50% 100%'});
+        }else if(roomInfo.length>=3){
+        	$('.room-info-image').css({'background-image':
+        		'url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+roomInfo[0]+'/userProfileImg/user_profile_img.png),\
+        		url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+roomInfo[1]+'/userProfileImg/user_profile_img.png),\
+        		url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+roomInfo[2]+'/userProfileImg/user_profile_img.png),\
+        		url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png),\
+        		url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png),\
+        		url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png)'});
+        	$('.room-info-image').css({'background-position':'left top, right top, bottom left,left top, right top, bottom left'});
+        	$('.room-info-image').css({'background-size':'50% 50%'});
+        }   
+	});
 	/* 채팅방 인원 목록 수정 2016_11_25 NA */
 	socket.on('usercount', function(users,thisRoom, name){
 		$('.dropdown').show();
@@ -687,16 +829,40 @@ $(document).ready(function() {
 		$('#joinRoom').val(thisRoom);
 		/*$('.userInfo').append('<div id="invite"><a id="invitea">INVITE</a></div>');*/     /*  추가  */
 		/*$('.userInfo').append('<button type="button" class="'+users[0]+'" id="chativ" data-toggle="modal" data-target="#myModal">invite</button>'); */    /*  추가  */
-		$('.userInfo').append('<div class="'+users[0]+'" id="chativ">invite</div>');     /*  추가  */  
+/*		$('.userInfo').append('<div class="'+users[0]+'" id="chativ">invite</div>');       추가    
 		users.forEach(function(users, index){
 			if(users == $('.myInfoView').attr("id")) $('#me').val(users);
 			else $('#you').val(users);
 			text = '<li role="presentation"><a role="menuitem" tabindex="-1" data-target="#">'+users+'</a></li>'
 			$('.userInfo').append(text);
 		});
-        $('.userInfo').append('<div id="close"><a>CLOSE</a></div>');	    /*  추가  */
-        
+        $('.userInfo').append('<div id="close"><a>CLOSE</a></div>');	      추가  */
+		users.forEach(function(users,index){
+			if(users == $('.myInfoView').attr("id")) $('#me').val(users);
+			else $('#you').val(users);
+		});
+		var roomTitle = $.grep(users, function( a ) {
+      	  return a !== $('.myInfoView').attr("id");
+        });
+        if(roomTitle.length==1){
+        	$('[class="myRoom-title-img"]').css({'background-image':'url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+roomTitle[0]+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png)'});
+        }else if(roomTitle.length==2){
+        	$('[class="myRoom-title-img"]').css({'background-image':'url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+roomTitle[0]+'/userProfileImg/user_profile_img.png), url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+roomTitle[1]+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png)'});
+        	$('[class="myRoom-title-img"]').css({'background-position':'left, right,left, right'});
+        	$('[class="myRoom-title-img"]').css({'background-size':'50% 100%'});
+        }else if(roomTitle.length>=3){
+        	$('[class="myRoom-title-img"]').css({'background-image':
+        		'url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+roomTitle[0]+'/userProfileImg/user_profile_img.png),\
+        		url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+roomTitle[1]+'/userProfileImg/user_profile_img.png),\
+        		url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+roomTitle[2]+'/userProfileImg/user_profile_img.png),\
+        		url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png),\
+        		url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png),\
+        		url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png)'});
+        	$('[class="myRoom-title-img"]').css({'background-position':'left top, right top, bottom left,left top, right top, bottom left'});
+        	$('[class="myRoom-title-img"]').css({'background-size':'50% 50%'});
+        }       
 	});
+	
     //상단바 여기서 조정 후 멤버들에게 방 재입장 보냄
     // socket.join(new)
     socket.on('roomChange', function(thisRoom, users, name){
@@ -707,13 +873,37 @@ $(document).ready(function() {
 		$('#room').val(name);
 		$('#thisRoom').val(thisRoom);
 		$('#joinRoom').val(thisRoom);
-		users.forEach(function(users, index){
+/*		users.forEach(function(users, index){
 			if(users == $('.myInfoView').attr("id")) $('#me').val(users);
 			else $('#you').val(users);
 			text = '<li role="presentation"><a role="menuitem" tabindex="-1" data-target="#">'+users+'</a></li>'
 			$('.userInfo').append(text);
 		});
-        $('.userInfo').append('<div id="close"><a>CLOSE</a></div>');
+        $('.userInfo').append('<div id="close"><a>CLOSE</a></div>');*/
+		users.forEach(function(users,index){
+			if(users == $('.myInfoView').attr("id")) $('#me').val(users);
+			else $('#you').val(users);
+		});
+		var roomTitle = $.grep(users, function( a ) {
+      	  return a !== $('.myInfoView').attr("id");
+        });
+        if(roomTitle.length==1){
+        	$('[class="myRoom-title-img"]').css({'background-image':'url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+roomTitle[0]+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png)'});
+        }else if(roomTitle.length==2){
+        	$('[class="myRoom-title-img"]').css({'background-image':'url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+roomTitle[0]+'/userProfileImg/user_profile_img.png), url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+roomTitle[1]+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png)'});
+        	$('[class="myRoom-title-img"]').css({'background-position':'left, right,left, right'});
+        	$('[class="myRoom-title-img"]').css({'background-size':'50% 100%'});
+        }else if(roomTitle.length>=3){
+        	$('[class="myRoom-title-img"]').css({'background-image':
+        		'url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+roomTitle[0]+'/userProfileImg/user_profile_img.png),\
+        		url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+roomTitle[1]+'/userProfileImg/user_profile_img.png),\
+        		url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+roomTitle[2]+'/userProfileImg/user_profile_img.png),\
+        		url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png),\
+        		url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png),\
+        		url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png)'});
+        	$('[class="myRoom-title-img"]').css({'background-position':'left top, right top, bottom left,left top, right top, bottom left'});
+        	$('[class="myRoom-title-img"]').css({'background-size':'50% 50%'});
+        }   
     	socket.emit('roomChange', thisRoom);
     });
 	socket.on('rooms', function(rooms, roomName, me) {
@@ -723,24 +913,44 @@ $(document).ready(function() {
         var time;
         var nowtime;
         var count = 0;
+        var backEmail;
         rooms.forEach(function(room, index){
             if (room != '') {
             	room.messagelog.forEach(function(log,index){
             		if(jQuery.inArray(me,log.readby) == -1) count++;
             	});
-                
+            	backEmail = $.grep(room.users, function( a ) {
+                	  return a !== me;
+                });
             	roomName.roomName.forEach(function(name, index){
             		if(name.roomId == room.id){
 	                	time = new Date();
 	                	var hour =time.getHours();
 	                	var min =time.getMinutes();
 	                	pasttime = (room.messagelog[room.messagelog.length-1].mdate).substring(11,16);
-	                	text = '    <div class="myRoom" id="'+room.id+'"><div class="myRoom-img"></div>\
+	                	text = '    <div class="myRoom" id="'+room.id+'"><div class="myRoom-img '+index+'"></div>\
 	                				<div class="roomname">'+name.rName+'</div>\
 	                				<div class="roomtext">'+room.messagelog[room.messagelog.length-1].message+'</div>	\
 	                				<div class="roomtime">'+pasttime+'</div>\
 	                				<div class="circle">'+count+'</div></div>';
 	                    $('#room-list').append(text);
+	                    if(backEmail.length==1){
+	                    	$('[class="myRoom-img '+index+'"]').css({'background-image':'url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+backEmail[0]+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png)'});
+	                    }else if(backEmail.length==2){
+	                    	$('[class="myRoom-img '+index+'"]').css({'background-image':'url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+backEmail[0]+'/userProfileImg/user_profile_img.png), url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+backEmail[1]+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png)'});
+	                    	$('[class="myRoom-img '+index+'"]').css({'background-position':'left, right,left, right'});
+	                    	$('[class="myRoom-img '+index+'"]').css({'background-size':'50% 100%'});
+	                    }else if(backEmail.length>=3){
+	                    	$('[class="myRoom-img '+index+'"]').css({'background-image':
+	                    		'url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+backEmail[0]+'/userProfileImg/user_profile_img.png),\
+	                    		url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+backEmail[1]+'/userProfileImg/user_profile_img.png),\
+	                    		url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+backEmail[2]+'/userProfileImg/user_profile_img.png),\
+	                    		url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png),\
+	                    		url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png),\
+	                    		url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png)'});
+	                    	$('[class="myRoom-img '+index+'"]').css({'background-position':'left top, right top, bottom left,left top, right top, bottom left'});
+	                    	$('[class="myRoom-img '+index+'"]').css({'background-size':'50% 50%'});
+	                    }
                 	}       		
             	});
             	count = 0;

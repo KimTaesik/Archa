@@ -23,11 +23,61 @@ exports.login = function(req, res, next){
 		}
 	});
 }
+exports.profileEdit = function(req, res, next){
+	var category = req.body.category;
+	var input = req.body.input;
+	var nowPwd = req.body.pwd;
+	var user = req.session.user_id;
+	if(category == 'signOut'){
+		
+	}else{
+		User.findOne({'email': user.email}).exec(function(err,user){
+			if(category == 'updateCom'){
+				user.company = input;
+				req.session.user_id = user;
+				user.save(function(err){
+					if(!err){
+						res.render('account/profile',{ layout:false, title:'Profile', user:user, perr:0 });
+					}
+				});
+			}else if(category == 'updateTitle'){
+				user.position = input;
+				req.session.user_id = user;
+				user.save(function(err){
+					if(!err){
+						res.render('account/profile',{ layout:false, title:'Profile', user:user, perr:0 });
+					}
+				});
+			}else if(category == 'updatePh'){
+				user.phoneNumber = input;
+				req.session.user_id = user;
+				user.save(function(err){
+					if(!err){
+						res.render('account/profile',{ layout:false, title:'Profile', user:user, perr:0 });
+					}
+				});
+			}else if(category == 'updatePwd'){
+				if(user.password == nowPwd){
+					user.password = input;
+					user.save(function(err){
+						if(!err){
+							res.render('account/profile',{ layout:false, title:'Profile', user:user, perr:0 });
+						}
+					});
+				}else{
+					res.render('account/profile',{ layout:false, title:'Profile', user:user, perr:1  });
+				}
+			}
+		});		
+	}
+
+	
+}
 exports.profile = function(req, res, next){
-/*	var user = req.session.user_id;*/
-	User.findOne({'email':req.body.userId}).exec(function(err, user){
+	var user = req.session.user_id;
+	User.findOne({'email':user.email}).exec(function(err, user){
 		if(err) console.log(err)
-		else res.render('account/profile',{ title:'profile', user:user });
+		else res.render('account/profile',{ layout:false, title:'Profile', user:user, perr:0 });
 	});
 }
 exports.friendInfo = function(req, res, next){

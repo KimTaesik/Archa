@@ -808,7 +808,8 @@ creates the smaller  triangle
 }
 #room{
 	margin-top: 15px;
-    margin-left: 20px;
+	/* 씨바 클릭이 잘 안되서 바꿈 룸타이틀이미지때문에 */
+    margin-left: 100px;
     position: absolute;
     width: 40%;
     float: left;
@@ -1315,13 +1316,63 @@ ul li.hang img {
  	margin-left:20px;
  	margin-right:20px;
 	margin-top:15px; 
-	background-image: url('../img/gong.png');
 	background-repeat:no-repeat;
 	background-size:100%;
 	background-position:center;
 	border-radius: 10px;
-	
-
+}
+.myRoom-title-img{
+	position: absolute;
+	width:45px;
+	height:45px;
+	float:left;
+ 	margin-left:40px;
+	margin-top:6px; 
+	background-repeat:no-repeat;
+	background-size:100%;
+	background-position:center;
+	border-radius: 8px;
+	z-index: 2;
+}
+.room-info-image{
+	margin-top:65px;
+	margin-left:115px;
+	width:100px;
+	height:100px;
+	background-repeat:no-repeat;
+	background-size:100%;
+	background-position:center;
+	border-radius: 8px;	
+}
+.room-name-change{
+	margin-top: 15px;
+    margin-left: 10px;
+    width: 40%;
+    border: none;
+    color: #90a4ae;
+    font-size: 1.6rem;
+    z-index:3;
+    background-color: transparent;	
+}
+.invite-room{
+	margin-top:15px;
+	color:white;
+	font-size: 1.6rem;
+	background-color:#4a7dff;
+	width:350px;
+	height:65px;
+/* 	padding-left: 85px; */
+	padding-top: 22px;
+}
+.leave-the-room{
+	position:absolute;
+	bottom:0px;
+	padding-left:70px;
+	padding-top:30px;
+	color: #90a4ae;
+	width: 350px;
+	height: 75px;
+	background-color: #cfd8dc;
 }
 
 .roomname{
@@ -2036,4 +2087,43 @@ ul li.hang img {
   color: #6cc0e5;
   text-align: center;
   border: 1px solid #6cc0e5;
+}
+.newdate{
+	width: 200px;
+	height: 40px;
+	background-color: #a1b1d9;
+	color: #546E7A;
+	font-size: 1.6rem;
+	font-weight:700;
+	border-radius: 8px;
+	text-align:center;
+	vertical-align:middle;
+	display: table;
+	margin: 0 auto;
+	padding: 10px;
+}
+.icon-clock{
+	font-family: "fontello";
+	font-size: 2.0rem;
+}
+.icon-edit-alt{
+	font-family: "fontello";
+	font-size: 1.6rem;
+	margin-top: 19px;;
+	margin-left: 30px;
+	color:#4a7dff;
+}
+.icon-plus-circled{
+	font-family: "fontello";
+	font-size: 4.5rem;
+	margin-top: -12px;;
+	margin-left: 30px;
+	margin-right:10px;
+	color:#ffffff;	
+}
+.icon-logout{
+	font-family: "fontello";
+	font-size: 3.5rem;
+	color:#90a4ae;
+	margin-top: -5px;;
 }

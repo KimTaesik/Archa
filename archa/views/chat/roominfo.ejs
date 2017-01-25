@@ -1,0 +1,24 @@
+<a href="javascript:void(0)" class="closebtn">×</a>
+<div class="room-info-image"></div>
+<div class="icon-edit-alt fleft"></div>
+<input type="text" class="room-name-change" disabled="disabled">
+
+<div class="invite-room"><div class="icon-plus-circled fleft"></div>Invite New Member</div>
+<%
+		users.forEach(function(users, index) { 
+%>
+		<div id="<%= users.email %>"  class='has-sub active'>
+			<div id ="group-profile">
+				<div id="group-state" style="<%= users.state==1 ? 'background-color: #2CCA70' : 'background-color: #c0c0c0' %>" ></div>
+				<div id="group-img" style="background-image:url(<%=users.user_img%>), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);" ></div>
+					<div id="fname" class="<%= users.name %>"><%= users.name %>
+					<div id="fposition"><%= users.position %></div>
+					<div id="fcompany"><%= users.company %></div> 
+					<br/>
+					</div><br/>						
+			</div>
+	   </div>
+<% 		
+		});
+%>
+<div class="leave-the-room"><div class="icon-logout fleft"></div>Leave the Room</div>

@@ -12,7 +12,6 @@ var moment = require('moment');
 moment.locale('ko');
 var og = require('open-graph');
 var util = require('util');
-var ogs = require('open-graph-scraper');
 
 var io,
     guestNumber,
@@ -137,7 +136,9 @@ module.exports = function(server){
 		    		    					}
 		    		    				});
 		    		    			}
-		    						Data.find({'room_id':socket.room}, function(err, data){
+		    		    			var term = new RegExp(socket.room, 'i');
+		    		    			
+		    						Data.find({'room_id':{ $regex: term }}, function(err, data){
 		    				    		if(!err && data != null){
 		    				    			io.sockets.to(socket.room).sockets[socket.id].emit('roomLoad', user.email, room, data);
 		    				    		}
@@ -161,6 +162,12 @@ module.exports = function(server){
 					});
 				}
 			});
+        });
+        
+        socket.on('roomInfoImage', function(room){
+        	Room.findOne({'id':room}).exec(function(err, room){
+        		socket.emit('roomInfoImage', room.users);
+        	});
         });
         /*
          * user search 한 후에 상대방의 user db->request에 자신의 정보 저장
@@ -253,8 +260,18 @@ module.exports = function(server){
 		    					}
 		    				});
 		    			}
-						Data.find({'room_id':socket.room}, function(err, data){
+		    			var term;
+		    			var group = socket.room.split('/');
+		    			if(group[2] != null && group[2] != undefined){
+		    				term = new RegExp(group[0]+'/'+group[1], 'i');
+		    			}else{
+		    				term = new RegExp(socket.room, 'i');
+		    			}
+						Data.find({'room_id':{ $regex: term }}, function(err, data){
+//						Data.find({'room_id':socket.room}, function(err, data){
 				    		if(!err && data != null){
+/*				    			console.log('//////////////////////////////',socket.room)
+				    			console.log(data);*/
 				    			io.sockets.to(socket.room).sockets[socket.id].emit('roomLoad', user.email, room, data);
 				    		}
 				    	});
@@ -295,8 +312,7 @@ module.exports = function(server){
 			    				if(i == room.users.length-1) callback(null, room);
 			    			}
 						},
-					],
-						function (err, room) {
+					],function (err, room) {
 
 		    				room.save(function(err){
 	    						if(err){
@@ -306,7 +322,6 @@ module.exports = function(server){
 	    							var roomName = '그룹 채팅방';	    							
 	    			    			//방에 접속한 사람들에게 방 변경 메시지 보냄
 	    			    			io.sockets.to(socket.room).clients(function(error,clients){
-	    			    				console.log(clients);
 	    			    				if(clients){
 	    				    				for(var index in clients){
 	    				    					io.sockets.to(socket.room).sockets[clients[index]].emit('roomChange', newId, newuser, roomName);
@@ -354,7 +369,6 @@ module.exports = function(server){
 				message : data.name,
 				mdate	: data.date
 			});
-			console.log(data.date);
 			
 			Room.findOne({'id':socket.room},function(err, room){
 				if(err) console.log(err);
@@ -391,8 +405,9 @@ module.exports = function(server){
 	    	});	
 	    });
 	    socket.on('getOgData', function(val,i){
+	    	var ogs = require('open-graph-scraper');
 	    	var youtube = youPattern.exec(val.url);
-	    	var options = {'url': val.url};
+	    	var options = {'url': val.url,'timeout': 4000};
 	    	ogs(options, function (err, meta) {
 	    		if(err){
 	    			console.log('시발');
@@ -413,24 +428,6 @@ module.exports = function(server){
 		    		}	    			
 	    		}
 	    	});
-/*	    	og(val.url, function(err, meta){
-	    		console.log('og:', meta);
-	    		if(meta == undefined && meta.url == undefined && meta.image== undefined){
-	    			var meta = {
-	    				url : val.url,
-	    				image : { url : 'https://www.google.com/s2/favicons?domain='+val.url},
-	    				description : ''
-	    			}
-	    			io.sockets.to(socket.room).sockets[socket.id].emit('ogData', meta, val.url, val.email,nickNames[socket.id],i,val);
-	    		}else{
-		    		if(youtube != null && youtube.length>1){
-		    			io.sockets.to(socket.room).sockets[socket.id].emit('youOgData', meta, val.url, val.email,nickNames[socket.id],i,val);
-		    		}else{
-		    			io.sockets.to(socket.room).sockets[socket.id].emit('ogData', meta, val.url, val.email,nickNames[socket.id],i,val);
-		    		}	    			
-	    		}
-
-	    	});*/
 	    });
 	    socket.on('readMessageSave', function(room){
 	    	console.log(room.messagelog[0].readby);
@@ -439,8 +436,10 @@ module.exports = function(server){
 	    		result.save();
 	    	});
 	    });
+	    
 		socket.on('message', function(msg){
-			var messageDate = new Date();
+			var ogs = require('open-graph-scraper');
+			var messageDate = moment().add(9, 'h').toDate();
 			var roomUser= new Message;
 			async.waterfall([
 			    function (callback) {
@@ -462,6 +461,7 @@ module.exports = function(server){
 				    	
 				    	var options = {'url': checkText};
 				    	ogs(options, function (err, meta) {
+				    		console.log(meta);
 				    		callback(null, meta);
 				    	});
 				    }else{
@@ -510,19 +510,20 @@ module.exports = function(server){
 										id : socket.room,
 										users : uList,
 										messagelog : message,
-										roomdate : new Date()
+										roomdate : moment().add(9, 'h').toDate()
 									});
 									
 									room.save();
 									io.sockets.to(socket.room).emit('usercount', uList, socket.room, msg.yourName);									
 								}
+								callback(null, message);
 							});
 						}else{
 							room.messagelog.push(message);
 							room.save();
+							callback(null, message);
 						}
 					});
-					callback(null, message);
 				}],function (err, message) {
 				    match = urlPattern.exec(message.message);
 				    if(match != null && match.length>1){
@@ -530,11 +531,11 @@ module.exports = function(server){
 				    	var ytMatch = youPattern.exec(text);
 				    	var options = {'url': text};
 				    	ogs(options, function (err, meta) {
-				    		if(ytMatch != null && ytMatch.length>1){
+				    		if(!err || ytMatch != null && ytMatch.length>1 || meta.data.ogType == 'video' || meta.data.ogSiteName == 'YouTube'){
 				    			console.log('유툽')
 							    io.sockets.to(socket.room).sockets[socket.id].emit('my message youtube', message, meta);
 								socket.broadcast.to(socket.room).emit('other message youtube', message, meta);
-				    		}else if(meta != undefined && meta.data.ogUrl != undefined){
+				    		}else if(!err || meta != undefined && meta.data.ogUrl != undefined){
 				    			console.log('url메시지')
 							    io.sockets.to(socket.room).sockets[socket.id].emit('my message url', message, meta);
 								socket.broadcast.to(socket.room).emit('other message url', message, meta);
