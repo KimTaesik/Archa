@@ -188,12 +188,12 @@ $(document).ready(function() {
 				var pa = $(this).parent('.has-sub');
 				var id = pa.attr('id');
 				var temp = $('<div/>').attr('id', id).addClass('selectResult');
-				var img = $(this).parent('.has-sub').children('#group-profile').children('#group-img').clone();
-				var name = $(this).parent('.has-sub').children('#group-profile').children('#fname').attr('class');
+				var img = $(this).parent('.has-sub').children('#invite-profile').clone();
+				var name = $(this).parent('.has-sub').children('#invite-profile').children('#invite-fname').attr('class');
 				var nameDiv = $('<div/>').addClass('selectName').text(name);
 				console.log(name);
 				temp.append(img);
-				temp.append(nameDiv);
+				/*temp.append(nameDiv);*/
 				console.log(temp)
 				if($(this).is(":checked")){
 					temp.clone().appendTo('.select-list');
@@ -773,17 +773,52 @@ $(document).ready(function() {
 			/*
 			 * 알람 뷰
 			 */
-			$( ".topMenu" ).on( "click", "#dropAlarm", function( event ) {
+			$( "#leftbar" ).on( "click", "#dropAlarm", function( event ) {
 			    event.preventDefault();
-			    
+			    $(".leftconnection").empty();
+		    	$(".leftarch").hide();
+		    	$(".leftchat").hide();
+		    	$(".leftconnection").show();
 		        $.ajax({
 		            type: "post",
-		            url: "/alarm",
+		            url: "/findRelation",
 		            success: function(result,status,xhr){
-		            	$(".alarm-drop").html(result);
+		            	$(".background").html(result);
 		            },
 		            error: function(xhr, status, er){}
 		        });
+		        var text= '<div id="topconnect">ADD NEW CONTACTS</div>\
+		        		   <div class="searchbox">\
+		        	       <div class="contact-text"><div id="email-icon"></div>E-mail</div>\
+		        		   <div class="contact-input">\
+		    				<input type="text" class="form-control" id="relationInput"></div>\
+		    				<button class="search-message" id="searchRelation">Search</button></div>\
+		        	       </div>\
+		        		   </div>\
+		        		   <div class="searchbox">\
+			        	       <div class="contact-text"><div id="phone-icon"></div>Phone</div>\
+			        		   <div class="contact-input">\
+								  <select class="form-control" id="phone-select">\
+								  <option>+82</option>\
+								  <option>+01</option>\
+								  <option>+81</option>\
+								  <option>+86</option>\
+								  <option>+61</option>\
+								  <option>+44</option>\
+								  <option>+63</option>\
+								  <option>+852</option>\
+								  <option>+66</option>\
+								  </select>\
+								  <input type="text" class="form-control" id="phone-input">\
+    							  <button class="search-message" id="#">Search</button></div>\
+			        	       </div>\
+		        		   </div>\
+		        		   <div class="notibox">\
+		        	<div id="topconnect">Notifications</div>\
+		        	</div>\
+		        	\
+		        	';
+		        $('.leftconnection').append(text);
 
 			});
 			/*
@@ -869,7 +904,8 @@ $(document).ready(function() {
 			/*
 			 * relation 검색, 유저리스트
 			 */
-		    $('.mid').on("click","#searchRelation",function(e) {
+		    $('.leftconnection').on("click","#searchRelation",function(e) {
+		    	
 		    	var search = $("#relationInput").val();
 		        $.ajax({
 		            type: "post",
@@ -884,11 +920,32 @@ $(document).ready(function() {
 		        });
 		        e.preventDefault();
 		    });
+		    
+			/*
+			 * relation 검색, 유저리스트
+			 */
+/*		    $('.mid').on("click","#searchRelation",function(e) {
+		    	var search = $("#relationInput").val();
+		        $.ajax({
+		            type: "post",
+		            url: "/findRelationUser",
+		            data: { "search": search },
+		            success: function(result,status,xhr){
+		            	$("#relationResult").html(result);
+		            },
+		            error: function(xhr, status, er){
+		            	console.log("code:"+xhr.status+"\n"+"message:"+xhr.responseText+"\n"+"error:"+er);
+		            }
+		        });
+		        e.preventDefault();
+		    });*/
+		    
 		    /*
 		     * 생각해보니 소켓으로 안해도 된다. 소켓서버에 부담을 줄이자. 이건 걍 ajax로 바꾸자??
 		     * 리턴이 문제네
 		     */
 		    $('.mid').on("click", ".addRelation", function(e){
+		    	
 		    	var id = $(this).attr("id");
 //		    	var name = $(this).parent('#group-profile').children("#fname").attr('class');
 //		    	var company = $(this).parent('#group-profile').children("#fname").children("#company").attr("class");
@@ -1453,8 +1510,11 @@ $(document).ready(function() {
 		     */
 			$( "#leftbar" ).on( "click", "#archive1", function( event ) {
 			    event.preventDefault();
+			    $(".leftchat").hide();
+			    $(".leftconnection").hide();
 		    	$(".leftarch").show();
 			    $('.leftarch').empty();
+			    
 		        $.ajax({
 		            type: "post",
 		            url: "/myArchive",
@@ -1468,7 +1528,6 @@ $(document).ready(function() {
 		            },
 		            error: function(xhr, status, er){}
 		        });
-		        $(".leftchat").hide();
 		        var text= '<div class="left-archive">\
 		        	<div class="category" id="ALL"><div id="allfilesmenu"></div><div class="archive-text">ALL FILES</div></div>\
 		        	<div class="category" id="ARCHIVE"><div id="archivemunu"></div><div class="archive-text">ARCHIVE</div></div>\

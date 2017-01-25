@@ -1320,14 +1320,6 @@ ul li.hang img {
 	text-align: center;
 }
 
-#close{
-		background-color: #EAEAEA;
-		height: 130%;
-		vertical-align: middle;
-		text-align: center;
-}
-
-
 /* chat list 2016_11_28 */
 .chat-drop{
 		width : 120px;
@@ -2035,4 +2027,232 @@ ul li.hang img {
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-image: url(../img/Galleryicon.png);	
+}
+/* connection section */
+.leftconnection{
+	width:310px;
+}
+.searchbox{
+	border-top:1px solid;
+	border-color:#cfd8dc;
+	height:135px;
+}
+#topconnect{
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #546E7A;
+    height: 60px;
+    padding-top: 15px;
+    margin-left: 35px;
+}
+.contact-text{
+	margin-top:10px;
+	font-size:1.5rem;
+	color: #546E7A;
+	font-weight: bold;
+}
+.contact-input{
+	margin-top:25px;
+}
+#email-icon{
+	margin-left:35px;
+	margin-right:10px;
+	float:left;
+	width:2.0rem;
+	height:1.5rem;
+  	background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url(../img/Galleryicon.png);		
+}
+#phone-icon{
+	margin-left:35px;
+	margin-right:10px;
+	float:left;
+	width:2.0rem;
+	height:1.5rem;
+  	background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url(../img/Galleryicon.png);		
+}
+/* #email-input{
+	margin-left:35px;
+	width:250px;
+	height:30px;
+} */
+#relationInput{
+	margin-left:35px;
+	width:250px;
+	height:30px;
+}
+#phone-select{
+	margin-left:35px;
+	width:70px;
+	height:30px;
+	margin-right:10px;
+	float:left;
+}
+#phone-input{
+	width:170px;
+	height:30px;
+}
+.search-message{
+	background-color: #4A7DFF;
+	float:right;
+	margin-top:10px;
+	margin-right:25px;
+    height: 30px;
+    width: 75px;
+    text-align: center;
+    border-radius: 12px;
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: bold;
+}	
+.notibox{
+	border-top:5px solid;
+	color:#cfd8dc;
+}
+/* invite user */
+.modal-content{
+	width:620px;
+	
+}
+#myModalLabel{
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #546E7A;
+}
+.noti-modal{
+	border-bottom:5px solid;
+	border-color:#cfd8dc;
+	float:left;
+    height: 34px;
+    border: 2px solid;
+    width: 31.0rem;
+    color: #B0BEC5;
+    text-indent: 40px;
+    background: 15px;
+    background-size: 1.8rem;
+    background-repeat: no-repeat;
+    background-image: url(../img/searchingbutton.png);
+  
+}
+.member-select{
+	width:320px;
+	float: left;
+    position: relative;
+}   
+.select-list{
+/*     font-size: 1.8rem; */
+    float: left;
+    position: relative;
+    width: 298px;
+/*     background-color: #cfd8dc; */
+    color: #607D8B;
+/*     height: 45px; */
+/*     padding-top: 20px; */
+}
+#inviteBody{
+	height:461px;
+	border-bottom: solid 1px;
+    border-color: #cfd8dc;
+}
+.roomInvite{
+}
+#inUser{
+	width: 20px;
+    float: right;
+    margin-top: 30px;
+}
+#invite-pbody{
+	margin-top: 33px;
+    height: 417px;
+    width: 320px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+#invite-profile{
+	height: 80px;
+	border-bottom: solid 1px;
+	border-color: #cfd8dc;
+	margin-left: auto;
+	user-select: none;
+}
+#invite-fname{
+	height : 20px;
+    margin-top:10px; 
+	padding-bottom:10%;
+	display:inline-block;
+	font-size: 1.5rem;
+	color: #000000;
+	font-weight:bold;
+	position: relative;
+	cursor:pointer;
+}
+#invite-company{
+    display: block;
+    color: #90A4AE;
+    font-size: 1.4rem;
+    font-weight: normal;
+}
+#invite-position{
+    display: block;
+    color: #90A4AE;
+    font-size: 1.4rem;
+    font-weight: normal;
+    margin-top: 5px;
+}
+#invite-back{
+	height:10px;
+	width:310px;
+	float:left;
+    background-color: #cfd8dc;
+	
+}
+#subtitle{
+	font-size: 1.8rem;
+    float: left;
+    position: relative;
+    width: 298px;
+    background-color: #cfd8dc;
+    color: #607D8B;
+    height: 45px;
+    padding-top: 10px;
+    padding-left:20px;
+}
+#invite-confirm{
+    float: left;
+    margin-left: 210px;
+    background-color: #4A7DFF;
+    font-weight: bold;
+    font-size: 1.6rem;
+}
+#invite-cancel{
+    float: left;
+    margin-left: 20px;
+    background-color: #ECEFF1;
+    color: #546E7A;
+    font-weight: bold;
+    font-size: 1.6rem;
+}
+/* invite-dropdown */
+.userInfo{
+	width:300px;
+	
+}
+#chativ{
+	font-size: 1.8rem;
+	text-align:center;
+	vertical-align: middle;
+	height:30px;
+	color:#ffffff;
+	width:300px;
+	background-color:#4A7DFF;
+}
+#close{
+		background-color: #EAEAEA;
+		height: 30px;
+		font-size: 1.8rem;
+		vertical-align: middle;
+		text-align: center;
 }
