@@ -1,4 +1,7 @@
 <body>
+<div id="relationResult">
+<div id="top-side">
+<div id="top-result">Search Result</div>
 <%
 		var chk=1;
 		friends.forEach(function(friends, index) {
@@ -8,21 +11,25 @@
 				}
 			});
 			if(chk && friends.email != me){
-%>
-				나 : <%= me %>
+%>				
+				<div id="topcontent"></div>
+				<!-- 나 : <%= me %> -->
 				<div id="<%= friends.email %>"  class='has-sub active'>
-					<div id ="group-profile" href='#'>
-					   <div id="group-img"> </div>
-						<div id="fname" class="<%= friends.name %>"><%= friends.name %><br/>
-							<div id="company" class="<%= friends.company %>"><%= friends.company %> / </div> 
-							<div id="position" class="<%= friends.position %>"><%= friends.position %></div><br/>
+					<div id ="connect-profile" href='#'>
+					   <div id="connect-img"> </div>
+						<div id="connect-name" class="<%= friends.name %>"><%= friends.name %><br/>
+							<div id="connect-position" class="<%= friends.position %>"><%= friends.position %></div>
+							<div id="connect-company" class="<%= friends.company %>"><%= friends.company %></div> 
+							<br/>
 						</div>
-						<button type="button" id="<%= friends.email %>" class="addRelation">ADD</button>							
+						<button type="button" id="<%= friends.email %>" class="addRelation">Request</button>							
 					</div>
 				</div>
-				<br/>
+				
 <%			}
 			chk=1;
 		});
 %>
+</div>
+</div>
 </body>

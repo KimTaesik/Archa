@@ -174,7 +174,9 @@ module.exports = function(server){
          * 하면서 해당 사용자가 접속해있으면 socket으로 div에 삽입시킬 데이터 전송
          */
         socket.on('newRelation', function(id, name, company, position){
+        	console.log("newRelation");
         	var myId = nickNames[socket.id];
+        	console.log("myId: " + myId);
         	if(myId!=id){
 	        	User.update({'email':id},
 	        			{ $addToSet: { 
@@ -436,7 +438,11 @@ module.exports = function(server){
 	    		result.save();
 	    	});
 	    });
-	    
+	    socket.on('noti', function(me){
+            User.findOne({'email':me}).exec(function(err,user){
+                io.sockets.connected[socket.id].emit('noti',user.history);
+            });
+        });
 		socket.on('message', function(msg){
 			var ogs = require('open-graph-scraper');
 			var messageDate = moment().add(9, 'h').toDate();

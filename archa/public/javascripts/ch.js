@@ -11,7 +11,7 @@ $(document).ready(function() {
     function me(msg){	
         var msglength = msg.message.length;
         var text= '<div class="message_box_send">\
-                                <div id="me_image" class="message_sender"></div>\
+                                <div id="me_image" class="message_sender" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
                                 <div class="talk talks me" id="'+msg.email+'">\
                                 	<div id="talkname">'+msg.name+'</div><span class="message_body"></span>\
                                 </div>\
@@ -41,7 +41,7 @@ $(document).ready(function() {
 	}	
 	function myYoutube(msg,meta){
 		return '<div class="message_box_send">\
-		 <div id="me_image" class="message_sender"></div>\
+		 <div id="me_image" class="message_sender" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
 					<div class="talk link ma" id="'+msg.email+'">\
 					<div id="talkname">'+msg.name+'</div><<span class="message_body"></span>/div>\
 					<div class="message_date" id="'+msg.mdate+'"></div>\
@@ -53,7 +53,7 @@ $(document).ready(function() {
 	}  
 	function nearMyYoutube(msg,meta){
 		return '<div class="message_box_send">\
-					<div id="me_image" class="message_sender"></div>\
+					<div id="me_image" class="message_sender" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
 					<div class="talk link ma" id="'+msg.email+'">\
 					<div id="talkname">'+msg.name+'</div><span class="message_body"></span></div>\
 					<div class="message_date" id="'+msg.mdate+'"></div>\
@@ -65,7 +65,7 @@ $(document).ready(function() {
 	}
 	function otherYoutube(msg,meta){
 		return '<div class="message_box_re">\
-					<div id="other_image" class="message_re"></div>\
+					<div id="other_image" class="message_re" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
 					<div class="talk link other" id="'+msg.email+'">\
 					<div id="talkother">'+msg.name+'</div><span class="message_body"></span></div>\
 					<div class="message_date" id="'+msg.mdate+'"></div>\
@@ -77,7 +77,7 @@ $(document).ready(function() {
 	}
 	function nearOtherYoutube(msg,meta){
 		return '<div class="message_box_re">\
-					<div id="other_image" class="message_re"></div>\
+					<div id="other_image" class="message_re" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
 					<div class="talk talks other" id="'+msg.email+'">\
 					<div id="talkother">'+msg.name+'</div><span class="message_body"></span></div>\
 					<div class="message_date" id="'+msg.mdate+'"></div>\
@@ -89,7 +89,7 @@ $(document).ready(function() {
 	}	
 	function myUrl(msg,meta){
 		var text =  '<div class="message_box_send">\
-						<div id="me_image"></div>\
+						<div id="me_image" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
 						<div class="talk link ma" id="'+msg.email+'">\
 						<div id="talkname">'+msg.name+'</div>\
 						<span class="message_body"></span></div>\
@@ -106,7 +106,7 @@ $(document).ready(function() {
 	}
 	function nearMyUrl(msg,meta){
 		var text =  '<div class="message_box_send">\
-			<div id="me_image"></div><div class="talk talks me" id="'+msg.email+'">\
+			<div id="me_image" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div><div class="talk talks me" id="'+msg.email+'">\
 			<div id="talkname">'+msg.name+'</div>\
 			<span class="message_body"></span></div>\
 						<div class="message_date" id="'+msg.mdate+'"></div>\
@@ -122,7 +122,7 @@ $(document).ready(function() {
 	}
 	function otherUrl(msg,meta){
 		return '<div class="message_box_re">\
-		<div id="other_image" class="message_re"></div>\
+		<div id="other_image" class="message_re" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
 					<div class="talk talks other" id="'+msg.email+'">\
 					<div id="talkother">'+msg.name+'</div>\
 					<span class="message_body"></span></div>\
@@ -138,7 +138,7 @@ $(document).ready(function() {
 	}
 	function nearOtherUrl(msg,meta){
 		return '<div class="message_box_re">\
-		<div id="other_image" class="message_re"></div><div class="talk talks other" id="'+msg.email+'">\
+		<div id="other_image" class="message_re" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div><div class="talk talks other" id="'+msg.email+'">\
 		<div id="talkother">'+msg.name+'</div>\
 		<span class="message_body"></span></div>\
 					<div class="message_date" id="'+msg.mdate+'"></div>\
@@ -1007,6 +1007,13 @@ $(document).ready(function() {
 		}else{
 			$('[id="'+id+'"]').children('#group-profile').children('#group-state').css('background-color', '#c0c0c0');
 		}
+	});
+	socket.on('noti', function(history){
+		history.forEach(function(index){
+			$('#noti-text').append('<div class="notitab"><div id="noti-img"></div><div id="noti-textbox">'+index.name+'\
+					</br><div id="connect-you">is connected with you</div></div></div>');
+			$('#noti-text').append('<br>');
+		})
 	});
 	
 });

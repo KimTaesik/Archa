@@ -802,9 +802,11 @@ $(document).ready(function() {
 		    	$(".leftconnection").show();
 		        $.ajax({
 		            type: "post",
-		            url: "/findRelation",
+		            url: "/tabReq",
 		            success: function(result,status,xhr){
 		            	$(".background").html(result);
+		            	$('#relationResult').css('height', $(window).height() );
+		            	$('#top-side').css('height', $(window).height() );
 		            },
 		            error: function(xhr, status, er){}
 		        });
@@ -835,12 +837,12 @@ $(document).ready(function() {
 			        	       </div>\
 		        		   </div>\
 		        		   <div class="notibox">\
-		        	<div id="topconnect">Notifications</div>\
+		        	<div id="topconnect">Notifications</div><div id="noti-text"></div>\
 		        	</div>\
 		        	\
 		        	';
 		        $('.leftconnection').append(text);
-
+		        socket.emit('noti', $('.myInfoView').attr('id'));
 			});
 			/*
 			 * 친구찾긔 뷰
@@ -925,14 +927,17 @@ $(document).ready(function() {
 			 * relation 검색, 유저리스트
 			 */
 		    $('.leftconnection').on("click","#searchRelation",function(e) {
-		    	
+		    	alert("111");
+		    	/*$('.background').empty();*/
 		    	var search = $("#relationInput").val();
 		        $.ajax({
 		            type: "post",
 		            url: "/findRelationUser",
 		            data: { "search": search },
 		            success: function(result,status,xhr){
-		            	$("#relationResult").html(result);
+		            	$(".background").html(result);
+		            	$('#relationResult').css('height', $(window).height() );
+		            	$('#top-side').css('height', $(window).height() );
 		            },
 		            error: function(xhr, status, er){
 		            	/*console.log("code:"+xhr.status+"\n"+"message:"+xhr.responseText+"\n"+"error:"+er);*/
@@ -966,6 +971,7 @@ $(document).ready(function() {
 		     */
 		    $('.mid').on("click", ".addRelation", function(e){
 		    	
+		    	$(this).parent('#connect-profile').remove();
 		    	var id = $(this).attr("id");
 //		    	var name = $(this).parent('#group-profile').children("#fname").attr('class');
 //		    	var company = $(this).parent('#group-profile').children("#fname").children("#company").attr("class");
@@ -973,13 +979,14 @@ $(document).ready(function() {
 		    	var name = $(".myInfoView").children("#name").val();
 		    	var company = $(".myInfoView").children("#company").val();
 		    	var position = $(".myInfoView").children("#position").val();
-		    	$('.background').empty();
 		    	socket.emit('newRelation', id, name, company, position);
 		    });
 		    /*
 		     * 알람->리퀘스트에서 Connect를 누르면 서로 친구추가해주긔
 		     */
-		    $('.topMenu').on("click", ".conn", function(e){
+		    $('.background').on("click", ".conn", function(e){
+		    	
+            	$(this).parent('#connect-profile').remove();
 		    	e.preventDefault();
 		    	var friend = $(this).attr("id");
 		        $.ajax({
@@ -988,6 +995,7 @@ $(document).ready(function() {
 		            data: { 'friendId':friend },
 		            success: function(result,status,xhr){
 		            	$(".searchResult").html(result);
+
 		            	
 //		            	socket.emit('connHistory',id,me);
 		            },
@@ -999,7 +1007,7 @@ $(document).ready(function() {
 		     * 알람에서 dec클릭하면 지움
 		     */
 		    
-		    $('.topMenu').on("click", ".dec", function(e){
+		    $('.background').on("click", ".dec", function(e){
 		    	e.stopPropagation();
 		    	$(this).parent().remove();
 		    	socket.emit('decline', $(this).attr("id"));
