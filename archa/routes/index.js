@@ -56,6 +56,7 @@ router.post('/roomList', room.roomlist);
 router.post('/fileSend', s3.filesend);
 router.post('/getList', s3.getList);
 router.post('/userProfileImg', s3.userProfileImg);
+router.post('/deleteFile', s3.deleteFile);
 
 router.post('/searchMessage', search.messageSearch);
 router.post('/searchfile', search.fileSearch);

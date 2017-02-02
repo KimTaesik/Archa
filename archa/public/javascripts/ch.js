@@ -321,11 +321,19 @@ $(document).ready(function() {
 					<div class="message_date" id="'+data.date+'"></div>\
 				</div></br>';
 	}	
-	socket = io.connect();
+	socket = io.connect({
+        'reconnection': true,
+        'reconnectionDelay': 1000,
+        'reconnectionDelayMax' : 5000,
+        'reconnectionAttempts': 5
+	});
 	socket.emit('myId', $('.myInfoView').attr("id"));
 	socket.on('disconnect', function() {
-	    socket.socket.reconnect();
+		socket.io.reconnect();
 	});
+    socket.on('reconnect', function() {
+        console.log('reconnect fired!');
+    });
 	socket.on('my message', function (msg) {
     	if($('#messages').children('div').index() > -1){
     		var preDate = new Date($('#messages').children('div').last().children('.message_date').attr('id'));
@@ -1007,6 +1015,9 @@ $(document).ready(function() {
 		}else{
 			$('[id="'+id+'"]').children('#group-profile').children('#group-state').css('background-color', '#c0c0c0');
 		}
+	});
+	socket.on('noti', function(history){
+		
 	});
 	
 });

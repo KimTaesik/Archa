@@ -1,5 +1,5 @@
 <body>
-		<section class="topSection fright">
+	<section class="topSection fright">
 		<!-- rightsection  -->
 		<div id="mySidenav" class="sidenav">
 		 
@@ -7,7 +7,6 @@
 		</div>
 		<div class="myRoom-title-img" ></div>
 		<input type="text" id="room" disabled="disabled">
-
 		    
 		<div class="roomOption fright">
 		
@@ -23,19 +22,26 @@
 			  </ul>
 			</div>
 			<input class="noti fright" type="text" id="searchRoomArchive" class="form-control" placeholder="search">
-			<div id="closeSearchMsg" style="position: relative;top:-23px;float:right;margin-right: 10px;" hidden>X</div>
+			<div id="closeSearchMsg" hidden></div>
 			<input type="hidden" id='joinRoom'>
 			<div id="chatbar"></div>
+			<div class="fright" id="messageSearch" hidden>
+				<!-- <input type="button" id="btnSearch" value="search" /> -->
+				<div class="numContainer fleft">
+					<input class="menum" id="countNum" disabled>/<input class="menum" id="lengthSearch" disabled>
+				</div>
+	        	<input type="button" class="mbtn fright" id="btnNext" />
+	        	<input type="button" class="mbtn fright" id="btnPrev" />  
+			</div>
 		</div>
 		
-		<div class="fright" id="messageSearch" style="width: 15%;" hidden>
-			<!-- <input type="button" id="btnSearch" value="search" /> -->
-			<input id="countNum" disabled>/<input id="lengthSearch" disabled>
-	        <input type="button" class="fright" id="btnNext" value="next" style="width: 4%" />
-	        <input type="button" class="fright" id="btnPrev" value="prev" style="width: 4%;"/>  
-		</div>
+
 				
 		<div class="modal fade" id="inviteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		</div>
+		<div class="progress" style="margin-top: 60px;" hidden>
+			<div class="bar"></div >
+			<div class="percent">0%</div>
 		</div>
 	</section>
 	<div class ="msgbox " id="messages"></div>
@@ -45,18 +51,19 @@
 				<span class="caret"></span>
 			</button>
 			<div class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-				<form enctype="multipart/form-data" id="fileInfo">
+				<form enctype="multipart/form-data" action="/fileSend" method="post" id="fileInfo">
 					<input type="hidden" id='you' name='you'>
 					<input type="hidden" id='me' name='me'>
-					<input type="hidden" id='thisRoom' name='thisRoom'>
+					<input type="hidden" id='thisRoom' name='roomName'>
 					<input type="file" id="file" name="userfile">
-					<button id="fileSend" class="send" type="button">파일전송</button>
+					<button id="fileSend" class="send" type="submit">파일전송</button>
 				</form>
 			</div>
 		</div>
 		<input type="text" id="inputMe" class="msg" name="<%= yourName %>">
 		<button id="btnSend" class="sendBtn" type="button"></button>
 	</div>
+
 	<div id="rightSection" class="fright">
 	</div>
 </body>

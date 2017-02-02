@@ -2445,9 +2445,99 @@ ul li.hang img {
 	background-color:#4A7DFF;
 }
 #close{
-		background-color: #EAEAEA;
-		height: 30px;
-		font-size: 1.8rem;
-		vertical-align: middle;
-		text-align: center;
+	background-color: #EAEAEA;
+	height: 30px;
+	font-size: 1.8rem;
+	vertical-align: middle;
+	text-align: center;
+}
+#messageSearch{
+	margin-top: 5px;
+	text-align: center;
+	width: 130px;
+	height: 25px;
+}
+.menum{
+	border:none;
+	background: transparent;
+	text-align: center;
+	width: 15px;
+	color: #78909C;
+	font-size: 1.4rem;
+}
+.numContainer{
+	color: #78909C;
+	border: 2px solid;
+	border-color: #90a4ae;
+	width: 60px;
+	height: 25px;
+	margin-right: 10px;
+	border-radius:0.4rem;
+}
+.mbtn{
+	border-radius:0.4rem;
+	border:none;
+	width: 20px;
+	height: 20px;
+	background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-top: 2.4px;
+}
+#btnNext{
+    background-image: url(../img/down_button.png);
+    margin-right: 15px;
+}
+#btnPrev{
+    background-image: url(../img/up_button.png);
+	margin-right: 5px;
+}
+#closeSearchMsg{
+	width:18px;
+	height:18px;
+	background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(../img/quit_button.png);
+    position: relative;
+    top:7.5px;
+    float:right;
+    margin-right: 10px;
+    right: -240px;
+}
+.ui-autocomplete{
+	width:245px;
+	height:150px;
+	background: white;
+	border-radius:0.7rem;
+	color:#B0BEC5;
+	border-color: #cfd8dc;
+	list-style: none;
+	border: 2px solid;
+	padding-left: 0px;
+}
+.ui-autocomplete > .ui-menu-item{
+	padding-top:5px;
+	padding-bottom:0px;
+	width:225px;
+	height:30px;
+	list-style: none;
+	font-size: 1.5rem;
+	padding-left: 20px;
+	margin-left: 10px;
+}
+.ui-autocomplete > .ui-state-focus{
+	color: white;
+	background-color: #4a7dff;
+	border-radius:0.4rem;
+}
+ul.ui-autocomplete li:first-child {
+  margin-top: 20px;
+}
+.autoTop{
+	color:#cfd8dc;
+	font-size:1.3rem;
+	position: absolute;
+	top: 5px;
+	left: 5px;
 }

@@ -44,8 +44,9 @@ $(document).ready(function() {
 			
 			/*
 			 * 채팅방에서 파일 전송
-			 */
-		    $('.mid').on("click","#fileSend", function(event) {
+			 * 테스트를 위한 임시주석
+			 */ 
+/*		    $('.mid').on("click","#fileSend", function(event) {
 		    	event.preventDefault();
 		    	
 		        var data = new FormData();
@@ -68,7 +69,80 @@ $(document).ready(function() {
 		            	socket.emit('dataInfoSend', data,$(".myInfoView").attr('id'),$("#userId").val());
 		            }
 		        });
-		    });
+		    });*/
+		    /*
+		     * 서브밋 테스트
+		     * 
+		     */
+/*		    $('.mid').on("submit","#fileInfo", function(event) {
+		    	event.preventDefault();
+		    	alert('서부밋')
+		        var data = new FormData();
+		        data.append('roomName', $('#thisRoom').val());
+		        data.append('you', $('#you').val());
+		        var filesList = document.getElementById('file');
+		        
+		        for (var i = 0; i < filesList.files.length; i ++) {
+		            data.append('userfile', filesList.files[i]);
+		        }
+		        
+		        return true;
+		        
+		    });*/
+		    /*
+		     *  프로그레스바 테스트
+		     *  어찌어찌 완료
+		     */
+
+			$('.mid').on("submit","#fileInfo",function(e){
+				//disable the actual submit of the form.
+				e.preventDefault(); 
+				//grab all form data 
+				var form = $('form')[0];
+				var formData = new FormData(form);
+
+				var upfiles_cnt = $("input:file", this)[0].files.length;
+				if(upfiles_cnt == 0){
+					alert('선택한 파일이 없습니다');
+					return false; // form을 전송시키지 않고 반환
+				}
+				
+		        formData.append('roomName', $('#thisRoom').val());
+		        formData.append('you', $('#you').val());
+		        var filesList = document.getElementById('file');
+		        
+		        for (var i = 0; i < filesList.files.length; i ++) {
+		        	formData.append('userfile', filesList.files[i]);
+		        }
+
+				$(this).ajaxSubmit({
+					// set data type json 
+					dataType:  'json',
+
+					// reset before submitting 
+					beforeSend: function() {
+						$('.progress').show();
+						$('.bar').show();
+						$('.percent').show();
+						$('.bar').css('width','0%');
+						$('.percent').text('0%');
+					},
+
+					// progress bar call back
+					uploadProgress: function(event, position, total, percentComplete) {
+						var pVel = percentComplete + '%';
+						$('.bar').css('width',pVel);
+						$('.percent').text(pVel);
+					},
+		            success	: function(data,status,xhr){
+		            	$('.progress,.bar,.percent').hide();
+						$('.percent').text('0%');
+						socket.emit('dataInfoSend', data,$(".myInfoView").attr('id'),$("#userId").val());
+		            },
+		            resetForm: true 
+				});
+				return false;
+			});
 		    
 		    /*
 		     * 내 정보 수정(왼쪽 상단으로 진입)
@@ -1042,6 +1116,23 @@ $(document).ready(function() {
 			    document.execCommand("copy");
 			    temp.remove();
 			});
+			$('.mid').on('click', '#archive-delete, #gallery-delete', function(){
+				
+				var url = $(this).attr('class');
+				$('[id="'+url+'"]').remove();
+				var temp = url.split('/');
+			    $.ajax({
+			        type: "post",
+			        url: "/deleteFile",
+			        data: { "url":url },
+			        success: function(data,status,xhr){
+			        	alert(data);
+			        },
+			        error: function(xhr, status, er){
+			        	console.log("code:"+xhr.status+"\n"+"message:"+xhr.responseText+"\n"+"error:"+er);
+			        }
+			    });
+			});
 			$(".mid").on("mouseleave",".filebox", function(event){
 				$(this).find("#archive-delete").remove();
 				$(this).find("#archive-link").remove();
@@ -1050,13 +1141,14 @@ $(document).ready(function() {
 			});
 			/* right archive mouseover 2016-01-06 */
 				
-			$(".mid").on("mouseenter",".archive-textbox", function(event){
+			$(".mid").on("mouseenter",".filebox-archive", function(event){
 				var icon= '<div id="archive-icon">\
-		  				   <div id="rarchive-link"></div>\
-		  				   <div id="rarchive-download"></div></div>';
+		  				   <div id="rarchive-link" class="'+$(this).attr('id')+'"></div>\
+		  				   <div id="rarchive-download" class="'+$(this).attr('id')+'"></div></div>';
 				$(this).append(icon);
 			});
-			$(".mid").on("mouseleave",".archive-textbox", function(event){
+			
+			$(".mid").on("mouseleave",".filebox-archive", function(event){
 				$(this).find("#rarchive-link").remove();
 				$(this).find("#rarchive-download").remove();
 			});
@@ -1065,11 +1157,23 @@ $(document).ready(function() {
 				
 			$(".mid").on("mouseenter",".gallery-filebox", function(event){
 				var icon= '<div id="gallery-icon">\
-						   <div id="rgallery-link"></div>\
-		  				   <div id="rgallery-download"></div></div>';
+						   <div id="rgallery-link" class="'+$(this).attr('id')+'"></div>\
+		  				   <div id="rgallery-download" class="'+$(this).attr('id')+'"></div></div>';
 
 				$(this).append(icon);
 			});
+			$(".mid").on('click', "#rarchive-download, #rgallery-download", function(e){
+				var url = $(this).attr('class');
+				$(location).attr('href',url);
+			});
+			$(".mid").on('click', "#rarchive-link, #rgallery-link", function(e){
+			    var temp = $("<input>");
+			    var text = $(this).attr('class');
+			    $(this).append(temp);
+			    temp.val(text).select();
+			    document.execCommand("copy");
+			    temp.remove();
+			});			
 			$(".mid").on("mouseleave",".gallery-filebox", function(event){
 				$(this).find("#rgallery-link").remove();
 				$(this).find("#rgallery-download").remove();
@@ -1186,28 +1290,32 @@ $(document).ready(function() {
 			$('.mid').on('keyup', '#searchRoomArchive', function(key){
 				var sp = $(this).val().split(":");
 				if(key.keyCode==13){
-					if(sp[0] == 'file' || sp[0] == 'gallery' || sp[0] == 'url'){
+					if(sp[0] == 'File' || sp[0] == 'Image' || sp[0] == 'Link'){
 						var url;
 						var search;
 						switch(sp[0]){
-							case 'file'		: url = 'roomArchive'; search = sp[1]; break;
-							case 'gallery'	: url = 'roomGallery'; search = sp[1]; break;
-							case 'url'		: url = 'roomLinks';   search = sp[1]; break;
+							case 'File'		: url = 'roomArchive'; search = sp[1]; break;
+							case 'Image'	: url = 'roomGallery'; search = sp[1]; break;
+							case 'Link'		: url = 'roomLinks';   search = sp[1]; break;
 //								default	: url = $('.roomArchivetitle').attr("id"); search = $('#searchRoomArchive').val();
 						}
 						var room = $('#thisRoom').val();
 //							var search = $('#searchRoomArchive').val();
+						$("#mySidenav").css('width',350);
+						$("#mySidenav").css('height', $(window).height()-$('#archive').height()-$('.searchDiv').height()-95);
+
 					    $.ajax({
 					        type: "post",
 					        url: "/"+url,
 					        data: { "room":room, "search":search },
 					        success: function(result,status,xhr){
-								$('#rightSection').css('width' ,  185 );
+					        	$('#mySidenav').html(result);
+/*								$('#rightSection').css('width' ,  185 );
 								$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-30 );
 								$('#rightSection').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-20);
 								$('.actionBox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);
 					        	$('#rightSection').html(result);
-					        	$('#rightContent').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-$('#myTab').height()-30);
+					        	$('#rightContent').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-$('#myTab').height()-30);*/
 					        },
 					        error: function(xhr, status, er){
 					        	/*console.log("code:"+xhr.status+"\n"+"message:"+xhr.responseText+"\n"+"error:"+er);*/
@@ -1331,17 +1439,21 @@ $(document).ready(function() {
 				       $('#searchRoomArchive').autocomplete({
 				            source: function (request, response) {
 				                result = [{
-				                	"id"	: "1",
-				                    "name"	: "file:",
-				                    "value"	: "file:"
+				                	"id"	: 1,
+				                    "name"	: "",
+				                    "value"	: "			: Searh Message"				                	
+				                },{
+				                	"id"	: 2,
+				                    "name"	: "File:",
+				                    "value"	: "File		: Searh Files"
 				                }, {
-				                	"id"	: "2",
-				                    "name"	: "gallery:",
-				                    "value"	: "gallery:"
+				                	"id"	: 3,
+				                    "name"	: "Image:",
+				                    "value"	: "Image		: Search Image"
 				                }, {
-				                	"id"	: "3",
-				                    "name"	: "url:",
-				                    "value"	: "url:"
+				                	"id"	: 4,
+				                    "name"	: "Link:",
+				                    "value"	: "Link		: Search Link"
 				                }];
 				                
 				                response(result);
@@ -1349,7 +1461,10 @@ $(document).ready(function() {
 				            },
 				            select: function (e, ui) {
 				            	e.preventDefault();
-				            	$('#searchRoomArchive').val(ui.item.label+$('#searchRoomArchive').val());
+				            	$('#searchRoomArchive').val(ui.item.name+$('#searchRoomArchive').val());
+				            },
+				            open: function(event, ui) {
+				                $('.ui-autocomplete').append('<div class="autoTop">Search Option</div>'); //See all results
 				            }
 				        });	
 		    		
@@ -1760,7 +1875,6 @@ $(document).ready(function() {
 //					socket.emit('rooms', $('.myInfoView').attr("id"));
 //			    }, 10000);
 		    });
-		    
-		    
+	    
 
 });

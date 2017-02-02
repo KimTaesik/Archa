@@ -90,7 +90,11 @@ module.exports = function(server){
         		});
         	}
         });
-        
+        socket.on('noti', function(me){
+        	User.findOne({'email':me}).exec(function(err,user){
+    			io.sockets.connected[socket.id].emit('noti',user.history);
+        	});
+        });
 	    socket.on('join', function(room, me, youName) {
 	    	if(nickNames[socket.id] == me){
 		    	var thisRoom;
@@ -362,15 +366,17 @@ module.exports = function(server){
 	    	
 	    });
 	    socket.on('dataInfoSend', function(data, send_userEmail, send_userName){
-			var message = new Message({
+/*			var message = new Message({
 				mtype	: 'data',
 				email	: send_userEmail,
 				name	: send_userName,
 				message : data.name,
 				mdate	: data.date
-			});
-			
-			Room.findOne({'id':socket.room},function(err, room){
+			});*/
+		    io.sockets.to(socket.room).sockets[socket.id].emit('my data', data, send_userEmail, send_userName);
+			socket.broadcast.to(socket.room).emit('other data', data, send_userEmail, send_userName);			
+
+/*			Room.findOne({'id':socket.room},function(err, room){
 				if(err) console.log(err);
 				else {
 					room.messagelog.push(message);
@@ -379,7 +385,7 @@ module.exports = function(server){
 				    io.sockets.to(socket.room).sockets[socket.id].emit('my data', data, send_userEmail, send_userName);
 					socket.broadcast.to(socket.room).emit('other data', data, send_userEmail, send_userName);
 				}
-			});
+			});*/
 	    });
 	    socket.on('roomOut', function(room, me){
 	    	Room.findOne({'roomname':room, 'users':me}, function(err,room){
