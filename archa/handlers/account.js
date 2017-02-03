@@ -221,11 +221,11 @@ exports.searchFriend = function(req, res, next){
 	
 	var user = new User;
 	user = req.session.user_id;
-
-	var friends = DBaccount.searchFriend(user, req.body.inputSearchMember);
+	var search = req.body.inputSearchMember;
+	var friends = DBaccount.getFriend(user);
 	friends.on('end',function(err,fds){
 		if(!err && fds[0].friend!=null){
-			res.render('account/friend', { layout: false, title: '채팅', user: user, groups:user.groups, friends: fds });
+			res.render('account/friend', { layout: false, title: '채팅', user: user, groups:user.groups, friends: fds, search:search });
 		}else{
 			res.send('검색결과가 없다');
 		}
@@ -284,7 +284,7 @@ exports.summary = function(req, res, next){
 						{upsert: true, 'new': true}
 	).
 	populate({
-			path	: 'friends.friend'
+			path	: 'friends.friend', options: { sort: { 'name': 1 }} 
 	}).
 	exec(function(err, doc){
 		req.session.user_id = doc;
@@ -309,7 +309,7 @@ exports.exp = function(req, res, next){
 						},{upsert: true, 'new': true}
 	).
 	populate({
-				path	: 'friends.friend'
+				path	: 'friends.friend', options: { sort: { 'name': 1 }} 
 	}).
 	exec(function(err, doc){
 		req.session.user_id = doc;
@@ -333,7 +333,7 @@ exports.deleteExp = function(req, res, next){
 						},{upsert: true, 'new': true}
 	).
 	populate({
-				path	: 'friends.friend'
+				path	: 'friends.friend', options: { sort: { 'name': 1 }} 
 	}).
 	exec(function(err, doc){
 		req.session.user_id = doc;

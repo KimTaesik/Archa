@@ -27,7 +27,11 @@ exports.joinChat = function(req,res,next){
 	var name = req.body.yourName;
 	res.render('chat/mid', { layout: false, yourName : name });
 }
-
+exports.leaveRoom = function(req, res, next){
+	var user = req.session.user_id;
+	
+	
+}
 exports.inviteRoom = function(req, res, next){
 	var user = new User;
 	user = req.session.user_id;
@@ -79,6 +83,8 @@ exports.roomInfo = function(req, res, next){
 				if(rooms.users.length<2){
 					User.findOne({'email':rooms.users[0]}).exec(function(err, user){
 						users.push(user);
+						console.log('0번째:',rooms.users[0])
+						console.log('users 배열 :',users);
 						res.render('chat/roominfo', { layout: false, users:users});
 					});
 				}else{

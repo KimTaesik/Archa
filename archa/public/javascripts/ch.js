@@ -757,7 +757,7 @@ $(document).ready(function() {
 	});
 	function myUrlHead(msg,i){
 		var text =  '<div class="message_box_send" id='+i+'>\
-						<div id="me_image" class="message_sender" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+re_userEmail+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
+						<div id="me_image" class="message_sender" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
 						<div class="talk link ma" id="'+msg.email+'">\
 						<div id="talkname">'+msg.name+'</div>'+msg.message+'</div>\
 						<div class="message_date" id="'+msg.mdate+'"></div>\
@@ -766,7 +766,7 @@ $(document).ready(function() {
 	}
 	function nearMyUrlHead(msg,i){
 		var text =  '<div class="message_box_send" id='+i+'>\
-					 <div id="me_image" class="message_sender" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+re_userEmail+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
+					 <div id="me_image" class="message_sender" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
 						<div class="talk link ma" id="'+msg.email+'">\
 						<div id="talkname">'+msg.name+'</div>'+msg.message+'</div>\
 						<div class="message_date" id="'+msg.mdate+'"></div>\
@@ -787,7 +787,7 @@ $(document).ready(function() {
 	
 	function otherUrlHead(msg,i){
 		return '<div class="message_box_re" id='+i+'>\
-				<div id="other_image" class="message_re" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+re_userEmail+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
+				<div id="other_image" class="message_re" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
 					<div class="talk link other" id="'+msg.email+'">\
 					<div id="talkother">'+msg.name+'</div>'+msg.message+'</div>\
 					<div class="message_date" id="'+msg.mdate+'"></div>\
@@ -795,7 +795,7 @@ $(document).ready(function() {
 	}
 	function nearOtherUrlHead(msg,i){
 		return '<div class="message_box_re" id='+i+'>\
-				<div id="other_image" class="message_re" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+re_userEmail+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
+				<div id="other_image" class="message_re" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
 					<div class="talk link other" id="'+msg.email+'">\
 					<div id="talkother">'+msg.name+'</div>'+msg.message+'</div>\
 					<div class="message_date" id="'+msg.mdate+'"></div>\

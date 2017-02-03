@@ -2,12 +2,12 @@
 $(document).ready(function() {
 			$('#leftbar').css('height' ,  $(window).height() );
 			$('#leftSection').css('height' ,  $(window).height() );
-			$('#friendlist').css('height' ,  $(window).height()-60);
+			$('#friendlist').css('height' ,  $(window).height()-$('#topcontacts').height()-$('.myInfo').height()-$('#inputSearchMember').height()-10);
 			$('.searchResult,#room-list').css('height' ,  $(window).height()-$('#setGroup').height()-$('.menuTop').height()-$('.memberSection').height()-$('.myInfo').height()-$('.nav').height() -67 );
 			$('.dtprofile').css('height' ,  $(window).height() );
 			$(window).resize(function() {
 				$('#leftSection').css('height' ,  $(window).height());
-				$('#friendlist').css('height' ,  $(window).height() - 60);
+				$('#friendlist').css('height' ,  $(window).height()-$('#topcontacts').height()-$('.myInfo').height()-$('#inputSearchMember').height()-10);
 				/*$('.topMenu').css('width', $(window).width()-$('#leftSection').width());*/
             	$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-$('.topMenu').height());
             	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -10);
@@ -147,7 +147,7 @@ $(document).ready(function() {
 		    /*
 		     * 내 정보 수정(왼쪽 상단으로 진입)
 		     */
-		    $('#leftSection').on('click','#myInfoConfirm', function(e){
+/*		    $('#leftSection').on('click','#myInfoConfirm', function(e){
 		    	event.preventDefault();
 		    	var company = $('#myCompany').val();
 		    	var position = $('#position').val();
@@ -161,23 +161,27 @@ $(document).ready(function() {
 		            },
 		            error: function(xhr, status, er){}
 		        });		    	
-		    });
+		    });*/
 		    
 		    /*
 		     * 친구검색 (아마 다른데로 옮기거나 삭제될각?)
 		     */
-		    $('#leftSection').on('click','#searchFriendBtn', function( event ) {
-		    	event.preventDefault();
-		    	var search = $("#inputSearchMember").val();
-		        $.ajax({	
-		            type: "post",
-		            url: "/searchFriend",
-		            data: { "inputSearchMember": search },
-		            success: function(result,status,xhr){
-		            	$(".searchResult").html(result)
-		            },
-		            error: function(xhr, status, er){}
-		        });
+		    $('#leftSection').on('keyup','#inputSearchMember', function(key ) {
+		    	if(key.keyCode == 13){
+			    	var search = $("#inputSearchMember").val();
+			        $.ajax({	
+			            type: "post",
+			            url: "/searchFriend",
+			            data: { "inputSearchMember": search },
+			            success: function(result,status,xhr){
+			            	$(".searchResult").html(result);
+			            	$('#friendlist').css('height' ,  $(window).height()-$('#topcontacts').height()-$('.myInfo').height()-$('#inputSearchMember').height()-10);
+			            },
+			            error: function(xhr, status, er){
+			            	console.log("code:"+xhr.status+"\n"+"message:"+xhr.responseText+"\n"+"error:"+er);
+			            }
+			        });
+		    	}
 		    });
 		    
 		    /*
@@ -244,6 +248,8 @@ $(document).ready(function() {
 			$('.mid').on('click', '.invite-room', function(e){
 					e.preventDefault();
 					var room = $('#joinRoom').val();
+					var me = $('.myInfoView').attr("id");
+
 			        $.ajax({
 			            type: "post", 
 			            url: "/inviteRoom",
@@ -255,6 +261,29 @@ $(document).ready(function() {
 			            error: function(xhr, status, er){}
 			        });
 			});
+			
+			$('.mid').on('click', '#leaveRoom', function(e){
+				e.preventDefault();
+/*				var room = $('#joinRoom').val();
+		        $.ajax({
+		            type: "post", 
+		            url: "/inviteRoom",
+		            data : { "room" : room },
+		            success: function(result,status,xhr){
+		            	$('#inviteModal').modal();
+		            	$("#inviteModal").html(result);
+		            },
+		            error: function(xhr, status, er){}
+		        });*/
+				$("#mySidenav").css('width',0);
+				var room = $('#joinRoom').val();
+				var me = $('.myInfoView').attr("id");
+				socket.emit('roomOut', room,me);
+				$('.background').empty();
+				if($('.myRoom').length > 0){
+					$('[id="'+room+'"]').remove();
+				}
+			});
 			/*
 			 * 체크박스 선택시 액션
 			 */
@@ -262,13 +291,20 @@ $(document).ready(function() {
 				var pa = $(this).parent('.has-sub');
 				var id = pa.attr('id');
 				var temp = $('<div/>').attr('id', id).addClass('selectResult');
-				var img = $(this).parent('.has-sub').children('#invite-profile').clone();
+/*				var img = $(this).parent('.has-sub').children('#invite-profile').clone();*/
+				var img = $(this).parent('.has-sub').children('#invite-profile').children('#invite-img').clone();
+				img.css('float','left');
 				var name = $(this).parent('.has-sub').children('#invite-profile').children('#invite-fname').attr('class');
 				var nameDiv = $('<div/>').addClass('selectName').text(name);
+				nameDiv.css('float','left');
 				temp.append(img);
 				temp.append(nameDiv);
 				if($(this).is(":checked")){
-					temp.clone().appendTo('.select-list');
+					if($('.select-list').children('[id="'+id+'"]').length>0){
+						
+					}else{
+						temp.clone().appendTo('.select-list');
+					}
 				}else{
 					$('.select-list').children('[id="'+id+'"]').remove();
 				}
@@ -291,7 +327,27 @@ $(document).ready(function() {
 			/*
 			 * room invite modal에서 유저검색.
 			 */
+			var isc;
 			$('.mid').on('keyup', '#inviteSearch' , function(key){
+/*				if(key.keyCode == 13){
+					var search = $('#inviteSearch').val();
+					if(search){
+						isc = $('.member-select').children('.panel-body').clone();
+						var room = $('#joinRoom').val();
+				        $.ajax({
+				            type: "post",
+				            url: "/inviteUserSearch",
+				            data: { "search": search, "room":room },
+				            success: function(result,status,xhr){
+				            	$('.member-select').children('.panel-body').html(result);
+				            },
+				            error: function(xhr, status, er){}
+				        });						
+					}else{
+						$('.member-select').append(isc);
+					}
+
+				}*/
 				if(key.keyCode == 13){
 					var search = $('#inviteSearch').val();
 					var room = $('#joinRoom').val();
@@ -303,7 +359,8 @@ $(document).ready(function() {
 			            	$('.member-select').children('.panel-body').html(result);
 			            },
 			            error: function(xhr, status, er){}
-			        });
+			        });						
+
 				}
 			});
 			/*
@@ -871,8 +928,7 @@ $(document).ready(function() {
 			$( "#leftbar" ).on( "click", "#dropAlarm", function( event ) {
 			    event.preventDefault();
 			    $(".leftconnection").empty();
-		    	$(".leftarch").hide();
-		    	$(".leftchat").hide();
+		    	$(".leftarch, .setInfo, .leftchat").hide();
 		    	$(".leftconnection").show();
 		        $.ajax({
 		            type: "post",
@@ -1096,6 +1152,12 @@ $(document).ready(function() {
 
 				$(this).append(icon);
 			});
+			$(".mid").on("mouseleave",".filebox", function(event){
+				$(this).find("#archive-icon").remove();
+/*				$(this).find("#archive-link").remove();
+				$(this).find("#archive-download").remove();*/
+
+			});			
 			/* gallery mouseover 2016-01-06 */
 			
 			$(".mid").on("mouseenter",".gallery", function(event){
@@ -1107,9 +1169,9 @@ $(document).ready(function() {
 				$(this).append(icon);
 			});
 			$(".mid").on("mouseleave",".gallery", function(event){
-				$(this).find("#gallery-delete").remove();
-				$(this).find("#gallery-link").remove();
-				$(this).find("#gallery-download").remove();
+				$(this).find("#gallery-icon").remove();
+/*				$(this).find("#gallery-link").remove();
+				$(this).find("#gallery-download").remove();*/
 			});
 			
 			$(".mid").on('click', "#archive-download, #gallery-download", function(e){
@@ -1141,34 +1203,32 @@ $(document).ready(function() {
 			        }
 			    });
 			});
-			$(".mid").on("mouseleave",".filebox", function(event){
-				$(this).find("#archive-delete").remove();
-				$(this).find("#archive-link").remove();
-				$(this).find("#archive-download").remove();
 
-			});
 			/* right archive mouseover 2016-01-06 */
 				
 			$(".mid").on("mouseenter",".filebox-archive", function(event){
-				var icon= '<div id="archive-icon">\
+				var icon= '<div id="archive-icon" style="position: absolute;right: 0px;">\
 		  				   <div id="rarchive-link" class="'+$(this).attr('id')+'"></div>\
 		  				   <div id="rarchive-download" class="'+$(this).attr('id')+'"></div></div>';
-				$(this).append(icon);
+				$(this).children('.archive-textbox').prepend(icon);
 			});
 			
 			$(".mid").on("mouseleave",".filebox-archive", function(event){
-				$(this).find("#rarchive-link").remove();
-				$(this).find("#rarchive-download").remove();
+				$(this).find("#archive-icon").remove();
 			});
 			
 			/* right gallery mouseover 2016-01-06 */
 				
 			$(".mid").on("mouseenter",".gallery-filebox", function(event){
-				var icon= '<div id="gallery-icon">\
+				var icon= '<div id="gallery-icon" style="position: absolute;right: 0px;">\
 						   <div id="rgallery-link" class="'+$(this).attr('id')+'"></div>\
 		  				   <div id="rgallery-download" class="'+$(this).attr('id')+'"></div></div>';
 
-				$(this).append(icon);
+				$(this).children('.gallery-textbox').prepend(icon);
+			});
+			$(".mid").on("mouseleave",".gallery-filebox", function(event){
+				$(this).find("#gallery-icon").remove();
+/*				$(this).find("#rgallery-download").remove();*/
 			});
 			$(".mid").on('click', "#rarchive-download, #rgallery-download", function(e){
 				var url = $(this).attr('class');
@@ -1182,10 +1242,7 @@ $(document).ready(function() {
 			    document.execCommand("copy");
 			    temp.remove();
 			});			
-			$(".mid").on("mouseleave",".gallery-filebox", function(event){
-				$(this).find("#rgallery-link").remove();
-				$(this).find("#rgallery-download").remove();
-			});
+
 			/*
 			 * 친구 프로필 클릭하면 우측에 생성
 			 */
@@ -1472,7 +1529,7 @@ $(document).ready(function() {
 				            	$('#searchRoomArchive').val(ui.item.name+$('#searchRoomArchive').val());
 				            },
 				            open: function(event, ui) {
-				                $('.ui-autocomplete').append('<div class="autoTop">Search Option</div>'); //See all results
+				                $('.ui-autocomplete').prepend('<div class="autoTop">Search Option</div>'); //See all results
 				            }
 				        });	
 		    		
@@ -1522,13 +1579,14 @@ $(document).ready(function() {
 			$('#leftbar').on('click', '#searchSec1', function(){
                 var id = $(this).attr('id');
 				var id= $('.myInfoView').attr("id");
-
+				$(".leftarch, .leftconnection, .leftchat").hide();
+				$(".setInfo").show();
                 $.ajax({
                     type: "post",
                     url: "/profile",
                     data: { "id":id },
                     success: function(result,status,xhr){
-                        $('#leftSection').html(result);
+                        $('.setInfo').html(result);
                     },
                     error: function(xhr, status, er){}
                 });
@@ -1783,8 +1841,7 @@ $(document).ready(function() {
 		     */
 			$( "#leftbar" ).on( "click", "#archive1", function( event ) {
 			    event.preventDefault();
-			    $(".leftchat").hide();
-			    $(".leftconnection").hide();
+			    $(".leftchat, .setInfo, .leftconnection").hide();
 		    	$(".leftarch").show();
 			    $('.leftarch').empty();
 			    
@@ -1837,12 +1894,12 @@ $(document).ready(function() {
 			  /*
 		     * 우측 상단에 파일 검색이나 메시지 로그 검색
 		     */
-		    $('#leftbar').on('click', '#searchSec1', function(e){
+/*		    $('#leftbar').on('click', '#searchSec1', function(e){
 		    	e.preventDefault();
 		    	$('#rightSection').css('width' ,  185 );
 		    	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-20 );
 		    	$('#rightSection').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-20);
-		    	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-20 );*/
+		    	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-20 );
 		        $.ajax({
 		            type: "post",
 		            url: "/search",
@@ -1852,20 +1909,22 @@ $(document).ready(function() {
 		            },
 		            error: function(xhr, status, er){}
 		        });
-		    });
+		    });*/
 		    
 		    /*
 		     * 좌측에서 친구 리스트 가져옴
 		     */
 		    $('#leftbar').on("click","#getcontacts1",function(e) {
-		    	$(".leftarch").hide();
+		    	$(".leftarch, .leftconnection").hide();
+		    	$('.dtprofile-background').remove();
 		    	$(".leftchat").show();
 		    	var search = $("#inputAll").val();
 		        $.ajax({
 		            type: "post",
-		            url: "/getFriend",
+		            url: "/leftmenu",
 		            success: function(result,status,xhr){
-		            	$(".searchResult").html(result)
+		            	$(".leftchat").html(result);
+		            	$('#friendlist').css('height' ,  $(window).height()-$('#topcontacts').height()-$('.myInfo').height()-$('#inputSearchMember').height()-10);
 		            },
 		            error: function(xhr, status, er){}
 		        });
@@ -1883,6 +1942,6 @@ $(document).ready(function() {
 //					socket.emit('rooms', $('.myInfoView').attr("id"));
 //			    }, 10000);
 		    });
-	    
+		    
 
 });

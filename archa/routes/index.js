@@ -78,6 +78,7 @@ router.post('/joinChat', chat.joinChat);
 router.post('/inviteRoom', chat.inviteRoom);
 router.post('/inviteUserSearch', chat.inviteUserSearch);
 router.post('/roomInfo', chat.roomInfo);
+router.post('/leaveRoom', chat.leaveRoom);
 
 router.post('/myArchive', myArchive.myArchive);
 router.post('/ALL', myArchive.ALL);

@@ -390,9 +390,13 @@ module.exports = function(server){
 			});*/
 	    });
 	    socket.on('roomOut', function(room, me){
-	    	Room.findOne({'roomname':room, 'users':me}, function(err,room){
+	    	Room.findOne({'id':room}, function(err,room){
 	    		room.users.pull(me);
-	    		room.save();
+	    		if(room.users.length == 0){
+	    			room.remove();
+	    		}else{
+	    			room.save();
+	    		}
 	    	});
 	    });
 	    
