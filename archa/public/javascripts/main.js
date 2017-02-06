@@ -1001,7 +1001,6 @@ $(document).ready(function() {
 			 * relation 검색, 유저리스트
 			 */
 		    $('.leftconnection').on("click","#searchRelation",function(e) {
-		    	alert("111");
 		    	/*$('.background').empty();*/
 		    	var search = $("#relationInput").val();
 		        $.ajax({

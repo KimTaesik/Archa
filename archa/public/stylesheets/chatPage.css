@@ -1500,6 +1500,26 @@ ul li.hang img {
     background-color: #ffffff;
     border-color: #ECEFF1;
 }
+#roomArchives{
+	color:#546E7A;
+	font-size: 1.8rem;
+	margin-top:15px;
+	width: 100%;
+	height:55px;
+	font-weight: bold;
+	border-bottom: 10px solid;
+	border-color: #ECEFF1;
+}
+#roomGallerys{
+	color:#546E7A;
+	font-size: 1.8rem;
+	margin-top:15px;
+	width: 100%;
+	height:55px;
+	font-weight: bold;
+	border-bottom: 10px solid;
+	border-color: #ECEFF1;
+}
 #roomLinkss{
 	color:#546E7A;
 	font-size: 1.8rem;
