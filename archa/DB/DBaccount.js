@@ -2,11 +2,10 @@ var userListener = require('../models/userListener.js');
 var User = require('../models/user.js');
 var Friend = require('../models/friend.js');
 var EventEmitter = require('events').EventEmitter;
-
 exports.login = function(email, password){
 	var evt = new EventEmitter();
 	
-	User.findOne({'email':email, 'password':password}).populate({path: 'friends.friend'}).exec(function(err,user){
+	User.findOne({'email':email, 'password':password}).populate({path: 'friends.friend', options: { sort: { 'name': 1 }} }).exec(function(err,user){
 		evt.emit('end', err, user);
 	});
 	
@@ -19,7 +18,7 @@ exports.getFriend = function(user){
 	
 	User
 	.findOne({email : user.email})
-	.populate({path: 'friends.friend'})
+	.populate({path: 'friends.friend', options: { sort: { 'name': 1 }} })
 	.exec(function (err, fd) {
 		if(err){
 			console.log(err);
@@ -37,7 +36,7 @@ exports.leftmenu = function(user){
 	
 	User
 	.findOne({email : user.email})
-	.populate({path: 'friends.friend'})
+	.populate({path: 'friends.friend', options: { sort: { 'name': 1 }} })
 	.exec(function (err, fd) {
 		if(err){
 			console.log(err);
@@ -63,7 +62,7 @@ exports.register = function(user){
 exports.updateMyInfo = function(email, company, position, phoneNumber){
 	var evt = new EventEmitter();
 	User.findOne({'email':email})
-	.populate({path: 'friends.friend'})
+	.populate({path: 'friends.friend', options: { sort: { 'name': 1 }} })
 	.exec(function(err,user){
 		if(err){
 			console.log(err);
@@ -157,7 +156,7 @@ exports.deleteFriend = function(user, friend){
 	User.findOne({'email':friend}).exec(function(err,friend){
 		User.findOneAndUpdate({'email': user.email}, { $pull:{'request':{'email':you}} },{upsert: true, 'new': true})
 		.populate({
-			path	: 'friends.friend'
+			path	: 'friends.friend', options: { sort: { 'name': 1 }} 
 		}).exec(function(err, doc){
 			req.session.user_id = doc;
 			evt.emit('end',err,user,user.friends);

@@ -1,27 +1,27 @@
-		<%
-				var result = 1;
-				friends.forEach(function(friends, index) {
-					rUser.forEach(function(rUser, index){
-						if(friends.friend.email == rUser){ 
-							result=0;
-						}
-					});
-					if(result){
-						if(search == null || friends.friend.name.indexOf(search)>-1 || friends.friend.company.indexOf(search)>-1){
-					%>
-						<div id="<%= friends.friend.email %>"  class='has-sub checks etrans active'>
-						  <input type="checkbox" id="inUser" class="roomInvite" value="<%= friends.friend.email %>"> 
-						  <label for="inUser"></label> 
-							<div id ="group-profile" href='#'>
-							   	<div id="group-img" style='<%= friends.friend.user_img != null ? "background-image:url("+friends.friend.user_img : "" %>'></div>
-								<div id="fname" class="<%= friends.friend.name %>"><%= friends.friend.name %><br/>
-								<div id="company"><%= friends.friend.company %> / </div> 
-								<div id="position"><%= friends.friend.position %></div><br/>
-								</div><br/>					
-							</div>
-					   </div>
-					<%	}
-					}
-					result=1;
-				});
-		%>
+<%
+		var result = 1;
+		friends.forEach(function(friends, index) {
+			rUser.forEach(function(rUser, index){
+				if(friends.friend.email == rUser){ 
+					result=0;
+				}
+			});
+			if(result){
+				if(search == null || friends.friend.name.indexOf(search)>-1 || friends.friend.company.indexOf(search)>-1){
+			%>
+				<div id="<%= friends.friend.email %>"  class='has-sub checks etrans active'>
+					<input type="checkbox" id="inUser<%=index%>" class="roomInvite" value="<%= friends.friend.email %>">
+					<label for="inUser<%=index%>" style="margin-top: 30px;"></label>
+					<div id ="invite-profile" href='#'>
+					   	<div id="invite-img" style="background-image:url(<%=friends.friend.user_img%>), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>
+						<div id="invite-fname" class="<%= friends.friend.name %>"><%= friends.friend.name %><br/>
+						<div id="invite-position"><%= friends.friend.position %></div>
+						<div id="invite-company"><%= friends.friend.company %></div><br/>
+						</div><br/>					
+					</div>
+			   </div>
+			<%	}
+			}
+			result=1;
+		});
+%>

@@ -39,24 +39,21 @@
 <body style="overflow:hidden;">
 	<!-- ---------------------------------------------------------------------------------------------------------------------------- bootstrap start  -->
 <div id="leftbar" class="fleft">
-				<button id="logo"></button>	
+				<button id="logo" onclick="location.href='/chatPage'"></button>	
 				<div role="presentation" class="lisize active" id="getcontacts1" href="#fd" aria-controls="Friends" role="tab" data-toggle="tab" aria-expanded="true">
 				</div>	
 				<div role="presentation" class="lisize" id="getmessages1" href="#rm" aria-controls="Rooms" role="tab" data-toggle="tab">
 				</div>
 				<button id="archive1"></button>
-				<div class="btn-group">
-						<button class="dropdown-toggle alarm1" type="button" id="dropAlarm" data-toggle="dropdown" aria-expanded="true">
-						</button>
-						<ul class="alarm-drop dropdown-menu dropdown-menu-right" role="menu" style="border: 0;box-shadow: 0px 0px 0px;margin-top: 10px">
-						</ul>
-				</div>
+				<button class="dropdown-toggle alarm1" type="button" id="dropAlarm">
+				</button>
 				<button id="searchSec1"></button>
 </div>	
 <div id="leftSection" class="fleft">
-<div class="leftarch"></div>
-<div class="leftconnection"></div>
-<div class="leftchat">
+	<div class="setInfo"></div>
+	<div class="leftarch"></div>
+	<div class="leftconnection"></div>
+	<div class="leftchat">
 		<input type="hidden" id="userId" value='<%= user.name %>'>
 		<div id="topcontacts">CONTACTS</div>
 		<div class="myInfo">
@@ -109,7 +106,7 @@
 <!--  				<input id="inputAll" type="text" class="form-control" placeholder="all user">
 				<button type="button" class="id btn btn-default" id="searchAllBtn"></button>  -->
 				<input id="inputSearchMember" type="text" class="form-control" placeholder="name, company">
-				<button type="button" class="id btn btn-default" id="searchFriendBtn"></button>
+				<!-- <button type="button" class="id btn btn-default" id="searchFriendBtn"></button> -->
 			</div>
 			
 			<!-- 그룹 뿌려주는 부분
@@ -216,7 +213,7 @@
 		<!-- <button type="button" class="id btn" id="setGroup">ADD GROUP</button> -->
 	</div>
 </div>	
-	
+
 	<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////  -->
 <div class="container-fluid" style="margin-left:380px;">
 	<div class="row">

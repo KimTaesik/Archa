@@ -5,6 +5,7 @@
 
 <div class="invite-room"><div class="icon-plus-circled fleft"></div>Invite New Member</div>
 <%
+	if(users != null && users.length>=1){
 		users.forEach(function(users, index) { 
 %>
 		<div id="<%= users.email %>"  class='has-sub active'>
@@ -20,5 +21,6 @@
 	   </div>
 <% 		
 		});
+	}
 %>
-<div class="leave-the-room"><div class="icon-logout fleft"></div>Leave the Room</div>
+<div class="leave-the-room" id="leaveRoom"><div class="icon-logout fleft"></div>Leave the Room</div>

@@ -4,18 +4,16 @@ var Friend = require('../models/friend.js');
 var Room = require('../models/room.js');
 var EventEmitter = require('events').EventEmitter;
 var async = require("async");
-
 exports.chatPage = function(user){
 	
 	var evt = new EventEmitter();
-	
 	var fds = new Friend;
 	
 	User.
 	findOne({email : user.email})
-	.populate({path: 'friends.friend'})
+	.populate({path: 'friends.friend' , options: { sort: { 'name': 1 }} })
 	.exec(function (err, fd) {
-		var fds = fd.friends;
+		fds = fd.friends;
 		evt.emit('end', err, fds);
 	});
 	return evt;
@@ -65,7 +63,7 @@ exports.getFriend = function(user, gname){
 	User.
 	findOne({email : user.email})
 	.populate({
-		path	: 'friends.friend'
+		path	: 'friends.friend', options: { sort: { 'name': 1 }} 
 	})
 	.exec(function (err, fd) {
 		var fds = fd.friends;
@@ -122,7 +120,7 @@ exports.groupOut = function(user, friend ,gname){
 	var fds = new Friend;
 	User.findOne({'email':user.email})
 	.populate({
-		path	: 'friends.friend'	
+		path	: 'friends.friend'	, options: { sort: { 'name': 1 }} 
 	})
 	.exec(function(err,user){
 		for(index in user.friends){
@@ -155,7 +153,7 @@ exports.addChkUser = function(user, friends ,gname){
 	}
 	User.findOne({'email':user.email})
 	.populate({
-		path	: 'friends.friend'	
+		path	: 'friends.friend'	, options: { sort: { 'name': 1 }} 
 	})
 	.exec(function(err,user){
 		for(index in user.friends){

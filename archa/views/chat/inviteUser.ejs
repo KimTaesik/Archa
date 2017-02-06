@@ -5,7 +5,7 @@
      </div>
      <div class="modal-body" id="inviteBody" style="padding:0">
       <div class="member-select" style="padding:0">
-      <input class="noti-modal fright" type="text" id="searchRoomArchive" placeholder="search">
+      <input class="noti-modal fright" type="text" id="inviteSearch" placeholder="search">
       	<div id= "invite-back"></div>
       	<div class="panel-body" id="invite-pbody">
 		<%
@@ -20,10 +20,9 @@
 					%>
 						<div id="<%= friends.friend.email %>"  class='has-sub checks etrans active'>
 							<input type="checkbox" id="inUser<%=index%>" class="roomInvite" value="<%= friends.friend.email %>">
-							<label for="inUser<%=index%>"></label>
+							<label for="inUser<%=index%>" style="margin-top: 30px;"></label>
 							<div id ="invite-profile" href='#'>
-								<div id="group-state" style="<%= friends.friend.state==1 ? 'background-color: #2CCA70' : 'background-color: #c0c0c0' %>" ></div>
-							   	<div id="group-img" style='<%= friends.friend.user_img != null ? "background-image:url("+friends.friend.user_img : "" %>'></div>
+							   	<div id="invite-img" style="background-image:url(<%=friends.friend.user_img%>), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>
 								<div id="invite-fname" class="<%= friends.friend.name %>"><%= friends.friend.name %><br/>
 								<div id="invite-position"><%= friends.friend.position %></div>
 								<div id="invite-company"><%= friends.friend.company %></div><br/>
