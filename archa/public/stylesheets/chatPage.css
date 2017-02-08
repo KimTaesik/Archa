@@ -333,16 +333,53 @@ font-family: "Source Sans Pro";
 .actionBox{
 	width:100%;
 	margin-bottom: 10px;
+	background-color: #eceff1;
 }
-#plus{width:5%;}
+.chatfoot{
+	background-color: #eceff1;
+}
+#plus{
+    /* width: 5%; */
+    width: 35px;
+    margin-left: 30px;
+    /* border-bottom: 1.5px solid #ccc; */
+    /* border-left: 1.5px solid #ccc; */
+    /* border-top: 1.5px solid #ccc; */
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url(../img/upload.png);
+    /* height: 38px; */
+}
 .plusbtn{
-	width:100%;
-	height:34px;
-	background-color:#fff;
-	border:none;
-	background-repeat:no-repeat;
-	background-size:100% 100%;
-	background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCIgdmlld0JveD0iMCAwIDYxMiA2MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDYxMiA2MTI7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8ZyBpZD0iR29vZ2xlX3gyQl8iPgoJCTxnPgoJCQk8cGF0aCBkPSJNNzYuNSw0OTcuMjV2LTE1M0gwVjUzNS41QzAsNTc3Ljc2NywzNC4yMzQsNjEyLDc2LjUsNjEyaDE5MS4yNXYtNzYuNWgtMTUzQzkzLjYzNiw1MzUuNSw3Ni41LDUxOC4zNjQsNzYuNSw0OTcuMjV6ICAgICAgTTM0NC4yNSw0NTlWMzQ0LjI1SDQ1OXYtNzYuNUgzNDQuMjVWMTUzaC03Ni41djExNC43NUgxNTN2NzYuNWgxMTQuNzVWNDU5SDM0NC4yNXogTTc2LjUsMTE0Ljc1ICAgICBjMC0yMS4xMTQsMTcuMTM2LTM4LjI1LDM4LjI1LTM4LjI1aDE1M1YwSDc2LjVDMzQuMjM0LDAsMCwzNC4yMzQsMCw3Ni41djE5MS4yNWg3Ni41VjExNC43NXogTTUzNS41LDQ5Ny4yNSAgICAgYzAsMjEuMTE0LTE3LjEzNiwzOC4yNS0zOC4yNSwzOC4yNWgtMTUzVjYxMkg1MzUuNWM0Mi4yNjcsMCw3Ni41LTM0LjIzMyw3Ni41LTc2LjVWMzQ0LjI1aC03Ni41VjQ5Ny4yNXogTTUzNS41LDBIMzQ0LjI1djc2LjUgICAgIGgxNTNjMjEuMTE0LDAsMzguMjUsMTcuMTM2LDM4LjI1LDM4LjI1djE1M0g2MTJWNzYuNUM2MTIsMzQuMjM0LDU3Ny43NjcsMCw1MzUuNSwweiIgZmlsbD0iIzkxREM1QSIvPgoJCTwvZz4KCTwvZz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K);
+	width: 50px;
+    height: 40px;
+    background-color: #ffffff;
+    border: 2px solid #ccc;
+    /* border: none; */
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    background-repeat: no-repeat;
+    /* margin-top: 10px; */
+    /* background-position: initial; */
+    background-position-x: 12px;
+    background-position-y: 9px;
+    background-size: 50% 50%;
+    background-image: url(../img/upload.png);
+}
+#imoticon{
+    width: 25px;
+    height: 25px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(../img/emoticon.png);
+    position: relative;
+    top: 7px;
+    float: right;
+    /* margin-right: 80px; */
+    right: 90px;
 }
 
 #leftSection{
@@ -723,7 +760,8 @@ creates the smaller  triangle
 
 .msg {
   display: inline-block;
-  height: 34px;
+  height: 40px;
+  margin-left: 13px;
   width:90%;
   float:left;
   padding: 6px 12px;
@@ -733,8 +771,9 @@ creates the smaller  triangle
   background-color: #FFFFFF;
   background-image: none;
   border: 2px solid #ccc;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px; }
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px; 
+  }
 .send {
   background-color: #ffec42;
   display: inline-block;
@@ -2783,7 +2822,7 @@ ul li.hang img {
     color: #90A4AE;
     font-size: 1.4rem;
     font-weight: normal;
-    margin-left:-12px;
+    /* margin-left:-12px; */
 }
 #mposition{
     display: block;
@@ -2791,7 +2830,7 @@ ul li.hang img {
     font-size: 1.4rem;
     font-weight: normal;
     margin-top: 7px;
-    margin-left: 25px;
+    margin-left: 23px;
 }
 .selectResult{
 	height: 80px;
