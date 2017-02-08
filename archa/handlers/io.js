@@ -39,10 +39,11 @@ module.exports = function(server){
     	sockets.push(socket);	   
     	
         socket.on('myId', function(id) {
-        	console.log('yes!');
+        	console.log('yes!::',id);
         	nickNames[socket.id] = id;
-        	User.findOneAndUpdate({'email':id}, { $set:{'state' : 1 }},{upsert: true, 'new': true}).populate({path: 'friends.friend'})
+        	User.findOneAndUpdate({'email':id}, { $set:{'state' : 1 } },{'new': true}).populate({path: 'friends.friend'})
         	.exec(function(err,user){
+        		
         		if(err) console.log(err);
         		else io.sockets.connected[socket.id].emit('state', 1);
         		
@@ -448,11 +449,7 @@ module.exports = function(server){
 	    		result.save();
 	    	});
 	    });
-	    socket.on('noti', function(me){
-            User.findOne({'email':me}).exec(function(err,user){
-                io.sockets.connected[socket.id].emit('noti',user.history);
-            });
-        });
+
 		socket.on('message', function(msg){
 			var ogs = require('open-graph-scraper');
 			var messageDate = moment().add(9, 'h').toDate();

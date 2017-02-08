@@ -112,7 +112,7 @@ exports.userProfileImg = function(req, res, next){
 exports.logout = function(req, res, next){
 	req.session.destroy(function(){
 		var email = req.session.user_id.email;
-		User.findOneAndUpdate({'email':email}, { $set:{'state' : 0 }},{upsert: true, 'new': true})
+		User.findOneAndUpdate({'email':email}, { $set:{'state' : 0 }},{'new': true})
 		.exec(function(err, user){
 			res.redirect('/');
 		});
@@ -128,7 +128,7 @@ exports.mypage = function(req, res, next){
 exports.leftmenu = function(req, res, next){
 	var user = new User;
 	var user = req.session.user_id;
-	
+	user.state = 1;
 	var friend = DBaccount.leftmenu(user);
 	friend.on('end', function(err,fds){
 		if(!err){
@@ -161,7 +161,7 @@ exports.register = function(req, res, next){
 		'signDate' : new Date,
 		'groups' : 'default'
 	});
-	
+
 	var save = DBaccount.register(user);
 	save.on('end', function(err,result){
 		res.redirect('/');

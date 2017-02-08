@@ -13,7 +13,7 @@ var userSchema = mongoose.Schema({
 	groups		: [{ type: String, unique : true }],
 	request		: [{ email : String, name: String, company: String, position: String, "_id": false }],
 /*	request		: [{ type : mongoose.Schema.Types.ObjectId, require : true, ref : 'user', "_id": false }],*/
-	history		: [{ name : String, notidate : Date }],
+	history		: [{ email : String, name : String, notidate : Date, "_id": false  }],
 	friends		: [{ friend :{ type : mongoose.Schema.Types.ObjectId, require : true, ref : 'user' }, groupname:{ type:String, required:true, "default":'default' }, "_id": false }],
 	state		: { type: Number, "default": 0},
 	summary		: String,

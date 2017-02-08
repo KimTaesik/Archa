@@ -1,6 +1,8 @@
 var userListener = require('../models/userListener.js');
 var User = require('../models/user.js');
 var Friend = require('../models/friend.js');
+var Request = require('../models/request.js');
+
 var EventEmitter = require('events').EventEmitter;
 exports.login = function(email, password){
 	var evt = new EventEmitter();
@@ -50,7 +52,19 @@ exports.leftmenu = function(user){
 
 exports.register = function(user){
 	var evt = new EventEmitter();
-	
+	var test = new Request({
+			'email':'ts9295@naver.com',
+			 'name' :'김태식',
+			 'company':'아카',
+			 'position':'부짱'});
+	var test2 = new Request({
+				'email':'ts9296@naver.com',
+			 'name' :'김태식',
+			 'company':'아카',
+			 'position':'부짱'});
+	console.log("객체생성:",test)
+	user.request.push(test);
+	user.request.push(test2);
 	user.save(function(err){
 		evt.emit('end', err, 'success');
 	});

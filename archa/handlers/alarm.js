@@ -35,8 +35,8 @@ exports.connFriend = function(req, res, next){
 	user = req.session.user_id;
 	var you = req.body.friendId;
 	
-	User.findOneAndUpdate({'email': you },{$addToSet:{'history':  { 'name' :user.name , 'notidate': new Date } , 'friends': { 'friend' : user._id  }}},{upsert: true, 'new': true}).exec(function(err,friend){
-		User.findOneAndUpdate({'email': user.email}, {$addToSet:{'history':  { 'name' :friend.name , 'notidate': new Date } , 'friends': { 'friend' : friend._id  }}, $pull:{'request':{'email':you}}},{upsert: true, 'new': true})
+	User.findOneAndUpdate({'email': you },{$addToSet:{'history':  { 'email':user.email, 'name' :user.name , 'notidate': new Date } , 'friends': { 'friend' : user._id  }}},{upsert: true, 'new': true}).exec(function(err,friend){
+		User.findOneAndUpdate({'email': user.email}, {$addToSet:{'history':  { 'email':friend.email, 'name' :friend.name , 'notidate': new Date } , 'friends': { 'friend' : friend._id  }}, $pull:{'request':{'email':you}}},{upsert: true, 'new': true})
 			.populate({
 				path	: 'friends.friend'
 			}).exec(function(err, doc){

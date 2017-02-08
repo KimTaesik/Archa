@@ -15,7 +15,7 @@ exports.chatPage = function(req, res, next){
 
 	friends.on('end',function(err,fds){
 		if(req.session.user_id || !err){
-			res.render('chat/chatPage', { title: '채팅', user: user, groups : user.groups, friends : fds, rooms: room });
+			res.render('chat/chatPage', { title: '채팅', user: user, groups : user.groups, friends : fds, rooms: room, req : user.request, his : user.history });
 		}else{
 			res.redirect('/');
 		}
@@ -83,8 +83,6 @@ exports.roomInfo = function(req, res, next){
 				if(rooms.users.length<2){
 					User.findOne({'email':rooms.users[0]}).exec(function(err, user){
 						users.push(user);
-						console.log('0번째:',rooms.users[0])
-						console.log('users 배열 :',users);
 						res.render('chat/roominfo', { layout: false, users:users});
 					});
 				}else{

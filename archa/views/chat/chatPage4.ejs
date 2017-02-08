@@ -49,58 +49,11 @@
 				</button>
 				<button id="searchSec1"></button>
 </div>	
-<div id="leftSection" class="<%= user.email %>">
+<div id="leftSection" class="fleft">
 	<div class="setInfo"></div>
 	<div class="leftarch"></div>
-	<div class="leftconnection">
-	    <div id="topconnect">ADD NEW CONTACTS</div>
-	    <div class="searchbox">
-	        <div class="contact-text">
-	            <div id="email-icon"></div>E-mail</div>
-	        <div class="contact-input">
-	            <input class="form-control" id="relationInput" type="text"/></div>
-	        <button class="search-message" id="searchRelation">Search</button>
-	    </div>
-	    <div class="searchbox">
-	        <div class="contact-text">
-	            <div id="phone-icon"></div>Phone</div>
-	        <div class="contact-input">
-	            <select class="form-control" id="phone-select">
-	                <option>+82</option>
-	                <option>+01</option>
-	                <option>+81</option>
-	                <option>+86</option>
-	                <option>+61</option>
-	                <option>+44</option>
-	                <option>+63</option>
-	                <option>+852</option>
-	                <option>+66</option>
-	            </select>
-	            <input class="form-control" id="phone-input" type="text" />
-	            <button class="search-message" id="#">Search</button>
-	        </div>
-	    </div>
-	    <div class="notibox">
-	        <div id="topconnect">Notifications</div>
-	        <div id="noti-text">
-	        <%
-	        	if(his){
-	        		his.forEach(function(his, index) { 
-	        %>
-	        <div class="notitab">
-	        	<div id="noti-img" style="background-image:url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/<%= his.email %>/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>
-	        	<div id="noti-textbox"><%= his.name %>
-				<br><div id="connect-you">is connected with you</div>
-				</div>
-			</div>
-			<br>
-	        <%		});
-	        	}
-	        %>
-	        </div>
-	    </div>
-	</div>
-		<div class="leftchat" hidden>
+	<div class="leftconnection"></div>
+	<div class="leftchat">
 		<input type="hidden" id="userId" value='<%= user.name %>'>
 		<div id="topcontacts">CONTACTS</div>
 		<div class="myInfo">
@@ -265,6 +218,24 @@
 <div class="container-fluid" style="margin-left:380px;">
 	<div class="row">
 		<div class="topchat col-md-12" style="padding: 0">
+<!-- 			<div class="topMenu fright">
+				<div id="mySidenav" class="sidenav">
+	 
+	<div id="archive11"></div>
+	</div>
+				<div class="buttonGroup fright">
+					<button id="searchSec"></button>
+					<button class="icon-users" id="alarm"></button>  2016/01/02 icon apply
+					<div class="btn-group fright">
+						<button class="dropdown-toggle alarm" type="button" id="dropAlarm" data-toggle="dropdown" aria-expanded="true">
+						</button>
+						<ul class="alarm-drop dropdown-menu dropdown-menu-right" role="menu" style="border: 0;box-shadow: 0px 0px 0px;margin-top: 10px">
+						</ul>
+					</div>
+					<button id="archive"></button>
+
+				</div>	
+			</div> -->
 			
 			<div class="right fright">
 				<div id="rightSection">
@@ -272,30 +243,6 @@
 			</div>
 			<div class="mid fleft col-md-12" style="padding:0">
 				<div class="background">
-					<div id="relationResult">
-						<div id="top-side">
-							<div id="top-result">Respond to Connection Requests</div>
-							<%
-								if(req){
-									req.forEach(function(req, index) { 
-							%>
-								<div id="<%= req.email %>"  class='request'>
-									<div id ="connect-profile" href='#'>
-										<div id="connect-img" style="background-image:url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/<%= req.email %>/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"> </div>
-										<div id="<%= req.name %>" class="connect-name"><%= req.name %><br/>
-											<div id="<%= req.position %>" class="connect-position"><%= req.position %></div> 
-											<div id="<%= req.company %>" class="connect-company"><%= req.company %></div><br/>
-										</div>
-										<button type="button" id="<%= req.email %>" class="conn fleft">Connect</button>
-										<button type="button" id="<%= req.email %>" class="dec">Decline</button>						
-									</div>
-								</div>
-							<%
-									});
-								}
-							%>
-						</div>
-					</div>
 				</div>
 			</div>
 			

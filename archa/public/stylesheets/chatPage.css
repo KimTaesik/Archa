@@ -348,6 +348,7 @@ font-family: "Source Sans Pro";
 #leftSection{
 	/*  margin-left: 60px; */
 /* 	width:15%; naki_20161210 */
+float: left;
 }
 #leftSection > button,input{
 	width:100%;

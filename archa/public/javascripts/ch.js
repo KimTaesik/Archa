@@ -327,7 +327,7 @@ $(document).ready(function() {
         'reconnectionDelayMax' : 5000,
         'reconnectionAttempts': 5
 	});
-	socket.emit('myId', $('.myInfoView').attr("id"));
+	socket.emit('myId', $('#leftSection').attr('class'));
 	socket.on('disconnect', function() {
 		socket.io.reconnect();
 	});
@@ -1017,11 +1017,11 @@ $(document).ready(function() {
 		}
 	});
 	socket.on('noti', function(history){
-		history.forEach(function(index){
-			$('#noti-text').append('<div class="notitab"><div id="noti-img"></div><div id="noti-textbox">'+index.name+'\
+		history.forEach(function(his,index){
+			$('#noti-text').append('<div class="notitab"><div id="noti-img" style="background-image:url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+ his.email +'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div><div id="noti-textbox">'+his.name+'\
 					</br><div id="connect-you">is connected with you</div></div></div>');
 			$('#noti-text').append('<br>');
-		})
+		});
 	});
 	
 });

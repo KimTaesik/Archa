@@ -5,6 +5,8 @@ $(document).ready(function() {
 			$('#friendlist').css('height' ,  $(window).height()-$('#topcontacts').height()-$('.myInfo').height()-$('#inputSearchMember').height()-10);
 			$('.searchResult,#room-list').css('height' ,  $(window).height()-$('#setGroup').height()-$('.menuTop').height()-$('.memberSection').height()-$('.myInfo').height()-$('.nav').height() -67 );
 			$('.dtprofile').css('height' ,  $(window).height() );
+        	$('#relationResult').css('height', $(window).height() );
+        	$('#top-side').css('height', $(window).height() );
 			$(window).resize(function() {
 				$('#leftSection').css('height' ,  $(window).height());
 				$('#friendlist').css('height' ,  $(window).height()-$('#topcontacts').height()-$('.myInfo').height()-$('#inputSearchMember').height()-10);
@@ -16,6 +18,8 @@ $(document).ready(function() {
             	/*$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()); */
             	$('.archiveback').css('height', $(window).height() - $('.topMenu').height()-$('.mySection').height());
             	$('#dataList').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()); 
+            	$('#relationResult').css('height', $(window).height() );
+            	$('#top-side').css('height', $(window).height() );
             	/*$('.mySection').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
 				if($('#rightSection').width()>10){
 					$('#rightSection').css('width' ,  185 );
@@ -972,7 +976,7 @@ $(document).ready(function() {
 		        	\
 		        	';
 		        $('.leftconnection').append(text);
-		        socket.emit('noti', $('.myInfoView').attr('id'));
+		        socket.emit('noti', $('#leftSection').attr('class'));
 			});
 			/*
 			 * 친구찾긔 뷰
@@ -1057,7 +1061,6 @@ $(document).ready(function() {
 			 * relation 검색, 유저리스트
 			 */
 		    $('.leftconnection').on("click","#searchRelation",function(e) {
-		    	alert("111");
 		    	/*$('.background').empty();*/
 		    	var search = $("#relationInput").val();
 		        $.ajax({
@@ -1935,7 +1938,8 @@ $(document).ready(function() {
 			 * 왼쪽 방 정보 가져오기.
 			 */
 		    $('#leftbar').on("click","#getmessages1",function(){
-		    	$(".leftarch").hide();
+		    	$(".leftarch, .leftconnection").hide();
+		    	$('.dtprofile-background').remove();
 		    	$(".leftchat").show();
 		    	socket.emit('rooms', $('.myInfoView').attr("id"));
 //				setInterval(function() {
