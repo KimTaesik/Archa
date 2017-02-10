@@ -1,47 +1,47 @@
 <body>
-<% 
-	groups.forEach(function(group, index){
-%>
-<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-  <div class="panel panel-default">
-    <div class="panel-head" role="tab" id="heading<%= index %>">
-      <h4 class="panel-title">
-  <!--       <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%= index %>" aria-expanded="true" aria-controls="collapse<%= index %>">
-          <%= group %>
-        </a> -->
-        <% if(group != 'default'){%>
-        <button type="button" id="<%= group %>" class="addUser">+</button>
-        <button type="button" id="<%= group %>" class="GroupSetting">Setting</button>
-        <% }%>
-      </h4>
-    </div>
-    <div id="collapse<%= index %>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading<%= index %>">
-      <div class="panel-body" id="friendlist">
-		<%
-				friends.forEach(function(friends, index) { 
-					if(group==friends.groupname){
-						if(search == null || friends.friend.name.indexOf(search)>-1 || friends.friend.company.indexOf(search)>-1){
-		%>
-						<div id="<%= friends.friend.email %>"  class='has-sub active'>
-						<div id ="group-profile">
-							<div id="group-state" style="<%= friends.friend.state==1 ? 'background-color: #2CCA70' : 'background-color: #c0c0c0' %>" ></div>
-							<div id="group-img" style="background-image:url(<%=friends.friend.user_img%>), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);" ></div>
-								<div id="fname" class="<%= friends.friend.name %>"><%= friends.friend.name %>
-								<div id="fposition"><%= friends.friend.position %></div>
-								<div id="fcompany"><%= friends.friend.company %></div> 
-								<br/>
-								</div><br/>					
+						<% 
+							groups.forEach(function(group, index){
+						%>
+						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+						  <div class="panel panel-default">
+						    <div class="panel-head" role="tab" id="heading<%= index %>">
+						      <h4 class="panel-title">
+						  <!--       <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%= index %>" aria-expanded="true" aria-controls="collapse<%= index %>">
+						          <%= group %>
+						        </a> -->
+						        <% if(group != 'default'){%>
+						        <button type="button" id="<%= group %>" class="addUser">+</button>
+						        <button type="button" id="<%= group %>" class="GroupSetting">Setting</button>
+						        <% }%>
+						      </h4>
+						    </div>
+						    <div id="collapse<%= index %>" class="panel-collapse collapse in inner" role="tabpanel" aria-labelledby="heading<%= index %>">
+						      <div class="panel-body" id="friendlist">
+								<%
+										friends.forEach(function(friends, index) { 
+											if(group==friends.groupname){
+												if(search == null || friends.friend.name.indexOf(search)>-1 || friends.friend.company.indexOf(search)>-1){
+								%>
+ 											<div id="<%= friends.friend.email %>"  class='has-sub active'>
+												<div id ="group-profile">
+													<div id="group-state" style="<%= friends.friend.state==1 ? 'background-color: #2CCA70' : 'background-color: #c0c0c0' %>" ></div>
+													<div id="group-img" style="background-image:url(<%=friends.friend.user_img%>), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);" ></div>
+														<div id="fname" class="<%= friends.friend.name %>"><%= friends.friend.name %>
+														<div id="fposition"><%= friends.friend.position %></div>
+														<div id="fcompany"><%= friends.friend.company %></div> 
+														<br/>
+														</div><br/>						
+												</div>
+										   </div>  
+								<% 				}
+											}
+										});
+								%>
+							  </div>
+						    </div>
+						  </div>
 						</div>
-				   </div>  
-		<% 				}
-					}
-				});
-		%>
-	  </div>
-    </div>
-  </div>
-</div>
-<%
-	});
-%>
+						<%
+							});
+						%>
 </body>

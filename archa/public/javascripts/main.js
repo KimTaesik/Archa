@@ -8,6 +8,7 @@ $(document).ready(function() {
         	$('#relationResult').css('height', $(window).height() );
         	$('#top-side').css('height', $(window).height() );
 			$(window).resize(function() {
+				$('#leftbar').css('height' ,  $(window).height() );
 				$('#leftSection').css('height' ,  $(window).height());
 				$('#friendlist').css('height' ,  $(window).height()-$('#topcontacts').height()-$('.myInfo').height()-$('#inputSearchMember').height()-10);
 				/*$('.topMenu').css('width', $(window).width()-$('#leftSection').width());*/
@@ -20,19 +21,10 @@ $(document).ready(function() {
             	$('#dataList').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()); 
             	$('#relationResult').css('height', $(window).height() );
             	$('#top-side').css('height', $(window).height() );
-            	/*$('.mySection').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
-				if($('#rightSection').width()>10){
-					$('#rightSection').css('width' ,  185 );
-	            	$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-$('.topMenu').height());
-/*	            	$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-10);
-	            	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-10 );*/
-					$('#rightSection').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-20);
-					$('#rightContent').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-$('#myTab').height()-30);
-	            	/*$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
-	            	$('.archiveback').css('height', $(window).height() - $('.topMenu').height()-$('.mySection').height());
-	            	$('#dataList').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()); 
-	            	/*$('.mySection').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width());*/
-				}
+                    $('.setInfo').css('width' ,  $(window).width());
+                    $('.setInfo').css('height' ,  $(window).height());
+                    $('.dtprofile-background').css('width' ,  $('.setInfo').width()+30);
+                    $('.dtprofile-background').css('height' ,  $('.setInfo').height()+30);
 			});
 			
 			/*
@@ -170,7 +162,7 @@ $(document).ready(function() {
 		    /*
 		     * 친구검색 (아마 다른데로 옮기거나 삭제될각?)
 		     */
-		    $('#leftSection').on('keyup','#inputSearchMember', function(key ) {
+		    $('.leftchat').on('keyup','#inputSearchMember', function(key) {
 		    	if(key.keyCode == 13){
 			    	var search = $("#inputSearchMember").val();
 			        $.ajax({	
@@ -605,7 +597,7 @@ $(document).ready(function() {
 			 * 왼쪽에서 대화방 리스트 중에서 선택하여 더블클릭 했을 시
 			 * 입장
 			 */
-			$('#leftSection').on('dblclick', ".myRoom", function(e){
+			$('#leftSection').on('click', ".myRoom", function(e){
 				$("#messages").empty();
 				$('#room').val('');
 				var roomName = $(this).attr("id");
@@ -933,7 +925,7 @@ $(document).ready(function() {
 			    event.preventDefault();
 			    $(".leftconnection").empty();
 		    	$(".leftarch, .setInfo, .leftchat").hide();
-		    	$(".leftconnection").show();
+		    	$(".leftconnection, .container-fluid").show();
 		        $.ajax({
 		            type: "post",
 		            url: "/tabReq",
@@ -1557,13 +1549,15 @@ $(document).ready(function() {
 
 		    $('#leftSection').on('change', '#profile_img_input', function(event){
 		    	event.preventDefault();
-
+		    	
 		        var data = new FormData();
 		        var filesList =  document.getElementById('profile_img_input');
-		        
+		        var randomId = new Date().getTime();
+		    
 		        for (var i = 0; i < filesList.files.length; i ++) {
 		            data.append('userfile', filesList.files[i]);
 		        }
+		        
 		        $.ajax({
 		            url			:	"/userProfileImg",	
 		            processData	:	false,
@@ -1572,7 +1566,7 @@ $(document).ready(function() {
 		            data		:	data,
 		            datatype	:	"json",
 		            success		:	function(data,status,xhr){
-		            	$('#profile_view').css('background-image','url('+data);
+		            	$('#profile_view').css('background-image',"url(" + data + "?random=" + randomId + ")");
 		            }
 		        });
 		    });
@@ -1582,14 +1576,19 @@ $(document).ready(function() {
 			$('#leftbar').on('click', '#searchSec1', function(){
                 var id = $(this).attr('id');
 				var id= $('.myInfoView').attr("id");
-				$(".leftarch, .leftconnection, .leftchat").hide();
+				$(".leftarch, .leftconnection, .leftchat, .container-fluid").hide();
 				$(".setInfo").show();
+			
                 $.ajax({
                     type: "post",
                     url: "/profile",
                     data: { "id":id },
                     success: function(result,status,xhr){
                         $('.setInfo').html(result);
+                        $('.setInfo').css('width' ,  $(window).width());
+                        $('.setInfo').css('height' ,  $(window).height());
+                        $('.dtprofile-background').css('width' ,  $('.setInfo').width()+30);
+                        $('.dtprofile-background').css('height' ,  $('.setInfo').height()+30);
                     },
                     error: function(xhr, status, er){}
                 });
@@ -1845,7 +1844,7 @@ $(document).ready(function() {
 			$( "#leftbar" ).on( "click", "#archive1", function( event ) {
 			    event.preventDefault();
 			    $(".leftchat, .setInfo, .leftconnection").hide();
-		    	$(".leftarch").show();
+		    	$(".leftarch, .container-fluid").show();
 			    $('.leftarch').empty();
 			    
 		        $.ajax({
@@ -1919,9 +1918,11 @@ $(document).ready(function() {
 		     */
 		    $('#leftbar').on("click","#getcontacts1",function(e) {
 		    	$(".leftarch, .leftconnection").hide();
-		    	$('.dtprofile-background').remove();
-		    	$(".leftchat").show();
-		    	var search = $("#inputAll").val();
+		    	$('.dtprofile-background, #relationResult').remove();
+                $('.setInfo').css('width' ,  0);
+                $('.setInfo').css('height' ,  0);
+		    	$(".leftchat, .container-fluid").show();
+
 		        $.ajax({
 		            type: "post",
 		            url: "/leftmenu",
@@ -1939,9 +1940,12 @@ $(document).ready(function() {
 			 */
 		    $('#leftbar').on("click","#getmessages1",function(){
 		    	$(".leftarch, .leftconnection").hide();
-		    	$('.dtprofile-background').remove();
-		    	$(".leftchat").show();
+		    	$('.dtprofile-background, #relationResult').remove();
+                $('.setInfo').css('width' ,  0);
+                $('.setInfo, .category, .leftarch').css('height' ,  0);
+		    	$(".leftchat, .container-fluid").show();
 		    	socket.emit('rooms', $('.myInfoView').attr("id"));
+		    	$('.searchResult,#room-list').css('height' ,  $(window).height()-$('#topcontacts').height()-$('.myInfo').height()-$('#inputSearchMember').height()-10 );
 //				setInterval(function() {
 //					socket.emit('rooms', $('.myInfoView').attr("id"));
 //			    }, 10000);

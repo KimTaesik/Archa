@@ -40,12 +40,13 @@ font-family: "Source Sans Pro";
     width: 50px;
     background-size: 100%;
     background-repeat: no-repeat;
-    background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNv…9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K);
     margin-left: 40px;
     margin-right: 20px;
-    margin-top: 20px;
+    margin-top: 14px;
     cursor: pointer;
     position: absolute;
+    border-radius: 100px;
+        background-position: center
  }
 #leftTab{
 	border-bottom:0.5px solid;
@@ -375,11 +376,11 @@ font-family: "Source Sans Pro";
     background-repeat: no-repeat;
     background-position: center;
     background-image: url(../img/emoticon.png);
-    position: relative;
-    top: 7px;
+    position: absolute;
+    margin-top: 7px;
     float: right;
     /* margin-right: 80px; */
-    right: 90px;
+    right: 30px;
 }
 
 #leftSection{
@@ -403,7 +404,7 @@ input::-moz-placeholder { font-size:1.5rem;color:#b0bec5; }
 input:-ms-input-placeholder { font-size:1.5rem;color: #b0bec5; }
 .meberSection::-webkit-input-placeholder{font-size:10px;}
 .memberSection > input{
-	width:81%;
+	width:100%;
 	float:left;
 /* 	background-color:#f9f9f9; */
 	border:none;
@@ -762,7 +763,8 @@ creates the smaller  triangle
 .msg {
   display: inline-block;
   height: 40px;
-  margin-left: 13px;
+      position: absolute;
+    margin-left: 1.25rem;
   width:90%;
   float:left;
   padding: 6px 12px;
@@ -808,15 +810,16 @@ creates the smaller  triangle
 
 #name{
 	height: 20px;
-    width: 200px;
-    margin-top: 10px;
-    margin-left: 45px;
-    display: inline-block;
-    font-size: 1.5rem;
-    color: #000000;
-    font-weight: bold;
-    position: relative;
-    cursor: pointer;
+	width: 150px;
+	text-align: left;
+	margin-top: 10px;
+	margin-left: 110px;
+	display: inline-block;
+	font-size: 1.5rem;
+	color: #000000;
+	font-weight: bold;
+	position: relative;
+	cursor: pointer;
 }
 #company {
     display: block;
@@ -1321,6 +1324,7 @@ ul li.hang img {
     margin-bottom: 20px;
     background-position: center;
     cursor:pointer;
+        border-radius: 100px;
 }
 #fname {
 	height : 20px;
@@ -2819,19 +2823,22 @@ ul li.hang img {
     font-weight: bold;
 }
 #mcompany {
-    display: block;
-    color: #90A4AE;
-    font-size: 1.4rem;
-    font-weight: normal;
-    /* margin-left:-12px; */
+	display: block;
+	    color: #90A4AE;
+	    font-size: 1.4rem;
+	    font-weight: normal;
+	    margin-left: 110px;
+	    text-align: left;
 }
 #mposition{
-    display: block;
-    color: #90A4AE;
-    font-size: 1.4rem;
-    font-weight: normal;
-    margin-top: 7px;
-    margin-left: 23px;
+display: block;
+	    color: #90A4AE;
+	    text-align: left;
+	    font-size: 1.4rem;
+	    width: 150px;
+	    font-weight: normal;
+	    margin-top: 2px;
+	    margin-left: 110px;
 }
 .selectResult{
 	height: 80px;
@@ -2859,4 +2866,7 @@ ul li.hang img {
     padding: 0;
     width: 330px;
     overflow-y: scroll;
+}
+.dtprofile-background{
+	overflow-y: scroll;
 }

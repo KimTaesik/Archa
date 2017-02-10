@@ -732,7 +732,7 @@ $(document).ready(function() {
 		if(chk){
 			socket.emit('readMessageSave', room);
 			if( $('[id="'+room.id+'"]').length > 0){
-				$('[id="'+room.id+'"]').text(0);
+				$('[id="'+room.id+'"]').children('.circle').remove();
 			}
 		}
 		
@@ -941,6 +941,12 @@ $(document).ready(function() {
         var nowtime;
         var count = 0;
         var backEmail;
+        rooms.sort(function(a,b){
+        	  // Turn your strings into dates, and then subtract them
+        	  // to get a value that is either negative, positive, or zero.
+        	  return new Date(b.messagelog[b.messagelog.length-1].mdate) - new Date(a.messagelog[a.messagelog.length-1].mdate);
+        	});
+        
         rooms.forEach(function(room, index){
             if (room != '') {
             	room.messagelog.forEach(function(log,index){
@@ -955,11 +961,23 @@ $(document).ready(function() {
 	                	var hour =time.getHours();
 	                	var min =time.getMinutes();
 	                	pasttime = (room.messagelog[room.messagelog.length-1].mdate).substring(11,16);
-	                	text = '    <div class="myRoom" id="'+room.id+'"><div class="myRoom-img '+index+'"></div>\
-	                				<div class="roomname">'+name.rName+'</div>\
-	                				<div class="roomtext">'+room.messagelog[room.messagelog.length-1].message+'</div>	\
-	                				<div class="roomtime">'+pasttime+'</div>\
-	                				<div class="circle">'+count+'</div></div>';
+	                	if(count != 0){
+		                	text = '<div class="myRoom" id="'+room.id+'">\
+			            				<div class="myRoom-img '+index+'"></div>\
+			            				<div class="roomname">'+name.rName+'</div>\
+			            				<div class="roomtext">'+room.messagelog[room.messagelog.length-1].message+'</div>\
+			            				<div class="roomtime">'+pasttime+'</div>\
+			            				<div class="circle">'+count+'</div>\
+			            			</div>';	                		
+	                	}else{
+		                	text = '<div class="myRoom" id="'+room.id+'">\
+			            				<div class="myRoom-img '+index+'"></div>\
+			            				<div class="roomname">'+name.rName+'</div>\
+			            				<div class="roomtext">'+room.messagelog[room.messagelog.length-1].message+'</div>\
+			            				<div class="roomtime">'+pasttime+'</div>\
+			            			</div>';
+	                	}
+
 	                    $('#room-list').append(text);
 	                    if(backEmail.length==1){
 	                    	$('[class="myRoom-img '+index+'"]').css({'background-image':'url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+backEmail[0]+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png)'});
@@ -998,7 +1016,18 @@ $(document).ready(function() {
 			});
 			$('[id="'+roomId+'"]').children('.roomtext').text(msg);
 			$('[id="'+roomId+'"]').children('.roomtime').text(messageDate.substring(11,16));
-/*			$('[id="'+roomId+'"]').text(count);*/
+			if(count != 0){
+				if($('[id="'+roomId+'"]').children('.circle').lenght>0){
+					$('[id="'+roomId+'"]').children('.circle').text(count);
+				}else{
+					$('[id="'+roomId+'"]').append('<div class="circle">'+count+'</div>');
+				}
+				
+			}else{
+				$('[id="'+roomId+'"]').children('.circle').remove();
+			}
+			
+			$('[id="'+roomId+'"]').prependTo('#room-list');
 		}
 	});
  	
