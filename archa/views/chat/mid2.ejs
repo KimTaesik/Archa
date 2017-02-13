@@ -45,27 +45,24 @@
 		</div>
 	</section>
 	<div class ="msgbox " id="messages"></div>
-	<div id="footer">
-		<div id="footer_msgs" style="display: block;box-sizing: border-box;">
-			<div class="actionBox dropup"> 
-					<button class="plusbtn dropdown-toggle dropup" type="button" id="plus" data-toggle="dropdown" aria-expanded="true">
-						<span class="caret"></span>
-					</button>
-					<div class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-						<form enctype="multipart/form-data" action="/fileSend" method="post" id="fileInfo">
-							<input type="hidden" id='you' name='you'>
-							<input type="hidden" id='me' name='me'>
-							<input type="hidden" id='thisRoom' name='roomName'>
-							<input type="file" id="file" name="userfile">
-							<button id="fileSend" class="send" type="submit">Send File</button>
-						</form>
-					</div>
-				<input type="text" id="inputMe" class="msg" style="padding-left: 55px;" name="<%= yourName %>" />
-				<div id="imoticon"></div>
-			</div>		
+	<div class="actionBox"> 
+		<div class="dropup fleft" id="plus">
+			<button class="plusbtn dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true">
+				<span class="caret"></span>
+			</button>
+			<div class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+				<form enctype="multipart/form-data" action="/fileSend" method="post" id="fileInfo">
+					<input type="hidden" id='you' name='you'>
+					<input type="hidden" id='me' name='me'>
+					<input type="hidden" id='thisRoom' name='roomName'>
+					<input type="file" id="file" name="userfile">
+					<button id="fileSend" class="send" type="submit">Send File</button>
+				</form>
+			</div>
 		</div>
+		<input type="text" id="inputMe" class="msg" name="<%= yourName %>" />
+		<div id="imoticon"></div>
 	</div>
-
 
 	<div id="rightSection" class="fright">
 	</div>

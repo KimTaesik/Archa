@@ -5,6 +5,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var compression = require('compression');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -43,7 +44,7 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
+    res.render('index', {
       message: err.message,
       error: err
     });
@@ -54,7 +55,7 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
-  res.render('error', {
+  res.render('index', {
     message: err.message,
     error: {}
   });
@@ -65,5 +66,5 @@ app.use(function(err, req, res, next) {
 //});
 //require('./handlers/io.js')(server);
 
-
+app.use(compression());
 module.exports = app;
