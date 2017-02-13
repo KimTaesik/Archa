@@ -616,6 +616,7 @@ $(document).ready(function() {
 		var chk;
 		var temp;
 		var day;
+		$("#messages").empty();
 		room.messagelog.forEach(function(val, i){
 			if(i!=0){
 				var testDate = new Date(val.mdate);
