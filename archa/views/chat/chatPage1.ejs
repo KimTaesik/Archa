@@ -39,21 +39,24 @@
 <body style="overflow:hidden;">
 	<!-- ---------------------------------------------------------------------------------------------------------------------------- bootstrap start  -->
 <div id="leftbar" class="fleft">
-				<button id="logo" onclick="location.href='/chatPage'"></button>	
+				<button id="logo"></button>	
 				<div role="presentation" class="lisize active" id="getcontacts1" href="#fd" aria-controls="Friends" role="tab" data-toggle="tab" aria-expanded="true">
 				</div>	
 				<div role="presentation" class="lisize" id="getmessages1" href="#rm" aria-controls="Rooms" role="tab" data-toggle="tab">
 				</div>
 				<button id="archive1"></button>
-				<button class="dropdown-toggle alarm1" type="button" id="dropAlarm">
-				</button>
+				<div class="btn-group">
+						<button class="dropdown-toggle alarm1" type="button" id="dropAlarm" data-toggle="dropdown" aria-expanded="true">
+						</button>
+						<ul class="alarm-drop dropdown-menu dropdown-menu-right" role="menu" style="border: 0;box-shadow: 0px 0px 0px;margin-top: 10px">
+						</ul>
+				</div>
 				<button id="searchSec1"></button>
 </div>	
 <div id="leftSection" class="fleft">
-	<div class="setInfo"></div>
-	<div class="leftarch"></div>
-	<div class="leftconnection"></div>
-	<div class="leftchat">
+<div class="leftarch"></div>
+<div class="leftconnection"></div>
+<div class="leftchat">
 		<input type="hidden" id="userId" value='<%= user.name %>'>
 		<div id="topcontacts">CONTACTS</div>
 		<div class="myInfo">
@@ -63,8 +66,8 @@
 					<input type="file" id="profile_img_input" style="display:none"/>
 				</div>
 				<input type="text" id="name" name="name" class="<%= user.name %> info" value='<%= user.name %>' disabled="disabled">
-				<input type="text" id="mposition" name="mposition" class="<%= user.position %> info" value="<%= user.position %>" disabled="disabled">
-				<input type="text" id="mcompany" name="mcompany" class="<%= user.company %> info" value="<%= user.company %>" disabled="disabled">
+				<input type="text" id="position" name="position" class="<%= user.position %> info" value="<%= user.position %>" disabled="disabled">
+				<input type="text" id="company" name="company" class="<%= user.company %> info" value="<%= user.company %>" disabled="disabled">
 			</div>
 		</div> 
 <!-- 		<div id=group-profile>
@@ -106,7 +109,7 @@
 <!--  				<input id="inputAll" type="text" class="form-control" placeholder="all user">
 				<button type="button" class="id btn btn-default" id="searchAllBtn"></button>  -->
 				<input id="inputSearchMember" type="text" class="form-control" placeholder="name, company">
-				<!-- <button type="button" class="id btn btn-default" id="searchFriendBtn"></button> -->
+				<button type="button" class="id btn btn-default" id="searchFriendBtn"></button>
 			</div>
 			
 			<!-- 그룹 뿌려주는 부분
@@ -213,11 +216,29 @@
 		<!-- <button type="button" class="id btn" id="setGroup">ADD GROUP</button> -->
 	</div>
 </div>	
-
+	
 	<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////  -->
 <div class="container-fluid" style="margin-left:380px;">
 	<div class="row">
 		<div class="topchat col-md-12" style="padding: 0">
+<!-- 			<div class="topMenu fright">
+				<div id="mySidenav" class="sidenav">
+	 
+	<div id="archive11"></div>
+	</div>
+				<div class="buttonGroup fright">
+					<button id="searchSec"></button>
+					<button class="icon-users" id="alarm"></button>  2016/01/02 icon apply
+					<div class="btn-group fright">
+						<button class="dropdown-toggle alarm" type="button" id="dropAlarm" data-toggle="dropdown" aria-expanded="true">
+						</button>
+						<ul class="alarm-drop dropdown-menu dropdown-menu-right" role="menu" style="border: 0;box-shadow: 0px 0px 0px;margin-top: 10px">
+						</ul>
+					</div>
+					<button id="archive"></button>
+
+				</div>	
+			</div> -->
 			
 			<div class="right fright">
 				<div id="rightSection">
