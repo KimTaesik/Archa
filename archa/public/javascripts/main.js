@@ -85,59 +85,81 @@ $(document).ready(function() {
 		        return true;
 		        
 		    });*/
+		    $('.mid').on("click", ".plusbtn", function(e){
+		    	if (this === e.target) {
+		    		$('#file').trigger("click");
+		    	}
+		    });
 		    /*
 		     *  프로그레스바 테스트
 		     *  어찌어찌 완료
 		     */
 
-			$('.mid').on("submit","#fileInfo",function(e){
+			$('.mid').on("change","#file",function(e){
 				//disable the actual submit of the form.
 				e.preventDefault(); 
 				//grab all form data 
-				var form = $('form')[0];
-				var formData = new FormData(form);
+				socket.emit('roomUser',$('#thisRoom').val());
+				socket.on('roomUser', function(user){
+					var form = $('form')[0];
+					var formData = new FormData(form);
 
-				var upfiles_cnt = $("input:file", this)[0].files.length;
-				if(upfiles_cnt == 0){
-					alert('선택한 파일이 없습니다');
-					return false; // form을 전송시키지 않고 반환
-				}
-				
-		        formData.append('roomName', $('#thisRoom').val());
-		        formData.append('you', $('#you').val());
-		        var filesList = document.getElementById('file');
-		        
-		        for (var i = 0; i < filesList.files.length; i ++) {
-		        	formData.append('userfile', filesList.files[i]);
-		        }
+					var upfiles_cnt = document.getElementById('file').files.length
+					if(upfiles_cnt == 0){
+						alert('선택한 파일이 없습니다');
+						return false; // form을 전송시키지 않고 반환
+					}
+					alert(user);
+					formData.append('userList', user);
+			        formData.append('roomName', $('#thisRoom').val());
+			        formData.append('you', $('#you').val());
+			        console.log(formData);
+			        var filesList = document.getElementById('file');
+			        
+			        for (var i = 0; i < filesList.files.length; i ++) {
+			        	formData.append('userfile', filesList.files[i]);
+			        }
+			        
+					$.ajax({
+						// set data type json 
+						dataType:  'json',
+						data		:	formData,
+						processData	:	false,
+						contentType	:	false,
+						type		:	'POST',
+						url			:	"/fileSend",
+						// reset before submitting 
+						beforeSend: function() {
+							$('.progress').show();
+							$('.bar').show();
+							$('.percent').show();
+							$('.bar').css('width','0%');
+							$('.percent').text('0%');
+						},
 
-				$(this).ajaxSubmit({
-					// set data type json 
-					dataType:  'json',
-
-					// reset before submitting 
-					beforeSend: function() {
-						$('.progress').show();
-						$('.bar').show();
-						$('.percent').show();
-						$('.bar').css('width','0%');
-						$('.percent').text('0%');
-					},
-
-					// progress bar call back
-					uploadProgress: function(event, position, total, percentComplete) {
-						var pVel = percentComplete + '%';
-						$('.bar').css('width',pVel);
-						$('.percent').text(pVel);
-					},
-		            success	: function(data,status,xhr){
-		            	$('.progress,.bar,.percent').hide();
-						$('.percent').text('0%');
-						socket.emit('dataInfoSend', data,$('#leftSection').attr('class'),$("#userId").val());
-		            },
-		            resetForm: true 
+						// progress bar call back
+						uploadProgress: function(event, position, total, percentComplete) {
+							var pVel = percentComplete + '%';
+							$('.bar').css('width',pVel);
+							if(percentComplete != 100){
+								$('.percent').text(pVel);
+							}else{
+								$('.percent').text(pVel+" 파일을 서버에 업로드중입니다.");
+							}
+							
+						},
+			            success	: function(data,status,xhr){
+			            	$('.progress,.bar,.percent').hide();
+							$('.percent').text('0%');
+							socket.emit('dataInfoSend', data,$('#leftSection').attr('class'),$("#userId").val());
+			            },
+			            error: function(xhr, status, er){
+			            	console.log("code:"+xhr.status+"\n"+"message:"+xhr.responseText+"\n"+"error:"+er);
+			            }
+					});
+					return false;					
 				});
-				return false;
+
 			});
 		    
 		    /*
@@ -1537,7 +1559,7 @@ $(document).ready(function() {
 		    		});
 		    	}
 		    });
-		    
+
 		    /*
 		     * 유저 프로필 이미지 전송
 		     */

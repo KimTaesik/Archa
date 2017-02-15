@@ -50,6 +50,7 @@ exports.filesend = function(req, res){
 			    if(!data){
 			    	
 			    }else{
+			    	console.log(fields.userList);
 			    	var slist = new StorageList({
 			    		'room_id'	:	fields.roomName,
 			    		'url'		:	data.Location,
@@ -74,7 +75,8 @@ exports.filesend = function(req, res){
 			    						email	: senduser.email,
 			    						name	: senduser.name,
 			    						message : slist.name,
-			    						mdate	: slist.date
+			    						mdate	: slist.date,
+			    						readby  : fields.userList
 			    					});
 			    					
 			    					Room.findOne({'id':slist.room_id},function(err, room){

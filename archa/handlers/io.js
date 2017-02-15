@@ -368,6 +368,19 @@ module.exports = function(server){
 	    	}
 	    	
 	    });
+	    socket.on('roomUser', function(room){
+	    	var roomUser= new Message;
+ 			io.sockets.to(socket.room).clients(function(error,clients){
+ 				if(clients){
+	    				for(var index in clients){
+	    					roomUser.readby.push(nickNames[clients[index]]);
+	    					if(index==clients.length-1){
+	    						io.sockets.sockets[socket.id].emit('roomUser', roomUser.readby);
+	    					}
+	    				}
+ 				}
+ 			});	    	
+	    });
 	    socket.on('dataInfoSend', function(data, send_userEmail, send_userName){
 /*			var message = new Message({
 				mtype	: 'data',
@@ -376,9 +389,48 @@ module.exports = function(server){
 				message : data.name,
 				mdate	: data.date
 			});*/
+		    Room.findOne({'id': socket.room}).exec(function(err,room){
+		    	io.sockets.sockets[socket.id].emit('refresh', socket.room , data.name, data.date,room,nickNames[socket.id]);	
+		    });		
 		    io.sockets.to(socket.room).sockets[socket.id].emit('my data', data, send_userEmail, send_userName);
-			socket.broadcast.to(socket.room).emit('other data', data, send_userEmail, send_userName);			
-
+			socket.broadcast.to(socket.room).emit('other data', data, send_userEmail, send_userName);
+/*			var roomUser= new Message;
+			var m,d;
+			async.waterfall([
+			 			    function (callback) {
+			 	    			io.sockets.to(socket.room).clients(function(error,clients){
+			 	    				if(clients){
+			 		    				for(var index in clients){
+			 		    					roomUser.readby.push(nickNames[clients[index]]);
+			 		    					if(index==clients.length-1){
+			 		    						console.log('유저:',roomUser.readby)
+			 		    						callback(null);
+			 		    					}
+			 		    				}
+			 	    				}
+			 	    			});
+			 			    },function (callback) {
+			 			    	console.log('데이타:',data);
+        						Room.findOne({'id':socket.room}).sort('-messagelog.mdate').exec(function(err, room){
+        							console.log(room);
+        							if(err) console.log(err);
+        							for(var index in room.messagelog){
+	    								if(new Date(room.messagelog[index].mdate) == new Date(data.date) && room.messagelog[index].message == data.name){
+	    									room.messagelog[index].readby = roomUser.readby;
+	    									m = room.messagelog[index].message;
+	    									d = room.messagelog[index].mdate;
+	    									console.log('진입:',room.messagelog[index].readby)
+	    									callback(null, room);
+	    								}
+        							}
+        						});
+			 				    
+			 				}],function (err, room) {
+			    io.sockets.to(socket.room).sockets[socket.id].emit('my data', data, send_userEmail, send_userName);
+				socket.broadcast.to(socket.room).emit('other data', data, send_userEmail, send_userName);
+			 				    io.sockets.sockets[socket.id].emit('refresh', socket.room , m, d,room,nickNames[socket.id]);	
+			 				}
+			 			);*/
 /*			Room.findOne({'id':socket.room},function(err, room){
 				if(err) console.log(err);
 				else {
