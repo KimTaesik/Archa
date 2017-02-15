@@ -11,10 +11,13 @@ font-family: "Source Sans Pro";
 .menuTop{
 	height:10%;
 }
+.panel{
+	border-radius: 0px !important;
+}
 .myInfo{
 	min-height: 80px;
-    color: #CFD8DC;
-    border-bottom: 10px solid;
+/*     color: #CFD8DC;
+    border-bottom: 10px solid; */
 }
 #topcontacts{
     font-size: 2.0rem;
@@ -366,10 +369,14 @@ input::-moz-placeholder { font-size:1.5rem;color:#b0bec5; }
 input:-ms-input-placeholder { font-size:1.5rem;color: #b0bec5; }
 .meberSection::-webkit-input-placeholder{font-size:10px;}
 .memberSection > input{
-	width:100%;
+	width:310px;
 	float:left;
 /* 	background-color:#f9f9f9; */
 	border:none;
+	color: #CFD8DC;
+    border-top: 10px solid;
+    border-bottom: 1px solid;
+    border-radius: 0px !important;
 }
 .memberSection{
 	/* color:#b0bec5; */
@@ -894,18 +901,21 @@ creates the smaller  triangle
 	border-bottom : 1px solid;
 	overflow: hidden;
 	color:#e2e2e2;
+	height: 85px;
 }
 .circle {
 	float:left;
-	margin-top:15px;
-	margin-left:10px;
+    margin-left: 265px;
+    position: absolute;
 	text-align:center;
 	background-color: #F44336;
-	width: 15px;
-	height: 15px;
+	    min-width: 20px;
+	    height: 20px;
 	color:white;
-	-webkit-border-radius:10px;
-	-moz-border-radius:10px;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+    padding-left: 4px;
+    padding-right: 4px;
 }
 
 /* Let's get this party started */
@@ -1364,9 +1374,9 @@ ul li.hang img {
 	width:65px;
 	height:65px;
 	float:left;
- 	margin-left:20px;
- 	margin-right:20px;
-	margin-top:15px;
+ 	margin-left:10px;
+ 	margin-right:10px;
+	margin-top:10px;
 	background-repeat:no-repeat;
 	background-size:cover;
 	background-position:center;
@@ -1380,7 +1390,7 @@ ul li.hang img {
  	margin-left:40px;
 	margin-top:6px;
 	background-repeat:no-repeat;
-	background-size:100%;
+	background-size:cover;
 	background-position:center;
 	border-radius: 8px;
 	z-index: 2;
@@ -1391,7 +1401,7 @@ ul li.hang img {
 	width:100px;
 	height:100px;
 	background-repeat:no-repeat;
-	background-size:100%;
+	background-size:cover;
 	background-position:center;
 	border-radius: 8px;
 }
@@ -1430,7 +1440,7 @@ ul li.hang img {
 	display:block;
 	width:175px;
 	float:left;
-	margin-top:15px;
+	margin-top:6px;
 	Margin-bottom:10px;
 	color:#607D8B;
 	font-size: 1.5rem;
@@ -1440,20 +1450,24 @@ ul li.hang img {
 	text-overflow:ellipsis;
 }
 .roomtext{
-    width:175px;
-    height:38px;
+    width:155px;
+    height:25px;
     color:#78909C;
     font-size: 1.3rem;
-	display:inline-block;
-	/* white-space:normal; */
-	overflow:hidden;
-	word-break:keep-all;
+  max-width: 155px;
+  display: block; /* Fallback for non-webkit */
+  display: -webkit-box;
+  line-height: 1;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break:break-all;
+  text-overflow: ellipsis;
 }
 .roomtime{
-    float: left;
-    margin-left: 230px;
-    margin-bottom: 15px;
-    margin-top:15px;
+    /* float: left; */
+    margin-left: 220px;
+    position: absolute;
 }
 #chatbar
 {
@@ -2370,6 +2384,7 @@ ul li.hang img {
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-image: url(../img/Galleryicon.png);
+
 }
 /* connection section */
 .leftconnection{

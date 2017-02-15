@@ -85,59 +85,81 @@ $(document).ready(function() {
 		        return true;
 		        
 		    });*/
+		    $('.mid').on("click", ".plusbtn", function(e){
+		    	if (this === e.target) {
+		    		$('#file').trigger("click");
+		    	}
+		    });
 		    /*
 		     *  프로그레스바 테스트
 		     *  어찌어찌 완료
 		     */
 
-			$('.mid').on("submit","#fileInfo",function(e){
+			$('.mid').on("change","#file",function(e){
 				//disable the actual submit of the form.
 				e.preventDefault(); 
 				//grab all form data 
-				var form = $('form')[0];
-				var formData = new FormData(form);
+				socket.emit('roomUser',$('#thisRoom').val());
+				socket.on('roomUser', function(user){
+					var form = $('form')[0];
+					var formData = new FormData(form);
 
-				var upfiles_cnt = $("input:file", this)[0].files.length;
-				if(upfiles_cnt == 0){
-					alert('선택한 파일이 없습니다');
-					return false; // form을 전송시키지 않고 반환
-				}
-				
-		        formData.append('roomName', $('#thisRoom').val());
-		        formData.append('you', $('#you').val());
-		        var filesList = document.getElementById('file');
-		        
-		        for (var i = 0; i < filesList.files.length; i ++) {
-		        	formData.append('userfile', filesList.files[i]);
-		        }
+					var upfiles_cnt = document.getElementById('file').files.length
+					if(upfiles_cnt == 0){
+						alert('선택한 파일이 없습니다');
+						return false; // form을 전송시키지 않고 반환
+					}
+					alert(user);
+					formData.append('userList', user);
+			        formData.append('roomName', $('#thisRoom').val());
+			        formData.append('you', $('#you').val());
+			        console.log(formData);
+			        var filesList = document.getElementById('file');
+			        
+			        for (var i = 0; i < filesList.files.length; i ++) {
+			        	formData.append('userfile', filesList.files[i]);
+			        }
+			        
+					$.ajax({
+						// set data type json 
+						dataType:  'json',
+						data		:	formData,
+						processData	:	false,
+						contentType	:	false,
+						type		:	'POST',
+						url			:	"/fileSend",
+						// reset before submitting 
+						beforeSend: function() {
+							$('.progress').show();
+							$('.bar').show();
+							$('.percent').show();
+							$('.bar').css('width','0%');
+							$('.percent').text('0%');
+						},
 
-				$(this).ajaxSubmit({
-					// set data type json 
-					dataType:  'json',
-
-					// reset before submitting 
-					beforeSend: function() {
-						$('.progress').show();
-						$('.bar').show();
-						$('.percent').show();
-						$('.bar').css('width','0%');
-						$('.percent').text('0%');
-					},
-
-					// progress bar call back
-					uploadProgress: function(event, position, total, percentComplete) {
-						var pVel = percentComplete + '%';
-						$('.bar').css('width',pVel);
-						$('.percent').text(pVel);
-					},
-		            success	: function(data,status,xhr){
-		            	$('.progress,.bar,.percent').hide();
-						$('.percent').text('0%');
-						socket.emit('dataInfoSend', data,$(".myInfoView").attr('id'),$("#userId").val());
-		            },
-		            resetForm: true 
+						// progress bar call back
+						uploadProgress: function(event, position, total, percentComplete) {
+							var pVel = percentComplete + '%';
+							$('.bar').css('width',pVel);
+							if(percentComplete != 100){
+								$('.percent').text(pVel);
+							}else{
+								$('.percent').text(pVel+" 파일을 서버에 업로드중입니다.");
+							}
+							
+						},
+			            success	: function(data,status,xhr){
+			            	$('.progress,.bar,.percent').hide();
+							$('.percent').text('0%');
+							socket.emit('dataInfoSend', data,$('#leftSection').attr('class'),$("#userId").val());
+			            },
+			            error: function(xhr, status, er){
+			            	console.log("code:"+xhr.status+"\n"+"message:"+xhr.responseText+"\n"+"error:"+er);
+			            }
+					});
+					return false;					
 				});
-				return false;
+
 			});
 		    
 		    /*
@@ -244,7 +266,7 @@ $(document).ready(function() {
 			$('.mid').on('click', '.invite-room', function(e){
 					e.preventDefault();
 					var room = $('#joinRoom').val();
-					var me = $('.myInfoView').attr("id");
+					var me = $('#leftSection').attr('class');
 
 			        $.ajax({
 			            type: "post", 
@@ -272,8 +294,9 @@ $(document).ready(function() {
 		            error: function(xhr, status, er){}
 		        });*/
 				$("#mySidenav").css('width',0);
+				$(".friendInfo").remove();
 				var room = $('#joinRoom').val();
-				var me = $('.myInfoView').attr("id");
+				var me = $('#leftSection').attr('class');
 				socket.emit('roomOut', room,me);
 				$('.background').empty();
 				if($('.myRoom').length > 0){
@@ -319,6 +342,7 @@ $(document).ready(function() {
 				});
 				socket.emit('inviteRoom', room, arrayParam);
 				$("#mySidenav").css('width',0);
+				$('.friendInfo').remove();
 			});
 			/*
 			 * room invite modal에서 유저검색.
@@ -545,7 +569,7 @@ $(document).ready(function() {
 					var id = $('#you').val();
 					var message = {
 							type	: 'text',
-							email : $(".myInfoView").attr('id'),
+							email : $('#leftSection').attr('class'),
 					        me  : $("#userId").val(),
 					        msg: $("#inputMe").val(),
 					        yourName : $(this).attr("name")
@@ -562,13 +586,13 @@ $(document).ready(function() {
 			 * 단, 메시지를 보내야 채팅방이 생성됌
 			 */
 			$( "#leftSection" ).on( "dblclick", ".has-sub", function( event ) {
-				
-				$('.group-img').css('border','none')
-				
+				console.log(event)
+				$('.group-img').css('border','none');
+
 			    event.preventDefault();
 			    $('#room').val('');
 			    var you = $(this).attr("id");
-			    var me = $('.myInfoView').attr("id");
+			    var me = $('#leftSection').attr('class');
 			    var youName = $(this).children("#group-profile").children("#fname").attr("class");
 			    var room = {
 			    		you : you,
@@ -600,6 +624,7 @@ $(document).ready(function() {
 			$('#leftSection').on('click', ".myRoom", function(e){
 				$("#messages").empty();
 				$('#room').val('');
+				
 				var roomName = $(this).attr("id");
 				var me = $("#userId").val();
 		        $.ajax({
@@ -626,7 +651,7 @@ $(document).ready(function() {
 			$('.mid').on("keyup", ".room-name-change",function(key){
 				if($("#room").val()){
 					if(key.keyCode==13){
-						var id = $('.myInfoView').attr("id");
+						var id = $('#leftSection').attr('class');
 						var room = $('#thisRoom').val();
 						var val = $(".room-name-change").val();
 						$('#room').val(val);
@@ -641,7 +666,7 @@ $(document).ready(function() {
 			$( "#leftSection" ).on( "click", ".chatbtn", function( event ) {
 			    event.preventDefault();
 			    var you = $(this).attr("id");
-			    var me = $('.myInfoView').attr("id");
+			    var me = $('#leftSection').attr('class');
 			    var room = {
 			    		you : you,
 			    		me : me
@@ -653,7 +678,7 @@ $(document).ready(function() {
 			 * 왼쪽 방 정보 가져오기.
 			 */
 		    $('#leftSection').on("click","#getmessages",function(){
-		    	socket.emit('rooms', $('.myInfoView').attr("id"));
+		    	socket.emit('rooms', $('#leftSection').attr('class'));
 //				setInterval(function() {
 //					socket.emit('rooms', $('.myInfoView').attr("id"));
 //			    }, 10000);
@@ -1241,24 +1266,19 @@ $(document).ready(function() {
 			/*
 			 * 친구 프로필 클릭하면 우측에 생성
 			 */
-			$('#leftSection').on('click', '.has-sub', function(e){
-/*				$('#rightSection').css('width' ,  185 );
-				$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-30 );
-				$('#rightSection').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-20);
-				$('.actionBox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -20);*/
+			$('#leftSection').on('click', '#group-img', function(e){
+
 				$("#mySidenav").css('width',350);
 				$("#mySidenav").css('height', $(window).height()-$('#archive').height()-$('.searchDiv').height()-130);
 				e.preventDefault();
 				var room = $('#thisRoom').val();
-				var id = $(this).attr("id");
+				var id = $(this).attr("class");
 			    $.ajax({
 			        type: "post",
 			        url: "/friendInfo",
 			        data: { "room":room , "friend" : id },
 			        success: function(result,status,xhr){
 			        	$('#mySidenav').html(result);
-			        	/*$('#rightSection').html(result);
-			        	$('#rightContent').css('height',  $(window).height()-$('#archive').height()-$('.searchDiv').height()-$('#myTab').height()-30);*/
 			        },
 			        error: function(xhr, status, er){}
 			    });
@@ -1318,6 +1338,7 @@ $(document).ready(function() {
 		     */
 		    $('.mid').on('click','.closebtn', function(){
 				$("#mySidenav").css('width',0);
+				$('.friendInfo').remove();
 				/*$(".topchat").css('margin-right',0);*/
 /*		    	$('#rightSection').empty();
 		    	$('#rightSection').css('width' , 0);
@@ -1332,6 +1353,7 @@ $(document).ready(function() {
 		     */
 		    $('.topchat').on('click','.closebtn', function(){
 				$("#mySidenav").css('width',0);
+				$('.friendInfo').remove();
 				/*$(".topchat").css('margin-right',0);*/
 /*		    	$('#rightSection').empty();
 		    	$('#rightSection').css('width' , 0);
@@ -1537,7 +1559,7 @@ $(document).ready(function() {
 		    		});
 		    	}
 		    });
-		    
+
 		    /*
 		     * 유저 프로필 이미지 전송
 		     */
@@ -1922,7 +1944,8 @@ $(document).ready(function() {
                 $('.setInfo').css('width' ,  0);
                 $('.setInfo').css('height' ,  0);
 		    	$(".leftchat, .container-fluid").show();
-
+		    	
+		    	$('#topcontacts').text('CONTACTS');
 		        $.ajax({
 		            type: "post",
 		            url: "/leftmenu",
@@ -1939,12 +1962,14 @@ $(document).ready(function() {
 			 * 왼쪽 방 정보 가져오기.
 			 */
 		    $('#leftbar').on("click","#getmessages1",function(){
-		    	$(".leftarch, .leftconnection").hide();
+		    	$(".leftarch, .leftconnection,.myInfo").hide();
 		    	$('.dtprofile-background, #relationResult').remove();
                 $('.setInfo').css('width' ,  0);
                 $('.setInfo, .category, .leftarch').css('height' ,  0);
 		    	$(".leftchat, .container-fluid").show();
-		    	socket.emit('rooms', $('.myInfoView').attr("id"));
+		    	$('#topcontacts').text('ROOMS');
+		    	$('#inputSearchMember').attr("placeholder","");
+		    	socket.emit('rooms', $('#leftSection').attr('class'));
 		    	$('.searchResult,#room-list').css('height' ,  $(window).height()-$('#topcontacts').height()-$('.myInfo').height()-$('#inputSearchMember').height()-10 );
 //				setInterval(function() {
 //					socket.emit('rooms', $('.myInfoView').attr("id"));

@@ -15,12 +15,9 @@
 			  </button>
 			  <div class="setList dropdown-menu dropdown-menu-right" role="menu" style="min-width: 20px;border: none;height:0px;padding: 0;margin: 17px 20px 0 0;">
 			  	<div class="roomMenu">
-			  		<div id="roomA">	
-			  		<button id="roomArchive" class="roomRight">Archive</button></div>
-			  		<div id="roomG">
-			  		<button id="roomGallery" class="roomRight">Gallery</button></div>	
-			  		<div id="roomL">	
-			  		<button id="roomLinks" class="roomRight">Links</button></div>
+			  		<button id="roomArchive" class="roomRight">Archive</button>
+			  		<button id="roomGallery" class="roomRight">Gallery</button>
+			  		<button id="roomLinks" class="roomRight">Links</button>
 			  	</div>
 			  </div>
 			</div>
@@ -50,8 +47,9 @@
 	<div class ="msgbox " id="messages"></div>
 	<div id="footer">
 		<div id="footer_msgs" style="display: block;box-sizing: border-box;">
-			<div class="actionBox"> 
-					<button class="plusbtn" id="plus">
+			<div class="actionBox dropup"> 
+					<button class="plusbtn dropdown-toggle dropup" type="button" id="plus" data-toggle="dropdown" aria-expanded="true">
+						<span class="caret"></span>
 					</button>
 					<div class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 						<form enctype="multipart/form-data" action="/fileSend" method="post" id="fileInfo">
