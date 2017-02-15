@@ -1472,12 +1472,12 @@ ul li.hang img {
 
 /* right section */
 #roomArchive{
-    color: #546E7A;
+/*     color: #546E7A;
     font-size: 1.5rem;
     width: 100%;
     height: 55px;
     font-weight: bold;
-    /* border-bottom: 10px solid; */
+    border-bottom: 10px solid;
     border: none;
     background-color: #ffffff;
     border-color: #ECEFF1;
@@ -1488,10 +1488,95 @@ ul li.hang img {
     background-position-y: 19px;
     padding-left: 15px;
     border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-top-right-radius: 20px; */
+    
+    width: 150px;
+    height: 30px;
+    position: absolute;
+    /* opacity: 0.5; */
+    /* margin-left: 10px; */
+    margin-top: 13px;
+    border-radius: 5px;
+    background-image: url(../img/room/Archiveicon.png);
+    background-repeat: no-repeat;
+    background-size: 14%;
+    background-position-x: 15px;
+    background-position-y: 5px;
+    /* padding-left: 15px; */
+    background-color: white;
+    border: none;
+
 }    
 #roomGallery{
+    width: 150px;
+    height: 30px;
+    position: absolute;
+    /* opacity: 0.5; */
+     margin-left: 10px; 
+    margin-top: 13px;
+    border-radius: 5px;
+    background-image: url(../img/room/Galleryicon.png);
+    background-repeat: no-repeat;
+    background-size: 14%;
+    background-position-x: 15px;
+    background-position-y: 5px;
+    /* padding-left: 15px; */
+    background-color: white;
+    border: none;
+}
+#roomLinks{
+    width: 150px;
+    height: 30px;
+    position: absolute;
+    /* opacity: 0.5; */
+     margin-left: 10px; 
+    margin-top: 13px;
+    border-radius: 5px;
+    background-image: url(../img/room/Linkicon.png);
+    background-repeat: no-repeat;
+    background-size: 14%;
+    background-position-x: 15px;
+    background-position-y: 5px;
+    /* padding-left: 15px; */
+    background-color: white;
+    border: none;
+}
+#roomA{
+/*  width: 155px;
+    height: 30px;
+    position: absolute;
+    opacity: 0.5;
+    margin-left: 10px;
+    margin-top: 13px;
+    border-radius: 5px; */
+    
     color: #546E7A;
+    font-size: 1.5rem;
+    width: 100%;
+    height: 55px;
+    font-weight: bold;
+    /* border-bottom: 10px solid; */
+    border: none;
+    background-color: #ffffff;
+    border-color: #ECEFF1;
+/*     background-image: url(../img/room/Archiveicon.png);
+    background-repeat: no-repeat;
+    background-size: 10%;
+    background-position-x: 25px;
+    background-position-y: 19px; */
+    padding-left: 15px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+#roomG{
+/*     width: 155px;
+    height: 30px;
+    position: absolute;
+    opacity: 0.5;
+    margin-left: 10px;
+    margin-top: 13px;
+    border-radius: 5px; */
+        color: #546E7A;
     font-size: 1.5rem;
     width: 100%;
     height: 55px;
@@ -1505,15 +1590,18 @@ ul li.hang img {
     border-right: none;
     background-color: #ffffff;
     border-color: #ECEFF1;
-    background-image: url(../img/room/Galleryicon.png);
-    background-repeat: no-repeat;
-    background-size: 10%;
-    background-position-x: 25px;
-    background-position-y: 19px;
-    padding-left: 15px;
+    
 }
-#roomLinks{
-    color: #546E7A;
+#roomL{
+/*     width: 155px;
+    height: 30px;
+    position: absolute;
+    opacity: 0.5;
+    margin-left: 10px;
+    margin-top: 13px;
+    border-radius: 5px; */
+    
+        color: #546E7A;
     font-size: 1.5rem;
     width: 100%;
     height: 55px;
@@ -1522,15 +1610,14 @@ ul li.hang img {
     border: none;
     background-color: #ffffff;
     border-color: #ECEFF1;
-    background-image: url(../img/room/Linkicon.png);
-    background-repeat: no-repeat;
-    background-size: 10%;
-    background-position-x: 25px;
-    background-position-y: 19px;
-    padding-left: 15px;
-    border-bottom-left-radius: 20px;
+        border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
 }
+
+
+
+
+
 #roomArchives{
 	color:#546E7A;
 	font-size: 1.8rem;
@@ -2282,11 +2369,7 @@ ul li.hang img {
     height: 3.5rem;
     background-repeat: no-repeat;
     background-size: 100% 100%;
-<<<<<<< HEAD
-    background-image: url(../img/archive/Galleryicon.png);	
-=======
     background-image: url(../img/Galleryicon.png);
->>>>>>> branch 'master' of https://github.com/KimTaesik/Archa.git
 }
 /* connection section */
 .leftconnection{

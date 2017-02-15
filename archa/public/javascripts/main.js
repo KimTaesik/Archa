@@ -945,7 +945,7 @@ $(document).ready(function() {
 		        	       </div>\
 		        		   </div>\
 		        		   <div class="searchbox">\
-			        	       <div class="contact-text"><div id="phone-icon"></div>Phone</div>\
+			        	       <div class="contact-text"><div id="phone-icon" class="icon-phone"></div>Phone</div>\
 			        		   <div class="contact-input">\
 								  <select class="form-control" id="phone-select">\
 								  <option>+82</option>\
@@ -1950,6 +1950,50 @@ $(document).ready(function() {
 //					socket.emit('rooms', $('.myInfoView').attr("id"));
 //			    }, 10000);
 		    });
+		    
+		    
+		    /*
+		     * room archive mouseover
+		     */
+		    $('.mid').on("mouseenter","#roomA",function(e) {
+		    	$("#roomArchive").css('background-color',"#cfd8dc");
+		    	$("#roomArchive").css('border').remove();
+		    });
+		    
+		    $('.mid').on("mouseleave","#roomA",function(e) {
+		    	$("#roomArchive").css('background-color',"white");
+		    	$("#roomArchive").css('border', "none");
+		    });
+		    
+		    /*
+		     * room gallery mouseover
+		     */
+		    $('.mid').on("mouseenter","#roomG",function(e) {
+		    	$("#roomGallery").css('background-color',"#cfd8dc");
+		    	$("#roomGallery").css('border').remove();
+		    });
+		    
+		    $('.mid').on("mouseleave","#roomG",function(e) {
+		    	$("#roomGallery").css('background-color',"white");
+		    	$("#roomGallery").css('border', "none");
+		    });
+		    
+		    
+		    /*
+		     * room link mouseover
+		     */
+		    $('.mid').on("mouseenter","#roomL",function(e) {
+		    	$("#roomLinks").css('background-color',"#cfd8dc");
+		    	$("#roomLinks").css('border').remove();
+		    });
+		    
+		    $('.mid').on("mouseleave","#roomL",function(e) {
+		    	$("#roomLinks").css('background-color',"white");
+		    	$("#roomLinks").css('border', "none");
+		    });
+		    
+		    
+		    
 		    
 
 });
