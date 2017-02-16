@@ -970,7 +970,7 @@ $(document).ready(function() {
 		        	       </div>\
 		        		   </div>\
 		        		   <div class="searchbox">\
-			        	       <div class="contact-text"><div id="phone-icon"></div>Phone</div>\
+			        	       <div class="contact-text"><div id="phone-icon" class="icon-phone"></div>Phone</div>\
 			        		   <div class="contact-input">\
 								  <select class="form-control" id="phone-select">\
 								  <option>+82</option>\
@@ -2017,7 +2017,22 @@ $(document).ready(function() {
 		    	$("#roomLinks").css('border', "none");
 		    });
 		    
-		    
+/*		    $('#leftbar').on("mouseenter", ".rightback", function(e){
+		    	
+		    	$(this).css('background-color', "#1f61a2");
+		    });
+		    $('#leftbar').on("mouseleave", ".rightback", function(e){
+		    	
+		    	$(this).css('background-color',"#4a7dff");
+		    });*/
+		    $('#leftbar').on("mouseenter", ".rightbacksub", function(e){
+		    	
+		    	$(this).css('background-color', "#1f61a2");
+		    });
+		    $('#leftbar').on("mouseleave", ".rightbacksub", function(e){
+		    	
+		    	;$(this).css('background-color',"#4a7dff");
+		    })
 		    
 		    
 
