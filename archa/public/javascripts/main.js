@@ -963,9 +963,9 @@ $(document).ready(function() {
 		        });
 		        var text= '<div id="topconnect">ADD NEW CONTACTS</div>\
 		        		   <div class="searchbox">\
-		        	       <div class="contact-text"><div id="email-icon"></div>E-mail</div>\
+		        	       <div class="contact-text"><div id="email-icon" class="icon-mail"></div>E-mail</div>\
 		        		   <div class="contact-input">\
-		    				<input type="text" class="form-control" id="relationInput"></div>\
+		        	<input class="noti-search form-control" id="relationInput" type="text" style="background-image: url(../img/searchingbutton.png);" placeholder="Enter email address"/></div>\
 		    				<button class="search-message" id="searchRelation">Search</button></div>\
 		        	       </div>\
 		        		   </div>\
@@ -983,7 +983,7 @@ $(document).ready(function() {
 								  <option>+852</option>\
 								  <option>+66</option>\
 								  </select>\
-								  <input type="text" class="form-control" id="phone-input">\
+								  <input class="form-control" id="phone-input" type="text" placeholder="000-0000-0000"/>\
     							  <button class="search-message" id="#">Search</button></div>\
 			        	       </div>\
 		        		   </div>\
@@ -1269,7 +1269,7 @@ $(document).ready(function() {
 			$('#leftSection').on('click', '#group-img', function(e){
 
 				$("#mySidenav").css('width',350);
-				$("#mySidenav").css('height', $(window).height()-$('#archive').height()-$('.searchDiv').height()-130);
+				$("#mySidenav").css('height', $(window).height()-$('#archive').height()-$('.searchDiv').height()-125);
 				e.preventDefault();
 				var room = $('#thisRoom').val();
 				var id = $(this).attr("class");
@@ -1288,7 +1288,7 @@ $(document).ready(function() {
 			 */
 			$('.mid').on('click', '.myRoom-title-img', function(e){
 				$("#mySidenav").css('width',350);
-				$("#mySidenav").css('height', $(window).height()-$('#archive').height()-$('.searchDiv').height()-130);
+				$("#mySidenav").css('height', $(window).height()-$('#archive').height()-$('.searchDiv').height()-125);
 				var room = $('#thisRoom').val();			
 			    $.ajax({
 			        type: "post",
@@ -1316,7 +1316,7 @@ $(document).ready(function() {
 				$("#mySidenav").css('width',350);
 				
 			/*	$(".topchat").css('margin-right',250);*/
-				$("#mySidenav").css('height', $(window).height()-$('#archive').height()-$('.searchDiv').height()-130);
+				$("#mySidenav").css('height', $(window).height()-$('#archive').height()-$('.searchDiv').height()-125);
 				e.preventDefault();
 				var room = $('#thisRoom').val();
 				var url = $(this).attr("id");
@@ -1968,7 +1968,7 @@ $(document).ready(function() {
                 $('.setInfo, .category, .leftarch').css('height' ,  0);
 		    	$(".leftchat, .container-fluid").show();
 		    	$('#topcontacts').text('ROOMS');
-		    	$('#inputSearchMember').attr("placeholder","");
+		    	$('#inputSearchMember').attr("placeholder","Search");
 		    	socket.emit('rooms', $('#leftSection').attr('class'));
 		    	$('.searchResult,#room-list').css('height' ,  $(window).height()-$('#topcontacts').height()-$('.myInfo').height()-$('#inputSearchMember').height()-10 );
 //				setInterval(function() {

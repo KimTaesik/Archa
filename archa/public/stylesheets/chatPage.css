@@ -279,12 +279,14 @@ font-family: "Source Sans Pro";
     width: 24.5rem;
     border-radius: 1.0rem;
     color: #B0BEC5;
+    outline:none;
     text-indent: 40px;
     background: 15px;
     background-size: 1.8rem;
     background-repeat: no-repeat;
     background-image: url(../img/searchingbutton.png);
 }
+
 
 #roomClose{
 	background-color: #fff;
@@ -1384,6 +1386,7 @@ ul li.hang img {
 }
 .myRoom-title-img{
 	position: absolute;
+	cursor:pointer;
 	width:45px;
 	height:45px;
 	float:left;
@@ -1426,14 +1429,14 @@ ul li.hang img {
 	padding-top: 22px;
 }
 .leave-the-room{
-	position:absolute;
-	bottom:0px;
-	padding-left:70px;
-	padding-top:30px;
-	color: #90a4ae;
-	width: 350px;
-	height: 75px;
-	background-color: #cfd8dc;
+	position: absolute;
+    bottom: 0px;
+    padding-left: 90px;
+    padding-top: 20px;
+    color: #90a4ae;
+    width: 350px;
+    height: 55px;
+    background-color: #cfd8dc;
 }
 
 .roomname{
@@ -1570,7 +1573,7 @@ ul li.hang img {
     height: 55px;
     font-weight: bold;
     /* border-bottom: 10px solid; */
-    border: none;
+    border: 2px solid;
     background-color: #ffffff;
     border-color: #ECEFF1;
 /*     background-image: url(../img/room/Archiveicon.png);
@@ -1596,7 +1599,7 @@ ul li.hang img {
     height: 55px;
     font-weight: bold;
     border-bottom: 1px solid;
-    border: 80%;
+    border: 2px solid;
     /* width: 80%; */
     border-top: 1px solid;
     /* border: none; */
@@ -1621,7 +1624,7 @@ ul li.hang img {
     height: 55px;
     font-weight: bold;
     /* border-bottom: 10px solid; */
-    border: none;
+    border: 2px solid;
     background-color: #ffffff;
     border-color: #ECEFF1;
         border-bottom-left-radius: 20px;
@@ -1705,16 +1708,19 @@ ul li.hang img {
 }
 .sidenav {
     /* height: 100%; */
-    margin-top:60px;
+    margin-top: 60px;
     width: 0;
     position: fixed;
-    z-index: 1;
+    /* z-index: 1; */
     top: 0;
     right: 0;
+    border: 1px solid;
+    border-color: #CFD8DC;
     background-color: #ffffff;
     overflow-x: hidden;
     transition: 0.5s;
-   /*  padding-top: 60px; */
+    /* padding-top: 60px; */
+    /* border-top: 1px solid; */
 }
 
 .sidenav a {
@@ -1968,11 +1974,13 @@ ul li.hang img {
 	/* float:left; */
 }
 #linkcontents{
-	font-weight:bold;
+    font-weight: bold;
+    height: 40px;
+    overflow-y: hidden;
 }
 #link-img{
 	padding-left:15px;
-	padding-top:10px;
+	padding-top:7px;
 	position: absolute;
 
 }
@@ -1991,6 +1999,7 @@ ul li.hang img {
 }
 #texturl{
 	margin-left: 10px;
+	height: 30px;
 	display: inline-block;
 	font-size:1.2rem;
 	color:#00B8D4;
@@ -2108,6 +2117,9 @@ ul li.hang img {
     font-weight: bold;
 }
 /* left bar  */
+.leftchat{
+	width:310px;
+}
 #leftbar{
 	width:70px;
 	height:100%;
@@ -2323,19 +2335,19 @@ ul li.hang img {
 	font-size: 2.0rem;
 }
 .icon-edit-alt{
-	font-family: "fontello";
-	font-size: 1.6rem;
-	margin-top: 19px;;
-	margin-left: 30px;
-	color:#4a7dff;
+    font-family: "fontello";
+    font-size: 2.0rem;
+    margin-top: 19px;
+    margin-left: 83px;
+    color: #4a7dff;
 }
 .icon-plus-circled{
 	font-family: "fontello";
-	font-size: 4.5rem;
-	margin-top: -12px;;
-	margin-left: 30px;
-	margin-right:10px;
-	color:#ffffff;
+    font-size: 2.5rem;
+    margin-top: -2px;
+    margin-left: 80px;
+    margin-right: 10px;
+    color: #ffffff;
 }
 .icon-logout{
 	font-family: "fontello";
@@ -2427,9 +2439,11 @@ ul li.hang img {
 	float:left;
 	width:2.0rem;
 	height:1.5rem;
-  	background-repeat: no-repeat;
+    margin-top: 1px;
+    font-size: 1.8rem;
+ /*  	background-repeat: no-repeat;
     background-size: 100% 100%;
-    background-image: url(../img/Galleryicon.png);
+    background-image: url(../img/Galleryicon.png); */
 }
 #phone-icon{
 	margin-left:35px;
@@ -2437,6 +2451,8 @@ ul li.hang img {
 	float:left;
 	width:2.0rem;
 	height:1.5rem;
+    margin-top: 2px;
+    font-size: 1.8rem;
 /*   	background-repeat: no-repeat;
     background-size: 100% 100%;
     background-image: url(../img/Galleryicon.png); */
@@ -2446,8 +2462,12 @@ ul li.hang img {
 	width:250px;
 	height:30px;
 } */
+
+
+	
 #relationInput{
 	margin-left:35px;
+	outline:none;
 	width:250px;
 	height:30px;
 }
@@ -2460,7 +2480,9 @@ ul li.hang img {
 }
 #phone-input{
 	width:170px;
+	outline:none;
 	height:30px;
+	font-weight:bold;
 }
 .search-message{
 	background-color: #4A7DFF;
@@ -2479,6 +2501,22 @@ ul li.hang img {
 	border-top:5px solid;
 	color:#cfd8dc;
 }
+.noti-search{
+	margin-right:50px;
+    height: 34px;
+    border: 2px solid;
+    width: 24.5rem;
+    border-radius: 1.0rem;
+    color: #B0BEC5;
+    text-indent: 30px;
+    background: 10px;
+    font-weight:bold;
+    background-size: 1.8rem;
+    background-repeat: no-repeat;
+   
+}
+
+
 /* invite user */
 .modal-content{
 	width:620px;
@@ -2619,7 +2657,7 @@ ul li.hang img {
 }
 #top-side{
 	/* height:1500px; */
-	margin-left:45px;
+	margin-left:35px;
 	background-color:#ffffff;
 }
 #connect-profile{
