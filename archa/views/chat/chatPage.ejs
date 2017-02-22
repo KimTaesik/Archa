@@ -24,13 +24,24 @@
 <body style="overflow:hidden;overflow: -moz-scrollbars-none;">
 	<!-- ---------------------------------------------------------------------------------------------------------------------------- bootstrap start  -->
 <div id="leftbar" class="fleft">
-				<div id="logo"></div>	
-				<div role="presentation" class="lisize active" id="getcontacts1" href="#fd" aria-controls="Friends" role="tab" data-toggle="tab" aria-expanded="true">
+				<div class="rightback"> 
+					<div id="logo"></div>
 				</div>	
-				<div role="presentation" class="lisize" id="getmessages1" href="#rm" aria-controls="Rooms" role="tab" data-toggle="tab"></div>
-				<button id="archive1"></button>
-				<button class="dropdown-toggle alarm1" type="button" id="dropAlarm">
+				<div class="rightbacksub">
+					<div role="presentation" class="lisize active" id="getcontacts1" href="#fd" aria-controls="Friends" role="tab" data-toggle="tab" aria-expanded="true">
+					</div>	
+				</div>
+				<div class="rightbacksub">
+					<div role="presentation" class="lisize" id="getmessages1" href="#rm" aria-controls="Rooms" role="tab" data-toggle="tab">
+					</div>
+				</div>
+				<div class="rightbacksub">
+					<button id="archive1"></button>
+				</div>
+				<div class="rightbacksub">
+					<button class="dropdown-toggle alarm1" type="button" id="dropAlarm">
 				</button>
+				</div>
 				<button id="searchSec1"></button>
 </div>	
 <div id="leftSection" class="<%= user.email %>">
@@ -239,7 +250,7 @@
 								if(req){
 									req.forEach(function(req, index) { 
 							%>
-								<div id="<%= req.email %>"  class='request'>
+								<div id="<%= ㅣㅐ해 %>"  class='request'>
 									<div id ="connect-profile" href='#'>
 										<div id="connect-img" style="background-image:url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/<%= req.email %>/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"> </div>
 										<div id="<%= req.name %>" class="connect-name"><%= req.name %><br/>
