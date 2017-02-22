@@ -7,7 +7,12 @@ $(document).ready(function() {
 	    if (i == 0) return bytes + ' ' + sizes[i];
 	    return (bytes / Math.pow(1024, i)).toFixed(1) + '' + sizes[i];
 	};
-	
+	function message_date(m_date){
+		var md = new Date(m_date);
+		var ampm = (md.getHours() >= 12) ? "PM" : "AM";
+
+		return ampm+" "+(md.getHours() > 9 ? md.getHours() : '0'+md.getHours())+":"+(md.getMinutes() > 9 ? md.getMinutes() : '0'+md.getMinutes());
+	}
     function me(msg){	
         var msglength = msg.message.length;
         var text= '<div class="message_box_send">\
@@ -15,14 +20,14 @@ $(document).ready(function() {
                                 <div class="talk talks me" id="'+msg.email+'">\
                                 	<div id="talkname">'+msg.name+'</div><span class="message_body"></span>\
                                 </div>\
-                                <div class="message_date" id="'+msg.mdate+'"></div>\
+                                <div class="message_date" id="'+msg.mdate+'">'+message_date(msg.mdate)+'</div>\
                           </div></br>';
         return text;
 	}
     function nearMe(msg){
         var text= '<div class="message_box_send">\
                                 <div class="talk talks me" id="'+msg.email+'"><span class="message_body"></span></div>\
-                                <div class="message_date" id="'+msg.mdate+'"></div>\
+                                <div class="message_date" id="'+msg.mdate+'">'+message_date(msg.mdate)+'</div>\
                           </div></br>';
         return text;
 	}	
@@ -30,13 +35,13 @@ $(document).ready(function() {
 		return '<div class="message_box_re">\
 					<div id="other_image" class="message_re" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
 					<div class="talk talks other" id="'+msg.email+'"><div id="talkother">'+msg.name+'</div><span class="message_body"></span></div>\
-					<div class="message_date" id="'+msg.mdate+'"></div>\
+					<div class="message_date" id="'+msg.mdate+'">'+message_date(msg.mdate)+'</div>\
 				</div></br>';
 	}
 	function nearOther(msg){
 		return '<div class="message_box_re">\
 					<div class="talk talks other" id="'+msg.email+'"><span class="message_body"></span></div>\
-					<div class="message_date" id="'+msg.mdate+'"></div>\
+					<div class="message_date" id="'+msg.mdate+'">'+message_date(msg.mdate)+'</div>\
 				</div></br>';
 	}	
 	function myYoutube(msg,meta){
@@ -44,7 +49,7 @@ $(document).ready(function() {
 		 <div id="me_image" class="message_sender" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
 					<div class="talk link ma" id="'+msg.email+'">\
 					<div id="talkname">'+msg.name+'</div><<span class="message_body"></span>/div>\
-					<div class="message_date" id="'+msg.mdate+'"></div>\
+					<div class="message_date" id="'+msg.mdate+'">'+message_date(msg.mdate)+'</div>\
 				</div></br>\
 				<iframe class="talk link me"\
 					src="'+meta.data.ogVideo.url+'"\
@@ -56,7 +61,7 @@ $(document).ready(function() {
 					<div id="me_image" class="message_sender" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
 					<div class="talk link ma" id="'+msg.email+'">\
 					<div id="talkname">'+msg.name+'</div><span class="message_body"></span></div>\
-					<div class="message_date" id="'+msg.mdate+'"></div>\
+					<div class="message_date" id="'+msg.mdate+'">'+message_date(msg.mdate)+'</div>\
 				</div></br>\
 				<iframe class="talk link me"\
 					src="'+meta.data.ogVideo.url+'"\
@@ -68,7 +73,7 @@ $(document).ready(function() {
 					<div id="other_image" class="message_re" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
 					<div class="talk link other" id="'+msg.email+'">\
 					<div id="talkother">'+msg.name+'</div><span class="message_body"></span></div>\
-					<div class="message_date" id="'+msg.mdate+'"></div>\
+					<div class="message_date" id="'+msg.mdate+'">'+message_date(msg.mdate)+'</div>\
 				</div></br>\
 				<iframe class="talk link other"\
 					src="'+meta.data.ogVideo.url+'"\
@@ -80,7 +85,7 @@ $(document).ready(function() {
 					<div id="other_image" class="message_re" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
 					<div class="talk talks other" id="'+msg.email+'">\
 					<div id="talkother">'+msg.name+'</div><span class="message_body"></span></div>\
-					<div class="message_date" id="'+msg.mdate+'"></div>\
+					<div class="message_date" id="'+msg.mdate+'">'+message_date(msg.mdate)+'</div>\
 				</div></br>\
 				<iframe class="talk link other"\
 					src="'+meta.data.ogVideo.url+'"\
@@ -94,29 +99,30 @@ $(document).ready(function() {
 						<div id="talkname">'+msg.name+'</div>\
 						<span class="message_body"></span></div>\
 						<div class="message_date" id="'+msg.mdate+'"></div>\
-					<div class="talk link ma" id="'+msg.email+'">\
+					<div class="talk link ma murl" id="'+msg.email+'">\
 						<a class="urlrow" href="'+meta.data.ogUrl+'" target="_blank">\
-							<img class="imgUrl" src="'+meta.data.ogImage.url+'"/>\
+							<div class="imgUrl" style="background-image: url('+meta.data.ogImage.url+'), url('+msg.url+"/"+meta.data.ogImage.url+'), url(https://www.google.com/s2/favicons?domain='+msg.url+');" />\
 							<span class="urltitle" style="float:right;" >'+meta.data.ogTitle+'</span>\
 						</a>\
-						<div class="message_date" id="'+msg.mdate+'"></div>\
+						<div class="message_date" id="'+msg.mdate+'">'+message_date(msg.mdate)+'</div>\
 					</div></div><br/>';
 		return text;
 		
 	}
 	function nearMyUrl(msg,meta){
 		var text =  '<div class="message_box_send">\
-			<div id="me_image" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div><div class="talk talks me" id="'+msg.email+'">\
-			<div id="talkname">'+msg.name+'</div>\
-			<span class="message_body"></span></div>\
+						<div id="me_image" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div><div class="talk talks me" id="'+msg.email+'">\
+						<div id="talkname">'+msg.name+'</div>\
+						<span class="message_body"></span></div>\
 						<div class="message_date" id="'+msg.mdate+'"></div>\
-					<div class="talk link ma" id="'+msg.email+'">\
-						<a class="urlrow" href="'+meta.data.ogUrl+'" target="_blank">\
-							<img class="imgUrl" src="'+meta.data.ogImage.url+'"/>\
-							<span class="urltitle" style="float:right;" >'+meta.data.ogTitle+'</span>\
-						</a>\
-						<div class="message_date" id="'+msg.mdate+'"></div>\
-					</div></div><br/>';
+						<div class="talk link ma murl" id="'+msg.email+'">\
+							<a class="urlrow" href="'+meta.data.ogUrl+'" target="_blank">\
+							<div class="imgUrl" style="background-image: url('+meta.data.ogImage.url+'), url('+msg.url+"/"+meta.data.ogImage.url+'), url(https://www.google.com/s2/favicons?domain='+msg.url+');" />\
+								<span class="urltitle" style="float:right;" >'+meta.data.ogTitle+'</span>\
+							</a>\
+							<div class="message_date" id="'+msg.mdate+'">'+message_date(msg.mdate)+'</div>\
+						</div>\
+					</div><br/>';
 		return text;
 		
 	}
@@ -130,10 +136,10 @@ $(document).ready(function() {
 				</div>\
 				<div class="talk link other" id="'+msg.email+'">\
 					<a class="urlrow" href="'+meta.data.ogUrl+'" target="_blank">\
-						<img class="imgUrl" src="'+meta.data.ogImage.url+'"/>\
+						<div class="imgUrl" style="background-image: url('+meta.data.ogImage.url+'), url('+msg.url+"/"+meta.data.ogImage.url+'), url(https://www.google.com/s2/favicons?domain='+msg.url+');" />\
 						<span class="urltitle" style="float:left;" >'+meta.data.ogTitle+'</span>\
 					</a>\
-					<div class="message_date" id="'+msg.mdate+'"></div>\
+					<div class="message_date" id="'+msg.mdate+'">'+message_date(msg.mdate)+'</div>\
 				</div></br>';
 	}
 	function nearOtherUrl(msg,meta){
@@ -145,10 +151,10 @@ $(document).ready(function() {
 				</div>\
 				<div class="talk link other" id="'+msg.email+'">\
 					<a class="urlrow" href="'+meta.data.ogUrl+'" target="_blank">\
-						<img class="imgUrl" src="'+meta.data.ogImage.url+'"/>\
+						<div class="imgUrl" style="background-image: url('+meta.data.ogImage.url+'), url('+msg.url+"/"+meta.data.ogImage.url+'), url(https://www.google.com/s2/favicons?domain='+msg.url+');" />\
 						<span class="urltitle" style="float:left;" >'+meta.data.ogTitle+'</span>\
 					</a>\
-					<div class="message_date" id="'+msg.mdate+'"></div>\
+					<div class="message_date" id="'+msg.mdate+'">'+message_date(msg.mdate)+'</div>\
 				</div></br>';
 	}
 	function myData(data,send_userEmail,send_userName){
@@ -176,7 +182,7 @@ $(document).ready(function() {
 								</div>\
 							</a>\
 						</div>\
-						<div class="message_date" id="'+data.date+'"></div>\
+						<div class="message_date" id="'+data.date+'">'+message_date(data.date)+'</div>\
 					</div></br>';
 	}
 	function nearMyData(data,send_userEmail,send_userName){
@@ -204,7 +210,7 @@ $(document).ready(function() {
 									</div>\
 								</a>\
 							</div>\
-							<div class="message_date" id="'+data.date+'"></div>\
+							<div class="message_date" id="'+data.date+'">'+message_date(data.date)+'</div>\
 						</div></br>';
 	}	
 	function otherData(data,re_userEmail,re_userName){
@@ -235,7 +241,7 @@ $(document).ready(function() {
 							</div>\
 						</a>\
 					</div>\
-					<div class="message_date" id="'+data.date+'"></div>\
+					<div class="message_date" id="'+data.date+'">'+message_date(data.date)+'</div>\
 				</div>';
 	}
 	function nearOtherData(data,re_userEmail,re_userName){
@@ -266,7 +272,7 @@ $(document).ready(function() {
 						</div>\
 					</a>\
 				</div>\
-				<div class="message_date" id="'+data.date+'"></div>\
+				<div class="message_date" id="'+data.date+'">'+message_date(data.date)+'</div>\
 			</div>';
 	}	
 	function myImage(data,send_userEmail,send_userName){
@@ -279,7 +285,7 @@ $(document).ready(function() {
 						</div>\
 					</a>\
 				 </div>\
-				 <div class="message_date" id="'+data.date+'"></div>\
+				 <div class="message_date" id="'+data.date+'">'+message_date(data.date)+'</div>\
 						</div></br>';
 	}
 	function nearMyImage(data,send_userEmail,send_userName){
@@ -292,7 +298,7 @@ $(document).ready(function() {
 								</div>\
 							</a>\
 					 </div>\
-					 <div class="message_date" id="'+data.date+'"></div>\
+					 <div class="message_date" id="'+data.date+'">'+message_date(data.date)+'</div>\
 				</div></br>';
 	}
 	function otherImage(data,re_userEmail,re_userName){
@@ -305,7 +311,7 @@ $(document).ready(function() {
 							</div>\
 						</a>\
 					</div>\
-					<div class="message_date" id="'+data.date+'"></div>\
+					<div class="message_date" id="'+data.date+'">'+message_date(data.date)+'</div>\
 				</div></br>';
 	}
 	function nearOtherImage(data,re_userEmail,re_userName){
@@ -318,15 +324,16 @@ $(document).ready(function() {
 							</div>\
 						</a>\
 					</div>\
-					<div class="message_date" id="'+data.date+'"></div>\
+					<div class="message_date" id="'+data.date+'">'+message_date(data.date)+'</div>\
 				</div></br>';
 	}	
-	socket = io.connect({
+/*	socket = io.connect({
         'reconnection': true,
         'reconnectionDelay': 1000,
         'reconnectionDelayMax' : 5000,
         'reconnectionAttempts': 5
-	});
+	});*/
+	socket = io.connect();
 	socket.emit('myId', $('#leftSection').attr('class'));
 	socket.on('disconnect', function() {
 		socket.io.reconnect();
@@ -613,7 +620,7 @@ $(document).ready(function() {
 	socket.on('roomLoad', function(email, room,data){
 		var msg;
 		var mdata, odata;
-		var chk;
+		var chk, ct=0;
 		var temp;
 		var day;
 		$("#messages").empty();
@@ -722,6 +729,7 @@ $(document).ready(function() {
 			temp = val;
 			if(jQuery.inArray(email,val.readby) == -1){
 				chk = 1;
+				ct++;
 				val.readby.push(email);
 			}
 			if(i == room.messagelog.length-1){
@@ -734,6 +742,13 @@ $(document).ready(function() {
 			socket.emit('readMessageSave', room);
 			if( $('[id="'+room.id+'"]').length > 0){
 				$('[id="'+room.id+'"]').children('.circle').remove();
+				var totl = $(".messageCount").text();
+				if( totl-ct == 0){
+					$(".messageCount").remove();
+				}else{
+					$(".messageCount").text(totl-ct);
+				}
+				
 			}
 		}
 		
@@ -757,58 +772,96 @@ $(document).ready(function() {
 		$('#messages').scrollTop($('#messages').prop('scrollHeight'));
 	});
 	function myUrlHead(msg,i){
-		var text =  '<div class="message_box_send" id='+i+'>\
+/*		var text =  '<div class="message_box_send" id='+i+'>\
 						<div id="me_image" class="message_sender" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
 						<div class="talk link ma" id="'+msg.email+'">\
 						<div id="talkname">'+msg.name+'</div>'+msg.message+'</div>\
+						<div class="message_date" id="'+msg.mdate+'"></div>\
+					</div><br/>';*/
+		
+		var text = '<div class="message_box_send" id='+i+'>\
+						<div id="me_image" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
+						<div class="talk link ma" id="'+msg.email+'">\
+						<div id="talkname">'+msg.name+'</div>\
+						<span class="message_body"></span></div>\
 						<div class="message_date" id="'+msg.mdate+'"></div>\
 					</div><br/>';
 		return text;
 	}
 	function nearMyUrlHead(msg,i){
-		var text =  '<div class="message_box_send" id='+i+'>\
+/*		var text =  '<div class="message_box_send" id='+i+'>\
 					 <div id="me_image" class="message_sender" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
 						<div class="talk link ma" id="'+msg.email+'">\
 						<div id="talkname">'+msg.name+'</div>'+msg.message+'</div>\
+						<div class="message_date" id="'+msg.mdate+'"></div>\
+					</div><br/>';*/
+		
+		var text =  '<div class="message_box_send" id='+i+'>\
+						<div id="me_image" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div><div class="talk talks me" id="'+msg.email+'">\
+						<div id="talkname">'+msg.name+'</div>\
+						<span class="message_body"></span></div>\
 						<div class="message_date" id="'+msg.mdate+'"></div>\
 					</div><br/>';
 		return text;
 	}
 	function myUrlMeta(meta,me,val){
-		var text =  '<div class="talk link me" id="'+me+'">\
+/*		var text =  '<div class="talk link me" id="'+me+'">\
 						<div class="urlrow" href="'+(meta.data.ogUrl == undefined ? val.url : meta.data.ogUrl)+'" target="_blank">\
 							<img class="imgUrl" src="'+(meta.data.ogImage.url == undefined ? 'https://www.google.com/s2/favicons?domain='+val.url:meta.data.ogImage.url)+'"/>\
 							<span class="urltitle" style="float:right;" >'+(meta.data.ogDescription == undefined && meta.data.ogTitle != undefined ? meta.data.ogTitle : meta.data.ogDescription )+'</span>\
 						</div>\
 						<div class="message_date" id="'+val.mdate+'"></div>\
-					</div></br>';			
-
+					</div></br>';	*/		
+		var text = '<div class="talk link ma murl" id="'+me+'">\
+						<a class="urlrow" href="'+(meta.data.ogUrl == undefined ? val.url : meta.data.ogUrl)+'" target="_blank">\
+							<div class="imgUrl" style="background-image: url('+meta.data.ogImage.url+'), url('+val.url+"/"+meta.data.ogImage.url+'), url(https://www.google.com/s2/favicons?domain='+val.url+');" />\
+							<span class="urltitle" style="float:right;" >'+(meta.data.ogTitle != undefined ? meta.data.ogTitle : meta.data.ogDescription )+'</span>\
+						</a>\
+						<div class="message_date" id="'+val.mdate+'">'+message_date(val.mdate)+'</div>\
+					</div></br>'
 		return text;
 	}
 	
 	function otherUrlHead(msg,i){
-		return '<div class="message_box_re" id='+i+'>\
+/*		return '<div class="message_box_re" id='+i+'>\
 				<div id="other_image" class="message_re" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
 					<div class="talk link other" id="'+msg.email+'">\
 					<div id="talkother">'+msg.name+'</div>'+msg.message+'</div>\
 					<div class="message_date" id="'+msg.mdate+'"></div>\
+				</div></br>';*/
+		
+		return '<div class="message_box_re" id='+i+'>\
+					<div id="other_image" class="message_re" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
+						<div class="talk talks other" id="'+msg.email+'">\
+						<div id="talkother">'+msg.name+'</div>\
+						<span class="message_body"></span></div>\
+						<div class="message_date" id="'+msg.mdate+'"></div>\
+					</div>\
 				</div></br>';
 	}
 	function nearOtherUrlHead(msg,i){
-		return '<div class="message_box_re" id='+i+'>\
+/*		return '<div class="message_box_re" id='+i+'>\
 				<div id="other_image" class="message_re" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
 					<div class="talk link other" id="'+msg.email+'">\
 					<div id="talkother">'+msg.name+'</div>'+msg.message+'</div>\
+					<div class="message_date" id="'+msg.mdate+'"></div>\
+				</div></br>';*/
+		
+		return '<div class="message_box_re" id='+i+'>\
+					<div id="other_image" class="message_re" style="background-image: url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+msg.email+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"></div>\
+					<div class="talk talks other" id="'+msg.email+'">\
+					<div id="talkother">'+msg.name+'</div>\
+					<span class="message_body"></span></div>\
 					<div class="message_date" id="'+msg.mdate+'"></div>\
 				</div></br>';
 	}
 	function otherUrlMeta(meta,me,val){
 		return '<div class="talk link other" id="'+me+'">\
 					<div class="urlrow" href="'+meta.data.ogUrl+'" target="_blank">\
-						<img class="imgUrl" src="'+meta.data.ogImage.url+'"/>\
+					<div class="imgUrl" style="background-image: url('+meta.data.ogImage.url+'), url('+val.url+"/"+meta.data.ogImage.url+'), url(https://www.google.com/s2/favicons?domain='+val.url+');" />\
 						<span class="urltitle" style="float:left;" >'+meta.data.ogTitle+'</span>\
 					</div>\
-					<div class="message_date" id="'+val.mdate+'"></div>\
+					<div class="message_date" id="'+val.mdate+'">'+message_date(val.mdate)+'</div>\
 				</div></br>';
 	}
 	function myYoutubeMeta(meta,me){
@@ -941,6 +994,7 @@ $(document).ready(function() {
         var time;
         var nowtime;
         var count = 0;
+        var tc = 0;
         var backEmail;
         rooms.sort(function(a,b){
         	  // Turn your strings into dates, and then subtract them
@@ -999,10 +1053,109 @@ $(document).ready(function() {
 	                    }
                 	}       		
             	});
+            	tc += count;
             	count = 0;
-            }		        	
+            }
         });
+        if($(".messageCount").length>0){
+        	$(".messageCount").text(tc);
+        }else{
+        	if(tc != 0){
+        		$("#getmessages1").append('<div class="messageCount">'+tc+'</div>');
+        	}
+        	
+        }
+
+//        console.log('토탈카운트:',tc);
     });
+	socket.on('roomSearch', function(rooms, roomName, me,search) {
+        $('#room-list').empty();
+        var text;
+        var pasttime;
+        var time;
+        var nowtime;
+        var count = 0;
+        var tc = 0;
+        var backEmail;
+        rooms.sort(function(a,b){
+        	  // Turn your strings into dates, and then subtract them
+        	  // to get a value that is either negative, positive, or zero.
+        	  return new Date(b.messagelog[b.messagelog.length-1].mdate) - new Date(a.messagelog[a.messagelog.length-1].mdate);
+        	});
+        
+        rooms.forEach(function(room, index){
+            if (room != '') {
+            	room.messagelog.forEach(function(log,index){
+            		if(jQuery.inArray(me,log.readby) == -1) count++;
+            	});
+            	backEmail = $.grep(room.users, function( a ) {
+                	  return a !== me;
+                });
+            	roomName.roomName.forEach(function(name, index){
+            		if(name.roomId == room.id){
+            			if(name.rName.indexOf(search)>-1){
+    	                	time = new Date();
+    	                	var hour =time.getHours();
+    	                	var min =time.getMinutes();
+    	                	pasttime = (room.messagelog[room.messagelog.length-1].mdate).substring(11,16);
+    	                	if(count != 0){
+    		                	text = '<div class="myRoom" id="'+room.id+'">\
+    			            				<div class="myRoom-img '+index+'"></div>\
+    			            				<div class="roomname">'+name.rName+'</div>\
+    			            				<div class="roomtext">'+room.messagelog[room.messagelog.length-1].message+'</div>\
+    			            				<div class="roomtime">'+pasttime+'</div>\
+    			            				<div class="circle">'+count+'</div>\
+    			            			</div>';	                		
+    	                	}else{
+    		                	text = '<div class="myRoom" id="'+room.id+'">\
+    			            				<div class="myRoom-img '+index+'"></div>\
+    			            				<div class="roomname">'+name.rName+'</div>\
+    			            				<div class="roomtext">'+room.messagelog[room.messagelog.length-1].message+'</div>\
+    			            				<div class="roomtime">'+pasttime+'</div>\
+    			            			</div>';
+    	                	}
+
+    	                    $('#room-list').append(text);
+    	                    if(backEmail.length==1){
+    	                    	$('[class="myRoom-img '+index+'"]').css({'background-image':'url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+backEmail[0]+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png)'});
+    	                    }else if(backEmail.length==2){
+    	                    	$('[class="myRoom-img '+index+'"]').css({'background-image':'url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+backEmail[0]+'/userProfileImg/user_profile_img.png), url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+backEmail[1]+'/userProfileImg/user_profile_img.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png)'});
+    	                    	$('[class="myRoom-img '+index+'"]').css({'background-position':'left, right,left, right'});
+    	                    	$('[class="myRoom-img '+index+'"]').css({'background-size':'50% 100%'});
+    	                    }else if(backEmail.length>=3){
+    	                    	$('[class="myRoom-img '+index+'"]').css({'background-image':
+    	                    		'url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+backEmail[0]+'/userProfileImg/user_profile_img.png),\
+    	                    		url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+backEmail[1]+'/userProfileImg/user_profile_img.png),\
+    	                    		url(https://archa-bucket.s3-ap-northeast-1.amazonaws.com/'+backEmail[2]+'/userProfileImg/user_profile_img.png),\
+    	                    		url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png),\
+    	                    		url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png),\
+    	                    		url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png)'});
+    	                    	$('[class="myRoom-img '+index+'"]').css({'background-position':'left top, right top, bottom left,left top, right top, bottom left'});
+    	                    	$('[class="myRoom-img '+index+'"]').css({'background-size':'50% 50%'});
+    	                    }           				
+            			}
+
+                	}       		
+            	});
+            	tc += count;
+            	count = 0;
+            }
+        });
+        if($(".messageCount").length>0){
+        	$(".messageCount").text(tc);
+        }else{
+        	if(tc != 0){
+        		$("#getmessages1").append('<div class="messageCount">'+tc+'</div>');
+        	}
+        	
+        }
+
+//        console.log('토탈카운트:',tc);
+    });
+	socket.on('newm', function(id){
+		socket.emit('rooms', $('#leftSection').attr('class')); //채팅온거 읽기
+	});
+	socket.emit('rooms', $('#leftSection').attr('class')); //채팅온거 읽기
 	socket.on('roomNameChange', function(roomId, newName){
 		if( $('[id="'+roomId+'"]').length > 0){
 			$('[id="'+roomId+'"]').children('.roomname').text(newName);

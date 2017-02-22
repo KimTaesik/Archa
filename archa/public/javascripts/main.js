@@ -3,11 +3,13 @@ $(document).ready(function() {
 			$('#leftbar').css('height' ,  $(window).height() );
 			$('#leftSection').css('height' ,  $(window).height() );
 			$('#friendlist').css('height' ,  $(window).height()-$('#topcontacts').height()-$('.myInfo').height()-$('#inputSearchMember').height()-10);
-			$('.searchResult,#room-list').css('height' ,  $(window).height()-$('#setGroup').height()-$('.menuTop').height()-$('.memberSection').height()-$('.myInfo').height()-$('.nav').height() -67 );
+			$('.searchResult,#room-list').css('height' ,  $(window).height()-$('#topcontacts').height()-$('#inputSearchMember').height()-10 );
 			$('.dtprofile').css('height' ,  $(window).height() );
         	$('#relationResult').css('height', $(window).height() );
         	$('#top-side').css('height', $(window).height() );
+        	$("#noti-text").css('height', $(window).height()-$('#topconnect').height()-$('.searchbox').height()-$('#topconnect').height()-$('.searchbox').height());
 			$(window).resize(function() {
+				$("#noti-text").css('height', $(window).height()-$('#topconnect').height()-$('.searchbox').height()-$('#topconnect').height()-$('.searchbox').height());
 				$('#leftbar').css('height' ,  $(window).height() );
 				$('#leftSection').css('height' ,  $(window).height());
 				$('#friendlist').css('height' ,  $(window).height()-$('#topcontacts').height()-$('.myInfo').height()-$('#inputSearchMember').height()-10);
@@ -15,14 +17,17 @@ $(document).ready(function() {
 				$('.msgbox').css('height', $(window).height() - $('.topSection').height()-$('#plus').height()-$('.topMenu').height()-30);
             	/*$('.mid').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width() -10);
             	$('.msgbox').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()-10);*/
-				$('.searchResult,#room-list').css('height' ,  $(window).height()-$('#setGroup').height()-$('.menuTop').height()-$('.memberSection').height()-$('.myInfo').height()-$('.nav').height() -67);
+				$('.searchResult,#room-list').css('height' ,  $(window).height()-$('#topcontacts').height()-$('#inputSearchMember').height()-10 );
             	/*$('.archiveback').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()); */
             	$('.archiveback').css('height', $(window).height() - $('.topMenu').height()-$('.mySection').height());
             	$('#dataList').css('width' ,  $(window).width()-$('#leftSection').width()-$('#rightSection').width()); 
             	$('#relationResult').css('height', $(window).height() );
             	$('#top-side').css('height', $(window).height() );
+            	if($('.setInfo').css('width')>0){
                     $('.setInfo').css('width' ,  $(window).width());
-                    $('.setInfo').css('height' ,  $(window).height());
+                    $('.setInfo').css('height' ,  $(window).height());          		
+            	}
+
                     $('.dtprofile-background').css('width' ,  $('.setInfo').width()+30);
                     $('.dtprofile-background').css('height' ,  $('.setInfo').height()+30);
 			});
@@ -54,7 +59,7 @@ $(document).ready(function() {
 		            data.append('userfile', filesList.files[i]);
 		        }
 		        
-		        $.ajax({
+		        $.ajax({	
 		            url			:	"/fileSend",
 		            processData	:	false,
 		            type		:	'POST',
@@ -97,71 +102,107 @@ $(document).ready(function() {
 
 			$('.mid').on("change","#file",function(e){
 				//disable the actual submit of the form.
-				e.preventDefault(); 
+				
 				//grab all form data 
 				socket.emit('roomUser',$('#thisRoom').val());
-				socket.on('roomUser', function(user){
-					var form = $('form')[0];
-					var formData = new FormData(form);
-
-					var upfiles_cnt = document.getElementById('file').files.length
-					if(upfiles_cnt == 0){
-						alert('선택한 파일이 없습니다');
-						return false; // form을 전송시키지 않고 반환
-					}
-					alert(user);
-					formData.append('userList', user);
-			        formData.append('roomName', $('#thisRoom').val());
-			        formData.append('you', $('#you').val());
-			        console.log(formData);
-			        var filesList = document.getElementById('file');
-			        
-			        for (var i = 0; i < filesList.files.length; i ++) {
-			        	formData.append('userfile', filesList.files[i]);
-			        }
-			        
-					$.ajax({
-						// set data type json 
-						dataType:  'json',
-						data		:	formData,
-						processData	:	false,
-						contentType	:	false,
-						type		:	'POST',
-						url			:	"/fileSend",
-						// reset before submitting 
-						beforeSend: function() {
-							$('.progress').show();
-							$('.bar').show();
-							$('.percent').show();
-							$('.bar').css('width','0%');
-							$('.percent').text('0%');
-						},
-
-						// progress bar call back
-						uploadProgress: function(event, position, total, percentComplete) {
-							var pVel = percentComplete + '%';
-							$('.bar').css('width',pVel);
-							if(percentComplete != 100){
-								$('.percent').text(pVel);
-							}else{
-								$('.percent').text(pVel+" 파일을 서버에 업로드중입니다.");
-							}
-							
-						},
-			            success	: function(data,status,xhr){
-			            	$('.progress,.bar,.percent').hide();
-							$('.percent').text('0%');
-							socket.emit('dataInfoSend', data,$('#leftSection').attr('class'),$("#userId").val());
-			            },
-			            error: function(xhr, status, er){
-			            	console.log("code:"+xhr.status+"\n"+"message:"+xhr.responseText+"\n"+"error:"+er);
-			            }
-					});
-					return false;					
-				});
-
 			});
-		    
+			socket.on('roomUser', function(user){
+
+				var form = $('form')[0];
+				var formData = new FormData(form);
+
+				var upfiles_cnt = document.getElementById('file').files.length
+				if(upfiles_cnt == 0){
+					alert('선택한 파일이 없습니다');
+					return false; // form을 전송시키지 않고 반환
+				}
+				
+				formData.append('userList', user);
+		        formData.append('roomName', $('#thisRoom').val());
+		        formData.append('you', $('#you').val());
+		        
+		        var filesList = document.getElementById('file');
+		        for (var i = 0; i < filesList.files.length; i ++) {
+		        	formData.append('userfile', filesList.files[i]);
+		        }
+				$("#fileInfo").ajaxSubmit({
+					// set data type json 
+					dataType:  'json',
+					data: {"userList":user},
+					traditional:true,
+					// reset before submitting 
+					beforeSend: function() {
+						$('.progress').show();
+						$('.bar').show();
+						$('.percent').show();
+						$('.bar').css('width','0%');
+						$('.percent').text('0%');
+					},
+
+					// progress bar call back
+					uploadProgress: function(event, position, total, percentComplete) {
+						var pVel = percentComplete + '%';
+						$('.bar').css('width',pVel);
+						if(percentComplete != '100'){
+							$('.percent').text(pVel);
+						}else{
+							$('.percent').text(pVel+" 파일을 서버에 업로드중입니다.");
+						}
+					},
+		            success	: function(data,status,xhr){
+		            	$('.progress,.bar,.percent').hide();
+						$('.percent').text('0%');
+						socket.emit('dataInfoSend', data,$(".myInfoView").attr('id'),$("#userId").val());
+		            },
+		            resetForm: true 
+				});		        
+/*				$.ajax({
+					// set data type json 
+					dataType:  'json',
+					data		:	formData,
+					cache		:	false,
+					processData	:	false,
+					contentType	:	false,
+					type		:	'POST',
+					url			:	"/fileSend",
+					// reset before submitting 
+					beforeSend: function() {
+						$('.progress').show();
+						$('.bar').show();
+						$('.percent').show();
+						$('.bar').css('width','0%');
+						$('.percent').text('0%');
+					},
+
+					// progress bar call back
+					uploadProgress: function(event, position, total, percentComplete) {
+						var pVel = percentComplete + '%';
+						$('.bar').css('width',pVel);
+						$('.percent').text(pVel);
+						if(percentComplete != '100'){
+							$('.percent').text(pVel);
+						}else{
+							$('.percent').text(pVel+" 파일을 서버에 업로드중입니다.");
+						}
+						
+					},
+		            success	: function(data,status,xhr){
+		            	$('.progress,.bar,.percent').hide();
+						$('.percent').text('0%');
+						if (/(MSIE|Trident)/.test(navigator.userAgent)) { 
+							// ie 일때 input[type=file] init.
+							$("#file").replaceWith( $("#file").clone(true) );
+						} else {
+							 // other browser 일때 input[type=file] init.
+							$("#file").val("");
+						}
+						socket.emit('dataInfoSend', data,$('#leftSection').attr('class'),$("#userId").val());
+		            },
+		            error: function(xhr, status, er){
+		            	console.log("code:"+xhr.status+"\n"+"message:"+xhr.responseText+"\n"+"error:"+er);
+		            }
+				});	*/			
+			});		    
 		    /*
 		     * 내 정보 수정(왼쪽 상단으로 진입)
 		     */
@@ -201,7 +242,14 @@ $(document).ready(function() {
 			        });
 		    	}
 		    });
-		    
+		    $('.leftchat').on('keyup','#inputSearchMember', function(key) {
+		    	if(key.keyCode == 13){
+		    		if($('#topcontacts').text() == 'ROOMS'){
+		    			var search = $("#inputSearchMember").val();
+		    			socket.emit('roomSearch', $('#leftSection').attr('class'),search);
+		    		}
+		    	}
+		    });
 		    /*
 		     * 왼쪽 그룹 탭들
 		     */
@@ -329,7 +377,16 @@ $(document).ready(function() {
 				}
 				
 			});
-			
+			$('.mid').on('click', '.selectResult',function(){
+				var id = $(this).attr('id');
+				
+				if($("#invite-pbody").children('[id="'+id+'"]').children('.roomInvite').is(":checked")){
+					$(this).remove();
+					$("#invite-pbody").children('[id="'+id+'"]').children('.roomInvite').attr("checked", false);
+				}else{
+					$(this).remove();
+				}
+			});
 			/*
 			 * 채팅방 초대 모달에서 확인 누르면 친구 바로 초대
 			 */
@@ -950,6 +1007,8 @@ $(document).ready(function() {
 			    event.preventDefault();
 			    $(".leftconnection").empty();
 		    	$(".leftarch, .setInfo, .leftchat").hide();
+                $('.setInfo').css('width' ,  0);
+                $('.setInfo').css('height' ,  0);
 		    	$(".leftconnection, .container-fluid").show();
 		        $.ajax({
 		            type: "post",
@@ -965,8 +1024,8 @@ $(document).ready(function() {
 		        		   <div class="searchbox">\
 		        	       <div class="contact-text"><div id="email-icon" class="icon-mail"></div>E-mail</div>\
 		        		   <div class="contact-input">\
-		        	<input class="noti-search form-control" id="relationInput" type="text" style="background-image: url(../img/searchingbutton.png);" placeholder="Enter email address"/></div>\
-		    				<button class="search-message" id="searchRelation">Search</button></div>\
+		    				<input type="text" class="form-control" id="relationInput"></div>\
+		    				<button class="search-relation" id="searchEmail">Search</button></div>\
 		        	       </div>\
 		        		   </div>\
 		        		   <div class="searchbox">\
@@ -983,8 +1042,8 @@ $(document).ready(function() {
 								  <option>+852</option>\
 								  <option>+66</option>\
 								  </select>\
-								  <input class="form-control" id="phone-input" type="text" placeholder="000-0000-0000"/>\
-    							  <button class="search-message" id="#">Search</button></div>\
+								  <input type="text" class="form-control" id="phone-input">\
+    							  <button class="search-relation" id="searchPh">Search</button></div>\
 			        	       </div>\
 		        		   </div>\
 		        		   <div class="notibox">\
@@ -993,6 +1052,7 @@ $(document).ready(function() {
 		        	\
 		        	';
 		        $('.leftconnection').append(text);
+		        $("#noti-text").css('height', $(window).height()-$('#topconnect').height()-$('.searchbox').height()-$('#topconnect').height()-$('.searchbox').height());
 		        socket.emit('noti', $('#leftSection').attr('class'));
 			});
 			/*
@@ -1077,13 +1137,21 @@ $(document).ready(function() {
 			/*
 			 * relation 검색, 유저리스트
 			 */
-		    $('.leftconnection').on("click","#searchRelation",function(e) {
+		    $('.leftconnection').on("click",".search-relation",function(e) {
 		    	/*$('.background').empty();*/
-		    	var search = $("#relationInput").val();
+		    	var search;
+		    	var category = $(this).attr('id');
+		    	
+		    	if(category =='searchPh'){
+		    		search = $("#phone-input").val();
+		    	}else{
+		    		search = $("#relationInput").val();
+		    	}
+		    	
 		        $.ajax({
 		            type: "post",
 		            url: "/findRelationUser",
-		            data: { "search": search },
+		            data: { "search": search, "category": category },
 		            success: function(result,status,xhr){
 		            	$(".background").html(result);
 		            	$('#relationResult').css('height', $(window).height() );
@@ -1205,6 +1273,7 @@ $(document).ready(function() {
 			    temp.val(text).select();
 			    document.execCommand("copy");
 			    temp.remove();
+			    alert('URL copied to clipboard');
 			});
 			$('.mid').on('click', '#archive-delete, #gallery-delete', function(){
 				
@@ -1261,6 +1330,7 @@ $(document).ready(function() {
 			    temp.val(text).select();
 			    document.execCommand("copy");
 			    temp.remove();
+			    alert('URL copied to clipboard');
 			});			
 
 			/*
@@ -1369,6 +1439,7 @@ $(document).ready(function() {
 			 */
 			var lstEl = null;
 			var cntr = -1;
+			var rc = 0;
 			$('.mid').on('keyup', '#searchRoomArchive', function(key){
 				var sp = $(this).val().split(":");
 				if(key.keyCode==13){
@@ -1412,6 +1483,7 @@ $(document).ready(function() {
 						$(".talk").highlight(vl);
 						if (lstEl === null) {
 							lstEl = $('.talk').find('span.highlight');
+							cntr=lstEl.length;
 							$("#lengthSearch").val(lstEl.length);
 							$("#countNum").val(lstEl.length==0? 0:1);
 							if (!lstEl || lstEl.length === 0) {
@@ -1435,7 +1507,10 @@ $(document).ready(function() {
 						$('.highlight').removeClass('this');
 					}
 					cntr++;
-					$("#countNum").val(cntr+1);
+					if(rc <= lstEl.length){
+						rc--;
+					}
+					$("#countNum").val(rc);
 					if (cntr > 0) {
 //					      $('#messages').animate({ scrollTop : $(".this").offset().top }, 400);
 						$(lstEl[0]).removeClass('current');
@@ -1454,7 +1529,10 @@ $(document).ready(function() {
 						$('.highlight').removeClass('this');
 					}
 					cntr--;
-					$("#countNum").val(cntr+1);
+					if(rc < lstEl.length){
+						rc++;
+					}
+					$("#countNum").val(rc);
 					if (cntr < lstEl.length) {
 						$(lstEl[cntr + 1]).removeClass('current');
 					}
@@ -1563,7 +1641,7 @@ $(document).ready(function() {
 		    /*
 		     * 유저 프로필 이미지 전송
 		     */
-		    $('#leftSection').on("click", "#profile_view", function(e){
+		    $('#leftSection').on("click", ".dtprofile-image", function(e){
 		    	if (this === e.target) {
 		    		$('#profile_img_input').trigger("click");
 		    	}
@@ -1588,16 +1666,15 @@ $(document).ready(function() {
 		            data		:	data,
 		            datatype	:	"json",
 		            success		:	function(data,status,xhr){
-		            	$('#profile_view').css('background-image',"url(" + data + "?random=" + randomId + ")");
+		            	$('.dtprofile-image').css('background-image',"url(" + data + "?random=" + randomId + ")");
 		            }
 		        });
 		    });
 		    
 		    //전체 상세프로필
 		   /* $('#mySidenav').on('click', '.profile_detail', function(){*/
-			$('#leftbar').on('click', '#searchSec1', function(){
-                var id = $(this).attr('id');
-				var id= $('.myInfoView').attr("id");
+			$('#leftbar,.leftchat').on('click', '#searchSec1, #profile_view', function(){
+				var id= $('#leftSection').attr("class");
 				$(".leftarch, .leftconnection, .leftchat, .container-fluid").hide();
 				$(".setInfo").show();
 			
@@ -1750,7 +1827,11 @@ $(document).ready(function() {
 	                    url: "/profileEdit",
 	                    data: { "input": input, "category": id, "pwd":pwd },
 	                    success: function(result,status,xhr){
-	                        $('#leftSection').html(result);
+	                        $('.setInfo').html(result);
+	                        $('.setInfo').css('width' ,  $(window).width());
+	                        $('.setInfo').css('height' ,  $(window).height());
+	                        $('.dtprofile-background').css('width' ,  $('.setInfo').width()+30);
+	                        $('.dtprofile-background').css('height' ,  $('.setInfo').height()+30);
 	                    },
 	                    error: function(xhr, status, er){}
 	                });		    		
@@ -1868,7 +1949,8 @@ $(document).ready(function() {
 			    $(".leftchat, .setInfo, .leftconnection").hide();
 		    	$(".leftarch, .container-fluid").show();
 			    $('.leftarch').empty();
-			    
+                $('.setInfo').css('width' ,  0);
+                $('.setInfo').css('height' ,  0);
 		        $.ajax({
 		            type: "post",
 		            url: "/myArchive",
@@ -1970,7 +2052,7 @@ $(document).ready(function() {
 		    	$('#topcontacts').text('ROOMS');
 		    	$('#inputSearchMember').attr("placeholder","Search");
 		    	socket.emit('rooms', $('#leftSection').attr('class'));
-		    	$('.searchResult,#room-list').css('height' ,  $(window).height()-$('#topcontacts').height()-$('.myInfo').height()-$('#inputSearchMember').height()-10 );
+		    	$('.searchResult,#room-list').css('height' ,  $(window).height()-$('#topcontacts').height()-$('#inputSearchMember').height()-10 );
 //				setInterval(function() {
 //					socket.emit('rooms', $('.myInfoView').attr("id"));
 //			    }, 10000);
@@ -1982,7 +2064,7 @@ $(document).ready(function() {
 		     */
 		    $('.mid').on("mouseenter","#roomA",function(e) {
 		    	$("#roomArchive").css('background-color',"#cfd8dc");
-		    	$("#roomArchive").css('border').remove();
+		    	$("#roomArchive").css('border', "none");
 		    });
 		    
 		    $('.mid').on("mouseleave","#roomA",function(e) {
@@ -1995,7 +2077,7 @@ $(document).ready(function() {
 		     */
 		    $('.mid').on("mouseenter","#roomG",function(e) {
 		    	$("#roomGallery").css('background-color',"#cfd8dc");
-		    	$("#roomGallery").css('border').remove();
+		    	$("#roomGallery").css('border', "none");
 		    });
 		    
 		    $('.mid').on("mouseleave","#roomG",function(e) {
@@ -2009,7 +2091,7 @@ $(document).ready(function() {
 		     */
 		    $('.mid').on("mouseenter","#roomL",function(e) {
 		    	$("#roomLinks").css('background-color',"#cfd8dc");
-		    	$("#roomLinks").css('border').remove();
+		    	$("#roomLinks").css('border', "none");
 		    });
 		    
 		    $('.mid').on("mouseleave","#roomL",function(e) {

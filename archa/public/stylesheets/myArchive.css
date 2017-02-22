@@ -89,6 +89,7 @@
 	background-color: white;
 	color:#4A7DFF;
 	font-weight:bold;
+	cursor: pointer;
 }
 
 #tabsent{
@@ -103,6 +104,7 @@
     background-color: #CFD8DC;
     color:#78909C;
 	font-weight:bold;
+	cursor: pointer;
 }
 .archiveback{
 	background-color: #ECEFF1;
@@ -282,7 +284,7 @@
 }
 /* archive mouseover icon */
 #archive-download{
-	
+	cursor: pointer;
 	float:right;
 	width: 4.0rem;
     height: 4.0rem;  
@@ -294,7 +296,7 @@
     background-image: url(../img/downloadbutton.png);
 }
 #archive-link{
-	
+	cursor: pointer;
 	float:right;
 	width: 4.0rem;
     height: 4.0rem;  
@@ -306,6 +308,7 @@
     background-image: url(../img/linkbutton.png);
 }
 #archive-delete{
+	cursor: pointer;
 	float:right;
 	width: 4.0rem;
     height: 4.0rem;  
@@ -319,6 +322,7 @@
 
 /* gallery mouseover icon */
 #gallery-download{
+		cursor: pointer;
 	position:relative;
 	float:right;
 	width: 4.0rem;
@@ -330,6 +334,7 @@
     background-image: url(../img/downloadbutton.png);
 }
 #gallery-link{
+		cursor: pointer;
 	position:relative;
 	float:right;
 	width: 4.0rem;
@@ -342,6 +347,7 @@
     background-image: url(../img/linkbutton.png);
 }
 #gallery-delete{
+		cursor: pointer;
 	position:relative;
 	float:right;
 	width: 4.0rem;

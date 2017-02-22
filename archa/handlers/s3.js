@@ -196,7 +196,7 @@ exports.deleteFile = function(req, res){
 	    if (err) console.log(err);
 
 	    if (data.Contents.length == 0){
-	    	res.send('오잉 삭제할 파일이 없네요');
+	    	res.send('The file to delete does not exist.');
 	    }else{
 		    params = {Bucket: 'archa-bucket'};
 		    params.Delete = {Objects:[]};
@@ -208,7 +208,7 @@ exports.deleteFile = function(req, res){
 		    s3.deleteObjects(params, function(err, data) {
 		      if (!err){
 		    	  Data.remove({'url': url}).exec(function(err){
-		    		  if(!err) res.send('삭제완료!');
+		    		  if(!err) res.send('Delete completed');
 		    	  });
 		      }else{
 		    	  console.log(err);
@@ -221,7 +221,7 @@ exports.deleteFile = function(req, res){
 
 	  });
 	}else{
-		res.send('내가 보낸 파일은 삭제할 수 없습니다.');
+		res.send('You can not delete the file you sent.');
 	}
 }
 exports.getList = function(req, res){
