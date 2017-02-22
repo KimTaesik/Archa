@@ -2487,6 +2487,9 @@ ul li.hang img {
 	outline:none;
 	width:250px;
 	height:30px;
+    outline: none;
+    box-shadow: none;
+    border-color: #ccc;	
 }
 #phone-select{
 	margin-left:35px;
@@ -2500,6 +2503,9 @@ ul li.hang img {
 	outline:none;
 	height:30px;
 	font-weight:bold;
+	    outline: none;
+    box-shadow: none;
+    border-color: #ccc;
 }
 .search-relation{
 	background-color: #4A7DFF;
@@ -3133,4 +3139,10 @@ display: block;
 .message_date{
 	float: right;
     color: gray;
+}
+
+#inputSearchMember{
+    outline: none;
+    box-shadow: none;
+    border-color: currentColor;	
 }
