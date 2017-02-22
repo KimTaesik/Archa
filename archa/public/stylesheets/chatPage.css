@@ -1541,7 +1541,7 @@ ul li.hang img {
     position: absolute;
     /* opacity: 0.5; */
      margin-left: 14px; 
-    margin-top: 13px;
+    margin-top: 10px;
     border-radius: 5px;
     background-image: url(../img/room/Galleryicon.png);
     background-repeat: no-repeat;
@@ -1558,7 +1558,7 @@ ul li.hang img {
     position: absolute;
     /* opacity: 0.5; */
     margin-left: 14px; 
-    margin-top: 13px;
+    margin-top: 10px;
     border-radius: 5px;
     background-image: url(../img/room/Linkicon.png);
     background-repeat: no-repeat;
