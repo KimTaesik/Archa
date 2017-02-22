@@ -31,6 +31,7 @@
     margin-top:1.2rem;
     color:#B0BEC5;
     text-indent:40px;
+	outline:none;
     background:15px;
     background-size:1.8rem;
     background-repeat: no-repeat;
@@ -118,7 +119,7 @@
 	width:auto;
 }
 #tabcontent{
-	margin-top: 70px;
+	margin-top: 67px;
     background-color: white;
     margin-left:20px;
     

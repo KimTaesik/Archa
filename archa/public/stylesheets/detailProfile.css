@@ -28,6 +28,20 @@
     background-color: #ffffff;
    /*  margin-left: 100px; */
 }
+.dtprofile-settting{
+	display: block;
+    background-color: transparent;
+    width: 3.0rem;
+    margin-top: 210px;
+    margin-right: 10px;
+    height: 2.5rem;
+    border: none;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url(../img/settingbutton.png);
+    bottom: 20px;
+    float: right;
+}
 #dtprofile-icon{
     width: 40px;
     height: 35px;
@@ -62,6 +76,7 @@
 .dtprofile-image{
 	margin-left: 80px;
     margin-top: 30px;
+    cursor: pointer;
     float:left;
     width: 250px;
     height: 250px;
@@ -69,7 +84,7 @@
     border-radius: 10px;
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    background-image: url(../img/momo.png);
+/*     background-image: url(../img/momo.png); */
 }
 .dtprofile-name{
     margin-top: 265px;
@@ -156,6 +171,7 @@
 	background-color: #4A7DFF;
     height: 50px;
     width: 140px;
+    outline:none;
     text-align: center;
     margin-top: 20px;
     margin-left: 360px;
@@ -170,6 +186,7 @@
     background-color: #ffffff;
     height: 35px;
     width: 100px;
+    outline:none;
     text-align: center;
     border-radius: 8px;
     color: #b0bec5;
@@ -188,6 +205,7 @@
 	background-color: #FF5722;
     height: 50px;
     width: 140px;
+    outline:none;
     text-align: center;
     margin-top: 20px;
     margin-left: 360px;
@@ -214,6 +232,7 @@
     background-color: #ffffff;
     height: 35px;
     width: 100px;
+    outline:none;
     text-align: center;
     border-radius: 8px;
     color: #b0bec5;
