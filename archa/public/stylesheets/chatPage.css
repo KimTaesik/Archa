@@ -1,13 +1,11 @@
 html{
 	font-size:10px;
-	overflow: -moz-scrollbars-none;
 /* 	 font: "Source Sans Pro", sans-serif; */
 }
 body {
  /*  font: 12px "Lucida Grande", Helvetica, Arial, sans-serif; naki_20161210 */
  /* font basic set  2016_12_19 */
 font-family: "Source Sans Pro";
-overflow: -moz-scrollbars-none;
  /* font-family: "fontello"; */
  }
 .menuTop{
@@ -346,6 +344,7 @@ overflow: -moz-scrollbars-none;
 }
 .chatfoot{
 	background-color: #eceff1;
+	    z-index: 99;
 }
 
 
@@ -2196,7 +2195,6 @@ ul li.hang img {
     margin-left:20px;
     height: 2.5rem;
     border: none;
-    margin-top: 30px;
     cursor: pointer;
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -2501,6 +2499,7 @@ ul li.hang img {
 #noti-text{
 	overflow-y: scroll;
 	-ms-overflow-style: none;
+	overflow: -moz-scrollbars-none;
 }
 /* invite user */
 .modal-content{
@@ -2982,15 +2981,16 @@ display: block;
 }
 #rm,.inner {
 	overflow: hidden;
-	width: 300px;
+	/* width: 300px; */
 }
 /* getRoomlist css 2016_01_02 */
 #room-list, #friendlist{
 /* 	overflow:scroll;
 	overflow-x: hidden; */
-    margin: 0;
+/*     margin: 0;
     padding: 0;
-    width: 300px;
+    width: 300px; */
+    margin-right:-16px;
     overflow-y: scroll;
     -ms-overflow-style: none;
 }
