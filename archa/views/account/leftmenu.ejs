@@ -4,7 +4,7 @@
 		<div class="myInfo">
 			<div id="<%= user.email %>" class="myInfoView">
 				<div class="state" style="<%= user.state==1 ? 'background-color: #2CCA70' : 'background-color: #c0c0c0' %>"></div>
-				<div class="picture" id='profile_view' style="background-image:url(<%= user.user_img != null ? user.user_img+'?random='+new Date().getTime() : 'url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png)' %>)" >
+				<div class="picture" id='profile_view' style="background-image:url(<%= user.user_img != null ? user.user_img+'?random='+new Date().getTime() : 'https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png' %>)" >
 					<input type="file" id="profile_img_input" style="display:none"/>
 				</div>
 				<input type="text" id="name" name="name" class="<%= user.name %> info" value='<%= user.name %>' disabled="disabled">

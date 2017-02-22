@@ -10,19 +10,21 @@
 					chk=0;
 				}
 			});
-			if(chk && friends.email != me){
+			if(friends.email != me){
 %>				
 				<div id="topcontent"></div>
 				<!-- 나 : <%= me %> -->
 				<div id="<%= friends.email %>"  class='has-sub active'>
 					<div id ="connect-profile" href='#'>
-					   <div id="connect-img"> </div>
+					   <div id="connect-img" style="background-image:url(<%=friends.user_img%>), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);"> </div>
 						<div id="connect-name" class="<%= friends.name %>"><%= friends.name %><br/>
 							<div id="connect-position" class="<%= friends.position %>"><%= friends.position %></div>
 							<div id="connect-company" class="<%= friends.company %>"><%= friends.company %></div> 
 							<br/>
 						</div>
-						<button type="button" id="<%= friends.email %>" class="addRelation">Request</button>							
+						<% if(chk){%>
+						<button type="button" id="<%= friends.email %>" class="addRelation">Request</button>
+						<% } %>							
 					</div>
 				</div>
 				

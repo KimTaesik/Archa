@@ -4,7 +4,7 @@
 	alert('비밀번호가 일치하지 않습니다.');
 	</script>
 <% }%>
-	<div class="container" style="padding:0;    margin: 0;">
+	<div class="container" style="padding:0;margin: 0;width: 100%;">
 
 		<div class="col-md-12" style="padding:0;">
 			<div class="dtprofile-contents">
@@ -13,8 +13,9 @@
 					<div class="dtprofile-title">PROFILE</div>
 				</div>
 				<div class="row" style="height: 345px;">	
-					<div class="dtprofile-image" style="background-image: url(<%= user.user_img%>), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);">
+					<div class="dtprofile-image" style="background-image: url(<%= user.user_img +'?random='+new Date().getTime()%>), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);">
 						<!-- <div class="dtprofile-onoff"></div> -->
+						<input type="file" id="profile_img_input" style="display:none"/>
 						<div class="dtprofile-name"><%= user.name %></div>
 					</div>	
 					<div class="dtprofile-text">
@@ -49,7 +50,7 @@
 		            <div class="setting-text">
 		            	<div class="inputtext">Current Company</div>
 			    		<div class="inputform">
-		                <input type="text" class="form-control" id="currentCom"></div>
+		                <input type="text" class="form-control" id="currentCom" value="<%= user.company %>"></div>
 		                <div class="inputtext">New Company</div>
 		                <div class="inputform">
 		                <input type="text" class="form-control" id="newCom"></div>
@@ -65,7 +66,7 @@
 		            <div class="setting-text">
 		            	<div class="inputtext">Current Title</div>
 			    		<div class="inputform">
-		                <input type="text" class="form-control" id="currentTitle"></div>
+		                <input type="text" class="form-control" id="currentTitle" value="<%= user.position %>"></div>
 		                <div class="inputtext">New Title</div>
 		                <div class="inputform">
 		                <input type="text" class="form-control" id="newTitle"></div>
@@ -92,7 +93,7 @@
 								<option>+852</option>
 								<option>+66</option>
 						  	</select>
-							<input type="text" class="form-control" id="currentPh" placeholder="010-0000-0000">
+							<input type="text" class="form-control" id="currentPh" placeholder="010-0000-0000" value="<%= user.phoneNumber %>">
 						</div>
 						<div class="inputtext">New Phone number</div>
 						<div class="inputform">

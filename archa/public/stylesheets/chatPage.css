@@ -1,11 +1,13 @@
 html{
 	font-size:10px;
+	overflow: -moz-scrollbars-none;
 /* 	 font: "Source Sans Pro", sans-serif; */
 }
 body {
  /*  font: 12px "Lucida Grande", Helvetica, Arial, sans-serif; naki_20161210 */
  /* font basic set  2016_12_19 */
 font-family: "Source Sans Pro";
+overflow: -moz-scrollbars-none;
  /* font-family: "fontello"; */
  }
 .menuTop{
@@ -249,7 +251,6 @@ font-family: "Source Sans Pro";
     margin-top: 13px;
     margin-right: 40px;
    	position: absolute;
-   	z-index: 0;
 }
 .setting{
 	    margin-right: 20px;
@@ -495,6 +496,7 @@ textarea{width: 100%; height: 100%;}
 .background {
   background-color: white;
   width: 100%;
+  min-width: 613px;
 }
 /* 2016-01-12 */
 .file_box_send{
@@ -522,6 +524,7 @@ textarea{width: 100%; height: 100%;}
 }
 .message_body{
 	margin-top:10px;
+	    word-break: break-all;
 }
 .talk {
 
@@ -662,6 +665,8 @@ textarea{width: 100%; height: 100%;}
 }
 
 .imgUrl{
+	background-repeat: no-repeat;
+    background-size: cover;
 	height: 85px;
     width: 85px;
     margin-right: 10px;
@@ -736,7 +741,7 @@ creates the smaller  triangle
   padding-left: 55px;
   width:100%;
   float:left;
-  padding: 6px 12px;
+  padding: 6px 50px;
   font-size: 14px;
   line-height: 1.42857;
   color: #555555;
@@ -876,6 +881,7 @@ creates the smaller  triangle
 #room{
 	margin-top: 15px;
 	/* 씨바 클릭이 잘 안되서 바꿈 룸타이틀이미지때문에 */
+	white-space:nowrap;
     margin-left: 100px;
     position: absolute;
     width: 40%;
@@ -1383,6 +1389,7 @@ ul li.hang img {
 	border-radius: 10px;
 }
 .myRoom-title-img{
+	cursor: pointer;
 	position: absolute;
 	width:45px;
 	height:45px;
@@ -1393,7 +1400,7 @@ ul li.hang img {
 	background-size:cover;
 	background-position:center;
 	border-radius: 8px;
-	z-index: 2;
+	z-index: 99;
 }
 .room-info-image{
 	margin-top:65px;
@@ -1413,9 +1420,11 @@ ul li.hang img {
     color: #90a4ae;
     font-size: 1.6rem;
     z-index:3;
+    cursor: pointer;
     background-color: transparent;
 }
 .invite-room{
+	cursor: pointer;
 	margin-top:15px;
 	color:white;
 	font-size: 1.6rem;
@@ -1434,6 +1443,7 @@ ul li.hang img {
 	width: 350px;
 	height: 75px;
 	background-color: #cfd8dc;
+	cursor: pointer;
 }
 
 .roomname{
@@ -1441,7 +1451,7 @@ ul li.hang img {
 	width:175px;
 	float:left;
 	margin-top:6px;
-	Margin-bottom:10px;
+	Margin-bottom:8px;
 	color:#607D8B;
 	font-size: 1.5rem;
 	font-weight:bold;
@@ -1450,11 +1460,11 @@ ul li.hang img {
 	text-overflow:ellipsis;
 }
 .roomtext{
-    width:155px;
-    height:25px;
+    width:185px;
+    height:28px;
     color:#78909C;
     font-size: 1.3rem;
-  max-width: 155px;
+  max-width: 185px;
   display: block; /* Fallback for non-webkit */
   display: -webkit-box;
   line-height: 1;
@@ -1467,7 +1477,7 @@ ul li.hang img {
 .roomtime{
     /* float: left; */
     margin-left: 220px;
-    position: absolute;
+   /*  position: absolute; */
 }
 #chatbar
 {
@@ -2009,6 +2019,7 @@ ul li.hang img {
 }
 /* archive mouseover icon */
 #rarchive-download{
+	cursor: pointer;
 	float:right;
 	width: 4.0rem;
     height: 4.0rem;
@@ -2020,6 +2031,7 @@ ul li.hang img {
     background-image: url(../img/downloadbutton.png);
 }
 #rarchive-link{
+	cursor: pointer;
 	float:right;
 	width: 4.0rem;
     height: 4.0rem;
@@ -2032,6 +2044,7 @@ ul li.hang img {
 }
 
 #rgallery-download{
+	cursor: pointer;
 	float:right;
 	width: 4.0rem;
     height: 4.0rem;
@@ -2042,6 +2055,7 @@ ul li.hang img {
     background-image: url(../img/downloadbutton.png);
 }
 #rgallery-link{
+	cursor: pointer;
 	float:right;
 	width: 4.0rem;
     height: 4.0rem;
@@ -2172,12 +2186,14 @@ ul li.hang img {
     height: 2.5rem;
     border: none;
     margin-top: 30px;
+    cursor: pointer;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-image: url(../img/contacts_icon_360.png);
 }
 #getmessages1{
 	display: inline-block;
+	cursor: pointer;
     background-color: transparent;
     width: 3.0rem;
     margin-left:20px;
@@ -2341,6 +2357,7 @@ ul li.hang img {
 
 }
 .category{
+	cursor: pointer;
 	height: 90px;
 	color:#455A64;
     border-bottom:1px solid;
@@ -2453,7 +2470,7 @@ ul li.hang img {
 	width:170px;
 	height:30px;
 }
-.search-message{
+.search-relation{
 	background-color: #4A7DFF;
 	float:right;
 	margin-top:10px;
@@ -2469,6 +2486,11 @@ ul li.hang img {
 .notibox{
 	border-top:5px solid;
 	color:#cfd8dc;
+	overflow: hidden;
+}
+#noti-text{
+	overflow-y: scroll;
+	-ms-overflow-style: none;
 }
 /* invite user */
 .modal-content{
@@ -2528,6 +2550,7 @@ ul li.hang img {
     height: 417px;
     width: 320px;
     overflow: scroll;
+    -ms-overflow-style: none;
     overflow-x: hidden;
 }
 #invite-profile{
@@ -2667,7 +2690,7 @@ ul li.hang img {
 	display:inline-block;
 	height:60px;
 	width:60px;
-	background-size : 100%;
+	background-size : cover;
 	background-repeat:no-repeat;
 	background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDU1IDU1IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1NSA1NTsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSIxMjhweCIgaGVpZ2h0PSIxMjhweCI+CjxwYXRoIGQ9Ik01NSwyNy41QzU1LDEyLjMzNyw0Mi42NjMsMCwyNy41LDBTMCwxMi4zMzcsMCwyNy41YzAsOC4wMDksMy40NDQsMTUuMjI4LDguOTI2LDIwLjI1OGwtMC4wMjYsMC4wMjNsMC44OTIsMC43NTIgIGMwLjA1OCwwLjA0OSwwLjEyMSwwLjA4OSwwLjE3OSwwLjEzN2MwLjQ3NCwwLjM5MywwLjk2NSwwLjc2NiwxLjQ2NSwxLjEyN2MwLjE2MiwwLjExNywwLjMyNCwwLjIzNCwwLjQ4OSwwLjM0OCAgYzAuNTM0LDAuMzY4LDEuMDgyLDAuNzE3LDEuNjQyLDEuMDQ4YzAuMTIyLDAuMDcyLDAuMjQ1LDAuMTQyLDAuMzY4LDAuMjEyYzAuNjEzLDAuMzQ5LDEuMjM5LDAuNjc4LDEuODgsMC45OCAgYzAuMDQ3LDAuMDIyLDAuMDk1LDAuMDQyLDAuMTQyLDAuMDY0YzIuMDg5LDAuOTcxLDQuMzE5LDEuNjg0LDYuNjUxLDIuMTA1YzAuMDYxLDAuMDExLDAuMTIyLDAuMDIyLDAuMTg0LDAuMDMzICBjMC43MjQsMC4xMjUsMS40NTYsMC4yMjUsMi4xOTcsMC4yOTJjMC4wOSwwLjAwOCwwLjE4LDAuMDEzLDAuMjcxLDAuMDIxQzI1Ljk5OCw1NC45NjEsMjYuNzQ0LDU1LDI3LjUsNTUgIGMwLjc0OSwwLDEuNDg4LTAuMDM5LDIuMjIyLTAuMDk4YzAuMDkzLTAuMDA4LDAuMTg2LTAuMDEzLDAuMjc5LTAuMDIxYzAuNzM1LTAuMDY3LDEuNDYxLTAuMTY0LDIuMTc4LTAuMjg3ICBjMC4wNjItMC4wMTEsMC4xMjUtMC4wMjIsMC4xODctMC4wMzRjMi4yOTctMC40MTIsNC40OTUtMS4xMDksNi41NTctMi4wNTVjMC4wNzYtMC4wMzUsMC4xNTMtMC4wNjgsMC4yMjktMC4xMDQgIGMwLjYxNy0wLjI5LDEuMjItMC42MDMsMS44MTEtMC45MzZjMC4xNDctMC4wODMsMC4yOTMtMC4xNjcsMC40MzktMC4yNTNjMC41MzgtMC4zMTcsMS4wNjctMC42NDgsMS41ODEtMSAgYzAuMTg1LTAuMTI2LDAuMzY2LTAuMjU5LDAuNTQ5LTAuMzkxYzAuNDM5LTAuMzE2LDAuODctMC42NDIsMS4yODktMC45ODNjMC4wOTMtMC4wNzUsMC4xOTMtMC4xNCwwLjI4NC0wLjIxN2wwLjkxNS0wLjc2NCAgbC0wLjAyNy0wLjAyM0M1MS41MjMsNDIuODAyLDU1LDM1LjU1LDU1LDI3LjV6IE0yLDI3LjVDMiwxMy40MzksMTMuNDM5LDIsMjcuNSwyUzUzLDEzLjQzOSw1MywyNy41ICBjMCw3LjU3Ny0zLjMyNSwxNC4zODktOC41ODksMTkuMDYzYy0wLjI5NC0wLjIwMy0wLjU5LTAuMzg1LTAuODkzLTAuNTM3bC04LjQ2Ny00LjIzM2MtMC43Ni0wLjM4LTEuMjMyLTEuMTQ0LTEuMjMyLTEuOTkzdi0yLjk1NyAgYzAuMTk2LTAuMjQyLDAuNDAzLTAuNTE2LDAuNjE3LTAuODE3YzEuMDk2LTEuNTQ4LDEuOTc1LTMuMjcsMi42MTYtNS4xMjNjMS4yNjctMC42MDIsMi4wODUtMS44NjQsMi4wODUtMy4yODl2LTMuNTQ1ICBjMC0wLjg2Ny0wLjMxOC0xLjcwOC0wLjg4Ny0yLjM2OXYtNC42NjdjMC4wNTItMC41MiwwLjIzNi0zLjQ0OC0xLjg4My01Ljg2NEMzNC41MjQsOS4wNjUsMzEuNTQxLDgsMjcuNSw4ICBzLTcuMDI0LDEuMDY1LTguODY3LDMuMTY4Yy0yLjExOSwyLjQxNi0xLjkzNSw1LjM0Ni0xLjg4Myw1Ljg2NHY0LjY2N2MtMC41NjgsMC42NjEtMC44ODcsMS41MDItMC44ODcsMi4zNjl2My41NDUgIGMwLDEuMTAxLDAuNDk0LDIuMTI4LDEuMzQsMi44MjFjMC44MSwzLjE3MywyLjQ3Nyw1LjU3NSwzLjA5Myw2LjM4OXYyLjg5NGMwLDAuODE2LTAuNDQ1LDEuNTY2LTEuMTYyLDEuOTU4bC03LjkwNyw0LjMxMyAgYy0wLjI1MiwwLjEzNy0wLjUwMiwwLjI5Ny0wLjc1MiwwLjQ3NkM1LjI3Niw0MS43OTIsMiwzNS4wMjIsMiwyNy41eiIgZmlsbD0iIzk2OTY5NiIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K);
     margin-left: 30px;
@@ -2957,11 +2980,13 @@ display: block;
 	overflow-x: hidden; */
     margin: 0;
     padding: 0;
-    width: 330px;
+    width: 300px;
     overflow-y: scroll;
+    -ms-overflow-style: none;
 }
 .dtprofile-background{
 	overflow-y: scroll;
+	-ms-overflow-style: none;
 }
 
 .roomMenu{
@@ -3025,5 +3050,38 @@ display: block;
     margin-top: 7px;
     float: right;
     /* margin-right: 80px; */
-    right: 30px;
+    right: 20px;
+}
+.messageCount{
+	display: inline-block;
+	margin-left: 17px;
+    text-align: center;
+    font-size: 13px;
+    background-color: #F44336;
+    color: white;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+.murl{
+	background-color: white !important;
+}
+.progress{
+	    position: relative;
+	        z-index: 99;
+}
+#friendlist::-webkit-scrollbar {
+	display:none;
+}
+#room-list::-webkit-scrollbar {
+	display:none;
+}
+#noti-text::-webkit-scrollbar {
+	display:none;
+}
+
+.message_date{
+	float: right;
+    color: gray;
 }

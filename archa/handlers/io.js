@@ -97,7 +97,12 @@ module.exports = function(server){
         	});
         });
 	    socket.on('join', function(room, me, youName) {
+	    	console.log('소케룸:',socket.room);
 	    	if(nickNames[socket.id] == me){
+    	    	if(socket.room != null || socket.room != undefined){
+    		    	socket.leave(socket.room);	    		
+    	    	}
+    	    	
 		    	var thisRoom;
 		    	if(room.you != room.me){
 		    		Room.count({'id': room.me+"/"+room.you},function(err,count){
@@ -107,6 +112,7 @@ module.exports = function(server){
 		    				thisRoom = room.me+"/"+room.you;
 		    			}
 
+		    	    	
 	    		        socket.join(thisRoom);
 	    			    socket.room = thisRoom;
 //	    			    console.log(io.sockets.manager.room['/'+socket.room]);
@@ -151,6 +157,9 @@ module.exports = function(server){
 		    		    			
 //		    		    			loadMessage(socket, room);
 		    		    		});
+	    		    		}else{
+	    		    			var uList = socket.room.split('/');
+	    		    			io.sockets.to(socket.room).sockets[socket.id].emit('usercount', uList, socket.room,youName);
 	    		    		}
 	    		    	});
 		    		});
@@ -168,7 +177,16 @@ module.exports = function(server){
 				}
 			});
         });
-        
+        socket.on('roomSearch', function(user,search) {  
+        	Room.find({users:user}).exec(function (err, rooms) {
+				if(err) console.log(err);
+				else{
+					User.findOne({'email':user},'-_id roomName').exec(function(err,roomName){
+						socket.emit('roomSearch', rooms,roomName, user,search);
+					});
+				}
+			});
+        });        
         socket.on('roomInfoImage', function(room){
         	Room.findOne({'id':room}).exec(function(err, room){
         		socket.emit('roomInfoImage', room.users);
@@ -228,6 +246,10 @@ module.exports = function(server){
         	});
         });
 	    socket.on('rejoin', function(roomName, me){
+	    	if(socket.room != null || socket.room != undefined){
+		    	socket.leave(socket.room);	    		
+	    	}
+
 	    	socket.join(roomName);
 	    	socket.room = roomName;
 	    	Room.findOne({'id':roomName}, function(err, room){
@@ -390,7 +412,12 @@ module.exports = function(server){
 				mdate	: data.date
 			});*/
 		    Room.findOne({'id': socket.room}).exec(function(err,room){
-		    	io.sockets.sockets[socket.id].emit('refresh', socket.room , data.name, data.date,room,nickNames[socket.id]);	
+        		for(index in room.users){
+        			var test = findUserByName(room.users[index]);
+        			if(test != undefined){
+        				io.sockets.connected[test].emit('newm',1);
+        			}
+        		}
 		    });		
 		    io.sockets.to(socket.room).sockets[socket.id].emit('my data', data, send_userEmail, send_userName);
 			socket.broadcast.to(socket.room).emit('other data', data, send_userEmail, send_userName);
@@ -475,7 +502,7 @@ module.exports = function(server){
 	    	var options = {'url': val.url,'timeout': 4000};
 	    	ogs(options, function (err, meta) {
 	    		if(err){
-	    			console.log('시발');
+	    			console.log('error');
 	    		}else if(meta == undefined || meta.data.ogUrl == undefined && meta.data.ogImage== undefined){
 	    			var meta = {
 	    				data:{
@@ -495,7 +522,6 @@ module.exports = function(server){
 	    	});
 	    });
 	    socket.on('readMessageSave', function(room){
-	    	console.log(room.messagelog[0].readby);
 	    	Room.findOne({'id':room.id}).exec(function(err, result){
 	    		result.messagelog = room.messagelog;
 	    		result.save();
@@ -504,7 +530,8 @@ module.exports = function(server){
 
 		socket.on('message', function(msg){
 			var ogs = require('open-graph-scraper');
-			var messageDate = moment().add(9, 'h').toDate();
+			var messageDate = moment().toDate();
+/*			var messageDate = moment().add(9, 'h').toDate();*/
 			var roomUser= new Message;
 			async.waterfall([
 			    function (callback) {
@@ -596,7 +623,7 @@ module.exports = function(server){
 				    	var ytMatch = youPattern.exec(text);
 				    	var options = {'url': text};
 				    	ogs(options, function (err, meta) {
-				    		if(!err || ytMatch != null && ytMatch.length>1 || meta.data.ogType == 'video' || meta.data.ogSiteName == 'YouTube'){
+				    		if(!err && ytMatch != null && ytMatch.length>1 || meta.data.ogType == 'video' || meta.data.ogSiteName == 'YouTube'){
 				    			console.log('유툽')
 							    io.sockets.to(socket.room).sockets[socket.id].emit('my message youtube', message, meta);
 								socket.broadcast.to(socket.room).emit('other message youtube', message, meta);
@@ -620,8 +647,26 @@ module.exports = function(server){
 					    io.sockets.to(socket.room).sockets[socket.id].emit('my message', message);
 						socket.broadcast.to(socket.room).emit('other message', message);
 				    }
-				    Room.findOne({'id': socket.room}).exec(function(err,room){
-				    	io.sockets.sockets[socket.id].emit('refresh', socket.room , message.message, messageDate,room,nickNames[socket.id]);	
+
+				    Room.findOne({'id':socket.room},function(err, room){
+				    	if(room == null){
+				    		var uList = socket.room.split('/');
+			        		for(index in uList){
+			        			var test = findUserByName(uList[index]);
+			        			if(test != undefined){
+			        				io.sockets.connected[test].emit('newm',1);
+			        			}
+			        		}					    		
+				    	}else{
+			        		for(index in room.users){
+			        			var test = findUserByName(room.users[index]);
+			        			if(test != undefined){
+			        				io.sockets.connected[test].emit('newm',1);
+			        			}
+			        		}				    		
+				    	}
+
+				    	/*io.sockets.sockets[socket.id].emit('refresh', socket.room , message.message, messageDate,room,nickNames[socket.id]);*/	
 				    });
 				}
 			);
