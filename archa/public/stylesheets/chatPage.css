@@ -108,6 +108,9 @@ font-family: "Source Sans Pro";
 .dataImageBody, .dataImage{
 	display: inline;
 }
+.talk.near{
+	margin-left: 78px;
+}
 .sendData{
 	/* text-align: right; */
 	margin-right: 5px;
@@ -126,7 +129,7 @@ font-family: "Source Sans Pro";
     border-radius: 10px;
 }
 .myfileimage.me{
-	margin-left: 80px;
+	/* margin-left: 80px; */
 /*     margin-top: 20px; */
     border: 1px solid #e0e0e0;
     background-color: #4A7DFF;
@@ -159,7 +162,7 @@ font-family: "Source Sans Pro";
     border-radius: 10px;
 }
 .myimage.me{
-	margin-left: 80px;
+	/* margin-left: 80px; */
     /* margin-top: 20px; */
     border: 1px solid #e0e0e0;
     background-color: #4A7DFF;
@@ -183,7 +186,7 @@ font-family: "Source Sans Pro";
     border-radius: 10px;
 }
 .otherimage.other{
-    margin-left: 80px;
+    /* margin-left: 80px; */
     /* margin-top: 20px; */
     border: 1px solid #e0e0e0;
     background-color: #fff;
@@ -497,30 +500,40 @@ textarea{width: 100%; height: 100%;}
 .background {
   background-color: white;
   width: 100%;
-  min-width: 613px;
+  min-width: 670px;
 }
 /* 2016-01-12 */
 .file_box_send{
-	display:inline-block;
-	width:750px;
+			position: relative;
+	    vertical-align: bottom;
+	        display: inline-block;
+	width:710px;
 	margin-top: 3px;
 
 }
 .file_box_re{
-	width:750px;
+			position: relative;
+	    vertical-align: bottom;
+	       display: inline-block;
+	width:710px;
     margin-top: 3px;
 }
 .message_box_send{
-	display:inline-block;
- 	min-width:250px;
+	position: relative;
+	    vertical-align: bottom;
+	        display: inline-block;
+ 	min-width:230px;
 	max-width: 750px;
 	margin-top:3px;
 
 }
 .message_box_re{
-	display:inline-block;
- 	min-width:250px;
+		position: relative;
+	    vertical-align: bottom;
+	       display: inline-block;
+ 	min-width:230px;
 	max-width: 750px;
+	height:auto;
 	margin-top:3px;
 }
 .message_body{
@@ -528,7 +541,10 @@ textarea{width: 100%; height: 100%;}
 	    word-break: break-all;
 }
 .talk {
-
+      min-width: 160px;
+    max-width: 630px;
+    margin-left: 10px;
+    float: left;
   }
 .talks {
   width:auto;
@@ -561,7 +577,7 @@ textarea{width: 100%; height: 100%;}
 
   }
 .link.other {
-	margin-left:80px;
+	/* margin-left:80px; */
    /*  margin-top:20px; */
 	border: 1px solid #e0e0e0;
 	background-color: #ffffff;
@@ -569,7 +585,7 @@ textarea{width: 100%; height: 100%;}
 	font-size: 1.3rem;
 }
 .link.me {
-	margin-left:80px;
+	/* margin-left:80px; */
     /* margin-top:20px; */
 	border: 1px solid #e0e0e0;
 	background-color:#ffffff;
@@ -577,7 +593,7 @@ textarea{width: 100%; height: 100%;}
 	font-size: 1.3rem;
 }
 .link.ma {
-	margin-left:80px;
+	/* margin-left:80px; */
     /* margin-top:20px; */
 	border: 1px solid #e0e0e0;
 	background-color:#4A7DFF;
@@ -587,6 +603,10 @@ textarea{width: 100%; height: 100%;}
 }
 /*  file 채팅 말풍선 설정 */
 .file {
+	      min-width: 630px;
+    max-width: 670px;
+    margin-left: 10px;
+    float: left;
   width:auto;
   position: relative;
   padding-top: 5px;
@@ -597,6 +617,10 @@ textarea{width: 100%; height: 100%;}
   }
 
 .images {
+	      min-width: 160px;
+    max-width: 670px;
+    margin-left: 10px;
+    float: left;
   width:auto;
   position: relative;
   padding-top: 5px;
@@ -608,7 +632,7 @@ textarea{width: 100%; height: 100%;}
 
   }
 .talks.other {
-	margin-left:80px;
+	/* margin-left:80px; */
    /*  margin-top:20px; */
 	border: 1px solid #e0e0e0;
 	background-color: #fff;
@@ -616,7 +640,7 @@ textarea{width: 100%; height: 100%;}
 	font-size: 1.3rem;
 }
 .file.other {
-	margin-left:80px;
+	/* margin-left:80px; */
    /*  margin-top:20px; */
 	border: 1px solid #e0e0e0;
 	background-color: #fff;
@@ -625,7 +649,7 @@ textarea{width: 100%; height: 100%;}
 }
 
 .talks.me {
-	margin-left:80px;
+	/* margin-left:80px; */
     /* margin-top:20px; */
 	border: 1px solid #e0e0e0;
 	background-color:#4A7DFF;
@@ -736,15 +760,24 @@ creates the smaller  triangle
   border-color: transparent #fff; }
 
 .msg {
+	
+	    vertical-align: top;
+    tab-size: 4;
+	overflow: auto;
   display: inline-block;
+  min-height: 2.625rem;
+  max-height: 11.25rem;
+      resize: none;
+          user-select: auto;
+          padding-top: .5625rem;
   height: 40px;
   position: absolute;
   padding-left: 55px;
   width:100%;
   float:left;
-  padding: 6px 50px;
+  padding: 10px 50px;
   font-size: 14px;
-  line-height: 1.42857;
+  line-height: 1.42857rem;
   color: #555555;
   background-color: #FFFFFF;
   background-image: none;
@@ -912,8 +945,8 @@ creates the smaller  triangle
 }
 .circle {
 	float:left;
-    margin-left: 265px;
-    position: absolute;
+
+    position: static;
 	text-align:center;
 	background-color: #F44336;
 	    min-width: 20px;
@@ -1478,9 +1511,10 @@ ul li.hang img {
   text-overflow: ellipsis;
 }
 .roomtime{
-    /* float: left; */
-    margin-left: 220px;
-   /*  position: absolute; */
+	width: 50px;
+    float: left;
+margin-left: 130px;
+    position: static;
 }
 #chatbar
 {
@@ -1709,7 +1743,7 @@ ul li.hang img {
     margin-top: 60px;
     width: 0;
     position: fixed;
-    /* z-index: 1; */
+    z-index: 1; 
     top: 0;
     right: 0;
     border: 1px solid;
@@ -3069,12 +3103,29 @@ display: block;
     /* border: none; */
     border-top-left-radius: 7px;
     border-bottom-left-radius: 7px;
-    background-repeat: no-repeat;
-    /* margin-top: 10px; */
-    /* background-position: initial; */
+ /*    background-repeat: no-repeat;
+    margin-top: 10px;
+    background-position: initial;
     background-position-x: 12px;
     background-position-y: 9px;
     background-size: 50% 50%;
+    background-image: url(../img/upload.png); */
+    color: rgba(0,0,0,.35);
+    line-height: 2.625rem;
+    text-shadow: none;
+    text-align: center;
+    outline: none;
+    box-shadow: none;
+    
+}
+.pls_icon{
+	width:20px;
+	height:45px;
+	    position: absolute;
+top: 7px;
+    left: 13px;
+	background-repeat: no-repeat;
+    background-size: 100%;
     background-image: url(../img/upload.png);
 }
 .msg:focus {
@@ -3125,7 +3176,11 @@ display: block;
 }
 
 .message_date{
-	float: right;
+	position: absolute;
+	    display: inline-block;
+	        right: -40px;
+	bottom: 0px;
+	float: left;
     color: gray;
 }
 

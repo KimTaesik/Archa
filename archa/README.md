@@ -1,16 +1,13 @@
 
 
-# Hop
-
-
-
-## Usage
-
-
+# Archa
+ARCHA is a messenger for Business
+You have Teams, Clients, and many other different connections
+ARCHA can help you find that person in that time
+Find, Communicate, Make better thing!
 
 ## Developing
-
-
+node.js(express) / MongoDB(mongoose) / AWS S3 / socket.io / jquery / ...
 
 ### Tools
 

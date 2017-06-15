@@ -52,6 +52,7 @@
 		<div id="footer_msgs" style="display: block;box-sizing: border-box;">
 			<div class="actionBox"> 
 					<button class="plusbtn" id="plus">
+						<i class="pls_icon"></i>
 					</button>
 					<div class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 						<form enctype="multipart/form-data" action="/fileSend" method="post" id="fileInfo">
@@ -61,7 +62,7 @@
 							<input type="file" id="file" name="userfile">
 						</form>
 					</div>
-				<input type="text" id="inputMe" class="msg" style="padding-left: 55px;" name="<%= yourName %>" />
+				<textarea id="inputMe" class="msg" style="padding-left: 55px;overflow-y: hidden;" name="<%= yourName %>" autocorrect="off" autocomplete="off" spellcheck="true"></textarea>
 				<div id="imoticon"></div>
 			</div>		
 		</div>

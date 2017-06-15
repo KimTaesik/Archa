@@ -159,7 +159,8 @@ exports.register = function(req, res, next){
 		'position':position,
 		'phoneNumber':phoneNumber,
 		'signDate' : new Date,
-		'groups' : 'default'
+		'groups' : 'default',
+		'first' : 0
 	});
 
 	var save = DBaccount.register(user);

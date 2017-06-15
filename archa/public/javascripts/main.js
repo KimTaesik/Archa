@@ -90,7 +90,7 @@ $(document).ready(function() {
 		        return true;
 		        
 		    });*/
-		    $('.mid').on("click", ".plusbtn", function(e){
+		    $('.mid').on("click", ".plusbtn,.pls_icon", function(e){
 		    	if (this === e.target) {
 		    		$('#file').trigger("click");
 		    	}
@@ -390,7 +390,7 @@ $(document).ready(function() {
 			/*
 			 * 채팅방 초대 모달에서 확인 누르면 친구 바로 초대
 			 */
-			$('.mid').on('click', '#inviteUser', function(){
+			$('.mid').on('click', '#invite-confirm', function(){
 
 				var arrayParam = new Array();
 				var room = $('#joinRoom').val();
@@ -440,6 +440,25 @@ $(document).ready(function() {
 
 				}
 			});
+		    $(".mid").on('click',"a.dataImage,a.image_file_body",function(){
+		        var asrc = $(this).attr("href");
+		        var win;
+		        
+		        var image = new Image();
+
+		       
+		        image.src = asrc;
+		        var w = image.width+50;
+		        var h = image.height+50;
+		        image.onload = function() {
+		        	win = window.open('','_blank',"width="+w+",height="+h+" menubar=no status=no toolbar=no location=no");
+		        	win.document.write('<html><head><title>Image</title></head><body >');
+		        	win.document.write("<img src='"+image.src+"' style='display: block;margin-left: auto;margin-right: auto;margin-top: 25px;'>");
+		        	win.document.write('</body></html>');
+//		            window.open("https://archa-bucket.s3-ap-northeast-1.amazonaws.com/qweqwe%40naver.com/TQGT51PKU/icon_7.png","Image","width="+image.width+",height="+image.height+" menubar=no status=no toolbar=no location=no");
+		        };
+		        return false;
+		    });
 			/*
 			 * 우측검색에서 아카이브에서 검색하는지, 메시지로그에서 검색하는지 구분하여 검색
 			 * 
@@ -636,7 +655,13 @@ $(document).ready(function() {
 				  }
 				}
 			});
-			
+			$(".mid").on('keydown keyup','#inputMe', function () {
+				
+				  $(this).height(1).height( $(this).prop('scrollHeight')-18 );	
+				  $(".plusbtn").height($(this).height()+18);
+				  $('.msgbox').css('height', $(window).height() - $('.topSection').height()-$(this).height()-$('.topMenu').height()-48);
+				  $('#messages').scrollTop($('#messages').prop('scrollHeight'));
+			});
 			/*
 			 * 왼쪽 친구리스트에서 친구를 더블클릭 했을시
 			 * 채팅방 뷰가 생성되면서 채빙방 입장.
@@ -699,7 +724,7 @@ $(document).ready(function() {
 		        });
 			});			
 
-			$('.mid').on('dblclick', '.room-name-change', function(){
+			$('.mid').on('click', '.icon-edit-alt', function(){
 				$('.room-name-change').attr("disabled",false);
 			});
 			/*
@@ -1485,7 +1510,7 @@ $(document).ready(function() {
 							lstEl = $('.talk').find('span.highlight');
 							cntr=lstEl.length;
 							$("#lengthSearch").val(lstEl.length);
-							$("#countNum").val(lstEl.length==0? 0:1);
+							$("#countNum").val(lstEl.length==0?0:1);
 							if (!lstEl || lstEl.length === 0) {
 								lstEl = null;
 								return;
@@ -1497,6 +1522,7 @@ $(document).ready(function() {
 			$('.mid').on('click','#closeSearchMsg',function(){
 				lstEl = null;
 				cntr = -1;
+				var rc = 0;
 				$(".talk").removeHighlight();
 				$(this).hide();
 				$('#messageSearch').hide();
@@ -1518,8 +1544,8 @@ $(document).ready(function() {
 					var elm = lstEl[cntr];
 					$(elm).addClass('current');
 					$(elm).addClass('this');
-					var position = $(".this").position(); // 위치값
-					$('#messages').animate({ scrollTop : position.top }, 400);
+					var position = $(".this").offset(); // 위치값
+					$('#messages').animate({ scrollTop :  $('#messages').scrollTop()+position.top-150 }, 400);
 				}else alert("End of search reached!");
 			});
 				
@@ -1537,10 +1563,12 @@ $(document).ready(function() {
 						$(lstEl[cntr + 1]).removeClass('current');
 					}
 					var elm = lstEl[cntr];
+					console.log("카운터:",cntr);
+
 					$(elm).addClass('current');
 					$(elm).addClass('this');
-					var position = $(".this").position(); // 위치값
-					$('#messages').animate({ scrollTop : position.top }, 400);
+					var position = $(".this").offset(); // 위치값
+					$('#messages').animate({ scrollTop : $('#messages').scrollTop()+position.top-150 }, 400);
 				} else alert("Begining of search!");
 			});
 				
@@ -1641,7 +1669,7 @@ $(document).ready(function() {
 		    /*
 		     * 유저 프로필 이미지 전송
 		     */
-		    $('#leftSection').on("click", ".dtprofile-image", function(e){
+		    $('#leftSection').on("click", ".dtprofile-image, .dtprofile-settting", function(e){
 		    	if (this === e.target) {
 		    		$('#profile_img_input').trigger("click");
 		    	}

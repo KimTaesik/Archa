@@ -9,6 +9,10 @@ exports.login = function(email, password){
 	
 	User.findOne({'email':email, 'password':password}).populate({path: 'friends.friend', options: { sort: { 'name': 1 }} }).exec(function(err,user){
 		evt.emit('end', err, user);
+		if(user != null &&user.first == 0){
+			user.first=1;
+			user.save();
+		}
 	});
 	
 	return evt;

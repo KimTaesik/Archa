@@ -11,6 +11,7 @@ var pattern = new UrlPattern('(http(s)\\://)(:subdomain.):domain.:tld(\\::port)(
 var moment = require('moment');
 moment.locale('ko');
 var og = require('open-graph');
+var ogs = require('open-graph-scraper');
 var util = require('util');
 
 var io,
@@ -67,23 +68,18 @@ module.exports = function(server){
         				if(user.friends.length != 0){
                     		for(index in user.friends){
                     			var test = findUserByName(user.friends[index].friend.email);
-                    			console.log('이메일:',user.friends[index].friend.email)
-                    			console.log('소켓번호:',test);
                     			if(test != undefined){
                     				io.sockets.connected[test].emit('reState',0,nickNames[socket.id]);
                     			}else{
-                                	console.log('접속한 칭구가 없어서 bye!',nickNames[socket.id]);
                                     delete nickNames[socket.id];
                                     return;
                     			}
                     			if(index == user.friends.length-1){
-                                	console.log('마지막 친구까지 다 돌고 bye!',nickNames[socket.id]);
                                     delete nickNames[socket.id];
                                     return;
                     			}
                     		}        					
         				}else{
-                        	console.log('칭구가 없어서 bye!',nickNames[socket.id]);
                             delete nickNames[socket.id];
                             return;
         				}
@@ -97,7 +93,6 @@ module.exports = function(server){
         	});
         });
 	    socket.on('join', function(room, me, youName) {
-	    	console.log('소케룸:',socket.room);
 	    	if(nickNames[socket.id] == me){
     	    	if(socket.room != null || socket.room != undefined){
     		    	socket.leave(socket.room);	    		
@@ -199,7 +194,6 @@ module.exports = function(server){
         socket.on('newRelation', function(id, name, company, position){
         	console.log("newRelation");
         	var myId = nickNames[socket.id];
-        	console.log("myId: " + myId);
         	if(myId!=id){
 	        	User.update({'email':id},
 	        			{ $addToSet: { 
@@ -214,7 +208,6 @@ module.exports = function(server){
 	        			},{multi:true})
 	        	.exec(function(err, result){
 	        		if(err) console.log(err);
-	        		console.log(result)
 	        		
 	        		if(result){
 	        			var test = findUserByName(id);
@@ -497,7 +490,7 @@ module.exports = function(server){
 	    	});	
 	    });
 	    socket.on('getOgData', function(val,i){
-	    	var ogs = require('open-graph-scraper');
+	    	console.log(val.url);
 	    	var youtube = youPattern.exec(val.url);
 	    	var options = {'url': val.url,'timeout': 4000};
 	    	ogs(options, function (err, meta) {
@@ -553,7 +546,6 @@ module.exports = function(server){
 				    	
 				    	var options = {'url': checkText};
 				    	ogs(options, function (err, meta) {
-				    		console.log(meta);
 				    		callback(null, meta);
 				    	});
 				    }else{
@@ -624,11 +616,11 @@ module.exports = function(server){
 				    	var options = {'url': text};
 				    	ogs(options, function (err, meta) {
 				    		if(!err && ytMatch != null && ytMatch.length>1 || meta.data.ogType == 'video' || meta.data.ogSiteName == 'YouTube'){
-				    			console.log('유툽')
+				    			/*console.log('유툽')*/
 							    io.sockets.to(socket.room).sockets[socket.id].emit('my message youtube', message, meta);
 								socket.broadcast.to(socket.room).emit('other message youtube', message, meta);
 				    		}else if(!err || meta != undefined && meta.data.ogUrl != undefined){
-				    			console.log('url메시지')
+				    			/*console.log('url메시지')*/
 							    io.sockets.to(socket.room).sockets[socket.id].emit('my message url', message, meta);
 								socket.broadcast.to(socket.room).emit('other message url', message, meta);
 				    		}else{
@@ -637,7 +629,7 @@ module.exports = function(server){
 					    				image : { url : 'https://www.google.com/s2/favicons?domain='+text},
 					    				description : ''
 					    			}
-				    			console.log('일반메시지');
+				    			/*console.log('일반메시지');*/
 							    io.sockets.to(socket.room).sockets[socket.id].emit('my message url', message, meta);
 								socket.broadcast.to(socket.room).emit('other message url', message, meta);
 				    		}
@@ -665,7 +657,6 @@ module.exports = function(server){
 			        			}
 			        		}				    		
 				    	}
-
 				    	/*io.sockets.sockets[socket.id].emit('refresh', socket.room , message.message, messageDate,room,nickNames[socket.id]);*/	
 				    });
 				}
@@ -673,9 +664,9 @@ module.exports = function(server){
 		    
 		});
 	});
-	
 	return io;
 }
+
 function loadMessage(socket,room){
 	async.eachSeries(room.messagelog, function (value, callback) {
 		var msg = {

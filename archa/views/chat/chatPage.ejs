@@ -23,6 +23,188 @@
 </head>
 <body style="overflow:hidden;overflow: -moz-scrollbars-none;">
 	<!-- ---------------------------------------------------------------------------------------------------------------------------- bootstrap start  -->
+<% if(user.first != undefined && user.first == 1){ %>
+<div id="leftbar" class="fleft">
+				<div class="rightback"> 
+					<div id="logo"></div>
+				</div>	
+				<div class="rightbacksub">
+					<div role="presentation" class="lisize active" id="getcontacts1" href="#fd" aria-controls="Friends" role="tab" data-toggle="tab" aria-expanded="true">
+					</div>	
+				</div>
+				<div class="rightbacksub">
+					<div role="presentation" class="lisize" id="getmessages1" href="#rm" aria-controls="Rooms" role="tab" data-toggle="tab">
+					</div>
+				</div>
+				<div class="rightbacksub">
+					<button id="archive1"></button>
+				</div>
+				<div class="rightbacksub">
+					<button class="dropdown-toggle alarm1" type="button" id="dropAlarm">
+				</button>
+				</div>
+				<button id="searchSec1"></button>
+</div>	
+<div id="leftSection" class="<%= user.email %>">
+	<div class="setInfo" style="position: absolute;overflow: hidden;"></div>
+	<div class="leftarch"></div>
+	<div class="leftconnection"></div>
+	<div class="leftchat">
+		<input type="hidden" id="userId" value='<%= user.name %>'>
+		<div id="topcontacts">CONTACTS</div>
+		<div class="myInfo">
+			<div id="<%= user.email %>" class="myInfoView">
+				<div class="state" style="<%= user.state==1 ? 'background-color: #2CCA70' : 'background-color: #c0c0c0' %>"></div>
+				<div class="picture" id='profile_view' style="background-image:url(<%= user.user_img != null ? user.user_img+'?random='+new Date().getTime() : 'https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png' %>)" >
+					<input type="file" id="profile_img_input" style="display:none"/>
+				</div>
+				<input type="text" id="name" name="name" class="<%= user.name %> info" value='<%= user.name %>' disabled="disabled">
+				<input type="text" id="mposition" name="mposition" class="<%= user.position %> info" value="<%= user.position %>" disabled="disabled">
+				<input type="text" id="mcompany" name="mcompany" class="<%= user.company %> info" value="<%= user.company %>" disabled="disabled">
+			</div>
+		</div> 
+
+ 		<div class="func">
+<!-- 			<div class="nav nav-tabs back tabsize" role="tablist" id="leftTab">
+				<div class="row">
+					<div role="presentation" class="lisize active" id="getcontacts" href="#fd" aria-controls="Friends" role="tab" data-toggle="tab" aria-expanded="true">
+					</div>	
+					<div role="presentation" class="lisize" id="getmessages" href="#rm" aria-controls="Rooms" role="tab" data-toggle="tab">
+					</div>
+				</div>	
+			</div>	 -->	
+			<div class="memberSection">
+<!--  				<input id="inputAll" type="text" class="form-control" placeholder="all user">
+				<button type="button" class="id btn btn-default" id="searchAllBtn"></button>  -->
+				<input id="inputSearchMember" type="text" class="noti-search form-control" style="background-image: url(../img/searchingbutton.png);" placeholder="Search" >
+				<!-- <button type="button" class="id btn btn-default" id="searchFriendBtn"></button> -->
+			</div>
+			
+			<!-- 그룹 뿌려주는 부분
+					처음 chatPage는 session에 들어있는 user의 정보를 가져오는데
+					로그인할때 가져온 user의 DB값에는 유저가 가지고 있는 그룹과
+					친구 목록이 있는데, 해당 친구 목록   에는 자기가 속해있는 그룹의 이름도 들어있음.
+			
+			  -->
+			<div class="tab-content leftTab">
+				<div role="tabpanel" class="tab-pane active" id="fd">	
+					<!-- 검색된 친구 결과를 여기다 표시해준다  -->
+					<div id='cssmenu' class="searchResult">
+						<% 
+							groups.forEach(function(group, index){
+						%>
+						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+						  <div class="panel panel-default">
+						    <div class="panel-head" role="tab" id="heading<%= index %>">
+						      <h4 class="panel-title">
+						  <!--       <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%= index %>" aria-expanded="true" aria-controls="collapse<%= index %>">
+						          <%= group %>
+						        </a> -->
+						        <% if(group != 'default'){%>
+						        <button type="button" id="<%= group %>" class="addUser">+</button>
+						        <button type="button" id="<%= group %>" class="GroupSetting">Setting</button>
+						        <% }%>
+						      </h4>
+						    </div>
+						    <div id="collapse<%= index %>" class="panel-collapse collapse in inner" role="tabpanel" aria-labelledby="heading<%= index %>">
+						      <div class="panel-body" id="friendlist">
+								<%
+										friends.forEach(function(friends, index) { 
+											if(group==friends.groupname){
+								%>
+ 											<div id="<%= friends.friend.email %>"  class='has-sub active'>
+												<div id ="group-profile">
+													<div id="group-state" style="<%= friends.friend.state==1 ? 'background-color: #2CCA70' : 'background-color: #c0c0c0' %>" ></div>
+													<div id="group-img" class="<%= friends.friend.email %>" style="background-image:url(<%=friends.friend.user_img%>), url(https://s3-ap-northeast-1.amazonaws.com/archa-bucket/user-profile/background1.png);" ></div>
+														<div id="fname" class="<%= friends.friend.name %>"><%= friends.friend.name %>
+														<div id="fposition"><%= friends.friend.position %></div>
+														<div id="fcompany"><%= friends.friend.company %></div> 
+														<br/>
+														</div><br/>
+														<!-- <button type="button" id="<%= friends.friend.email %>" class="friendAdd">ADD</button> -->
+										<!-- 				<button type="button" id="<%= friends.friend.email %>" class="friendDelete">DEL</button> -->							
+												</div>
+										   </div>  
+								<% 			}
+										});
+								%>
+							  </div>
+						    </div>
+						  </div>
+						</div>
+						<%
+							});
+						%>
+					</div>  
+				</div>
+				
+				<div role="tabpanel" class="tab-pane" id="rm">
+					<div id="room-list">
+					</div>
+				</div>
+			</div>
+		</div>		
+
+		<div class="modal" id="friendInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		</div>
+
+		
+		<div class="modal fade" id="nameModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h4 class="modal-title" id="myModalLabel">그룹생성</h4>
+		      </div>
+		      <div class="modal-body">
+				<input type="text" class="form-control" id="groupname" name="groupname" placeholder="groupname">	      	
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+		        <button type="button" id="addGroup" class="btn btn-primary" data-dismiss="modal">확인</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+		<div class="modal fade" id="settModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h4 class="modal-title" id="settLabel"></h4>
+		      </div>
+		      <div class="modal-body" id="setBody">
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+		        <button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</div>
+</div>	
+
+	<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////  -->
+<div class="container-fluid" style="margin-left:380px;">
+	<div class="row chatfoot">
+		<div class="topchat col-md-12" style="padding: 0">
+			
+			<div class="right fright">
+				<div id="rightSection">
+				</div>
+			</div>
+			<div class="mid fleft col-md-12" style="padding:0;">
+				<div class="background">
+				</div>
+			</div>
+			
+			<div class="font fleft">
+			</div>
+		</div>
+	</div>	 
+</div>
+
+<% }else{ %>
 <div id="leftbar" class="fleft">
 				<div class="rightback"> 
 					<div id="logo"></div>
@@ -53,10 +235,6 @@
 	        <div class="contact-text">
 	            <div id="email-icon" class="icon-mail"></div>E-mail</div>
 	        <div class="contact-input">
-<!-- <<<<<<< HEAD
-	            <input class="noti-search form-control" id="relationInput" type="text" style="background-image: url(../img/searchingbutton.png);" placeholder="Enter email address"/></div>
-	        <button class="search-message" id="searchRelation">Search</button>
-======= -->
 	            <input class="form-control" id="relationInput" type="text"/></div>
 	        <button class="search-relation" id="searchEmail">Search</button>
 	    </div>
@@ -75,10 +253,7 @@
 	                <option>+852</option>
 	                <option>+66</option>
 	            </select>
-<!-- <<<<<<< HEAD
-	            <input class="form-control" id="phone-input" type="text" placeholder="000-0000-0000"/>
-	            <button class="search-message" id="#">Search</button>
-======= -->
+
 	            <input class="form-control" id="phone-input" type="text" />
 	            <button class="search-relation" id="searchPh">Search</button>
 	        </div>
@@ -88,6 +263,11 @@
 	        <div id="noti-text">
 	        <%
 	        	if(his){
+	        			his.sort(function(a,b){
+				      	  // Turn your strings into dates, and then subtract them
+				      	  // to get a value that is either negative, positive, or zero.
+				      	  return new Date(b.notidate) - new Date(a.notidate);
+				      	});
 	        		his.forEach(function(his, index) { 
 	        %>
 	        <div class="notitab">
@@ -282,14 +462,17 @@
 			</div>
 		</div>
 	</div>	 
-</div> 
+</div>
+<% } %>
 <!-- ---------------------------------------------------------------------------------------------------------------------------- bootstrap end  -->
 <script src="//code.jquery.com/jquery-1.10.2.js"></script> 
 <!-- <script src="/js/jquery-ui.js"></script> -->
 <script src="/js/jquery-ui.min.js"></script>
 <script src="/js/jquery.form.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
-<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<!-- <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
+
 <script src="/javascripts/ch.js"></script>
 <script src="/javascripts/main.js"></script>
 <script type="text/javascript">
