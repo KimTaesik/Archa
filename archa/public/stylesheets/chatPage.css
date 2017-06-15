@@ -1574,7 +1574,7 @@ margin-left: 130px;
     position: absolute;
     /* opacity: 0.5; */
      margin-left: 14px; 
-    margin-top: 13px;
+    margin-top: 10px;
     border-radius: 5px;
     background-image: url(../img/room/Galleryicon.png);
     background-repeat: no-repeat;
@@ -1591,7 +1591,7 @@ margin-left: 130px;
     position: absolute;
     /* opacity: 0.5; */
     margin-left: 14px; 
-    margin-top: 13px;
+    margin-top: 10px;
     border-radius: 5px;
     background-image: url(../img/room/Linkicon.png);
     background-repeat: no-repeat;
@@ -2176,6 +2176,13 @@ margin-left: 130px;
     position: relative;
     margin-top: 15px;
 }
+.rightbackbottom{
+    padding-top: 12.5px;
+    width: 100%;
+    height: 55px;
+    position: relative;
+    margin-top: 550px;
+}
 #logo{
 	display: inline-block;
     background-color: transparent;
@@ -2188,7 +2195,7 @@ margin-left: 130px;
     background-image: url(../img/logo_360.png);
 }
 
-#archive1{
+.archive1{
 	display: inline-block;
     background-color: transparent;
     margin-left:20px;
@@ -2210,7 +2217,7 @@ margin-left: 130px;
 	background-size:100% 100%;
 	background-image: url('../img/notification button.png');
 }
-#searchSec1{
+.searchSec1{
 	display: block;
     background-color: transparent;
     width: 3.0rem;
@@ -2223,7 +2230,7 @@ margin-left: 130px;
     bottom: 20px;
     position: absolute;
 }
-#getcontacts1{
+.getcontacts1{
 	display: inline-block;
     background-color: transparent;
     width: 3.0rem;
@@ -2235,7 +2242,7 @@ margin-left: 130px;
     background-size: 100% 100%;
     background-image: url(../img/contacts_icon_360.png);
 }
-#getmessages1{
+.getmessages1{
 	display: inline-block;
 	cursor: pointer;
     background-color: transparent;
